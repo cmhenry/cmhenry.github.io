@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2023-06-30T15:35:03-05:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Colin M. Henry</title><subtitle>Personal website.</subtitle><author><name>Colin</name></author><entry><title type="html">Test Blog Post</title><link href="http://localhost:4000/blog/treats-vs-chores" rel="alternate" type="text/html" title="Test Blog Post" /><published>2021-03-12T02:57:23-06:00</published><updated>2021-03-12T02:57:23-06:00</updated><id>http://localhost:4000/blog/treats-vs-chores</id><content type="html" xml:base="http://localhost:4000/blog/treats-vs-chores"><![CDATA[<h1 id="title">Title</h1>
+
+<p>Text here.</p>
+
+<h2 id="subtitle">Subtitle</h2>
+
+<p>Text here.</p>]]></content><author><name>Colin</name></author><summary type="html"><![CDATA[Title]]></summary></entry></feed>

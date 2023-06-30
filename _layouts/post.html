@@ -1,0 +1,158 @@
+---
+layout: basic
+---
+
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "url": "cmhenry.github.io",
+    "datePublished": "{{page.date}}",
+    "dateModified": "{{page.date}}",
+    "author": {
+      "type": "Person",
+      "name": "Colin",
+      "url": "https://cmhenry.github.io"
+    },
+    "headline": "{% if page.draft %}[DRAFT] {% endif %}{{page.title}}",
+    "image": "{% if page.image %}{{ site.url }}{{ page.image }}{% else %}{{ site.url }}/assets/img/icon1.png{% endif %}"
+  }
+</script>
+<main class="post-page">
+  <div class="rainbow-bar"></div>
+  <div class="rainbow-bar"></div>
+  <article class="post">
+    <section class="post-info">
+      <img class="post-info-cover" src="{{page.image}}" />
+      <h1 class="post-info-title">{{page.title}}</h1>
+      <div class="post-info-date">
+        {{ page.date | date_to_string }}, written by
+        <a href="/" class="post-info-author">Colin</a>{% if page.draft %}.
+        <em>This post is a draft.</em>{% endif %}
+      </div>
+    </section>
+    <section class="post-body">
+      {{content}}
+      <br />
+      <hr />
+    </section>
+  </article>
+  <section class="post-page-comments">
+    <h2 class="post-page-comments-title">Replies</h2>
+    <div class="post-page-comments-feed"></div>
+  </section>
+  <!-- <section class="post-after">
+        <section class="post-author">
+            <img class="post-author-image" src="/img/logos/logo.png">
+            <div class="post-author-text">
+                <h2 class="post-author-name">Ethan</h2>
+                <p class="post-author-bio">Hey! I'm an Indie Maker creating <a href="https://kanbanmail.app" target="_blank">KanbanMail</a> and <a href="https://codetheweb.blog" target="_blank">Code The Web</a>. I'm sharing my journey  to give people like you an insight into what it takes to run an indie bootstrapped business online. If that sounds good to you, you can <a href="https://twitter.com/Booligoosh">follow me on Twitter</a>. Feel free to ask me anything!</p>
+            </div>
+        </section>
+    </section> -->
+  <div class="my-head"></div>
+</main>
+<script>
+  // make all external links open in new tab
+  var links = document
+    .getElementsByClassName("post-body")[0]
+    .getElementsByTagName("a");
+  for (var i = 0; i < links.length; i++) {
+    var parser = document.createElement("a");
+    parser.href = links[i].href;
+    if (parser.origin != window.location.origin && links[i].target === "") {
+      links[i].target = "_blank";
+    }
+  }
+</script>
+<script>
+  function formatDate(dateString) {
+    const date = new Date(dateString);
+    return [
+      date.getDate(),
+      [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec",
+      ][date.getMonth()],
+      date.getFullYear(),
+    ].join(" ");
+  }
+  function sanitize(text) {
+    // https://stackoverflow.com/a/23498348
+    return text
+      .replace(/&/g, "&amp;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;");
+  }
+  // // Load webmentions
+  // async function loadWebmentions() {
+  //   // Hard-code origin so it works locally too
+  //   const postUrl = `https://ethan.link${window.location.pathname}`;
+  //   console.log(postUrl);
+  //   const webmentions = await fetch(
+  //     `https://webmention.io/api/mentions.jf2?target=${encodeURIComponent(
+  //       postUrl
+  //     )}&wm-property=in-reply-to`
+  //   )
+  //     .then((r) => r.json())
+  //     .then(({ children }) => children);
+
+  //   const html = webmentions
+  //     // Sort by date/time
+  //     .sort(
+  //       (wm1, wm2) =>
+  //         new Date(wm2.published).getTime() - new Date(wm1.published).getTime()
+  //     )
+  //     // Filter out replies that aren't to the original tweet (replies to replies)
+  //     .filter((wm) =>
+  //       wm.content.html.includes(
+  //         '<a class="u-mention" href="https://ethan.link/'
+  //       )
+  //     )
+  //     .map(
+  //       (wm) => `
+  //     <div class="post-page-comments-feed-comment">
+  //       <a href="${sanitize(
+  //         wm.author.url
+  //       )}" target="_blank" rel="noopener noreferrer nofollow">
+  //         <img class="post-page-comments-feed-comment-avatar" src="${sanitize(
+  //           wm.author.photo
+  //         )}" alt="${sanitize(wm.author.name)}">
+  //       </a>
+  //       <div class="post-page-comments-feed-comment-right">
+  //         <a
+  //           href="${sanitize(wm.url)}"
+  //           target="_blank"
+  //           rel="noopener noreferrer nofollow"
+  //           class="post-page-comments-feed-comment-right-attribution"
+  //         >
+  //           <span class="post-page-comments-feed-comment-right-attribution-author-name">
+  //             ${sanitize(wm.author.name)}
+  //           </span>
+  //          on ${sanitize(formatDate(wm.published))}:
+  //         </a>
+  //         <div class="post-page-comments-feed-comment-right-content">
+  //           ${sanitize(wm.content.text)}
+  //         </div>
+  //       </div>
+  //     </div>
+  //     `
+  //     )
+  //     .join("");
+
+  //   document.querySelector(".post-page-comments-feed").innerHTML = html;
+  // }
+  // loadWebmentions();
+</script>

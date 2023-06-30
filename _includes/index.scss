@@ -1,0 +1,215 @@
+@import "webfonts/eb-garamond.scss";
+
+@import "vars.scss";
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  color: hsl(0, 0%, 20%);
+  font-family: Arial, "Helvetica Neue", sans-serif;
+}
+
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 200px;
+  padding-top: 122px;
+  padding-bottom: $face-height;
+
+  &-inner {
+    width: 100%;
+    max-width: 535px;
+  }
+
+  &-main-text {
+    font-size: 48px;
+    font-family: $fancy-serif;
+    letter-spacing: -0.0625em;
+    font-weight: 500;
+    line-height: 1;
+    // width: max-content;
+    // max-width: 100%;
+    // position: relative;
+
+    // Rainbow blur
+    // &:before {
+    //   content: "";
+    //   position: absolute;
+    //   top: 0;
+    //   bottom: 0;
+    //   left: 0;
+    //   right: 0;
+    //   background: $rainbow-gradient-horizontal;
+    //   z-index: -1;
+    //   filter: blur(100px);
+    // }
+  }
+
+  &-secondary-text,
+  &-status {
+    margin-top: 15px;
+    line-height: 1.4;
+  }
+
+  &-status {
+    font-size: 0.9em;
+    max-width: 33em;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px dashed #d9d9d9;
+    margin-left: -11px;
+    margin-right: -11px;
+
+    @media screen and (max-width: $breakpoint-50px-padding) {
+      margin-left: 0;
+      margin-right: 0;
+    }
+  }
+}
+
+.section-heading {
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: -1px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid hsl(0, 0%, 95%);
+  margin-top: 40px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 12px;
+
+  &.single {
+    grid-template-columns: 1fr;
+  }
+
+  // Formerly &-card
+  a {
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px dashed hsl(0, 0%, 85%);
+    color: inherit;
+    text-decoration: none;
+    outline: none !important;
+
+    // Formerly &-title
+    h3 {
+      margin: 0;
+      font-weight: 600;
+      letter-spacing: -1px;
+    }
+    // Formerly &-text
+    p {
+      margin: 4px 0 0 0;
+      opacity: 0.75;
+      font-size: 15px;
+    }
+  }
+}
+
+.find-me-on {
+  color: hsl(0, 0%, 40%);
+  line-height: 1.5;
+
+  a {
+    color: inherit;
+    font-weight: 600;
+    letter-spacing: -0.1px;
+    text-decoration-color: hsl(0, 0%, 90%);
+    text-decoration-thickness: 2px;
+
+    &:hover {
+      color: hsl(0, 0%, 30%);
+      text-decoration-color: hsl(0, 0%, 85%);
+    }
+  }
+}
+
+.rainbow-bar {
+  position: fixed;
+  height: 100%;
+  width: $rainbow-bar-width;
+  background: $rainbow-gradient-vertical;
+  z-index: 2;
+
+  // Set to this by default
+  // &:nth-child(1) {
+  //   left: 0;
+  // }
+  &:nth-child(2) {
+    right: 0;
+    filter: blur(100px);
+  }
+}
+
+.badges {
+  position: absolute;
+  top: $rainbow-bar-width;
+  display: flex;
+
+  img {
+    margin-right: 5px;
+  }
+}
+
+.my-head {
+  position: fixed;
+  bottom: 0;
+  z-index: 1;
+  height: $face-height;
+  // No WebP fallback, people using bad browsers like Safari don't deserve my-head-compressed-300px.webp anyway
+  background: url("{% base64 ./img/thumbnail1.webp %}")
+      top/$face-height,
+      url("{% base64 ./img/thumbnail0.webp %}")
+      top/$face-height,
+      url("{% base64 ./img/thumbnail2.webp %}")
+      top/$face-height,
+    linear-gradient(hsla(0, 0%, 100%, 0), white 75%);
+
+  // Show 1 extra image-width on the far left (starting into the left side of the page offscreen) so by the end
+  // of the animation sequence (after moving 1 image-width), it's still visible.
+  left: $face-height * -1;
+  width: calc(100% + #{$face-height});
+
+  // &:hover {
+  animation: roll 10s infinite linear;
+  // }
+}
+
+// Using this animation method (transforming) rather than background-position to take advantage of the GPU.
+@keyframes roll {
+  // No need to include this manually, it's assumed:
+  // 0% {
+  //   transform: translate(0);
+  // }
+  100% {
+    transform: translate($face-height);
+  }
+}
+
+@media screen and (max-width: 934px) {
+  .hero {
+    padding-left: 100px;
+    padding-right: 100px - $rainbow-bar-width;
+  }
+}
+
+@media screen and (max-width: $breakpoint-50px-padding) {
+  .hero {
+    padding-left: 50px;
+    padding-right: 50px - $rainbow-bar-width;
+  }
+}
+
+@media screen and (max-width: 435px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
