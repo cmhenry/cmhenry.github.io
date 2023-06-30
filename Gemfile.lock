@@ -289,7 +289,6 @@ DEPENDENCIES
   jekyll-sitemap
   jekyll_image_encode
   octopress-minify-html
-  tzinfo-data
 
 RUBY VERSION
    ruby 3.0.5p211
