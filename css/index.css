@@ -161,13 +161,26 @@ body {
     bottom: 0;
     left: 0; */
     width: 100%;
-    height: 100px;
+    height: 125px;
     overflow: hidden;
     background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.1) 50%, transparent),
                 url("../img/thumbnail0.webp") 0 0 repeat-x,
                 url("../img/thumbnail1.webp") 100px 0  repeat-x,
                 url("../img/thumbnail2.webp") 200px 0  repeat-x;
     animation: roll 10s linear infinite;
+}
+
+.header {
+  /* position: fixed;
+    bottom: 0;
+    left: 0; */
+    width: 100%;
+    height: 225px;
+    overflow: auto;
+    background-size: 100% auto;
+    background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.1) 50%, transparent),
+                url("../img/dissertation_size.jpg") 0 0 repeat-x;
+    /* animation: roll 10s linear infinite; */
 }
 
 @keyframes roll {
