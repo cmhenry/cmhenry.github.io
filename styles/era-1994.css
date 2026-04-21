@@ -1,0 +1,157 @@
+/* =========================================================================
+   1994 — NCSA Mosaic / raw HTML era
+   Default gray, Times, blue underlined links. <hr> between sections.
+   Pitch-perfect chaotic. Single column. No layout.
+   ========================================================================= */
+
+[data-era="1994"] body {
+  background: #c0c0c0;
+  color: #000;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 16px;
+  line-height: 1.4;
+}
+
+[data-era="1994"] .page {
+  max-width: 760px;
+  padding: 1.5rem 1rem 3rem;
+}
+
+/* Links: classic blue, visited purple, active red */
+[data-era="1994"] a { color: #0000ee; text-decoration: underline; }
+[data-era="1994"] a:visited { color: #551a8b; }
+[data-era="1994"] a:active { color: #ee0000; }
+
+/* Headings default browser sizes */
+[data-era="1994"] h1 {
+  font-size: 2em;
+  font-weight: bold;
+  margin: 0.67em 0;
+}
+[data-era="1994"] h2 {
+  font-size: 1.5em;
+  font-weight: bold;
+  margin: 0.83em 0 0.4em;
+}
+
+/* Header — side-by-side via <p>-like stacking, no fanciness */
+[data-era="1994"] .hdr {
+  margin: 0 0 1.5em;
+}
+[data-era="1994"] .hdr__photo {
+  float: left;
+  margin: 0 1.2em 0.6em 0;
+  border: 2px solid #000;
+  padding: 0;
+  background: #fff;
+  width: 150px;
+}
+[data-era="1994"] .hdr__photo-pixel {
+  display: block;
+  width: 150px;
+  height: auto;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+}
+[data-era="1994"] .hdr__name { margin-top: 0; }
+[data-era="1994"] .hdr__role {
+  font-style: italic;
+  margin: 0 0 0.6em;
+}
+[data-era="1994"] .hdr__tagline { margin: 0 0 0.6em; }
+[data-era="1994"] .hdr__meta { font-size: 0.9em; }
+
+/* Clear the float after the header */
+[data-era="1994"] .nav { clear: both; }
+
+/* Navigation: inline text links separated by | */
+[data-era="1994"] .nav {
+  margin: 1em 0;
+  padding: 0.5em 0;
+  border-top: 1px solid #000;
+  border-bottom: 1px solid #000;
+  text-align: center;
+}
+[data-era="1994"] .nav a {
+  margin: 0 0.3em;
+}
+[data-era="1994"] .nav a + a::before {
+  content: "| ";
+  color: #000;
+  text-decoration: none;
+  margin-right: 0.3em;
+  display: inline-block;
+  position: relative;
+  left: -0.6em;
+}
+/* ^ fallback handled via simpler separator: */
+[data-era="1994"] .nav a + a { margin-left: 0.6em; }
+
+/* Separator <hr>-style line between sections */
+[data-era="1994"] .card,
+[data-era="1994"] .section {
+  margin: 1.5em 0;
+  padding-top: 1em;
+  border-top: 1px solid #808080;
+  border-left: 0; border-right: 0; border-bottom: 0;
+  background: transparent;
+}
+
+[data-era="1994"] .card__title,
+[data-era="1994"] .section__title {
+  font-size: 1.5em;
+  font-weight: bold;
+  margin: 0 0 0.5em;
+  color: #000;
+  background: transparent;
+  padding: 0;
+  border: 0;
+}
+
+[data-era="1994"] p { margin: 0 0 0.8em; }
+
+/* Lists: default disc bullets */
+[data-era="1994"] .pub-list,
+[data-era="1994"] .wip-list,
+[data-era="1994"] .link-list {
+  list-style: disc;
+  padding-left: 2em;
+}
+
+[data-era="1994"] .pub,
+[data-era="1994"] .wip { margin: 0.5em 0; }
+
+[data-era="1994"] .pub__title { font-weight: normal; }
+[data-era="1994"] .pub__venue { font-style: italic; }
+[data-era="1994"] .pub__authors,
+[data-era="1994"] .wip__status { font-size: 0.95em; }
+
+[data-era="1994"] .link-list__desc { color: #000; }
+
+/* Buttons: plain bracketed text links */
+[data-era="1994"] .btn {
+  color: #0000ee;
+  text-decoration: underline;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  font-weight: normal;
+  font-family: inherit;
+  font-size: inherit;
+}
+[data-era="1994"] .btn:visited { color: #551a8b; }
+
+/* Footer */
+[data-era="1994"] .foot {
+  border-top: 1px solid #000;
+  margin-top: 2em;
+  padding-top: 0.8em;
+  font-size: 0.9em;
+  text-align: center;
+}
+[data-era="1994"] .foot__updated { margin: 0 0 0.3em; }
+[data-era="1994"] .foot__note { margin: 0; font-style: italic; }
+
+/* Era-selective imagery */
+[data-era="1994"] .hdr__photo-pixel { display: block; }
+[data-era="1994"] .hdr__photo-modern { display: none; }

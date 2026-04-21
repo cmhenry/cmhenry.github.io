@@ -1,0 +1,298 @@
+/* =========================================================================
+   2024 — Brutalist / editorial-mono
+   Mono, hard borders, high contrast, no radius, overlapping elements.
+   Stylized (readable).
+   ========================================================================= */
+
+[data-era="2024"] body {
+  background: #fafaf7;
+  color: #111;
+  font-family: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  font-size: 14.5px;
+  line-height: 1.55;
+  letter-spacing: 0.005em;
+}
+
+[data-era="2024"] .page {
+  max-width: 980px;
+  padding: 2rem 1.5rem 5rem;
+}
+
+/* Links: hard underline, black */
+[data-era="2024"] a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 3px;
+  text-decoration-color: #111;
+}
+[data-era="2024"] a:hover {
+  background: #ff5c1f;
+  color: #fff;
+  text-decoration-color: #ff5c1f;
+}
+
+/* Headings — tight, lowercase, huge */
+[data-era="2024"] h1, [data-era="2024"] h2 {
+  font-family: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  line-height: 1;
+  text-transform: lowercase;
+}
+
+/* Header — oversized name + real photo in a hard-bordered box */
+[data-era="2024"] .hdr {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  border: 2px solid #111;
+  background: #fff;
+  position: relative;
+  margin-bottom: 2rem;
+}
+[data-era="2024"] .hdr::after {
+  /* offset "shadow" block peeking out — brutalist overlap */
+  content: "";
+  position: absolute;
+  inset: 10px -10px -10px 10px;
+  background: #ff5c1f;
+  z-index: -1;
+}
+[data-era="2024"] .hdr__photo {
+  border: 2px solid #111;
+  background: #111;
+  align-self: start;
+  overflow: hidden;
+}
+[data-era="2024"] .hdr__photo-modern {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  filter: grayscale(1) contrast(1.1);
+}
+
+[data-era="2024"] .hdr__name {
+  font-size: clamp(2.4rem, 6vw, 4.5rem);
+  margin: 0 0 0.25em;
+  color: #111;
+}
+[data-era="2024"] .hdr__role {
+  font-size: 0.95rem;
+  color: #111;
+  margin: 0 0 0.8em;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-family: "IBM Plex Mono", monospace;
+}
+[data-era="2024"] .hdr__tagline {
+  font-family: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  font-size: 1rem;
+  line-height: 1.5;
+  margin: 0 0 0.8em;
+  color: #333;
+  max-width: 58ch;
+}
+[data-era="2024"] .hdr__visitor {
+  display: inline-block;
+  padding: 0.2em 0.55em;
+  background: #111;
+  color: #fafaf7;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* Nav — row of uppercase mono links, hard underlines */
+[data-era="2024"] .nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  padding: 0.75rem 0;
+  border-top: 2px solid #111;
+  border-bottom: 2px solid #111;
+  margin: 0 0 2.5rem;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+[data-era="2024"] .nav a {
+  text-decoration: none;
+  position: relative;
+}
+[data-era="2024"] .nav a::before {
+  content: "//";
+  margin-right: 0.5em;
+  color: #ff5c1f;
+}
+[data-era="2024"] .nav a:hover { background: #111; color: #fafaf7; }
+[data-era="2024"] .nav a:hover::before { color: #fafaf7; }
+
+/* Sections — labeled blocks */
+[data-era="2024"] .card,
+[data-era="2024"] .section {
+  border-top: 2px solid #111;
+  padding: 1.5rem 0 0.5rem;
+  margin: 2.5rem 0 0;
+  background: transparent;
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 1.5rem;
+}
+
+[data-era="2024"] .card__title,
+[data-era="2024"] .section__title {
+  font-size: 0.8rem;
+  font-family: "IBM Plex Mono", monospace;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #111;
+  margin: 0;
+  padding-top: 0.1rem;
+  border: 0;
+  align-self: start;
+}
+
+/* Paragraphs + content column */
+[data-era="2024"] .card > p,
+[data-era="2024"] .card > .card__cta,
+[data-era="2024"] .section > .pub-list,
+[data-era="2024"] .section > .wip-list,
+[data-era="2024"] .section > .link-list {
+  grid-column: 2;
+}
+[data-era="2024"] .card > p { margin: 0 0 0.9em; font-family: "IBM Plex Sans", sans-serif; font-size: 1rem; max-width: 62ch; }
+[data-era="2024"] .card > p strong { font-weight: 700; }
+
+/* Highlight card: thick left bar + mono rhythm */
+[data-era="2024"] .card--highlight {
+  position: relative;
+}
+[data-era="2024"] .card--highlight::before {
+  content: "";
+  grid-column: 1;
+  grid-row: 1 / span 10;
+  width: 4px;
+  background: #ff5c1f;
+  margin-top: 0.2rem;
+  height: 100%;
+}
+
+/* Buttons — hard pill-less blocks */
+[data-era="2024"] .btn {
+  display: inline-block;
+  padding: 0.55em 1em;
+  border: 2px solid #111;
+  background: #111;
+  color: #fafaf7 !important;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  transition: transform 100ms ease, background 100ms ease;
+}
+[data-era="2024"] .btn:hover {
+  background: #ff5c1f;
+  border-color: #ff5c1f;
+  transform: translate(-2px, -2px);
+  box-shadow: 4px 4px 0 #111;
+}
+[data-era="2024"] .btn--alt {
+  background: transparent;
+  color: #111 !important;
+}
+[data-era="2024"] .btn--alt:hover {
+  background: #111;
+  color: #fafaf7 !important;
+}
+
+/* Pub list */
+[data-era="2024"] .pub-list,
+[data-era="2024"] .wip-list { list-style: none; padding: 0; margin: 0; }
+[data-era="2024"] .pub,
+[data-era="2024"] .wip {
+  padding: 1rem 0;
+  border-bottom: 1px solid #ddd;
+  margin: 0;
+  font-family: "IBM Plex Sans", sans-serif;
+}
+[data-era="2024"] .pub:last-child,
+[data-era="2024"] .wip:last-child { border-bottom: 0; }
+[data-era="2024"] .pub__title {
+  display: block;
+  font-size: 1.02rem;
+  font-weight: 600;
+  line-height: 1.35;
+  margin-bottom: 0.3rem;
+  color: #111;
+}
+[data-era="2024"] .pub__venue,
+[data-era="2024"] .wip__status {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.78rem;
+  color: #555;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+[data-era="2024"] .pub__authors { font-size: 0.88rem; color: #555; margin-top: 0.15rem; }
+[data-era="2024"] .wip__title { font-weight: 600; font-size: 1rem; margin-bottom: 0.25rem; color: #111; }
+
+/* Link list — two-column grid */
+[data-era="2024"] .link-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 0 1.5rem;
+}
+[data-era="2024"] .link-list li {
+  padding: 0.55rem 0;
+  border-bottom: 1px solid #ddd;
+  font-family: "IBM Plex Sans", sans-serif;
+  font-size: 0.95rem;
+}
+[data-era="2024"] .link-list__desc {
+  color: #777;
+  font-size: 0.85rem;
+  display: block;
+}
+
+/* Contact row of buttons */
+[data-era="2024"] .card--contact .card__cta { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+
+/* Footer */
+[data-era="2024"] .foot {
+  border-top: 2px solid #111;
+  margin-top: 3rem;
+  padding-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  font-size: 0.78rem;
+  color: #555;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+[data-era="2024"] .foot__updated,
+[data-era="2024"] .foot__note { margin: 0; }
+
+/* Responsive */
+@media (max-width: 720px) {
+  [data-era="2024"] .hdr { grid-template-columns: 1fr; }
+  [data-era="2024"] .card,
+  [data-era="2024"] .section { grid-template-columns: 1fr; }
+  [data-era="2024"] .card > p,
+  [data-era="2024"] .card > .card__cta,
+  [data-era="2024"] .section > .pub-list,
+  [data-era="2024"] .section > .wip-list,
+  [data-era="2024"] .section > .link-list { grid-column: 1; }
+  [data-era="2024"] .card--highlight::before { display: none; }
+}
+
+/* Imagery toggle */
+[data-era="2024"] .hdr__photo-modern { display: block; }
+[data-era="2024"] .hdr__photo-pixel { display: none; }
