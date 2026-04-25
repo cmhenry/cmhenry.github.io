@@ -30,6 +30,47 @@
     return html.getAttribute("data-era") === "1994" ? "2024" : "1994";
   }
 
+  /* --- Projects tabs ----------------------------------------------------- */
+  function initProjects() {
+    var tablist = document.querySelector(".projects__tabs");
+    if (!tablist) return;
+    var tabs = Array.prototype.slice.call(tablist.querySelectorAll('[role="tab"]'));
+    var panels = Array.prototype.slice.call(
+      document.querySelectorAll(".card--projects .project")
+    );
+    var era = html.getAttribute("data-era");
+
+    function activate(id) {
+      tabs.forEach(function (t) {
+        t.setAttribute("aria-selected", t.getAttribute("aria-controls") === id ? "true" : "false");
+      });
+      panels.forEach(function (p) {
+        if (p.id === id) p.removeAttribute("hidden");
+        else p.setAttribute("hidden", "");
+      });
+    }
+
+    if (era === "2024") {
+      var ids = panels.map(function (p) { return p.id; });
+      var hashId = (location.hash || "").replace(/^#/, "");
+      var initial = ids.indexOf(hashId) !== -1 ? hashId : ids[0];
+      activate(initial);
+
+      tabs.forEach(function (t) {
+        t.onclick = function (e) {
+          e.preventDefault();
+          var id = t.getAttribute("aria-controls");
+          activate(id);
+          history.replaceState({}, "", "#" + id);
+        };
+      });
+    } else {
+      // 1994: show everything stacked, no click interception
+      panels.forEach(function (p) { p.removeAttribute("hidden"); });
+      tabs.forEach(function (t) { t.onclick = null; });
+    }
+  }
+
   /* --- Fade transition --------------------------------------------------- */
   var isTransitioning = false;
   function transitionTo(era) {
@@ -39,6 +80,7 @@
     // fade to black
     setTimeout(function () {
       applyEra(era, true);
+      initProjects();
       // hold briefly, then fade back out
       setTimeout(function () {
         body.classList.remove("is-transitioning");
@@ -54,6 +96,7 @@
     if (saved && ERAS.indexOf(saved) !== -1) initial = saved;
   } catch (e) {}
   applyEra(initial, false);
+  initProjects();
 
   if (hint) {
     hint.addEventListener("click", function (e) {
@@ -70,5 +113,10 @@
     if (e.key === "t" || e.key === "T") {
       transitionTo(otherEra());
     }
+  });
+
+  window.addEventListener("hashchange", function () {
+    if (html.getAttribute("data-era") !== "2024") return;
+    initProjects();
   });
 })();

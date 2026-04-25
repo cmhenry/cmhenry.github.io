@@ -155,3 +155,31 @@
 /* Era-selective imagery */
 [data-era="1994"] .hdr__photo-pixel { display: block; }
 [data-era="1994"] .hdr__photo-modern { display: none; }
+
+/* Projects tabs — 1994: stacked panels with a "Jump to" link strip */
+[data-era="1994"] .projects__tabs {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 0.6em;
+  display: inline;
+  font-style: italic;
+}
+[data-era="1994"] .projects__tabs::before { content: "Jump to: "; font-style: italic; }
+[data-era="1994"] .projects__tabs li { display: inline; }
+[data-era="1994"] .projects__tabs li + li::before { content: " | "; color: #000; font-style: normal; }
+[data-era="1994"] .projects__tabs a[aria-selected="true"] { font-weight: bold; }
+
+[data-era="1994"] .project {
+  border-top: 1px solid #808080;
+  padding-top: 0.6em;
+  margin-top: 0.6em;
+}
+[data-era="1994"] .project__name {
+  font-size: 1.2em;
+  font-weight: bold;
+  margin: 0 0 0.4em;
+}
+[data-era="1994"] .project__cta { margin-top: 0.6em; }
+
+/* Override: in 1994 stacked mode, force panels visible even with [hidden] */
+[data-era="1994"] .project[hidden] { display: block; }

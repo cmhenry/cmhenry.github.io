@@ -175,7 +175,7 @@
 [data-era="2024"] .card--highlight::before {
   content: "";
   grid-column: 1;
-  grid-row: 1 / span 10;
+  grid-row: 1 / -1;
   width: 4px;
   background: #ff5c1f;
   margin-top: 0.2rem;
@@ -296,3 +296,52 @@
 /* Imagery toggle */
 [data-era="2024"] .hdr__photo-modern { display: block; }
 [data-era="2024"] .hdr__photo-pixel { display: none; }
+
+/* Projects tabs — 2024: brutalist tab strip + single-panel display */
+[data-era="2024"] .projects__tabs {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.2rem;
+  grid-column: 2;
+  display: flex;
+  flex-wrap: wrap;
+  border-bottom: 2px solid #111;
+}
+[data-era="2024"] .projects__tabs a {
+  display: inline-block;
+  padding: 0.55em 1em;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.78rem;
+  text-transform: lowercase;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  color: #111;
+  border-left: 1px solid #111;
+}
+[data-era="2024"] .projects__tabs li:first-child a { border-left: 0; }
+[data-era="2024"] .projects__tabs a[aria-selected="true"] {
+  background: #111;
+  color: #fafaf7;
+}
+[data-era="2024"] .projects__tabs a:hover {
+  background: #ff5c1f;
+  color: #fff;
+}
+
+[data-era="2024"] .project {
+  grid-column: 2;
+  font-family: "IBM Plex Sans", sans-serif;
+  max-width: 62ch;
+}
+[data-era="2024"] .project > p {
+  margin: 0 0 0.9em;
+  font-size: 1rem;
+}
+[data-era="2024"] .project > p strong { font-weight: 700; }
+[data-era="2024"] .project__name { display: none; }
+[data-era="2024"] .project > p.project__cta { margin: 1rem 0 0; }
+
+/* Tighten trailing space so the gap below the CTA matches the gap above
+   the next section's title (= 1.5rem padding-top). */
+[data-era="2024"] .card--projects { padding-bottom: 0; }
+[data-era="2024"] .card--projects + .section { margin-top: 1.5rem; }

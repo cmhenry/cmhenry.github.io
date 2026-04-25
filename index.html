@@ -73,20 +73,56 @@
     </p>
   </section>
 
-  <!-- Dissertation highlight -->
-  <section id="research" class="card card--highlight">
+  <!-- Projects (tabbed in 2024, stacked in 1994) -->
+  <section id="research" class="card card--projects">
     <h2 class="card__title">
-      <span data-era-text='{"1994":"Dissertation","2024":"dissertation"}'>dissertation</span>
+      <span data-era-text='{"1994":"Projects","2024":"projects"}'>projects</span>
     </h2>
-    <p><strong>Title.</strong> "Governance, Competition, &amp; Extremism: How the Structure of Social Media Platforms Radicalizes Communities"</p>
-    <p><strong>Core argument.</strong> Platform governance structures create competitive dynamics between communities that systematically drive radicalization. A comparative study of digital architectures and how they shape collective behavior.</p>
-    <p><strong>Methods.</strong> Multi-platform analysis (Reddit, Twitter, Telegram, TikTok, YouTube), transformer models, network analysis, digital ethnography.</p>
-    <p><strong>Advised by.</strong> Jennifer Larson (co-chair), Cassy Dorff (co-chair), Emily Ritter, Anita Gohdes (Hertie School).</p>
-    <p class="card__cta">
-      <a class="btn" href="https://github.com/cmhenry/cmhenry.github.io/raw/main/pdfs/Community_Competition.pdf" target="_blank" rel="noopener">
-        <span data-era-text='{"1994":"[ Job Market Paper ]","2024":"job-market-paper.pdf ↗"}'>job-market-paper.pdf ↗</span>
-      </a>
-    </p>
+
+    <ul class="projects__tabs" role="tablist">
+      <li role="presentation">
+        <a id="tab-snsf" role="tab" href="#snsf" aria-controls="snsf" aria-selected="true">snsf · public discourse</a>
+      </li>
+      <li role="presentation">
+        <a id="tab-dissertation" role="tab" href="#dissertation" aria-controls="dissertation" aria-selected="false">dissertation</a>
+      </li>
+      <li role="presentation">
+        <a id="tab-virena" role="tab" href="#virena" aria-controls="virena" aria-selected="false">virena</a>
+      </li>
+    </ul>
+
+    <article class="project" id="snsf" role="tabpanel" aria-labelledby="tab-snsf">
+      <h3 class="project__name">SNSF Improving Public Discourse</h3>
+      <p><strong>Title.</strong> [placeholder]</p>
+      <p><strong>Description.</strong> [placeholder]</p>
+      <p><strong>Collaborators.</strong> [placeholder]</p>
+      <p class="project__cta">
+        <a class="btn" href="#" target="_blank" rel="noopener">project site ↗</a>
+      </p>
+    </article>
+
+    <article class="project" id="dissertation" role="tabpanel" aria-labelledby="tab-dissertation" hidden>
+      <h3 class="project__name">Dissertation</h3>
+      <p><strong>Title.</strong> "Governance, Competition, &amp; Extremism: How the Structure of Social Media Platforms Radicalizes Communities"</p>
+      <p><strong>Core argument.</strong> Platform governance structures create competitive dynamics between communities that systematically drive radicalization. A comparative study of digital architectures and how they shape collective behavior.</p>
+      <p><strong>Methods.</strong> Multi-platform analysis (Reddit, Twitter, Telegram, TikTok, YouTube), transformer models, network analysis, digital ethnography.</p>
+      <p><strong>Advised by.</strong> Jennifer Larson (co-chair), Cassy Dorff (co-chair), Emily Ritter, Anita Gohdes (Hertie School).</p>
+      <p class="project__cta">
+        <a class="btn" href="https://github.com/cmhenry/cmhenry.github.io/raw/main/pdfs/Community_Competition.pdf" target="_blank" rel="noopener">
+          <span data-era-text='{"1994":"[ Job Market Paper ]","2024":"job-market-paper.pdf ↗"}'>job-market-paper.pdf ↗</span>
+        </a>
+      </p>
+    </article>
+
+    <article class="project" id="virena" role="tabpanel" aria-labelledby="tab-virena" hidden>
+      <h3 class="project__name">VIRENA</h3>
+      <p><strong>Title.</strong> [placeholder]</p>
+      <p><strong>Description.</strong> [placeholder]</p>
+      <p><strong>Collaborators.</strong> [placeholder]</p>
+      <p class="project__cta">
+        <a class="btn" href="#" target="_blank" rel="noopener">repo ↗</a>
+      </p>
+    </article>
   </section>
 
   <!-- Published -->
