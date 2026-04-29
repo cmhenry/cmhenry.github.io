@@ -89,15 +89,20 @@
       <li role="presentation">
         <a id="tab-virena" role="tab" href="#virena" aria-controls="virena" aria-selected="false">virena</a>
       </li>
+      <li role="presentation">
+        <a id="tab-platform-abm" role="tab" href="#platform-abm" aria-controls="platform-abm" aria-selected="false">platform abm</a>
+      </li>
     </ul>
 
     <article class="project" id="snsf" role="tabpanel" aria-labelledby="tab-snsf">
       <h3 class="project__name">SNSF Improving Public Discourse</h3>
-      <p><strong>Title.</strong> [placeholder]</p>
-      <p><strong>Description.</strong> [placeholder]</p>
-      <p><strong>Collaborators.</strong> [placeholder]</p>
+      <p><strong>Program.</strong> <em>Improving Public Discourse</em> — Swiss National Science Foundation grant hosted at the University of Zürich Digital Democracy Lab (PI: Fabrizio Gilardi).</p>
+      <p><strong>My role.</strong> Technical lead. I design and maintain the data collection and classification infrastructure across the program's studies.</p>
+      <p><strong>Current study.</strong> Audit study of TikTok content moderation. Research assistants systematically review and flag content violating community guidelines; the platform's enforcement response is recorded and analyzed. Study launched March 2026 and is actively running.</p>
+      <p><strong>Methods.</strong> Audit methodology, two-stage NLP classification pipeline (multilingual BERT + 9B-parameter LLM), Postgres + Redis infrastructure, Ansible deployment, Flask RA/admin UI.</p>
+      <p><strong>Collaborators.</strong> Karsten Donnay (PI), Fabrizio Gilardi (program PI), Daria (classification pipeline), UZH DigDem Lab RAs.</p>
       <p class="project__cta">
-        <a class="btn" href="#" target="_blank" rel="noopener">project site ↗</a>
+        <a class="btn" href="https://fabriziogilardi.org/projects/improving-online-discourse/" target="_blank" rel="noopener">project site ↗</a>
       </p>
     </article>
 
@@ -116,12 +121,20 @@
 
     <article class="project" id="virena" role="tabpanel" aria-labelledby="tab-virena" hidden>
       <h3 class="project__name">VIRENA</h3>
-      <p><strong>Title.</strong> [placeholder]</p>
-      <p><strong>Description.</strong> [placeholder]</p>
-      <p><strong>Collaborators.</strong> [placeholder]</p>
-      <p class="project__cta">
-        <a class="btn" href="#" target="_blank" rel="noopener">repo ↗</a>
-      </p>
+      <p><strong>Title.</strong> Indirect Effects of Content Moderation Errors: A Chatroom Experiment with AI Agents</p>
+      <p><strong>Description.</strong> VIRENA is an experimental platform simulating WhatsApp-style social media chatrooms. Prolific participants interact in real-time with LLM-powered bot personas under randomized moderation conditions — over-moderation, under-moderation, and regular moderation. The experiment tests how moderation errors shape conversation dynamics and perceptions of online spaces.</p>
+      <p><strong>Status.</strong> 800-participant study live. Platform rebuild (VIRENA) underway for future experiments.</p>
+      <p><strong>Stack.</strong> Svelte.js (frontend), PocketBase + Go (backend), Ollama / OpenAI (bot personas), Prolific (participant recruitment).</p>
+      <p><strong>Collaborators.</strong> Karsten Donnay (PI), Giuliano Formisano, Emma Hoes, Jonathan Klues, Adiba Mahbub Proma, Fabrizio Gilardi.</p>
+    </article>
+
+    <article class="project" id="platform-abm" role="tabpanel" aria-labelledby="tab-platform-abm" hidden>
+      <h3 class="project__name">Platform ABM</h3>
+      <p><strong>Title.</strong> Voting with Your Feet Online: Platform Competition, Extremism, and the Limits of Tiebout Sorting</p>
+      <p><strong>Core argument.</strong> Online platforms function as a system, not independent sites. Applying Tiebout's "voting with your feet" model to digital platforms, the paper shows that extremist communities act as utility vampires — degrading mainstream experiences and forcing displacement, raiding cycles, and ideological enclaves. The diversification premium (more platforms = better outcomes) grows with extremist threat intensity, but governance type determines who benefits.</p>
+      <p><strong>Methods.</strong> Agent-based model, three-way ANOVA, bootstrap CIs, sensitivity analysis (OAT + Sobol indices). Python simulation; R/Python visualization.</p>
+      <p><strong>Status.</strong> Working paper — manuscript drafted, sensitivity analysis complete, figures integrated. Preparing for submission.</p>
+      <p><strong>Related.</strong> <a href="https://academic.oup.com/pnasnexus/article/4/9/pgaf262/8232781" target="_blank" rel="noopener">Ideological fragmentation of the social media ecosystem</a> (PNAS Nexus)</p>
     </article>
   </section>
 
@@ -212,7 +225,7 @@
 
   <!-- Footer -->
   <footer class="foot">
-    <p class="foot__updated">Last updated April 21, 2026</p>
+    <p class="foot__updated">Last updated April 29, 2026</p>
     <p class="foot__note">
       <span data-era-text='{"1994":"This page best viewed with NCSA Mosaic 1.0 at 640x480.","2024":"html + css. no trackers."}'>html + css. no trackers.</span>
     </p>
