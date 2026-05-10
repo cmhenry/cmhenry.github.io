@@ -1,0 +1,337 @@
+/* ─────────────────────────────────────────────────────────
+   colin henry — print-editorial stylesheet
+   thesis: working document × small press
+   no js. monochrome. typography does the work.
+   ───────────────────────────────────────────────────────── */
+
+:root {
+  --ink: #111;
+  --ink-soft: #444;
+  --mute: #8a8a85;
+  --paper: #f6f3eb;          /* warm off-white, slight paper cast */
+  --paper-dark: #1a1916;     /* used only for inversion on hover */
+  --rule: #111;
+
+  --serif: 'Charter', 'Charter BT', 'Iowan Old Style', 'Sitka Text', Georgia, serif;
+  --mono:  'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+
+  --measure: 38rem;
+  --gutter: 1.5rem;
+}
+
+/* ── reset ────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+html { font-size: 18px; -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: 1rem;
+  line-height: 1.55;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* subtle paper grain (single radial, very low opacity — no gradients elsewhere) */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(0,0,0,0.04) 1px, transparent 0);
+  background-size: 3px 3px;
+  z-index: 0;
+  mix-blend-mode: multiply;
+}
+
+.page {
+  position: relative;
+  z-index: 1;
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding: 3rem var(--gutter) 5rem;
+}
+
+/* ── rules ────────────────────────────────────────────── */
+.rule {
+  border: 0;
+  border-top: 1px solid var(--rule);
+  margin: 1.5rem 0;
+}
+.rule--thick { border-top-width: 3px; }
+
+/* ── masthead ─────────────────────────────────────────── */
+.masthead { margin: 0.25rem 0 1rem; }
+
+.masthead__id {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--ink-soft);
+  margin: 0 0 1.5rem;
+  display: flex;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+}
+.masthead__id span { white-space: nowrap; }
+
+.name {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-style: normal;
+  font-size: clamp(3.25rem, 14vw, 6.5rem);
+  line-height: 0.9;
+  letter-spacing: -0.025em;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+.name__line {
+  display: block;
+  font-feature-settings: "lnum" 1;
+}
+
+.masthead__role {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ink-soft);
+  margin: 1.25rem 0 0;
+}
+
+/* ── nav ──────────────────────────────────────────────── */
+.nav {
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  text-transform: lowercase;
+  letter-spacing: 0.02em;
+}
+.nav a {
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 1px dotted var(--ink-soft);
+  padding-bottom: 1px;
+}
+.nav a:hover,
+.nav a:focus {
+  background: var(--ink);
+  color: var(--paper);
+  border-bottom-color: transparent;
+}
+.nav__sep {
+  color: var(--mute);
+  padding: 0 0.55em;
+  user-select: none;
+}
+
+/* ── sections ─────────────────────────────────────────── */
+.section { margin: 1.25rem 0 1.5rem; }
+.section__title {
+  font-family: var(--mono);
+  font-weight: 500;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  margin: 0 0 1.25rem;
+}
+.section__mark {
+  color: var(--ink-soft);
+  margin-right: 0.35em;
+}
+
+/* ── links (default) ──────────────────────────────────── */
+a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  text-decoration-skip-ink: auto;
+}
+a:hover, a:focus {
+  background: var(--ink);
+  color: var(--paper);
+  text-decoration: none;
+  outline: none;
+}
+
+.link-cta {
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  border-bottom: 1px solid var(--ink);
+  padding-bottom: 1px;
+}
+.link-cta:hover { background: var(--ink); color: var(--paper); border-bottom-color: transparent; }
+
+/* ── status block ─────────────────────────────────────── */
+.status-block {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  gap: 1.25rem;
+  align-items: start;
+}
+
+.portrait { margin: 0; }
+.portrait img {
+  display: block;
+  width: 110px;
+  height: auto;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  filter: grayscale(1) contrast(1.05);
+  border: 1px solid var(--ink);
+}
+.portrait figcaption {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--ink-soft);
+  text-align: center;
+  margin-top: 0.4rem;
+}
+
+.status-block__text p { margin: 0 0 0.85rem; }
+.status-block__text p:last-child { margin-bottom: 0; }
+.cta { margin-top: 1rem; }
+
+@media (max-width: 480px) {
+  .status-block { grid-template-columns: 1fr; }
+  .portrait img { width: 96px; }
+}
+
+/* ── tags (status labels) ─────────────────────────────── */
+.tag {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--ink);
+  white-space: nowrap;
+}
+
+/* ── paper groups ─────────────────────────────────────── */
+.paper-group { margin-bottom: 1.75rem; }
+.paper-group:last-child { margin-bottom: 0; }
+
+.paper-group__label {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-weight: 400;
+  margin: 0 0 0.85rem;
+  font-size: 0.85rem;
+}
+.paper-group__rule {
+  flex: 1;
+  height: 1px;
+  background: var(--ink);
+  display: block;
+}
+
+/* ── entries (papers) ─────────────────────────────────── */
+.entry { margin: 0 0 1rem; }
+.entry:last-child { margin-bottom: 0; }
+.entry__title {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 1.05rem;
+  line-height: 1.3;
+  margin: 0 0 0.2rem;
+}
+.entry__title a { text-decoration-thickness: 1px; }
+.entry__byline {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 0.92rem;
+  color: var(--ink-soft);
+  margin: 0;
+  line-height: 1.4;
+}
+.entry__note {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.02em;
+  color: var(--ink-soft);
+  margin: 0.25rem 0 0;
+}
+.entry__note a { color: var(--ink-soft); }
+
+/* ── projects ─────────────────────────────────────────── */
+.project { margin: 0 0 2rem; }
+.project:last-child { margin-bottom: 0; }
+.project__title {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 1.2rem;
+  margin: 0 0 0.6rem;
+  line-height: 1.3;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.6rem;
+}
+.project__body p { margin: 0 0 0.55rem; line-height: 1.5; }
+.project__body p:last-child { margin-bottom: 0; }
+.project__body em { font-style: italic; }
+
+.kv {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--ink-soft);
+  margin-right: 0.4em;
+  padding: 0.05em 0.4em;
+  border: 1px solid var(--ink-soft);
+  border-radius: 0;
+  vertical-align: 0.12em;
+}
+
+.project__links { margin-top: 0.75rem !important; }
+
+/* wrapped projects (e.g., dissertation) read slightly quieter */
+.tag--wrapped { color: var(--ink-soft); }
+.project:has(.tag--wrapped) .project__title { color: var(--ink-soft); }
+.project:has(.tag--wrapped) .project__body { color: var(--ink-soft); }
+
+/* ── links list ───────────────────────────────────────── */
+.link-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.link-list li {
+  font-family: var(--serif);
+  margin: 0 0 0.45rem;
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+.link-list__note {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--ink-soft);
+  letter-spacing: 0.02em;
+}
+
+/* ── colophon (footer) ────────────────────────────────── */
+.colophon {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--ink-soft);
+  margin-top: 1rem;
+}
+.colophon p { margin: 0.4rem 0; display: flex; gap: 1.25rem; flex-wrap: wrap; }
+
+/* ── selection ────────────────────────────────────────── */
+::selection { background: var(--ink); color: var(--paper); }

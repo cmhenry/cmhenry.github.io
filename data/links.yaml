@@ -1,0 +1,23 @@
+- label: Google Scholar
+  url: https://scholar.google.com/citations?hl=en&user=EmxlJzsAAAAJ
+  note: publications & citations
+
+- label: University of Zürich
+  url: https://www.ipz.uzh.ch/en/people/employees/cohenr.html
+  note: current affiliation
+
+- label: Vanderbilt
+  url: https://as.vanderbilt.edu/political-science/job-market-candidates/
+  note: job-market profile
+
+- label: LinkedIn
+  url: https://www.linkedin.com/in/colin-henry-2ab02281/
+  note: professional network
+
+- label: Bluesky
+  url: https://bsky.app/profile/henryhenryhenry.com
+  note: "@henryhenryhenry.com"
+
+- label: Mastodon
+  url: https://mas.to/@cmhenry_
+  note: "@cmhenry_@mas.to"

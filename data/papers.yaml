@@ -1,0 +1,49 @@
+# Status taxonomy: published | r-and-r | under-review | working-paper | draft
+# Move a paper through the pipeline by changing its `status` field.
+
+- title: Does Violence Against Journalists Deter Detailed Reporting? Evidence From Mexico
+  authors: [Henry, Dorff, Ley]
+  venue: Journal of Conflict Resolution
+  date: 2023-07
+  doi: 10.1177/00220027221128307
+  url: https://doi.org/10.1177/00220027221128307
+  status: published
+
+- title: Digital Footprints and Data-Security Risks for Political Scientists
+  authors: [Henry, Dorff, Gohdes]
+  venue: "PS: Political Science & Politics, Vol 55 Issue 4"
+  date: 2022-10
+  doi: 10.1017/S1049096522000543
+  url: https://doi.org/10.1017/S1049096522000543
+  status: published
+
+- title: When Do Social Media Platforms Intervene in Online Hate Communities?
+  authors: [Long, Sear, "N. Johnson", Wuchty, "N. Johnson", Lupu, Henry]
+  venue: Journal of Politics
+  status: r-and-r
+
+- title: "Content and Competition: Structural Sources of Online Extremism"
+  authors: [Henry]
+  note: Job market paper
+  status: under-review
+
+- title: "From Seeds to Communities: Adaptive Snowball Sampling and Community Detection in Cross-Platform Political Networks"
+  authors: [Henry]
+  status: under-review
+
+- title: "Scrolling through Hate: TikTok, Hate Speech and Content Moderation"
+  authors: [Henry, Donnay, Gilardi, Gennaro, Hangartner, Guinaudeau, Messing, Tucker]
+  status: draft
+
+- title: "Indirect Effects of Content Moderation Errors: A Chatroom Experiment with AI Agents"
+  authors: [Henry, Formisano, Mahbub Proma, Donnay, Gilardi]
+  status: draft
+
+- title: Varieties of Platform Governance
+  authors: [Henry]
+  status: draft
+
+- title: "Voting with Your Feeds: Platform Competition, Extremism, and the Limits of Tiebout Sorting"
+  authors: [Henry]
+  note: Related — <a href="https://academic.oup.com/pnasnexus/article/4/9/pgaf262/8232781">Ideological fragmentation of the social media ecosystem</a> (PNAS Nexus)
+  status: working-paper

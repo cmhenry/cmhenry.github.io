@@ -1,249 +1,264 @@
 <!DOCTYPE html>
-<html lang="en" data-era="2024">
+<html lang="en">
 <head>
+<!--
+   ┌─────────────────────────────────────────────────────────────┐
+   │  press T, or visit /1994.html, if you remember the old web. │
+   └─────────────────────────────────────────────────────────────┘
+-->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Colin Henry, PhD — Digital Communities Researcher</title>
+<title>colin henry — researcher · political behavior × digital platforms</title>
+<meta name="description" content="Postdoctoral researcher at the University of Zürich, Department of Political Science.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles/base.css">
-<link rel="stylesheet" href="styles/era-1994.css">
-<link rel="stylesheet" href="styles/era-2024.css">
-<link rel="stylesheet" href="styles/switcher.css">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles/main.css">
 </head>
 <body>
+<main class="page">
 
-<!-- ====================== TRANSITION OVERLAY ====================== -->
-<div class="era-fade" aria-hidden="true"></div>
+  <hr class="rule rule--thick">
+  <header class="masthead">
+    <p class="masthead__id">
+      <span>iss. 2026</span>
+      <span>build 2026-05-10</span>
+      <span>vis. 52,847</span>
+    </p>
+    <h1 class="name">
+<span class="name__line">colin</span><span class="name__line">henry</span>    </h1>
+    <p class="masthead__role">researcher · political behavior × digital platforms</p>
+  </header>
+  <hr class="rule">
 
-<!-- ====================== PAGE (shared DOM across both eras) ====================== -->
-<div class="page">
+  <nav class="nav" aria-label="primary">
+    <a href="#status">status</a><span class="nav__sep">~</span>
+    <a href="#papers">papers</a><span class="nav__sep">~</span>
+    <a href="#projects">projects</a><span class="nav__sep">~</span>
+    <a href="#elsewhere">elsewhere</a><span class="nav__sep">~</span>
+    <a href="#contact">contact</a>
+  </nav>
+  <hr class="rule">
 
-  <!-- Header -->
-  <header class="hdr">
-    <div class="hdr__photo">
-      <img class="hdr__photo-modern" src="thumbnail.jpg" alt="Colin Henry">
-      <img class="hdr__photo-pixel" src="thumbnail2.png" alt="Colin Henry (pixel portrait)">
-    </div>
-    <div class="hdr__text">
-      <h1 class="hdr__name">
-        <span data-era-text='{"1994":"Colin Henry","2024":"colin henry"}'>colin henry</span>
-      </h1>
-      <p class="hdr__role">
-        <span data-era-text='{"1994":"researcher / political behavior × digital platforms","2024":"researcher / political behavior × digital platforms"}'>researcher / political behavior × digital platforms</span>
-      </p>
-      <p class="hdr__tagline">
-        Postdoctoral researcher at the University of Zürich, Department of Political Science 
-        <!-- studying how platform architecture shapes political behavior, extremism, and online communities. Previously at George Washington University's Dynamic Online Networks Lab. -->
-      </p>
-      <div class="hdr__meta">
-        <span class="hdr__visitor">
-          <span data-era-text='{"1994":"You are visitor #000052847","2024":"52,847 visitors · updated Apr 2026"}'>52,847 visitors · updated Apr 2026</span>
-        </span>
+  <section id="status" class="section">
+    <h2 class="section__title"><span class="section__mark">§</span> status</h2>
+    <div class="status-block">
+      <figure class="portrait">
+        <img src="thumbnail2.png" alt="">
+        <figcaption>fig. 1</figcaption>
+      </figure>
+      <div class="status-block__text">
+        <p>Postdoctoral researcher at the University of Zürich, Department of Political Science.</p>
+        <p>I'm part of the
+<a href="https://www.ipz.uzh.ch/en/research/professorships-and-research-areas/bdm.html">Political Behavior and Digital Media research group</a>
+and lead on the
+<a href="https://fabriziogilardi.org/projects/improving-online-discourse/">SNSF Improving Public Discourse project</a>.
+I study how digital platform architecture influences political behavior and community dynamics —
+with a focus on extremism and hate speech.
+Previously a research fellow at George Washington University's Dynamic Online Networks Lab.
+</p>
+        <p class="cta">
+          <a class="link-cta" href="https://github.com/cmhenry/cmhenry.github.io/raw/main/pdfs/Henry_academic_CV_CURRENT.pdf">cv.pdf →</a>
+        </p>
       </div>
     </div>
-  </header>
-
-  <!-- Nav -->
-  <nav class="nav">
-    <a href="#about">About</a>
-    <a href="#research">Research</a>
-    <a href="#pubs">Publications</a>
-    <a href="#wip">Work in Progress</a>
-    <a href="#links">Links</a>
-    <a href="#contact">Contact</a>
-  </nav>
-
-  <!-- Status / About -->
-  <section id="about" class="card card--status">
-    <h2 class="card__title">
-      <span data-era-text='{"1994":"About","2024":"status"}'>status</span>
-    </h2>
-    <p>
-      I'm part of the <a href="https://www.ipz.uzh.ch/en/research/professorships-and-research-areas/bdm.html" >Political Behavior and Digital Media research group</a>
-      and lead on the <a href="https://fabriziogilardi.org/projects/improving-online-discourse/">SNSF Improving Public Discourse project</a>.<br><br>
-      I study how digital platform architecture influences political behavior and community dynamics with a focus on extremism and hate speech.<br><br>
-      <small>Previously a research fellow at George Washington University's Dynamic Online Networks Lab.</small>
-    </p>
-    <p class="card__cta">
-      <a class="btn" href="https://github.com/cmhenry/cmhenry.github.io/raw/main/pdfs/Henry_academic_CV_CURRENT.pdf" target="_blank" rel="noopener">
-        <span data-era-text='{"1994":"[ Download CV ]","2024":"CV.pdf ↗"}'>CV.pdf ↗</span>
-      </a>
-    </p>
   </section>
+  <hr class="rule">
 
-  <!-- Projects (tabbed in 2024, stacked in 1994) -->
-  <section id="research" class="card card--projects">
-    <h2 class="card__title">
-      <span data-era-text='{"1994":"Projects","2024":"projects"}'>projects</span>
-    </h2>
+  <section id="papers" class="section">
+    <h2 class="section__title"><span class="section__mark">§</span> papers</h2>
+    <div class="paper-group">
+      <h3 class="paper-group__label">
+        <span class="tag">[ published ]</span>
+        <span class="paper-group__rule" aria-hidden="true"></span>
+      </h3>
+      <article class="entry">
+        <h4 class="entry__title"><a href="https://doi.org/10.1177/00220027221128307">Does Violence Against Journalists Deter Detailed Reporting? Evidence From Mexico</a></h4>
+        <p class="entry__byline">
+          Henry, Dorff, Ley · <em>Journal of Conflict Resolution</em> · 2023-07        </p>
+      </article>
+      <article class="entry">
+        <h4 class="entry__title"><a href="https://doi.org/10.1017/S1049096522000543">Digital Footprints and Data-Security Risks for Political Scientists</a></h4>
+        <p class="entry__byline">
+          Henry, Dorff, Gohdes · <em>PS: Political Science & Politics, Vol 55 Issue 4</em> · 2022-10        </p>
+      </article>
+    </div>
+    <div class="paper-group">
+      <h3 class="paper-group__label">
+        <span class="tag">[ r & r ]</span>
+        <span class="paper-group__rule" aria-hidden="true"></span>
+      </h3>
+      <article class="entry">
+        <h4 class="entry__title">When Do Social Media Platforms Intervene in Online Hate Communities?</h4>
+        <p class="entry__byline">
+          Long, Sear, N. Johnson, Wuchty, N. Johnson, Lupu, Henry · <em>Journal of Politics</em>        </p>
+      </article>
+    </div>
+    <div class="paper-group">
+      <h3 class="paper-group__label">
+        <span class="tag">[ under review ]</span>
+        <span class="paper-group__rule" aria-hidden="true"></span>
+      </h3>
+      <article class="entry">
+        <h4 class="entry__title">Content and Competition: Structural Sources of Online Extremism</h4>
+        <p class="entry__byline">
+          Henry        </p>
+<p class="entry__note">Job market paper</p>      </article>
+      <article class="entry">
+        <h4 class="entry__title">From Seeds to Communities: Adaptive Snowball Sampling and Community Detection in Cross-Platform Political Networks</h4>
+        <p class="entry__byline">
+          Henry        </p>
+      </article>
+    </div>
+    <div class="paper-group">
+      <h3 class="paper-group__label">
+        <span class="tag">[ working paper ]</span>
+        <span class="paper-group__rule" aria-hidden="true"></span>
+      </h3>
+      <article class="entry">
+        <h4 class="entry__title">Voting with Your Feeds: Platform Competition, Extremism, and the Limits of Tiebout Sorting</h4>
+        <p class="entry__byline">
+          Henry        </p>
+<p class="entry__note">Related — <a href="https://academic.oup.com/pnasnexus/article/4/9/pgaf262/8232781">Ideological fragmentation of the social media ecosystem</a> (PNAS Nexus)</p>      </article>
+    </div>
+    <div class="paper-group">
+      <h3 class="paper-group__label">
+        <span class="tag">[ draft ]</span>
+        <span class="paper-group__rule" aria-hidden="true"></span>
+      </h3>
+      <article class="entry">
+        <h4 class="entry__title">Scrolling through Hate: TikTok, Hate Speech and Content Moderation</h4>
+        <p class="entry__byline">
+          Henry, Donnay, Gilardi, Gennaro, Hangartner, Guinaudeau, Messing, Tucker        </p>
+      </article>
+      <article class="entry">
+        <h4 class="entry__title">Indirect Effects of Content Moderation Errors: A Chatroom Experiment with AI Agents</h4>
+        <p class="entry__byline">
+          Henry, Formisano, Mahbub Proma, Donnay, Gilardi        </p>
+      </article>
+      <article class="entry">
+        <h4 class="entry__title">Varieties of Platform Governance</h4>
+        <p class="entry__byline">
+          Henry        </p>
+      </article>
+    </div>
+  </section>
+  <hr class="rule">
 
-    <ul class="projects__tabs" role="tablist">
-      <li role="presentation">
-        <a id="tab-snsf" role="tab" href="#snsf" aria-controls="snsf" aria-selected="true">snsf · public discourse</a>
-      </li>
-      <li role="presentation">
-        <a id="tab-dissertation" role="tab" href="#dissertation" aria-controls="dissertation" aria-selected="false">dissertation</a>
-      </li>
-      <li role="presentation">
-        <a id="tab-virena" role="tab" href="#virena" aria-controls="virena" aria-selected="false">virena</a>
-      </li>
-      <li role="presentation">
-        <a id="tab-platform-abm" role="tab" href="#platform-abm" aria-controls="platform-abm" aria-selected="false">platform abm</a>
-      </li>
-    </ul>
-
-    <article class="project" id="snsf" role="tabpanel" aria-labelledby="tab-snsf">
-      <h3 class="project__name">SNSF Improving Public Discourse</h3>
-      <p><strong>Program.</strong> <em>Improving Public Discourse</em> — Swiss National Science Foundation grant hosted at the University of Zürich Digital Democracy Lab (PI: Fabrizio Gilardi).</p>
-      <p><strong>My role.</strong> Technical lead. I design and maintain the data collection and classification infrastructure across the program's studies.</p>
-      <p><strong>Current study.</strong> Audit study of TikTok content moderation. Research assistants systematically review and flag content violating community guidelines; the platform's enforcement response is recorded and analyzed. Study launched March 2026 and is actively running.</p>
-      <p><strong>Methods.</strong> Audit methodology, two-stage NLP classification pipeline (multilingual BERT + custom 9B-parameter LLM), Postgres + Redis infrastructure, Ansible deployment, Flask RA/admin UI.</p>
-      <p><strong>Collaborators.</strong> Karsten Donnay (PI), Fabrizio Gilardi (PI), UZH DigDem Lab.</p>
-      <p class="project__cta">
-        <a class="btn" href="https://fabriziogilardi.org/projects/improving-online-discourse/" target="_blank" rel="noopener">project site ↗</a>
-      </p>
+  <section id="projects" class="section">
+    <h2 class="section__title"><span class="section__mark">§</span> projects</h2>
+    <article class="project" id="proj-snsf">
+      <h3 class="project__title">
+        <span class="tag tag--active">[ active ]</span>
+        SNSF Improving Public Discourse
+      </h3>
+      <div class="project__body">
+<p><span class="kv">role</span> Technical lead</p>        <p><em>Improving Public Discourse</em> — Swiss National Science Foundation grant
+hosted at the University of Zürich Digital Democracy Lab (PI: Fabrizio Gilardi).
+I design and maintain the data collection and classification infrastructure
+across the program's studies.
+</p>
+<p><span class="kv">current</span> Audit study of TikTok content moderation. Research assistants systematically
+review and flag content violating community guidelines; the platform's
+enforcement response is recorded and analyzed. Study launched March 2026
+and is actively running.
+</p><p><span class="kv">methods</span> audit methodology, two-stage NLP classification (multilingual BERT + custom 9B-parameter LLM), Postgres + Redis, Ansible, Flask</p><p><span class="kv">w/</span> Karsten Donnay (PI), Fabrizio Gilardi (PI), UZH DigDem Lab</p>        <p class="project__links">
+<a class="link-cta" href="https://fabriziogilardi.org/projects/improving-online-discourse/">project site →</a>        </p>
+      </div>
     </article>
-
-    <article class="project" id="dissertation" role="tabpanel" aria-labelledby="tab-dissertation" hidden>
-      <h3 class="project__name">Dissertation</h3>
-      <p><strong>Title.</strong> "Governance, Competition, &amp; Extremism: How the Structure of Social Media Platforms Radicalizes Communities"</p>
-      <p><strong>Core argument.</strong> Platform governance structures create competitive dynamics between communities that systematically drive radicalization. A comparative study of digital architectures and how they shape collective behavior.</p>
-      <p><strong>Methods.</strong> Multi-platform analysis (Reddit, Twitter, Telegram, TikTok, YouTube), transformer models, network analysis, digital ethnography.</p>
-      <p><strong>Advised by.</strong> Jennifer Larson (co-chair), Cassy Dorff (co-chair), Emily Ritter, Anita Gohdes (Hertie School).</p>
-      <p class="project__cta">
-        <a class="btn" href="https://github.com/cmhenry/cmhenry.github.io/raw/main/pdfs/Community_Competition.pdf" target="_blank" rel="noopener">
-          <span data-era-text='{"1994":"[ Job Market Paper ]","2024":"job-market-paper.pdf ↗"}'>job-market-paper.pdf ↗</span>
-        </a>
-      </p>
+    <article class="project" id="proj-virena">
+      <h3 class="project__title">
+        <span class="tag tag--active">[ active ]</span>
+        VIRENA
+      </h3>
+      <div class="project__body">
+        <p><em>Indirect Effects of Content Moderation Errors: A Chatroom Experiment with AI Agents.</em>
+VIRENA is an experimental platform simulating WhatsApp-style social media chatrooms.
+Prolific participants interact in real-time with LLM-powered bot personas under
+randomized moderation conditions — over-moderation, under-moderation, and regular
+moderation. The experiment tests how moderation errors shape conversation dynamics
+and perceptions of online spaces.
+</p>
+<p><span class="kv">current</span> 800-participant study live. Platform rebuild (VIRENA) underway for future experiments.</p><p><span class="kv">methods</span> Svelte.js (frontend), PocketBase + Go (backend), Ollama / OpenAI (bot personas), Prolific (participant recruitment)</p><p><span class="kv">w/</span> Karsten Donnay, Giuliano Formisano, Emma Hoes, Jonathan Klues, Adiba Mahbub Proma, Fabrizio Gilardi (PI)</p>      </div>
     </article>
-
-    <article class="project" id="virena" role="tabpanel" aria-labelledby="tab-virena" hidden>
-      <h3 class="project__name">VIRENA</h3>
-      <p><strong>Title.</strong> Indirect Effects of Content Moderation Errors: A Chatroom Experiment with AI Agents</p>
-      <p><strong>Description.</strong> VIRENA is an experimental platform simulating WhatsApp-style social media chatrooms. Prolific participants interact in real-time with LLM-powered bot personas under randomized moderation conditions — over-moderation, under-moderation, and regular moderation. The experiment tests how moderation errors shape conversation dynamics and perceptions of online spaces.</p>
-      <p><strong>Status.</strong> 800-participant study live. Platform rebuild (VIRENA) underway for future experiments.</p>
-      <p><strong>Stack.</strong> Svelte.js (frontend), PocketBase + Go (backend), Ollama / OpenAI (bot personas), Prolific (participant recruitment).</p>
-      <p><strong>Collaborators.</strong> Karsten Donnay, Giuliano Formisano, Emma Hoes, Jonathan Klues, Adiba Mahbub Proma, Fabrizio Gilardi (PI).</p>
+    <article class="project" id="proj-platform-abm">
+      <h3 class="project__title">
+        <span class="tag tag--active">[ active ]</span>
+        Platform ABM
+      </h3>
+      <div class="project__body">
+        <p><em>Voting with Your Feeds: Platform Competition, Extremism, and the Limits of Tiebout Sorting.</em>
+Online platforms function as a system, not independent sites. Applying Tiebout's
+"voting with your feet" model to digital platforms, the paper shows that extremist
+communities act as utility vampires — degrading mainstream experiences and forcing
+displacement, raiding cycles, and ideological enclaves. The diversification premium
+grows with extremist threat intensity; governance type determines who benefits.
+</p>
+<p><span class="kv">current</span> Working paper — manuscript drafted, sensitivity analysis complete, figures integrated. Preparing for submission.</p><p><span class="kv">methods</span> agent-based model, three-way ANOVA, bootstrap CIs, sensitivity analysis (OAT + Sobol indices). Python simulation; R/Python visualization</p>        <p class="project__links">
+<a class="link-cta" href="https://academic.oup.com/pnasnexus/article/4/9/pgaf262/8232781">related — ideological fragmentation of the social media ecosystem (PNAS Nexus) →</a>        </p>
+      </div>
     </article>
-
-    <article class="project" id="platform-abm" role="tabpanel" aria-labelledby="tab-platform-abm" hidden>
-      <h3 class="project__name">Platform ABM</h3>
-      <p><strong>Title.</strong> Voting with Your Feeds: Platform Competition, Extremism, and the Limits of Tiebout Sorting</p>
-      <p><strong>Core argument.</strong> Online platforms function as a system, not independent sites. Applying Tiebout's "voting with your feet" model to digital platforms, the paper shows that extremist communities act as utility vampires — degrading mainstream experiences and forcing displacement, raiding cycles, and ideological enclaves. The diversification premium (more platforms = better outcomes) grows with extremist threat intensity, but governance type determines who benefits.</p>
-      <p><strong>Methods.</strong> Agent-based model, three-way ANOVA, bootstrap CIs, sensitivity analysis (OAT + Sobol indices). Python simulation; R/Python visualization.</p>
-      <p><strong>Status.</strong> Working paper — manuscript drafted, sensitivity analysis complete, figures integrated. Preparing for submission.</p>
-      <p><strong>Related.</strong> <a href="https://academic.oup.com/pnasnexus/article/4/9/pgaf262/8232781" target="_blank" rel="noopener">Ideological fragmentation of the social media ecosystem</a> (PNAS Nexus)</p>
+    <article class="project" id="proj-dissertation">
+      <h3 class="project__title">
+        <span class="tag tag--wrapped">[ wrapped ]</span>
+        Dissertation
+      </h3>
+      <div class="project__body">
+        <p>"Governance, Competition, &amp; Extremism: How the Structure of Social Media Platforms
+Radicalizes Communities." Platform governance structures create competitive dynamics
+between communities that systematically drive radicalization. A comparative study of
+digital architectures and how they shape collective behavior.
+</p>
+<p><span class="kv">methods</span> multi-platform analysis (Reddit, Twitter, Telegram, TikTok, YouTube), transformer models, network analysis, digital ethnography</p><p><span class="kv">w/</span> Jennifer Larson (co-chair), Cassy Dorff (co-chair), Emily Ritter, Anita Gohdes (Hertie School)</p>        <p class="project__links">
+<a class="link-cta" href="https://github.com/cmhenry/cmhenry.github.io/raw/main/pdfs/Community_Competition.pdf">job-market paper →</a>        </p>
+      </div>
     </article>
   </section>
+  <hr class="rule">
 
-  <!-- Published -->
-  <section id="pubs" class="section">
-    <h2 class="section__title">
-      <span data-era-text='{"1994":"Published Research","2024":"published"}'>published</span>
-    </h2>
-    <ul class="pub-list">
-      <li class="pub">
-        <a class="pub__title" href="https://doi.org/10.1177/00220027221128307" target="_blank" rel="noopener">Does Violence Against Journalists Deter Detailed Reporting? Evidence From Mexico</a>
-        <div class="pub__venue">Journal of Conflict Resolution · July 2023</div>
-        <div class="pub__authors">with Cassy Dorff and Sandra Ley</div>
-      </li>
-      <li class="pub">
-        <a class="pub__title" href="https://doi.org/10.1017/S1049096522000543" target="_blank" rel="noopener">Digital Footprints and Data-Security Risks for Political Scientists</a>
-        <div class="pub__venue">PS: Political Science &amp; Politics · Vol 55, Issue 4 · October 2022</div>
-        <div class="pub__authors">with Cassy Dorff and Anita Gohdes</div>
-      </li>
-    </ul>
-  </section>
-
-  <!-- Work in Progress -->
-  <section id="wip" class="section">
-    <h2 class="section__title">
-      <span data-era-text='{"1994":"Work in Progress","2024":"in progress"}'>in progress</span>
-    </h2>
-    <ul class="wip-list">
-      <li class="wip">
-        <div class="wip__title">When Do Social Media Platforms Intervene in Online Hate Communities?</div>
-        <div class="wip__status"><em>Revise &amp; Resubmit</em>, Journal of Politics · with Long, Sear, N. Johnson, Wuchty, N. Johnson, Lupu</div>
-      </li>
-      <li class="wip">
-        <div class="wip__title">Content and Competition: Structural Sources of Online Extremism</div>
-        <div class="wip__status"><em>Under Review</em> · Job Market Paper</div>
-      </li>
-      <li class="wip">
-        <div class="wip__title">From Seeds to Communities: Adaptive Snowball Sampling and Community Detection in Cross-Platform Political Networks</div>
-        <div class="wip__status"><em>Under Review</em></div>
-      </li>
-      <li class="wip">
-        <div class="wip__title">Scrolling through Hate: TikTok, Hate Speech and Content Moderation</div>
-        <div class="wip__status"><em>Draft</em> · with Donnay, Gilardi, Gennaro, Hangartner, Guinaudeau, Messing, Tucker</div>
-      </li>
-      <li class="wip">
-        <div class="wip__title">Indirect Effects of Content Moderation Errors: A Chatroom Experiment with AI Agents</div>
-        <div class="wip__status"><em>Draft</em> · with Formisano, Mahbub Proma, Donnay, Gilardi</div>
-      </li>
-      <li class="wip">
-        <div class="wip__title">Varieties of Platform Governance</div>
-        <div class="wip__status"><em>Draft</em></div>
-      </li>
-    </ul>
-  </section>
-
-  <!-- Links -->
-  <section id="links" class="section">
-    <h2 class="section__title">
-      <span data-era-text='{"1994":"Find Me Online","2024":"elsewhere"}'>elsewhere</span>
-    </h2>
+  <section id="elsewhere" class="section">
+    <h2 class="section__title"><span class="section__mark">§</span> elsewhere</h2>
     <ul class="link-list">
-      <li><a href="https://scholar.google.com/citations?hl=en&user=EmxlJzsAAAAJ" target="_blank" rel="noopener">Google Scholar</a><span class="link-list__desc"> — publications &amp; citations</span></li>
-      <li><a href="https://www.linkedin.com/in/colin-henry-2ab02281/" target="_blank" rel="noopener">LinkedIn</a><span class="link-list__desc"> — professional network</span></li>
-      <li><a href="https://www.ipz.uzh.ch/en/people/employees/cohenr.html" target="_blank" rel="noopener">University of Zürich</a><span class="link-list__desc"> — current affiliation</span></li>
-      <li><a href="https://as.vanderbilt.edu/political-science/job-market-candidates/" target="_blank" rel="noopener">Vanderbilt</a><span class="link-list__desc"> — job-market profile</span></li>
-      <li><a href="https://bsky.app/profile/henryhenryhenry.com" target="_blank" rel="noopener">Bluesky</a><span class="link-list__desc"> — @henryhenryhenry.com</span></li>
-      <li><a href="https://mas.to/@cmhenry_" target="_blank" rel="noopener">Mastodon</a><span class="link-list__desc"> — @cmhenry_@mas.to</span></li>
+      <li>
+        <a href="https://scholar.google.com/citations?hl=en&user=EmxlJzsAAAAJ">Google Scholar</a>
+<span class="link-list__note">— publications & citations</span>      </li>
+      <li>
+        <a href="https://www.ipz.uzh.ch/en/people/employees/cohenr.html">University of Zürich</a>
+<span class="link-list__note">— current affiliation</span>      </li>
+      <li>
+        <a href="https://as.vanderbilt.edu/political-science/job-market-candidates/">Vanderbilt</a>
+<span class="link-list__note">— job-market profile</span>      </li>
+      <li>
+        <a href="https://www.linkedin.com/in/colin-henry-2ab02281/">LinkedIn</a>
+<span class="link-list__note">— professional network</span>      </li>
+      <li>
+        <a href="https://bsky.app/profile/henryhenryhenry.com">Bluesky</a>
+<span class="link-list__note">— @henryhenryhenry.com</span>      </li>
+      <li>
+        <a href="https://mas.to/@cmhenry_">Mastodon</a>
+<span class="link-list__note">— @cmhenry_@mas.to</span>      </li>
     </ul>
   </section>
+  <hr class="rule">
 
-  <!-- Contact -->
-  <section id="contact" class="card card--contact">
-    <h2 class="card__title">
-      <span data-era-text='{"1994":"Contact","2024":"contact"}'>contact</span>
-    </h2>
-    <p>
-      <span data-era-text='{"1994":"Send e-mail to the address below.","2024":"researchers, search committees, curious visitors &mdash; say hi."}'>researchers, search committees, curious visitors — say hi.</span>
-    </p>
-    <p class="card__cta">
-      <a class="btn" href="mailto:colinmhenry@pm.me">
-        <span data-era-text='{"1994":"colinmhenry@pm.me","2024":"colinmhenry@pm.me ↗"}'>colinmhenry@pm.me ↗</span>
-      </a>
-      <a class="btn btn--alt" href="https://docs.google.com/forms/d/e/1FAIpQLScTH9FbAKMMvOslABnOmxcOYxzodMIHaZgGxhdjcRlCymZpmQ/viewform?usp=header" target="_blank" rel="noopener">
-        <span data-era-text='{"1994":"[ Guestbook ]","2024":"guestbook ↗"}'>guestbook ↗</span>
-      </a>
-    </p>
+  <section id="contact" class="section">
+    <h2 class="section__title"><span class="section__mark">§</span> contact</h2>
+    <p>researchers, search committees, curious visitors — say hi.</p>
+    <p><a class="link-cta" href="mailto:colinmhenry@pm.me">colinmhenry@pm.me →</a></p>
   </section>
 
-  <!-- Footer -->
-  <footer class="foot">
-    <p class="foot__updated">Last updated April 29, 2026</p>
-    <p class="foot__note">
-      <span data-era-text='{"1994":"This page best viewed with NCSA Mosaic 1.0 at 640x480.","2024":"html + css. no trackers."}'>html + css. no trackers.</span>
+  <hr class="rule rule--thick">
+
+  <footer class="colophon">
+    <p>
+      <span>set in charter &amp; jetbrains mono.</span>
+      <span>html + css.</span>
+      <span>no trackers.</span>
+      <span>no javascript.</span>
     </p>
+    <p>last build 2026-05-10.</p>
   </footer>
 
-</div>
-
-<!-- Subtle era-toggle: a single corner link. Low-opacity until hover/focus.
-     Also reachable via keyboard shortcut `T` (for "time travel"). -->
-<button
-  id="era-hint"
-  class="era-hint"
-  type="button"
-  title="Toggle era (shortcut: T)"
-  aria-label="Toggle between 1994 and 2024 designs">
-  <span data-era-text='{"1994":"[ view as 2024 ]","2024":"view as 1994 ↗"}'>view as 1994 ↗</span>
-</button>
-
-<script src="app.js"></script>
+</main>
 </body>
 </html>
