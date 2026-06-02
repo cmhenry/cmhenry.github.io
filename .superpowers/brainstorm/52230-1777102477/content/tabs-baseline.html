@@ -1,0 +1,50 @@
+<h2>Tab strip — baseline proposal</h2>
+<p class="subtitle">Same DOM structure across both eras; CSS rewrites the look. Showing the dissertation card area only — header/nav/etc. omitted for focus.</p>
+
+<div class="split">
+
+  <!-- ============ 1994 ============ -->
+  <div class="mockup">
+    <div class="mockup-header">data-era="1994" — Mosaic-style</div>
+    <div class="mockup-body" style="background:#c0c0c0;color:#000;font-family:'Times New Roman',Times,serif;padding:1rem 1.2rem;border-top:1px solid #808080;">
+      <h3 style="font-family:'Times New Roman',serif;font-weight:bold;font-size:1.5em;margin:0 0 0.5em;color:#000;">Projects</h3>
+      <p style="margin:0 0 0.6em;font-style:italic;font-size:0.95em;">Jump to: <a style="color:#0000ee;text-decoration:underline;" href="#">Dissertation</a> | <a style="color:#0000ee;text-decoration:underline;" href="#">SNSF Improving Public Discourse</a> | <a style="color:#0000ee;text-decoration:underline;" href="#">VIRENA</a></p>
+      <hr style="border:0;border-top:1px solid #808080;margin:0.6em 0;">
+      <p style="margin:0 0 0.6em;"><b>&gt; Dissertation</b></p>
+      <p style="margin:0 0 0.5em;"><b>Title.</b> "Governance, Competition, &amp; Extremism: How the Structure of Social Media Platforms Radicalizes Communities"</p>
+      <p style="margin:0 0 0.5em;"><b>Core argument.</b> Platform governance structures create competitive dynamics between communities that systematically drive radicalization.</p>
+      <p style="margin:0 0 0.5em;"><b>Methods.</b> Multi-platform analysis, transformer models, network analysis, digital ethnography.</p>
+      <p style="margin:0 0 0.5em;"><b>Advised by.</b> Jennifer Larson (co-chair), Cassy Dorff (co-chair), Emily Ritter, Anita Gohdes.</p>
+      <p style="margin:0.6em 0 0;">[ <a style="color:#0000ee;text-decoration:underline;" href="#">Job Market Paper</a> ]</p>
+    </div>
+  </div>
+
+  <!-- ============ 2024 ============ -->
+  <div class="mockup">
+    <div class="mockup-header">data-era="2024" — brutalist-mono</div>
+    <div class="mockup-body" style="background:#fafaf7;color:#111;font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace;font-size:14.5px;line-height:1.55;padding:1.5rem;border-top:2px solid #111;">
+      <div style="display:grid;grid-template-columns:180px 1fr;gap:1.5rem;">
+        <div style="font-size:0.8rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:#111;padding-top:0.1rem;">projects</div>
+        <div>
+          <!-- tab strip -->
+          <div role="tablist" style="display:flex;gap:0;border-bottom:2px solid #111;margin-bottom:1.2rem;flex-wrap:wrap;">
+            <button style="background:#111;color:#fafaf7;border:0;padding:0.55em 1em;font:inherit;font-size:0.78rem;text-transform:uppercase;letter-spacing:0.06em;cursor:pointer;">dissertation</button>
+            <button style="background:transparent;color:#111;border:0;border-left:1px solid #111;padding:0.55em 1em;font:inherit;font-size:0.78rem;text-transform:uppercase;letter-spacing:0.06em;cursor:pointer;">snsf · public discourse</button>
+            <button style="background:transparent;color:#111;border:0;border-left:1px solid #111;padding:0.55em 1em;font:inherit;font-size:0.78rem;text-transform:uppercase;letter-spacing:0.06em;cursor:pointer;">virena</button>
+          </div>
+          <!-- panel -->
+          <div style="font-family:'IBM Plex Sans',sans-serif;font-size:1rem;max-width:62ch;border-left:4px solid #ff5c1f;padding-left:1rem;">
+            <p style="margin:0 0 0.9em;"><strong>Title.</strong> "Governance, Competition, &amp; Extremism: How the Structure of Social Media Platforms Radicalizes Communities"</p>
+            <p style="margin:0 0 0.9em;"><strong>Core argument.</strong> Platform governance structures create competitive dynamics between communities that systematically drive radicalization.</p>
+            <p style="margin:0 0 0.9em;"><strong>Methods.</strong> Multi-platform analysis, transformer models, network analysis, digital ethnography.</p>
+            <p style="margin:0 0 0.9em;"><strong>Advised by.</strong> Jennifer Larson (co-chair), Cassy Dorff (co-chair), Emily Ritter, Anita Gohdes.</p>
+            <p style="margin-top:1rem;"><a style="display:inline-block;padding:0.55em 1em;border:2px solid #111;background:#111;color:#fafaf7;text-decoration:none;font-family:'IBM Plex Mono',monospace;font-size:0.85rem;letter-spacing:0.04em;" href="#">job-market-paper.pdf ↗</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<p class="subtitle" style="margin-top:1.5rem;">In both eras the underlying DOM is identical: a list of project tabs and a sequence of project panels. Era CSS decides whether they render as horizontal tabs (2024) or as a "Jump to" link strip with anchored sub-sections (1994). One panel is visible at a time in 2024; in 1994 they all stack like normal sections.</p>

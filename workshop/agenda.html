@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Agenda — AI as a Research Tool</title>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/dist/reveal.min.css">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jersey+10&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --black: #000;
+    --white: #fff;
+    --accent: #0028A5;
+    --accent-light: #BACBFF;
+  }
+
+  .reveal { font-family: Geneva, Verdana, sans-serif; color: var(--black); }
+  .reveal .slides { text-align: left; }
+  .reveal .slides section { padding: 0 !important; height: 100%; }
+
+  .reveal .slides section.present,
+  .reveal .slides section {
+    background-color: var(--white);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='2' height='2'%3E%3Crect width='1' height='1' fill='black'/%3E%3Crect x='1' y='1' width='1' height='1' fill='black'/%3E%3C/svg%3E");
+    background-size: 2px 2px;
+    image-rendering: pixelated;
+  }
+
+  .menubar {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 22px;
+    background: var(--white);
+    border-bottom: 1px solid var(--black);
+    display: flex;
+    align-items: center;
+    padding: 0 8px;
+    font-family: 'Jersey 10', Geneva, Verdana, sans-serif;
+    font-size: 19px;
+    letter-spacing: 0.5px;
+    z-index: 10;
+  }
+  .menubar .apple {
+    width: 14px; height: 16px;
+    margin-right: 14px;
+    display: inline-flex; align-items: center;
+    text-decoration: none; color: inherit;
+  }
+  .menubar .apple:hover { background: var(--accent); color: var(--white); }
+  .menubar .menu-item {
+    padding: 1px 10px;
+    cursor: default;
+    user-select: none;
+    line-height: 18px;
+  }
+  .menubar .menu-item:hover { background: var(--accent); color: var(--white); }
+  .menubar .clock {
+    margin-left: auto;
+    padding: 1px 4px;
+    font-variant-numeric: tabular-nums;
+    line-height: 18px;
+  }
+
+  .window {
+    position: absolute;
+    top: 42px;
+    left: 22px;
+    right: 22px;
+    bottom: 22px;
+    background: var(--white);
+    border: 1px solid var(--black);
+    box-shadow: 3px 3px 0 var(--black);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .titlebar {
+    height: 26px;
+    border-bottom: 1px solid var(--black);
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    background:
+      repeating-linear-gradient(
+        to bottom,
+        var(--accent) 0,
+        var(--accent) 1px,
+        var(--white) 1px,
+        var(--white) 3px
+      );
+    position: relative;
+    flex-shrink: 0;
+    font-family: 'Jersey 10', Geneva, Verdana, sans-serif;
+    font-size: 22px;
+    letter-spacing: 0.5px;
+    line-height: 24px;
+  }
+  .close-box {
+    display: inline-block;
+    width: 13px;
+    height: 13px;
+    background: var(--white);
+    border: 1px solid var(--black);
+    flex-shrink: 0;
+    cursor: pointer;
+    text-decoration: none;
+    padding: 0;
+  }
+  .close-box:hover  { background: var(--accent-light); }
+  .close-box:active { background: var(--accent); }
+  .close-box:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 1px;
+  }
+  .titlebar > span.title-text {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--white);
+    padding: 0 14px;
+  }
+
+  .body {
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .body.text-body {
+    padding: 50px 64px;
+  }
+  .body.text-body h1 {
+    font-family: 'Jersey 10', Geneva, Verdana, sans-serif;
+    font-size: 64px;
+    letter-spacing: 0.5px;
+    line-height: 1;
+    margin-bottom: 30px;
+    color: var(--black);
+  }
+  .body.text-body h2 {
+    font-family: 'Jersey 10', Geneva, Verdana, sans-serif;
+    font-size: 40px;
+    letter-spacing: 0.5px;
+    line-height: 1;
+    margin: 24px 0 14px;
+    color: var(--accent);
+  }
+  .body.text-body p,
+  .body.text-body li {
+    font-size: 30px;
+    line-height: 1.45;
+  }
+  .body.text-body ul {
+    list-style: none;
+    padding-left: 0;
+  }
+  .body.text-body ul li {
+    padding-left: 28px;
+    position: relative;
+    margin-bottom: 14px;
+  }
+  .body.text-body ul li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    top: 2px;
+    color: var(--accent);
+    font-size: 22px;
+  }
+  .body.text-body strong { font-weight: bold; }
+  .body.text-body em { font-style: italic; }
+  .body.text-body a { color: var(--accent); text-decoration: underline; }
+
+  .body.image-body {
+    padding: 36px 64px 28px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+  }
+  .body.image-body .image-slot {
+    flex: 1;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 0;
+  }
+  .body.image-body .image-slot img,
+  .body.image-body .image-slot svg {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    display: block;
+  }
+  .body.image-body .caption {
+    font-size: 22px;
+    font-style: italic;
+    text-align: center;
+    color: #333;
+    flex-shrink: 0;
+  }
+
+  .body.two-col-body {
+    padding: 44px 56px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: stretch;
+  }
+  .body.two-col-body .col-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .body.two-col-body .col-text h2 {
+    font-family: 'Jersey 10', Geneva, Verdana, sans-serif;
+    font-size: 42px;
+    letter-spacing: 0.5px;
+    line-height: 1;
+    margin-bottom: 16px;
+    color: var(--accent);
+  }
+  .body.two-col-body .col-text p,
+  .body.two-col-body .col-text li {
+    font-size: 26px;
+    line-height: 1.45;
+  }
+  .body.two-col-body .col-text ul {
+    list-style: none;
+    padding-left: 0;
+  }
+  .body.two-col-body .col-text ul li {
+    padding-left: 24px;
+    position: relative;
+    margin-bottom: 12px;
+  }
+  .body.two-col-body .col-text ul li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: var(--accent);
+    font-size: 20px;
+  }
+  .body.two-col-body .col-image {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+  }
+  .body.two-col-body .col-image .image-slot {
+    flex: 1;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 0;
+  }
+  .body.two-col-body .col-image .image-slot img,
+  .body.two-col-body .col-image .image-slot svg {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    display: block;
+  }
+  .body.two-col-body .col-image .caption {
+    font-size: 18px;
+    font-style: italic;
+    text-align: center;
+    color: #333;
+    flex-shrink: 0;
+  }
+
+  .body.title-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 48px 64px;
+    gap: 18px;
+  }
+  .body.title-body .pretitle {
+    font-family: 'Jersey 10', Geneva, Verdana, sans-serif;
+    font-size: 28px;
+    color: var(--accent);
+    letter-spacing: 1px;
+  }
+  .body.title-body .big-title {
+    font-family: 'Jersey 10', Geneva, Verdana, sans-serif;
+    font-size: 128px;
+    line-height: 0.95;
+    letter-spacing: 0.5px;
+    color: var(--black);
+    margin: 0;
+  }
+  .body.title-body .subtitle {
+    font-size: 26px;
+    color: #333;
+    margin-top: 12px;
+    font-style: italic;
+  }
+  .body.title-body .meta-line {
+    font-size: 22px;
+    margin-top: 36px;
+    color: var(--black);
+  }
+  .body.title-body .hint {
+    font-family: 'Jersey 10', Geneva, Verdana, sans-serif;
+    font-size: 20px;
+    color: var(--accent);
+    margin-top: 28px;
+    letter-spacing: 0.5px;
+  }
+
+  .image-placeholder {
+    width: 100%; height: 100%;
+    border: 1px dashed var(--black);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Jersey 10', Geneva, Verdana, sans-serif;
+    font-size: 22px;
+    color: #666;
+    background:
+      repeating-linear-gradient(
+        45deg,
+        transparent 0, transparent 10px,
+        rgba(0,0,0,0.04) 10px, rgba(0,0,0,0.04) 20px
+      );
+  }
+
+  .reveal .progress { display: none; }
+  .reveal .slide-number {
+    font-family: 'Jersey 10', Geneva, Verdana, sans-serif;
+    font-size: 16px;
+    background: var(--white);
+    color: var(--black);
+    border: 1px solid var(--black);
+    padding: 2px 8px 0;
+    bottom: 12px;
+    right: 12px;
+  }
+
+  @media print {
+    .reveal .slides section { background-color: var(--white) !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="reveal">
+  <div class="slides">
+
+    <!-- TITLE -->
+    <section class="title-slide">
+      <div class="window">
+        <div class="titlebar">
+          <span class="title-text">Agenda</span>
+        </div>
+        <div class="body title-body">
+          <div class="pretitle">MODULE 01</div>
+          <h1 class="big-title">Agenda</h1>
+          <div class="subtitle">AI as a Research Tool · University of Zürich · 2026</div>
+          <div class="meta-line">Institut für Politikwissenschaft · Staff Workshop · Colin Henry</div>
+          <div class="hint">Press → to begin</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHY WE'RE HERE -->
+    <section class="text-slide">
+      <div class="window">
+        <div class="titlebar">
+          <span class="title-text">Why we're here</span>
+        </div>
+        <div class="body text-body">
+          <h1>The temptation to automate</h1>
+          <ul>
+            <li>Hype cycle promises end-to-end research agents.</li>
+            <li>AI tools are mostly built for software engineers not social scientists.</li>
+            <li>Their defaults reward <strong>speed</strong>; our defaults (should) reward <strong>rigor</strong>.</li>
+            <li>This workshop is designed to put <em>human judgement</em> at the center.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- GOALS -->
+    <section class="text-slide">
+      <div class="window">
+        <div class="titlebar">
+          <span class="title-text">Goals</span>
+        </div>
+        <div class="body text-body">
+          <h1>Three goals for today</h1>
+          <ul>
+            <li><strong>Recognize assumptions baked into tools.</strong></li>
+            <li><strong>Evaluate tools, workflows, and output.</strong> Demand traceability, auditability, and reproducibility.</li>
+            <li><strong>Configure and use tools practically.</strong> Skills that transfer beyond any single model or app.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- HUMAN IN THE LOOP -->
+    <section class="text-slide">
+      <div class="window">
+        <div class="titlebar">
+          <span class="title-text">Posture</span>
+        </div>
+        <div class="body text-body">
+          <h1>Healthy skepticism, human in the loop</h1>
+          <ul>
+            <li>Treat every output as a draft, not an answer.</li>
+            <li>The most valuable thing you bring is <strong>judgement</strong>.</li>
+            <li>If you can't audit a step, you can't (or shouldn't) publish it.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ADOPTION GAP — by discipline -->
+    <section class="image-slide">
+      <div class="window">
+        <div class="titlebar">
+          <span class="title-text">The adoption gap</span>
+        </div>
+        <div class="body image-body">
+          <div class="image-slot">
+            <img src="images/adoption_by_discipline.png" alt="Coding agent adoption by discipline">
+          </div>
+          <div class="caption">Adoption by discipline. Source: Anthropic (2026).</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ADOPTION GAP — by career stage -->
+    <section class="image-slide">
+      <div class="window">
+        <div class="titlebar">
+          <span class="title-text">The adoption gap</span>
+        </div>
+        <div class="body image-body">
+          <div class="image-slot">
+            <img src="images/adoption_by_career_stage.png" alt="Coding agent adoption by career stage">
+          </div>
+          <div class="caption">Adoption by career stage. Source: Anthropic (2026).</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ADOPTION GAP — by type -->
+    <section class="image-slide">
+      <div class="window">
+        <div class="titlebar">
+          <span class="title-text">The adoption gap</span>
+        </div>
+        <div class="body image-body">
+          <div class="image-slot">
+            <img src="images/adoption_by_type.png" alt="Coding agent adoption by researcher type">
+          </div>
+          <div class="caption">Adoption by researcher and institution type. Source: Anthropic (2026).</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TODAY'S AGENDA -->
+    <section class="text-slide">
+      <div class="window">
+        <div class="titlebar">
+          <span class="title-text">Today</span>
+        </div>
+        <div class="body text-body">
+          <h1>What we'll do</h1>
+          <ul>
+            <li><strong>Framing.</strong> ML concepts, vocabulary, applications.</li>
+            <li><strong>Epsitemology.</strong> Software development vs. research values.</li>
+            <li><strong>Tour.</strong> Models, chatbots, agents, harnesses, tools, skills, MCP.</li>
+            <li><strong>Tasks.</strong> Literature review · synthetic peer review · scheduled jobs.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/dist/reveal.min.js"></script>
+
+<script>
+  const MODULE_NAME       = "Agenda";
+  const WORKSHOP_HOME_URL = "./index.html";
+
+  const MENUBAR_HTML = `
+    <div class="menubar">
+      <a class="apple" href="${WORKSHOP_HOME_URL}" title="Back to workshop home" aria-label="Back to workshop home">
+        <svg viewBox="0 0 14 16" width="14" height="16" fill="currentColor" aria-hidden="true">
+          <path d="M10.2 0c-.9.1-1.9.7-2.5 1.5-.5.7-1 1.7-.8 2.7 1 0 2-.6 2.6-1.4.6-.8 1-1.8.7-2.8zM12.4 5.4c-1.4-.1-2.5.8-3.2.8-.7 0-1.7-.8-2.8-.8-1.4 0-2.7.8-3.5 2.2-1.5 2.6-.4 6.4 1 8.5.7 1 1.5 2.2 2.6 2.1 1 0 1.4-.7 2.7-.7 1.3 0 1.6.7 2.7.6 1.1 0 1.8-1 2.5-2 .6-.8 1.1-1.7 1.3-2.7-2.6-1-3.1-4.7-.4-6 .1 0-1.4-2-2.9-2z" transform="scale(0.85) translate(0, 0)"/>
+        </svg>
+      </a>
+      <span class="menu-item">File</span>
+      <span class="menu-item">Edit</span>
+      <span class="menu-item">View</span>
+      <span class="menu-item">Special</span>
+      <span class="clock">Mon 12:00 PM</span>
+    </div>
+  `;
+
+  document.querySelectorAll('.slides > section').forEach(slide => {
+    if (slide.querySelector('.menubar')) return;
+    const tmp = document.createElement('template');
+    tmp.innerHTML = MENUBAR_HTML.trim();
+    slide.insertBefore(tmp.content.firstChild, slide.firstChild);
+  });
+
+  document.querySelectorAll('.titlebar').forEach(tb => {
+    if (tb.querySelector('.close-box')) return;
+    const closeLink = document.createElement('a');
+    closeLink.className = 'close-box';
+    closeLink.href = WORKSHOP_HOME_URL;
+    closeLink.title = 'Close — back to workshop home';
+    closeLink.setAttribute('aria-label', 'Close — back to workshop home');
+    tb.insertBefore(closeLink, tb.firstChild);
+  });
+
+  function updateClocks() {
+    const now = new Date();
+    const days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+    const day = days[now.getDay()];
+    let h = now.getHours();
+    const m = now.getMinutes().toString().padStart(2, '0');
+    const ampm = h >= 12 ? 'PM' : 'AM';
+    h = h % 12 || 12;
+    const text = `${day} ${h}:${m} ${ampm}`;
+    document.querySelectorAll('.clock').forEach(el => { el.textContent = text; });
+  }
+  updateClocks();
+  setInterval(updateClocks, 5000);
+
+  Reveal.initialize({
+    width:        1280,
+    height:       720,
+    margin:       0,
+    minScale:     0.2,
+    maxScale:     2.0,
+    controls:     false,
+    progress:     false,
+    slideNumber:  'c/t',
+    hash:         true,
+    transition:   'none',
+    center:       false,
+    keyboard:     true,
+    overview:     true
+  });
+</script>
+
+</body>
+</html>

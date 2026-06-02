@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>What kind of tools are out there? — AI as a Research Tool</title>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/dist/reveal.min.css">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jersey+10&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --black: #000;
+    --white: #fff;
+    --accent: #0028A5;
+    --accent-light: #BACBFF;
+  }
+
+  .reveal { font-family: Geneva, Verdana, sans-serif; color: var(--black); }
+  .reveal .slides { text-align: left; }
+  .reveal .slides section { padding: 0 !important; height: 100%; }
+
+  .reveal .slides section.present,
+  .reveal .slides section {
+    background-color: var(--white);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='2' height='2'%3E%3Crect width='1' height='1' fill='black'/%3E%3Crect x='1' y='1' width='1' height='1' fill='black'/%3E%3C/svg%3E");
+    background-size: 2px 2px;
+    image-rendering: pixelated;
+  }
+
+  .menubar {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 22px;
+    background: var(--white);
+    border-bottom: 1px solid var(--black);
+    display: flex;
+    align-items: center;
+    padding: 0 8px;
+    font-family: 'Jersey 10', Geneva, Verdana, sans-serif;
+    font-size: 19px;
+    letter-spacing: 0.5px;
+    z-index: 10;
+  }
+  .menubar .apple {
+    width: 14px; height: 16px;
+    margin-right: 14px;
+    display: inline-flex; align-items: center;
+    text-decoration: none; color: inherit;
+  }
+  .menubar .apple:hover { background: var(--accent); color: var(--white); }
+  .menubar .menu-item {
+    padding: 1px 10px;
+    cursor: default;
+    user-select: none;
+    line-height: 18px;
+  }
+  .menubar .menu-item:hover { background: var(--accent); color: var(--white); }
+  .menubar .clock {
+    margin-left: auto;
+    padding: 1px 4px;
+    font-variant-numeric: tabular-nums;
+    line-height: 18px;
+  }
+
+  .window {
+    position: absolute;
+    top: 42px;
+    left: 22px;
+    right: 22px;
+    bottom: 22px;
+    background: var(--white);
+    border: 1px solid var(--black);
+    box-shadow: 3px 3px 0 var(--black);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .titlebar {
+    height: 26px;
+    border-bottom: 1px solid var(--black);
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    background:
+      repeating-linear-gradient(
+        to bottom,
+        var(--accent) 0,
+        var(--accent) 1px,
+        var(--white) 1px,
+        var(--white) 3px
+      );
+    position: relative;
+    flex-shrink: 0;
+    font-family: 'Jersey 10', Geneva, Verdana, sans-serif;
+    font-size: 22px;
+    letter-spacing: 0.5px;
+    line-height: 24px;
+  }
+  .close-box {
+    display: inline-block;
+    width: 13px;
+    height: 13px;
+    background: var(--white);
+    border: 1px solid var(--black);
+    flex-shrink: 0;
+    cursor: pointer;
+    text-decoration: none;
+    padding: 0;
+  }
+  .close-box:hover  { background: var(--accent-light); }
+  .close-box:active { background: var(--accent); }
+  .close-box:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 1px;
+  }
+  .titlebar > span.title-text {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--white);
+    padding: 0 14px;
+  }
+
+  .body {
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .body.text-body {
+    padding: 50px 64px;
+  }
+  .body.text-body h1 {
+    font-family: 'Jersey 10', Geneva, Verdana, sans-serif;
+    font-size: 64px;
+    letter-spacing: 0.5px;
+    line-height: 1;
+    margin-bottom: 30px;
+    color: var(--black);
+  }
+  .body.text-body h2 {
+    font-family: 'Jersey 10', Geneva, Verdana, sans-serif;
+    font-size: 40px;
+    letter-spacing: 0.5px;
+    line-height: 1;
+    margin: 24px 0 14px;
+    color: var(--accent);
+  }
+  .body.text-body p,
+  .body.text-body li {
+    font-size: 30px;
+    line-height: 1.45;
+  }
+  .body.text-body ul {
+    list-style: none;
+    padding-left: 0;
+  }
+  .body.text-body ul li {
+    padding-left: 28px;
+    position: relative;
+    margin-bottom: 14px;
+  }
+  .body.text-body ul li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    top: 2px;
+    color: var(--accent);
+    font-size: 22px;
+  }
+  .body.text-body strong { font-weight: bold; }
+  .body.text-body em { font-style: italic; }
+  .body.text-body a { color: var(--accent); text-decoration: underline; }
+
+  .body.image-body {
+    padding: 36px 64px 28px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+  }
+  .body.image-body .image-slot {
+    flex: 1;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 0;
+  }
+  .body.image-body .image-slot img,
+  .body.image-body .image-slot svg {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    display: block;
+  }
+  .body.image-body .caption {
+    font-size: 22px;
+    font-style: italic;
+    text-align: center;
+    color: #333;
+    flex-shrink: 0;
+  }
+
+  .body.two-col-body {
+    padding: 44px 56px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: stretch;
+  }
+  .body.two-col-body .col-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .body.two-col-body .col-text h2 {
+    font-family: 'Jersey 10', Geneva, Verdana, sans-serif;
+    font-size: 42px;
+    letter-spacing: 0.5px;
+    line-height: 1;
+    margin-bottom: 16px;
+    color: var(--accent);
+  }
+  .body.two-col-body .col-text p,
+  .body.two-col-body .col-text li {
+    font-size: 26px;
+    line-height: 1.45;
+  }
+  .body.two-col-body .col-text ul {
+    list-style: none;
+    padding-left: 0;
+  }
+  .body.two-col-body .col-text ul li {
+    padding-left: 24px;
+    position: relative;
+    margin-bottom: 12px;
+  }
+  .body.two-col-body .col-text ul li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: var(--accent);
+    font-size: 20px;
+  }
+  .body.two-col-body .col-image {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+  }
+  .body.two-col-body .col-image .image-slot {
+    flex: 1;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 0;
+  }
+  .body.two-col-body .col-image .image-slot img,
+  .body.two-col-body .col-image .image-slot svg {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    display: block;
+  }
+  .body.two-col-body .col-image .caption {
+    font-size: 18px;
+    font-style: italic;
+    text-align: center;
+    color: #333;
+    flex-shrink: 0;
+  }
+
+  .body.title-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 48px 64px;
+    gap: 18px;
+  }
+  .body.title-body .pretitle {
+    font-family: 'Jersey 10', Geneva, Verdana, sans-serif;
+    font-size: 28px;
+    color: var(--accent);
+    letter-spacing: 1px;
+  }
+  .body.title-body .big-title {
+    font-family: 'Jersey 10', Geneva, Verdana, sans-serif;
+    font-size: 128px;
+    line-height: 0.95;
+    letter-spacing: 0.5px;
+    color: var(--black);
+    margin: 0;
+  }
+  .body.title-body .subtitle {
+    font-size: 26px;
+    color: #333;
+    margin-top: 12px;
+    font-style: italic;
+  }
+  .body.title-body .meta-line {
+    font-size: 22px;
+    margin-top: 36px;
+    color: var(--black);
+  }
+  .body.title-body .hint {
+    font-family: 'Jersey 10', Geneva, Verdana, sans-serif;
+    font-size: 20px;
+    color: var(--accent);
+    margin-top: 28px;
+    letter-spacing: 0.5px;
+  }
+
+  .image-placeholder {
+    width: 100%; height: 100%;
+    border: 1px dashed var(--black);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Jersey 10', Geneva, Verdana, sans-serif;
+    font-size: 22px;
+    color: #666;
+    background:
+      repeating-linear-gradient(
+        45deg,
+        transparent 0, transparent 10px,
+        rgba(0,0,0,0.04) 10px, rgba(0,0,0,0.04) 20px
+      );
+  }
+
+  .reveal .progress { display: none; }
+  .reveal .slide-number {
+    font-family: 'Jersey 10', Geneva, Verdana, sans-serif;
+    font-size: 16px;
+    background: var(--white);
+    color: var(--black);
+    border: 1px solid var(--black);
+    padding: 2px 8px 0;
+    bottom: 12px;
+    right: 12px;
+  }
+
+  @media print {
+    .reveal .slides section { background-color: var(--white) !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="reveal">
+  <div class="slides">
+
+    <!-- TITLE -->
+    <section class="title-slide">
+      <div class="window">
+        <div class="titlebar">
+          <span class="title-text">Tools</span>
+        </div>
+        <div class="body title-body">
+          <div class="pretitle">MODULE 04</div>
+          <h1 class="big-title">What's out there?</h1>
+          <div class="subtitle">A short field guide to the tools you'll meet this year.</div>
+          <div class="meta-line">AI as a Research Tool · University of Zürich · 2026</div>
+          <div class="hint">Press → to begin</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- THE LANDSCAPE -->
+    <section class="text-slide">
+      <div class="window">
+        <div class="titlebar">
+          <span class="title-text">The landscape</span>
+        </div>
+        <div class="body text-body">
+          <h1>Three shapes of tool</h1>
+          <ul>
+            <li><strong>Desktop apps</strong> — chat windows, with extras bolted on.</li>
+            <li><strong>Harnesses</strong> — a terminal where the model can read and write your files.</li>
+            <li><strong>Agentic systems</strong> — you give a goal, walk away, come back later.</li>
+            <li>Same underlying models. Very different workflows.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHAT DIFFERS -->
+    <section class="text-slide">
+      <div class="window">
+        <div class="titlebar">
+          <span class="title-text">What actually differs</span>
+        </div>
+        <div class="body text-body">
+          <h1>Three axes</h1>
+          <ul>
+            <li><strong>Autonomy</strong> — how many steps it takes without you.</li>
+            <li><strong>Access</strong> — what it can read, write, and run.</li>
+            <li><strong>Latency</strong> — seconds, minutes, or hours to a result.</li>
+            <li>Pick the tool by which axis your task lives on.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         CATEGORY 1 · DESKTOP APPS
+         ============================================================ -->
+
+    <!-- DESKTOP OPENER -->
+    <section class="title-slide">
+      <div class="window">
+        <div class="titlebar">
+          <span class="title-text">Category 1</span>
+        </div>
+        <div class="body title-body">
+          <div class="pretitle">PART 1 OF 3</div>
+          <h1 class="big-title">Desktop apps</h1>
+          <div class="subtitle">The chat window — and what's been bolted onto it.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CHAT + PROJECTS -->
+    <section class="text-slide">
+      <div class="window">
+        <div class="titlebar">
+          <span class="title-text">Chat + Projects</span>
+        </div>
+        <div class="body text-body">
+          <h1>The familiar one</h1>
+          <ul>
+            <li>One conversation. You type, it answers. No file access.</li>
+            <li><strong>Projects</strong> add persistent instructions and a small file store.</li>
+            <li>Good for: drafting, brainstorming, one-off questions, reading a PDF you pasted in.</li>
+            <li>Limit: every session starts cold. The model doesn't touch your machine.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- COWORK -->
+    <section class="text-slide">
+      <div class="window">
+        <div class="titlebar">
+          <span class="title-text">Cowork</span>
+        </div>
+        <div class="body text-body">
+          <h1>Chat, plus your folder</h1>
+          <ul>
+            <li>Same chat interface — but pointed at a folder on your disk.</li>
+            <li>The model can <strong>read, write, and edit files</strong> there. It runs code in a sandbox.</li>
+            <li>Connectors plug in: Gmail, Slack, Drive, Obsidian, whatever has an MCP server.</li>
+            <li>Good for: anything where the answer is a <em>file</em>, not a message.</li>
+            <li>This is what we're running right now.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCHEDULED + DISPATCH -->
+    <section class="text-slide">
+      <div class="window">
+        <div class="titlebar">
+          <span class="title-text">Scheduled · Dispatch</span>
+        </div>
+        <div class="body text-body">
+          <h1>Chat without you in the chair</h1>
+          <ul>
+            <li><strong>Scheduled tasks</strong> — run a prompt on a cron. "Every Monday, summarize my inbox."</li>
+            <li><strong>Dispatch</strong> — fire off a long job in the background, come back to the result.</li>
+            <li>Same desktop app. The conversation just doesn't need you in it.</li>
+            <li>Useful when the work is recurring or slow, not when you're iterating.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         CATEGORY 2 · HARNESSES
+         ============================================================ -->
+
+    <!-- HARNESS OPENER -->
+    <section class="title-slide">
+      <div class="window">
+        <div class="titlebar">
+          <span class="title-text">Category 2</span>
+        </div>
+        <div class="body title-body">
+          <div class="pretitle">PART 2 OF 3</div>
+          <h1 class="big-title">Harnesses</h1>
+          <div class="subtitle">The model, in your terminal, with your tools.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHAT IS A HARNESS -->
+    <section class="text-slide">
+      <div class="window">
+        <div class="titlebar">
+          <span class="title-text">What's a harness?</span>
+        </div>
+        <div class="body text-body">
+          <h1>A loop, not a chat</h1>
+          <ul>
+            <li>A CLI program that runs an <strong>agentic loop</strong>: think → act → observe → repeat.</li>
+            <li>"Act" means: edit files, run shells, call APIs, search the web.</li>
+            <li>You watch the loop. You can interrupt, redirect, or approve each step.</li>
+            <li>Born for coding, but works for any task that lives in files.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- CLAUDE CODE -->
+    <section class="text-slide">
+      <div class="window">
+        <div class="titlebar">
+          <span class="title-text">Claude Code</span>
+        </div>
+        <div class="body text-body">
+          <h1>Anthropic's harness</h1>
+          <ul>
+            <li>Terminal app. Lives in a directory. Reads and writes its files.</li>
+            <li>Tools: bash, file edits, web fetch, subagents, MCP connectors, skills.</li>
+            <li>You can stop it, branch it, run several in parallel on different worktrees.</li>
+            <li>Same engine as Cowork — different surface. The CLI gives you more control and visibility into the loop.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- CODEX -->
+    <section class="text-slide">
+      <div class="window">
+        <div class="titlebar">
+          <span class="title-text">Codex</span>
+        </div>
+        <div class="body text-body">
+          <h1>OpenAI's harness</h1>
+          <ul>
+            <li>Same shape as Claude Code: terminal, files, agentic loop.</li>
+            <li>Powered by OpenAI's models. Different defaults, different feel.</li>
+            <li>Useful when you want a second opinion from a different model family.</li>
+            <li>The interfaces are converging — skills transfer between them.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- OPEN SOURCE HARNESSES -->
+    <section class="text-slide">
+      <div class="window">
+        <div class="titlebar">
+          <span class="title-text">Open source harnesses</span>
+        </div>
+        <div class="body text-body">
+          <h1>aider, opencode, Cline, and friends</h1>
+          <ul>
+            <li>Community-built CLIs you point at any model API.</li>
+            <li>Bring-your-own-key: Claude, GPT, Gemini, or a local open-weight model.</li>
+            <li>Less polish, more control. Audit the loop. Swap the model.</li>
+            <li>Right choice if you need to run on local weights — privacy, cost, reproducibility.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         CATEGORY 3 · AGENTIC SYSTEMS
+         ============================================================ -->
+
+    <!-- AGENT OPENER -->
+    <section class="title-slide">
+      <div class="window">
+        <div class="titlebar">
+          <span class="title-text">Category 3</span>
+        </div>
+        <div class="body title-body">
+          <div class="pretitle">PART 3 OF 3</div>
+          <h1 class="big-title">Agentic systems</h1>
+          <div class="subtitle">Hand off a goal. Come back to a result.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHAT IS AN AGENTIC SYSTEM -->
+    <section class="text-slide">
+      <div class="window">
+        <div class="titlebar">
+          <span class="title-text">What's an agentic system?</span>
+        </div>
+        <div class="body text-body">
+          <h1>Long horizon. No human in the loop.</h1>
+          <ul>
+            <li>Same agentic loop as a harness — but runs in the cloud, for hours.</li>
+            <li>You set the goal, it plans, executes, recovers, and reports back.</li>
+            <li>Often has a browser, a virtual machine, and broad tool access.</li>
+            <li>You're not watching it work. You're reviewing what it did.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- THE PLAYERS -->
+    <section class="text-slide">
+      <div class="window">
+        <div class="titlebar">
+          <span class="title-text">The players</span>
+        </div>
+        <div class="body text-body">
+          <h1>Three to know</h1>
+          <ul>
+            <li><strong>OpenClaw</strong> — Anthropic's autonomous agent. Browser + VM + long-running tasks.</li>
+            <li><strong>Hermes</strong> — independent agentic system. Same shape, different stack.</li>
+            <li><strong>Gemini Spark</strong> — Google's. Tight integration with Workspace and Search.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHEN TO REACH FOR ONE -->
+    <section class="text-slide">
+      <div class="window">
+        <div class="titlebar">
+          <span class="title-text">When to reach for one</span>
+        </div>
+        <div class="body text-body">
+          <h1>The task fits the shape</h1>
+          <ul>
+            <li>Multi-hour work you've fully scoped (not exploration).</li>
+            <li>Steps you could write down, but don't want to babysit.</li>
+            <li>You can verify the output afterwards without re-doing the work.</li>
+            <li>Bad fit: anything where the right answer requires your judgement mid-flight.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         RECAP
+         ============================================================ -->
+
+    <!-- PICKING ONE -->
+    <section class="text-slide">
+      <div class="window">
+        <div class="titlebar">
+          <span class="title-text">Picking one</span>
+        </div>
+        <div class="body text-body">
+          <h1>Match the tool to the task</h1>
+          <ul>
+            <li><strong>Thinking with words?</strong> Chat window.</li>
+            <li><strong>Producing a file?</strong> Cowork.</li>
+            <li><strong>Editing a codebase or running scripts?</strong> A harness.</li>
+            <li><strong>Recurring or scheduled?</strong> Scheduled tasks.</li>
+            <li><strong>Long-horizon, fully delegated?</strong> An agentic system.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- CLOSING -->
+    <section class="text-slide">
+      <div class="window">
+        <div class="titlebar">
+          <span class="title-text">What we'll use today</span>
+        </div>
+        <div class="body text-body">
+          <h1>From here on, mostly one of them</h1>
+          <ul>
+            <li><strong>Cowork</strong>: for the literature review and synthetic peer review.</li>
+            <li>Everything else on this map: in your back pocket for the next time you need it.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/dist/reveal.min.js"></script>
+
+<script>
+  const MODULE_NAME       = "Tools";
+  const WORKSHOP_HOME_URL = "./index.html";
+
+  const MENUBAR_HTML = `
+    <div class="menubar">
+      <a class="apple" href="${WORKSHOP_HOME_URL}" title="Back to workshop home" aria-label="Back to workshop home">
+        <svg viewBox="0 0 14 16" width="14" height="16" fill="currentColor" aria-hidden="true">
+          <path d="M10.2 0c-.9.1-1.9.7-2.5 1.5-.5.7-1 1.7-.8 2.7 1 0 2-.6 2.6-1.4.6-.8 1-1.8.7-2.8zM12.4 5.4c-1.4-.1-2.5.8-3.2.8-.7 0-1.7-.8-2.8-.8-1.4 0-2.7.8-3.5 2.2-1.5 2.6-.4 6.4 1 8.5.7 1 1.5 2.2 2.6 2.1 1 0 1.4-.7 2.7-.7 1.3 0 1.6.7 2.7.6 1.1 0 1.8-1 2.5-2 .6-.8 1.1-1.7 1.3-2.7-2.6-1-3.1-4.7-.4-6 .1 0-1.4-2-2.9-2z" transform="scale(0.85) translate(0, 0)"/>
+        </svg>
+      </a>
+      <span class="menu-item">File</span>
+      <span class="menu-item">Edit</span>
+      <span class="menu-item">View</span>
+      <span class="menu-item">Special</span>
+      <span class="clock">Mon 12:00 PM</span>
+    </div>
+  `;
+
+  document.querySelectorAll('.slides > section').forEach(slide => {
+    if (slide.querySelector('.menubar')) return;
+    const tmp = document.createElement('template');
+    tmp.innerHTML = MENUBAR_HTML.trim();
+    slide.insertBefore(tmp.content.firstChild, slide.firstChild);
+  });
+
+  document.querySelectorAll('.titlebar').forEach(tb => {
+    if (tb.querySelector('.close-box')) return;
+    const closeLink = document.createElement('a');
+    closeLink.className = 'close-box';
+    closeLink.href = WORKSHOP_HOME_URL;
+    closeLink.title = 'Close — back to workshop home';
+    closeLink.setAttribute('aria-label', 'Close — back to workshop home');
+    tb.insertBefore(closeLink, tb.firstChild);
+  });
+
+  function updateClocks() {
+    const now = new Date();
+    const days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+    const day = days[now.getDay()];
+    let h = now.getHours();
+    const m = now.getMinutes().toString().padStart(2, '0');
+    const ampm = h >= 12 ? 'PM' : 'AM';
+    h = h % 12 || 12;
+    const text = `${day} ${h}:${m} ${ampm}`;
+    document.querySelectorAll('.clock').forEach(el => { el.textContent = text; });
+  }
+  updateClocks();
+  setInterval(updateClocks, 5000);
+
+  Reveal.initialize({
+    width:        1280,
+    height:       720,
+    margin:       0,
+    minScale:     0.2,
+    maxScale:     2.0,
+    controls:     false,
+    progress:     false,
+    slideNumber:  'c/t',
+    hash:         true,
+    transition:   'none',
+    center:       false,
+    keyboard:     true,
+    overview:     true
+  });
+</script>
+
+</body>
+</html>
