@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Workshop — AI as a Research Tool</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jersey+10&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #000;
+    --white: #fff;
+    --accent: #0028A5;        /* UZH primary blue */
+    --accent-light: #BACBFF;  /* UZH light blue (reserve for future use) */
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { height: 100%; }
+  body {
+    min-height: 100%;
+    font-family: Geneva, Verdana, sans-serif;
+    color: var(--black);
+    background-color: var(--white);
+    /* 50% dither — classic System 7 desktop pattern */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='2' height='2'%3E%3Crect width='1' height='1' fill='black'/%3E%3Crect x='1' y='1' width='1' height='1' fill='black'/%3E%3C/svg%3E");
+    background-size: 2px 2px;
+    image-rendering: pixelated;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+  }
+
+  /* ===== MENU BAR ===== */
+  .menubar {
+    background: var(--white);
+    border-bottom: 1px solid var(--black);
+    height: 22px;
+    display: flex;
+    align-items: center;
+    padding: 0 8px;
+    font-family: 'Jersey 10', Geneva, Verdana, sans-serif;
+    font-size: 19px;
+    letter-spacing: 0.5px;
+    flex-shrink: 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .menubar .apple {
+    width: 14px; height: 16px;
+    margin-right: 14px;
+    display: inline-flex;
+    align-items: center;
+  }
+  .menubar .menu-item {
+    padding: 1px 10px;
+    cursor: default;
+    user-select: none;
+    line-height: 18px;
+  }
+  .menubar .menu-item:hover { background: var(--accent); color: var(--white); }
+  .menubar .clock {
+    margin-left: auto;
+    padding: 1px 4px;
+    font-variant-numeric: tabular-nums;
+    line-height: 18px;
+  }
+
+  /* ===== DESKTOP ===== */
+  .desktop {
+    flex: 1;
+    position: relative;
+    min-height: calc(100vh - 22px);
+  }
+
+  /* ===== FOLDER GRID ===== */
+  .folder-grid {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: grid;
+    grid-template-columns: repeat(3, 130px);
+    grid-template-rows: repeat(2, 130px);
+    column-gap: 56px;
+    row-gap: 40px;
+  }
+
+  .folder {
+    width: 130px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+    text-decoration: none;
+    color: inherit;
+  }
+  .folder svg.folder-ico {
+    width: 64px;
+    height: 56px;
+    display: block;
+    margin-bottom: 6px;
+    shape-rendering: crispEdges;
+  }
+  .folder .label {
+    background: var(--white);
+    padding: 2px 7px 1px;
+    font-family: 'Jersey 10', Geneva, Verdana, sans-serif;
+    font-size: 22px;
+    letter-spacing: 0.5px;
+    text-align: center;
+    line-height: 1;
+    border: 1px solid transparent;
+  }
+  .folder:hover .label,
+  .folder:focus-visible .label {
+    background: var(--accent);
+    color: var(--white);
+    outline: none;
+  }
+
+  /* ===== HARD DRIVE (top right) ===== */
+  .hard-drive {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+  }
+  .hard-drive svg { width: 58px; height: 44px; shape-rendering: crispEdges; }
+  .hard-drive .label {
+    background: var(--white);
+    padding: 2px 6px 1px;
+    font-family: 'Jersey 10', Geneva, Verdana, sans-serif;
+    font-size: 18px;
+    margin-top: 4px;
+    letter-spacing: 0.5px;
+  }
+  .hard-drive:hover .label { background: var(--accent); color: var(--white); }
+
+  /* ===== TRASH (bottom right) ===== */
+  .trash {
+    position: absolute;
+    bottom: 24px;
+    right: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    user-select: none;
+  }
+  .trash svg { width: 46px; height: 56px; shape-rendering: crispEdges; }
+  .trash .label {
+    background: var(--white);
+    padding: 2px 6px 1px;
+    font-family: 'Jersey 10', Geneva, Verdana, sans-serif;
+    font-size: 18px;
+    margin-top: 4px;
+    letter-spacing: 0.5px;
+  }
+
+  /* ===== WINDOW ===== */
+  .window-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+  }
+  .window-overlay.open { display: flex; pointer-events: auto; }
+  .window {
+    width: min(640px, 92vw);
+    max-height: min(80vh, 720px);
+    background: var(--white);
+    border: 1px solid var(--black);
+    box-shadow: 1px 1px 0 var(--black), 2px 2px 0 var(--black);
+    display: flex;
+    flex-direction: column;
+    animation: winOpen 0.12s ease-out;
+  }
+  @keyframes winOpen {
+    from { transform: scale(0.96); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+  .window-titlebar {
+    height: 20px;
+    border-bottom: 1px solid var(--black);
+    display: flex;
+    align-items: center;
+    padding: 0 6px;
+    background:
+      repeating-linear-gradient(
+        to bottom,
+        var(--accent) 0,
+        var(--accent) 1px,
+        var(--white) 1px,
+        var(--white) 3px
+      );
+    position: relative;
+    flex-shrink: 0;
+  }
+  .close-box {
+    width: 11px;
+    height: 11px;
+    background: var(--white);
+    border: 1px solid var(--black);
+    cursor: pointer;
+    flex-shrink: 0;
+    padding: 0;
+  }
+  .close-box:active { background: var(--accent); }
+  .window-title {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--white);
+    padding: 0 12px;
+    font-family: 'Jersey 10', Geneva, Verdana, sans-serif;
+    font-size: 19px;
+    letter-spacing: 0.5px;
+    line-height: 18px;
+  }
+  .window-body {
+    padding: 22px 26px 26px;
+    overflow-y: auto;
+    font-size: 14px;
+    line-height: 1.55;
+  }
+  .window-body h2 {
+    font-family: 'Jersey 10', Geneva, Verdana, sans-serif;
+    font-size: 32px;
+    margin-bottom: 4px;
+    letter-spacing: 0.5px;
+    line-height: 1;
+  }
+  .window-body .subhead {
+    font-size: 13px;
+    color: #333;
+    margin-bottom: 22px;
+    font-style: italic;
+  }
+  .window-body h3 {
+    font-family: 'Jersey 10', Geneva, Verdana, sans-serif;
+    font-size: 20px;
+    margin: 20px 0 6px;
+    border-bottom: 1px solid var(--black);
+    padding-bottom: 2px;
+    letter-spacing: 0.5px;
+  }
+  .window-body ul {
+    list-style: none;
+    padding-left: 0;
+  }
+  .window-body li {
+    padding: 3px 0 3px 16px;
+    position: relative;
+  }
+  .window-body li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    top: 3px;
+    font-size: 11px;
+    color: var(--accent);
+  }
+  .window-body a {
+    color: var(--accent);
+    text-decoration: underline;
+  }
+  .window-body a:hover {
+    background: var(--accent);
+    color: var(--white);
+    text-decoration: none;
+  }
+  .present-btn {
+    display: inline-block;
+    margin-top: 22px;
+    padding: 6px 16px 4px;
+    background: var(--white);
+    border: 1px solid var(--accent);
+    box-shadow: 2px 2px 0 var(--accent);
+    font-family: 'Jersey 10', Geneva, Verdana, sans-serif;
+    font-size: 20px;
+    text-decoration: none;
+    color: var(--accent);
+    cursor: pointer;
+    letter-spacing: 0.5px;
+  }
+  .present-btn:hover { background: var(--accent); color: var(--white); }
+  .present-btn:active {
+    box-shadow: none;
+    transform: translate(2px, 2px);
+  }
+
+  /* ===== MOBILE FALLBACK ===== */
+  @media (max-width: 560px) {
+    .folder-grid {
+      grid-template-columns: repeat(2, 130px);
+      grid-template-rows: repeat(3, 130px);
+    }
+    .hard-drive, .trash { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== MENU BAR ===== -->
+<div class="menubar">
+  <span class="apple" aria-hidden="true">
+    <svg viewBox="0 0 14 16" width="14" height="16" fill="currentColor">
+      <path d="M10.2 0c-.9.1-1.9.7-2.5 1.5-.5.7-1 1.7-.8 2.7 1 0 2-.6 2.6-1.4.6-.8 1-1.8.7-2.8zM12.4 5.4c-1.4-.1-2.5.8-3.2.8-.7 0-1.7-.8-2.8-.8-1.4 0-2.7.8-3.5 2.2-1.5 2.6-.4 6.4 1 8.5.7 1 1.5 2.2 2.6 2.1 1 0 1.4-.7 2.7-.7 1.3 0 1.6.7 2.7.6 1.1 0 1.8-1 2.5-2 .6-.8 1.1-1.7 1.3-2.7-2.6-1-3.1-4.7-.4-6 .1 0-1.4-2-2.9-2z" transform="scale(0.85) translate(0, 0)"/>
+    </svg>
+  </span>
+  <span class="menu-item">File</span>
+  <span class="menu-item">Edit</span>
+  <span class="menu-item">View</span>
+  <span class="menu-item">Special</span>
+  <span class="clock" id="clock">Mon 12:00 PM</span>
+</div>
+
+<!-- ===== DESKTOP ===== -->
+<div class="desktop">
+
+  <!-- Hard drive -->
+  <div class="hard-drive" data-folder="meta" tabindex="0">
+    <svg viewBox="0 0 58 44" fill="white" stroke="black" stroke-width="1.5">
+      <rect x="1.5" y="1.5" width="55" height="41" fill="white"/>
+      <rect x="5" y="5" width="48" height="22" fill="white"/>
+      <line x1="5" y1="32" x2="53" y2="32" stroke="black" stroke-width="1"/>
+      <circle cx="48" cy="37" r="1.4" fill="black" stroke="none"/>
+      <line x1="9" y1="37" x2="40" y2="37" stroke="black" stroke-width="1"/>
+    </svg>
+    <div class="label">Workshop HD</div>
+  </div>
+
+  <!-- Folder grid -->
+  <div class="folder-grid">
+
+    <a href="#" class="folder" data-folder="agenda">
+      <svg class="folder-ico" viewBox="0 0 64 56" fill="white" stroke="black" stroke-width="1.5">
+        <path d="M2 10 L24 10 L30 16 L62 16 L62 52 L2 52 Z"/>
+        <path d="M2 22 L62 22" fill="none"/>
+      </svg>
+      <div class="label">Welcome, agenda, and goals</div>
+    </a>
+
+    <a href="#" class="folder" data-folder="framing">
+      <svg class="folder-ico" viewBox="0 0 64 56" fill="white" stroke="black" stroke-width="1.5">
+        <path d="M2 10 L24 10 L30 16 L62 16 L62 52 L2 52 Z"/>
+        <path d="M2 22 L62 22" fill="none"/>
+      </svg>
+      <div class="label">Framing: What is "AI"?</div>
+    </a>
+
+    <a href="#" class="folder" data-folder="ethics">
+      <svg class="folder-ico" viewBox="0 0 64 56" fill="white" stroke="black" stroke-width="1.5">
+        <path d="M2 10 L24 10 L30 16 L62 16 L62 52 L2 52 Z"/>
+        <path d="M2 22 L62 22" fill="none"/>
+      </svg>
+      <div class="label">Software vs. research</div>
+    </a>
+
+    <a href="#" class="folder" data-folder="demo">
+      <svg class="folder-ico" viewBox="0 0 64 56" fill="white" stroke="black" stroke-width="1.5">
+        <path d="M2 10 L24 10 L30 16 L62 16 L62 52 L2 52 Z"/>
+        <path d="M2 22 L62 22" fill="none"/>
+      </svg>
+      <div class="label">What kind of tools are out there?</div>
+    </a>
+
+    <a href="#" class="folder" data-folder="tools">
+      <svg class="folder-ico" viewBox="0 0 64 56" fill="white" stroke="black" stroke-width="1.5">
+        <path d="M2 10 L24 10 L30 16 L62 16 L62 52 L2 52 Z"/>
+        <path d="M2 22 L62 22" fill="none"/>
+      </svg>
+      <div class="label">Task: Literature review</div>
+    </a>
+
+    <a href="#" class="folder" data-folder="exercise">
+      <svg class="folder-ico" viewBox="0 0 64 56" fill="white" stroke="black" stroke-width="1.5">
+        <path d="M2 10 L24 10 L30 16 L62 16 L62 52 L2 52 Z"/>
+        <path d="M2 22 L62 22" fill="none"/>
+      </svg>
+      <div class="label">Task: Synthetic peer review</div>
+    </a>
+
+    <!-- <a href="#" class="folder" data-folder="exercise-2">
+      <svg class="folder-ico" viewBox="0 0 64 56" fill="white" stroke="black" stroke-width="1.5">
+        <path d="M2 10 L24 10 L30 16 L62 16 L62 52 L2 52 Z"/>
+        <path d="M2 22 L62 22" fill="none"/>
+      </svg>
+      <div class="label">Task: Project management</div>
+    </a> -->
+
+  </div>
+
+  <!-- Trash -->
+  <div class="trash">
+    <svg viewBox="0 0 46 56" fill="white" stroke="black" stroke-width="1.5">
+      <rect x="4" y="14" width="38" height="38" fill="white"/>
+      <line x1="11" y1="20" x2="11" y2="46" stroke="black"/>
+      <line x1="17" y1="20" x2="17" y2="46" stroke="black"/>
+      <line x1="23" y1="20" x2="23" y2="46" stroke="black"/>
+      <line x1="29" y1="20" x2="29" y2="46" stroke="black"/>
+      <line x1="35" y1="20" x2="35" y2="46" stroke="black"/>
+      <rect x="1" y="8" width="44" height="6" fill="white"/>
+      <rect x="18" y="4" width="10" height="4" fill="white"/>
+    </svg>
+    <div class="label">Trash</div>
+  </div>
+
+</div>
+
+<!-- ===== WINDOW OVERLAY ===== -->
+<div class="window-overlay" id="overlay" aria-hidden="true">
+  <div class="window" id="window" role="dialog" aria-labelledby="window-title">
+    <div class="window-titlebar">
+      <button class="close-box" id="close-box" aria-label="Close window"></button>
+      <div class="window-title" id="window-title">Untitled</div>
+    </div>
+    <div class="window-body" id="window-body"></div>
+  </div>
+</div>
+
+<script>
+  // ===== LIVE CLOCK =====
+  const clockEl = document.getElementById('clock');
+  function updateClock() {
+    const now = new Date();
+    const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    const day = days[now.getDay()];
+    let h = now.getHours();
+    const m = now.getMinutes().toString().padStart(2, '0');
+    const ampm = h >= 12 ? 'PM' : 'AM';
+    h = h % 12 || 12;
+    clockEl.textContent = `${day} ${h}:${m} ${ampm}`;
+  }
+  updateClock();
+  setInterval(updateClock, 5000);
+
+  // ===== MODULE CONTENT =====
+  // All copy below is placeholder — easy to edit in one place.
+  const modules = {
+    agenda: {
+      title: 'Agenda',
+      subhead: 'What we\'ll cover, and why.',
+      sections: [
+        { h: 'Goals', items: [
+          'Recognize the assumptions AI tools inherit from software engineering.',
+          'Evaluate tools and workflows for traceability, auditability, and reproducibility.',
+          'Use tools practically — skills that transfer beyond any single product.'
+        ]},
+        { h: 'Schedule', items: [
+          'Framing — ML concepts, vocabulary, applications',
+          'Epistemes — software development vs. research values',
+          'Tour — models, chatbots, agents, harnesses, tools, skills, MCP',
+          'Task — literature review (OpenAlex retrieval, citation veracity, synthesis)',
+          'Task — synthetic peer review of a draft'
+        ]},
+        { h: 'Resources', items: [
+          '<a href="https://www.anthropic.com/research/coding-agents-social-sciences" target="_blank" rel="noopener">Anthropic — Coding agents in the social sciences (2026)</a>',
+          '<a href="https://philpapers.org/rec/GUEATU" target="_blank" rel="noopener">Against the uncritical adoption of AI technologies in academia</a>',
+          '<a href="https://preprints.apsanet.org/engage/apsa/article-details/69fa36c0810b9dcc82ce1a60" target="_blank" rel="noopener">AI and research methods (APSA preprint)</a>'
+        ]},
+        { h: 'Setup notes', items: [
+          '<a href="https://www.anthropic.com/learn/build-with-claude" target="_blank" rel="noopener">Anthropic — Build with Claude (docs)</a>'
+        ]}
+      ],
+      slides: 'agenda.html'
+    },
+    framing: {
+      title: 'Framing: What is "AI"?',
+      subhead: 'A quick and dirty vocabulary for the next three hours.',
+      sections: [
+        { h: 'What we\'ll cover', items: [
+          'Tokens, transformers, and where they fit in the ML family',
+          'Three stages of training: pre-train, mid-train, post-train',
+          'RLHF — and why instruction-tuned models always optimize toward a local maximum',
+          'Knowledge cutoff, in-context learning, prompts and roles',
+          'Reasoning and chain of thought'
+        ]},
+        { h: 'Further reading', items: [
+          '<a href="https://www.youtube.com/watch?v=zjkBMFhNj_g" target="_blank" rel="noopener">Andrej Karpathy — Intro to Large Language Models (1hr video)</a>',
+          '<a href="https://www.3blue1brown.com/lessons/gpt/" target="_blank" rel="noopener">3Blue1Brown — But what is a GPT? (visual)</a>',
+          '<a href="https://www.3blue1brown.com/lessons/attention/" target="_blank" rel="noopener">3Blue1Brown — Attention in transformers, step-by-step</a>',
+          '<a href="https://arxiv.org/abs/2603.19269" target="_blank" rel="noopener">From Tokens to Agents: A Researcher\'s Guide to LLMs</a>'
+        ]}
+      ],
+      slides: 'framing.html'
+    },
+    ethics: {
+      title: 'Software vs. Research',
+      subhead: 'The paradigm your tools were built in is not the one you publish in.',
+      sections: [
+        { h: 'What we\'ll cover', items: [
+          'LLM tools are software products — they inherit a worldview',
+          '25 years of software practice: Agile, MVP, abstraction, "ships and works"',
+          'The mismatch: convenience vs. epistemic accountability',
+          'Where it bites: confident prose, hidden provenance, premature "done"',
+          'Four criteria for research-grade use: traceability, auditability, reproducibility, transparency'
+        ]},
+        { h: 'Further reading', items: [
+          '<a href="https://the.natureof.software/introduction" target="_blank" rel="noopener">Dorian Taylor — The Nature of Software (introduction)</a>',
+          '<a href="https://philpapers.org/rec/GUEATU" target="_blank" rel="noopener">Against the uncritical adoption of AI technologies in academia</a>',
+          '<a href="https://preprints.apsanet.org/engage/apsa/article-details/69fa36c0810b9dcc82ce1a60" target="_blank" rel="noopener">AI and research methods (APSA preprint)</a>'
+        ]}
+      ],
+      slides: 'software-vs-research.html'
+    },
+    demo: {
+      title: 'What kind of tools are out there?',
+      subhead: 'A short field guide to the AI tool landscape.',
+      sections: [
+        { h: 'What we\'ll cover', items: [
+          'Three shapes of tool: desktop apps, harnesses, agentic systems',
+          'Three axes that distinguish them: autonomy, access, latency',
+          'When each one is the right shape — and when it isn\'t'
+        ]},
+        { h: 'Desktop apps', items: [
+          'Chat + Projects — the familiar chat window',
+          'Cowork — chat bound to a folder on your disk',
+          'Scheduled tasks — cron for prompts',
+          'Dispatch — fire-and-forget background jobs'
+        ]},
+        { h: 'Harnesses', items: [
+          '<a href="https://www.anthropic.com/claude-code" target="_blank" rel="noopener">Claude Code</a> — Anthropic\'s CLI agentic loop',
+          '<a href="https://github.com/openai/codex" target="_blank" rel="noopener">Codex</a> — OpenAI\'s equivalent',
+          'Open source: <a href="https://aider.chat" target="_blank" rel="noopener">aider</a>, <a href="https://github.com/cline/cline" target="_blank" rel="noopener">Cline</a>, opencode — bring-your-own-model'
+        ]},
+        { h: 'Agentic systems', items: [
+          'OpenClaw — Anthropic\'s autonomous agent',
+          'Hermes — independent agentic system (not affiliated with the big labs)',
+          'Gemini Spark — Google\'s, integrated with Workspace'
+        ]}
+      ],
+      slides: 'tools-landscape.html'
+    },
+    tools: {
+      title: 'Task: Literature Review',
+      subhead: 'From a naive prompt to a reproducible workflow.',
+      sections: [
+        { h: 'What we\'ll do', items: [
+          'Pass 0 — fail naively with a chatbot prompt',
+          'Pass 1 — add a custom OpenAlex skill',
+          'Pass 2 — scope to canonical journals',
+          'Pass 3 — add a canonical author watch-list',
+          'Take home — repeat for your own subfield'
+        ]},
+        { h: 'Materials', items: [
+          '<a href="https://openalex.org" target="_blank" rel="noopener">OpenAlex — open scholarly index</a>',
+          '<a href="https://openalex.org/settings/api" target="_blank" rel="noopener">Get a free OpenAlex API key</a>',
+          '<a href="https://developers.openalex.org/guides/authentication" target="_blank" rel="noopener">OpenAlex auth & pricing docs</a>',
+          '<a href="openalex-lit-review.md" target="_blank" rel="noopener">Sample skill — <code>openalex-lit-review.md</code></a>',
+          '<a href="content-moderation-sources.md" target="_blank" rel="noopener">Sample canonical doc — <code>content-moderation-sources.md</code></a>'
+        ]},
+        { h: 'Running example', items: [
+          'Topic: content moderation, past 6 months',
+          'Journals: Journal of Politics, Nature Communications, Political Communication',
+          'Authors: Karsten Donnay, Fabrizio Gilardi'
+        ]}
+      ],
+      slides: 'literature-review.html'
+    },
+    exercise: {
+      title: 'Task: Synthetic Peer Review',
+      subhead: 'Writing a complex skill that critiques your draft.',
+      sections: [
+        { h: 'What we\'ll do', items: [
+          'Pass 0 — naive prompt, get a praise sandwich',
+          'Pass 1 — write a reviewer skill (role + rubric)',
+          'Pass 2 — split into methodology + writing specialists',
+          'Pass 3 — orchestrator that dispatches both in parallel',
+          'Build a Red/Yellow/Green quality gate that can say <em>revise</em>',
+          'Validate: run on a paper you know to spot false/missed Reds'
+        ]},
+        { h: 'Materials', items: [
+          'A draft of your own (or a working paper you\'ve read closely)',
+          'Sample skill: <code>peer-review/SKILL.md</code> (orchestrator)',
+          'Sample agents: <code>review-methodology.md</code> + <code>review-writing.md</code>'
+        ]},
+        { h: 'Further reading', items: [
+          '<a href="https://github.com/chrisblattman/claudeblattman/tree/main/skills" target="_blank" rel="noopener">Chris Blattman — claudeblattman skills repo</a>',
+          '<a href="https://github.com/chrisblattman/claudeblattman/blob/main/skills/review-plan.md" target="_blank" rel="noopener">review-plan.md — the orchestrator we crib from</a>',
+          '<a href="https://github.com/chrisblattman/claudeblattman/blob/main/agents/review-methodology.md" target="_blank" rel="noopener">review-methodology.md — the methods critic</a>',
+          '<a href="https://github.com/chrisblattman/claudeblattman/blob/main/agents/review-writing.md" target="_blank" rel="noopener">review-writing.md — the writing critic</a>',
+          '<a href="https://claude.com/docs/skills/how-to" target="_blank" rel="noopener">Claude Docs — how to install skills (write, upload, browse)</a>',
+          '<a href="https://docs.claude.com/en/docs/agents-and-tools/agent-skills/overview" target="_blank" rel="noopener">Anthropic — Agent Skills overview</a>',
+          '<a href="https://www.anthropic.com/news/skills" target="_blank" rel="noopener">Anthropic — Equipping agents with Skills</a>'
+        ]},
+        { h: 'Async take-home (~45 min)', items: [
+          'Pick a draft. Run Pass 0 in chat. Save the output.',
+          'Write <code>peer-review/SKILL.md</code> — start from Blattman\'s <code>review-plan.md</code>.',
+          'Split into methodology + writing specialists. Run the orchestrator.',
+          'Compare passes: which Red did the skill catch that you\'d missed?'
+        ]}
+      ],
+      slides: 'synthetic-peer-review.html'
+    },
+    meta: {
+      title: 'Workshop HD',
+      subhead: 'About this site.',
+      sections: [
+        { h: 'About', items: [
+          'AI as a Research Tool — a two-hour workshop for political scientists.',
+          'Built for the University of Zurich.',
+          'Presenter and audience navigate from this page in parallel.'
+        ]}
+      ],
+      slides: null
+    }
+  };
+
+  // ===== WINDOW OPEN/CLOSE =====
+  const overlay  = document.getElementById('overlay');
+  const winTitle = document.getElementById('window-title');
+  const winBody  = document.getElementById('window-body');
+  const closeBox = document.getElementById('close-box');
+
+  function escapeForAttribute(str) {
+    return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+
+  function openModule(key) {
+    const m = modules[key];
+    if (!m) return;
+    winTitle.textContent = m.title;
+    let html = `<h2>${escapeForAttribute(m.title)}</h2><div class="subhead">${m.subhead}</div>`;
+    for (const sec of m.sections) {
+      html += `<h3>${sec.h}</h3><ul>`;
+      for (const li of sec.items) html += `<li>${li}</li>`;
+      html += `</ul>`;
+    }
+    if (m.slides) {
+      html += `<a class="present-btn" href="${m.slides}" target="_blank" rel="noopener">Open presentation ▸</a>`;
+    }
+    winBody.innerHTML = html;
+    winBody.scrollTop = 0;
+    overlay.classList.add('open');
+    overlay.setAttribute('aria-hidden', 'false');
+  }
+  function closeWindow() {
+    overlay.classList.remove('open');
+    overlay.setAttribute('aria-hidden', 'true');
+  }
+
+  document.querySelectorAll('[data-folder]').forEach(el => {
+    el.addEventListener('click', (e) => {
+      e.preventDefault();
+      openModule(el.dataset.folder);
+    });
+    el.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        openModule(el.dataset.folder);
+      }
+    });
+  });
+  closeBox.addEventListener('click', closeWindow);
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) closeWindow();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeWindow();
+  });
+</script>
+
+</body>
+</html>

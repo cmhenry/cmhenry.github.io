@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Software vs. Research — AI as a Research Tool</title>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/dist/reveal.min.css">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jersey+10&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --black: #000;
+    --white: #fff;
+    --accent: #0028A5;
+    --accent-light: #BACBFF;
+  }
+
+  .reveal { font-family: Geneva, Verdana, sans-serif; color: var(--black); }
+  .reveal .slides { text-align: left; }
+  .reveal .slides section { padding: 0 !important; height: 100%; }
+
+  .reveal .slides section.present,
+  .reveal .slides section {
+    background-color: var(--white);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='2' height='2'%3E%3Crect width='1' height='1' fill='black'/%3E%3Crect x='1' y='1' width='1' height='1' fill='black'/%3E%3C/svg%3E");
+    background-size: 2px 2px;
+    image-rendering: pixelated;
+  }
+
+  .menubar {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 22px;
+    background: var(--white);
+    border-bottom: 1px solid var(--black);
+    display: flex;
+    align-items: center;
+    padding: 0 8px;
+    font-family: 'Jersey 10', Geneva, Verdana, sans-serif;
+    font-size: 19px;
+    letter-spacing: 0.5px;
+    z-index: 10;
+  }
+  .menubar .apple {
+    width: 14px; height: 16px;
+    margin-right: 14px;
+    display: inline-flex; align-items: center;
+    text-decoration: none; color: inherit;
+  }
+  .menubar .apple:hover { background: var(--accent); color: var(--white); }
+  .menubar .menu-item {
+    padding: 1px 10px;
+    cursor: default;
+    user-select: none;
+    line-height: 18px;
+  }
+  .menubar .menu-item:hover { background: var(--accent); color: var(--white); }
+  .menubar .clock {
+    margin-left: auto;
+    padding: 1px 4px;
+    font-variant-numeric: tabular-nums;
+    line-height: 18px;
+  }
+
+  .window {
+    position: absolute;
+    top: 42px;
+    left: 22px;
+    right: 22px;
+    bottom: 22px;
+    background: var(--white);
+    border: 1px solid var(--black);
+    box-shadow: 3px 3px 0 var(--black);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .titlebar {
+    height: 26px;
+    border-bottom: 1px solid var(--black);
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    background:
+      repeating-linear-gradient(
+        to bottom,
+        var(--accent) 0,
+        var(--accent) 1px,
+        var(--white) 1px,
+        var(--white) 3px
+      );
+    position: relative;
+    flex-shrink: 0;
+    font-family: 'Jersey 10', Geneva, Verdana, sans-serif;
+    font-size: 22px;
+    letter-spacing: 0.5px;
+    line-height: 24px;
+  }
+  .close-box {
+    display: inline-block;
+    width: 13px;
+    height: 13px;
+    background: var(--white);
+    border: 1px solid var(--black);
+    flex-shrink: 0;
+    cursor: pointer;
+    text-decoration: none;
+    padding: 0;
+  }
+  .close-box:hover  { background: var(--accent-light); }
+  .close-box:active { background: var(--accent); }
+  .close-box:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 1px;
+  }
+  .titlebar > span.title-text {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--white);
+    padding: 0 14px;
+  }
+
+  .body {
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .body.text-body {
+    padding: 50px 64px;
+  }
+  .body.text-body h1 {
+    font-family: 'Jersey 10', Geneva, Verdana, sans-serif;
+    font-size: 64px;
+    letter-spacing: 0.5px;
+    line-height: 1;
+    margin-bottom: 30px;
+    color: var(--black);
+  }
+  .body.text-body h2 {
+    font-family: 'Jersey 10', Geneva, Verdana, sans-serif;
+    font-size: 40px;
+    letter-spacing: 0.5px;
+    line-height: 1;
+    margin: 24px 0 14px;
+    color: var(--accent);
+  }
+  .body.text-body p,
+  .body.text-body li {
+    font-size: 30px;
+    line-height: 1.45;
+  }
+  .body.text-body ul {
+    list-style: none;
+    padding-left: 0;
+  }
+  .body.text-body ul li {
+    padding-left: 28px;
+    position: relative;
+    margin-bottom: 14px;
+  }
+  .body.text-body ul li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    top: 2px;
+    color: var(--accent);
+    font-size: 22px;
+  }
+  .body.text-body strong { font-weight: bold; }
+  .body.text-body em { font-style: italic; }
+  .body.text-body a { color: var(--accent); text-decoration: underline; }
+
+  .body.image-body {
+    padding: 36px 64px 28px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+  }
+  .body.image-body .image-slot {
+    flex: 1;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 0;
+  }
+  .body.image-body .image-slot img,
+  .body.image-body .image-slot svg {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    display: block;
+  }
+  .body.image-body .caption {
+    font-size: 22px;
+    font-style: italic;
+    text-align: center;
+    color: #333;
+    flex-shrink: 0;
+  }
+
+  .body.two-col-body {
+    padding: 44px 56px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: stretch;
+  }
+  .body.two-col-body .col-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .body.two-col-body .col-text h2 {
+    font-family: 'Jersey 10', Geneva, Verdana, sans-serif;
+    font-size: 42px;
+    letter-spacing: 0.5px;
+    line-height: 1;
+    margin-bottom: 16px;
+    color: var(--accent);
+  }
+  .body.two-col-body .col-text p,
+  .body.two-col-body .col-text li {
+    font-size: 26px;
+    line-height: 1.45;
+  }
+  .body.two-col-body .col-text ul {
+    list-style: none;
+    padding-left: 0;
+  }
+  .body.two-col-body .col-text ul li {
+    padding-left: 24px;
+    position: relative;
+    margin-bottom: 12px;
+  }
+  .body.two-col-body .col-text ul li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: var(--accent);
+    font-size: 20px;
+  }
+  .body.two-col-body .col-image {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+  }
+  .body.two-col-body .col-image .image-slot {
+    flex: 1;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 0;
+  }
+  .body.two-col-body .col-image .image-slot img,
+  .body.two-col-body .col-image .image-slot svg {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    display: block;
+  }
+  .body.two-col-body .col-image .caption {
+    font-size: 18px;
+    font-style: italic;
+    text-align: center;
+    color: #333;
+    flex-shrink: 0;
+  }
+
+  .body.title-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 48px 64px;
+    gap: 18px;
+  }
+  .body.title-body .pretitle {
+    font-family: 'Jersey 10', Geneva, Verdana, sans-serif;
+    font-size: 28px;
+    color: var(--accent);
+    letter-spacing: 1px;
+  }
+  .body.title-body .big-title {
+    font-family: 'Jersey 10', Geneva, Verdana, sans-serif;
+    font-size: 128px;
+    line-height: 0.95;
+    letter-spacing: 0.5px;
+    color: var(--black);
+    margin: 0;
+  }
+  .body.title-body .subtitle {
+    font-size: 26px;
+    color: #333;
+    margin-top: 12px;
+    font-style: italic;
+  }
+  .body.title-body .meta-line {
+    font-size: 22px;
+    margin-top: 36px;
+    color: var(--black);
+  }
+  .body.title-body .hint {
+    font-family: 'Jersey 10', Geneva, Verdana, sans-serif;
+    font-size: 20px;
+    color: var(--accent);
+    margin-top: 28px;
+    letter-spacing: 0.5px;
+  }
+
+  .image-placeholder {
+    width: 100%; height: 100%;
+    border: 1px dashed var(--black);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 12px;
+    font-family: 'Jersey 10', Geneva, Verdana, sans-serif;
+    font-size: 20px;
+    color: #666;
+    background:
+      repeating-linear-gradient(
+        45deg,
+        transparent 0, transparent 10px,
+        rgba(0,0,0,0.04) 10px, rgba(0,0,0,0.04) 20px
+      );
+  }
+
+  /* Comparison table — used on the side-by-side mismatch slide */
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 24px;
+    line-height: 1.3;
+  }
+  .compare-table th {
+    font-family: 'Jersey 10', Geneva, Verdana, sans-serif;
+    font-size: 32px;
+    text-align: left;
+    padding: 6px 12px 8px;
+    border-bottom: 2px solid var(--black);
+    letter-spacing: 0.5px;
+    color: var(--accent);
+  }
+  .compare-table td {
+    padding: 10px 12px;
+    border-bottom: 1px solid #999;
+    vertical-align: top;
+  }
+  .compare-table tr:last-child td {
+    border-bottom: none;
+  }
+  .compare-table td:first-child {
+    border-right: 1px solid #999;
+  }
+
+  .reveal .progress { display: none; }
+  .reveal .slide-number {
+    font-family: 'Jersey 10', Geneva, Verdana, sans-serif;
+    font-size: 16px;
+    background: var(--white);
+    color: var(--black);
+    border: 1px solid var(--black);
+    padding: 2px 8px 0;
+    bottom: 12px;
+    right: 12px;
+  }
+
+  @media print {
+    .reveal .slides section { background-color: var(--white) !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="reveal">
+  <div class="slides">
+
+    <!-- TITLE -->
+    <section class="title-slide">
+      <div class="window">
+        <div class="titlebar">
+          <span class="title-text">Software vs. Research</span>
+        </div>
+        <div class="body title-body">
+          <div class="pretitle">MODULE 03</div>
+          <h1 class="big-title">Software vs.<br>Research</h1>
+          <div class="subtitle">The paradigm your tools were built in is not the one you publish in.</div>
+          <div class="meta-line">AI as a Research Tool · University of Zürich · 2026</div>
+          <div class="hint">Press → to begin</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- THE PREMISE -->
+    <section class="text-slide">
+      <div class="window">
+        <div class="titlebar">
+          <span class="title-text">The premise</span>
+        </div>
+        <div class="body text-body">
+          <h1>LLM tools are software products</h1>
+          <ul>
+            <li>Built by software teams, shipped on software timelines.</li>
+            <li>They inherit a set of assumptions about what "good" means.</li>
+            <li>Those assumptions are not neutral. They were chosen to solve a different problem than ours.</li>
+            <!-- <li>If we don't surface them, we adopt them.</li> -->
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- SOFTWARE'S PARADIGM — ORIGINS -->
+    <section class="text-slide">
+      <div class="window">
+        <div class="titlebar">
+          <span class="title-text">Where it came from</span>
+        </div>
+        <div class="body text-body">
+          <h1>25 years of converging practice</h1>
+          <ul>
+            <li>The organizational problem: <em>coordinate teams to ship products under uncertainty</em>.</li>
+            <li><strong>Agile / Scrum</strong> — short cycles, rapid iteration, ship early.</li>
+            <li><strong>Abstraction as virtue</strong> — a good tool hides complexity. It "just works".</li>
+            <li><strong>Minimum viable product</strong> — build the simplest thing, learn from feedback.</li>
+            <li>"Done" is pragmatic: <em>works reliably enough to release</em>.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- SOFTWARE'S FOUR MAXIMS -->
+    <section class="text-slide">
+      <div class="window">
+        <div class="titlebar">
+          <span class="title-text">Software says…</span>
+        </div>
+        <div class="body text-body">
+          <h1>Four maxims, learned by heart</h1>
+          <ul>
+            <li>Move fast, iterate later.</li>
+            <li>Abstraction is a feature.</li>
+            <li>"Done" = ships and works.</li>
+            <li>Optimize for the user's convenience.</li>
+          </ul>
+          <!-- <p><em>None of these are wrong. They are answers to a specific question.</em></p> -->
+        </div>
+      </div>
+    </section>
+
+    <!-- RESEARCH'S FOUR MAXIMS -->
+    <section class="text-slide">
+      <div class="window">
+        <div class="titlebar">
+          <span class="title-text">Research says…</span>
+        </div>
+        <div class="body text-body">
+          <h1>A different four maxims</h1>
+          <ul>
+            <li>Get it right, then publish.</li>
+            <li>Transparency is an obligation.</li>
+            <li>"Done" = withstands scrutiny.</li>
+            <li>Optimize for epistemic accountability.</li>
+          </ul>
+          <!-- <p><em>Different question, different answers.</em></p> -->
+        </div>
+      </div>
+    </section>
+
+    <!-- THE MISMATCH — SIDE BY SIDE -->
+    <section class="text-slide">
+      <div class="window">
+        <div class="titlebar">
+          <span class="title-text">The paradigm mismatch</span>
+        </div>
+        <div class="body text-body">
+          <table class="compare-table">
+            <thead>
+              <tr>
+                <th>Software says…</th>
+                <th>Research says…</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Move fast, iterate later</td>
+                <td>Get it right, then publish</td>
+              </tr>
+              <tr>
+                <td>Abstraction is a feature</td>
+                <td>Transparency is an obligation</td>
+              </tr>
+              <tr>
+                <td>"Done" = ships and works</td>
+                <td>"Done" = withstands scrutiny</td>
+              </tr>
+              <tr>
+                <td>Docs explain <em>how to use</em></td>
+                <td>Docs explain <em>why you should believe</em></td>
+              </tr>
+              <tr>
+                <td>Optimize for user convenience</td>
+                <td>Optimize for epistemic accountability</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHERE THE MISMATCH BITES -->
+    <section class="text-slide">
+      <div class="window">
+        <div class="titlebar">
+          <span class="title-text">Where it bites</span>
+        </div>
+        <div class="body text-body">
+          <h1>The defaults are not yours</h1>
+          <ul>
+            <li><strong>Confident prose</strong> is a UX choice. RLHF rewards it. Research punishes it.</li>
+            <li><strong>Abstraction hides provenance.</strong> "It just works" means you can't show <em>how</em>.</li>
+            <li><strong>"Done"</strong> in chat means an answer arrived, not that it survives peer review.</li>
+            <li><strong>Convenience</strong> moves friction off the user and onto the record.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- THE TRAP -->
+    <section class="text-slide">
+      <div class="window">
+        <div class="titlebar">
+          <span class="title-text">The trap</span>
+        </div>
+        <div class="body text-body">
+          <h1>It "feels" productive</h1>
+          <ul>
+            <li>The tool is optimized to feel finished.</li>
+            <li>Your discipline is optimized to <em>be</em> finished.</li>
+            <li>Adopting the tool's defaults imports its standards quietly.</li>
+            <li>The mismatch shows up at review, not at the prompt.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHAT WE NEED INSTEAD -->
+    <section class="text-slide">
+      <div class="window">
+        <div class="titlebar">
+          <span class="title-text">What we need instead</span>
+        </div>
+        <div class="body text-body">
+          <h1>Four criteria for research-grade use</h1>
+          <ul>
+            <li><strong>Traceability</strong> — every claim back to a source.</li>
+            <li><strong>Auditability</strong> — someone else can inspect the chain.</li>
+            <li><strong>Reproducibility</strong> — re-run and get a defensible result.</li>
+            <li><strong>Transparency</strong> — the prompt, the tool, the model, the version, on the record.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- LOOKING AHEAD -->
+    <section class="text-slide">
+      <div class="window">
+        <div class="titlebar">
+          <span class="title-text">Looking ahead</span>
+        </div>
+        <div class="body text-body">
+          <h1>These are the criteria we'll apply</h1>
+          <ul>
+            <li>Every tool in the next two hours will be judged on these four.</li>
+            <li>Some pass. Some don't. Most pass <em>only with effort</em>.</li>
+            <li>That effort is the work. It is not overhead.</li>
+            <!-- <li>The skill we're building today is naming when convenience costs you accountability.</li> -->
+          </ul>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/dist/reveal.min.js"></script>
+
+<script>
+  const MODULE_NAME       = "Software vs. Research";
+  const WORKSHOP_HOME_URL = "./index.html";
+
+  const MENUBAR_HTML = `
+    <div class="menubar">
+      <a class="apple" href="${WORKSHOP_HOME_URL}" title="Back to workshop home" aria-label="Back to workshop home">
+        <svg viewBox="0 0 14 16" width="14" height="16" fill="currentColor" aria-hidden="true">
+          <path d="M10.2 0c-.9.1-1.9.7-2.5 1.5-.5.7-1 1.7-.8 2.7 1 0 2-.6 2.6-1.4.6-.8 1-1.8.7-2.8zM12.4 5.4c-1.4-.1-2.5.8-3.2.8-.7 0-1.7-.8-2.8-.8-1.4 0-2.7.8-3.5 2.2-1.5 2.6-.4 6.4 1 8.5.7 1 1.5 2.2 2.6 2.1 1 0 1.4-.7 2.7-.7 1.3 0 1.6.7 2.7.6 1.1 0 1.8-1 2.5-2 .6-.8 1.1-1.7 1.3-2.7-2.6-1-3.1-4.7-.4-6 .1 0-1.4-2-2.9-2z" transform="scale(0.85) translate(0, 0)"/>
+        </svg>
+      </a>
+      <span class="menu-item">File</span>
+      <span class="menu-item">Edit</span>
+      <span class="menu-item">View</span>
+      <span class="menu-item">Special</span>
+      <span class="clock">Mon 12:00 PM</span>
+    </div>
+  `;
+
+  document.querySelectorAll('.slides > section').forEach(slide => {
+    if (slide.querySelector('.menubar')) return;
+    const tmp = document.createElement('template');
+    tmp.innerHTML = MENUBAR_HTML.trim();
+    slide.insertBefore(tmp.content.firstChild, slide.firstChild);
+  });
+
+  document.querySelectorAll('.titlebar').forEach(tb => {
+    if (tb.querySelector('.close-box')) return;
+    const closeLink = document.createElement('a');
+    closeLink.className = 'close-box';
+    closeLink.href = WORKSHOP_HOME_URL;
+    closeLink.title = 'Close — back to workshop home';
+    closeLink.setAttribute('aria-label', 'Close — back to workshop home');
+    tb.insertBefore(closeLink, tb.firstChild);
+  });
+
+  function updateClocks() {
+    const now = new Date();
+    const days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+    const day = days[now.getDay()];
+    let h = now.getHours();
+    const m = now.getMinutes().toString().padStart(2, '0');
+    const ampm = h >= 12 ? 'PM' : 'AM';
+    h = h % 12 || 12;
+    const text = `${day} ${h}:${m} ${ampm}`;
+    document.querySelectorAll('.clock').forEach(el => { el.textContent = text; });
+  }
+  updateClocks();
+  setInterval(updateClocks, 5000);
+
+  Reveal.initialize({
+    width:        1280,
+    height:       720,
+    margin:       0,
+    minScale:     0.2,
+    maxScale:     2.0,
+    controls:     false,
+    progress:     false,
+    slideNumber:  'c/t',
+    hash:         true,
+    transition:   'none',
+    center:       false,
+    keyboard:     true,
+    overview:     true
+  });
+</script>
+
+</body>
+</html>

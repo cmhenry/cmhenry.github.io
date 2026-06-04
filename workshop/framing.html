@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Framing — AI as a Research Tool</title>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/dist/reveal.min.css">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jersey+10&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --black: #000;
+    --white: #fff;
+    --accent: #0028A5;
+    --accent-light: #BACBFF;
+  }
+
+  .reveal { font-family: Geneva, Verdana, sans-serif; color: var(--black); }
+  .reveal .slides { text-align: left; }
+  .reveal .slides section { padding: 0 !important; height: 100%; }
+
+  .reveal .slides section.present,
+  .reveal .slides section {
+    background-color: var(--white);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='2' height='2'%3E%3Crect width='1' height='1' fill='black'/%3E%3Crect x='1' y='1' width='1' height='1' fill='black'/%3E%3C/svg%3E");
+    background-size: 2px 2px;
+    image-rendering: pixelated;
+  }
+
+  .menubar {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 22px;
+    background: var(--white);
+    border-bottom: 1px solid var(--black);
+    display: flex;
+    align-items: center;
+    padding: 0 8px;
+    font-family: 'Jersey 10', Geneva, Verdana, sans-serif;
+    font-size: 19px;
+    letter-spacing: 0.5px;
+    z-index: 10;
+  }
+  .menubar .apple {
+    width: 14px; height: 16px;
+    margin-right: 14px;
+    display: inline-flex; align-items: center;
+    text-decoration: none; color: inherit;
+  }
+  .menubar .apple:hover { background: var(--accent); color: var(--white); }
+  .menubar .menu-item {
+    padding: 1px 10px;
+    cursor: default;
+    user-select: none;
+    line-height: 18px;
+  }
+  .menubar .menu-item:hover { background: var(--accent); color: var(--white); }
+  .menubar .clock {
+    margin-left: auto;
+    padding: 1px 4px;
+    font-variant-numeric: tabular-nums;
+    line-height: 18px;
+  }
+
+  .window {
+    position: absolute;
+    top: 42px;
+    left: 22px;
+    right: 22px;
+    bottom: 22px;
+    background: var(--white);
+    border: 1px solid var(--black);
+    box-shadow: 3px 3px 0 var(--black);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .titlebar {
+    height: 26px;
+    border-bottom: 1px solid var(--black);
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    background:
+      repeating-linear-gradient(
+        to bottom,
+        var(--accent) 0,
+        var(--accent) 1px,
+        var(--white) 1px,
+        var(--white) 3px
+      );
+    position: relative;
+    flex-shrink: 0;
+    font-family: 'Jersey 10', Geneva, Verdana, sans-serif;
+    font-size: 22px;
+    letter-spacing: 0.5px;
+    line-height: 24px;
+  }
+  .close-box {
+    display: inline-block;
+    width: 13px;
+    height: 13px;
+    background: var(--white);
+    border: 1px solid var(--black);
+    flex-shrink: 0;
+    cursor: pointer;
+    text-decoration: none;
+    padding: 0;
+  }
+  .close-box:hover  { background: var(--accent-light); }
+  .close-box:active { background: var(--accent); }
+  .close-box:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 1px;
+  }
+  .titlebar > span.title-text {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--white);
+    padding: 0 14px;
+  }
+
+  .body {
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .body.text-body {
+    padding: 50px 64px;
+  }
+  .body.text-body h1 {
+    font-family: 'Jersey 10', Geneva, Verdana, sans-serif;
+    font-size: 64px;
+    letter-spacing: 0.5px;
+    line-height: 1;
+    margin-bottom: 30px;
+    color: var(--black);
+  }
+  .body.text-body h2 {
+    font-family: 'Jersey 10', Geneva, Verdana, sans-serif;
+    font-size: 40px;
+    letter-spacing: 0.5px;
+    line-height: 1;
+    margin: 24px 0 14px;
+    color: var(--accent);
+  }
+  .body.text-body p,
+  .body.text-body li {
+    font-size: 30px;
+    line-height: 1.45;
+  }
+  .body.text-body ul {
+    list-style: none;
+    padding-left: 0;
+  }
+  .body.text-body ul li {
+    padding-left: 28px;
+    position: relative;
+    margin-bottom: 14px;
+  }
+  .body.text-body ul li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    top: 2px;
+    color: var(--accent);
+    font-size: 22px;
+  }
+  .body.text-body strong { font-weight: bold; }
+  .body.text-body em { font-style: italic; }
+  .body.text-body a { color: var(--accent); text-decoration: underline; }
+
+  .body.image-body {
+    padding: 36px 64px 28px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+  }
+  .body.image-body .image-slot {
+    flex: 1;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 0;
+  }
+  .body.image-body .image-slot img,
+  .body.image-body .image-slot svg {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    display: block;
+  }
+  .body.image-body .caption {
+    font-size: 22px;
+    font-style: italic;
+    text-align: center;
+    color: #333;
+    flex-shrink: 0;
+  }
+
+  .body.two-col-body {
+    padding: 44px 56px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: stretch;
+  }
+  .body.two-col-body .col-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .body.two-col-body .col-text h2 {
+    font-family: 'Jersey 10', Geneva, Verdana, sans-serif;
+    font-size: 42px;
+    letter-spacing: 0.5px;
+    line-height: 1;
+    margin-bottom: 16px;
+    color: var(--accent);
+  }
+  .body.two-col-body .col-text p,
+  .body.two-col-body .col-text li {
+    font-size: 26px;
+    line-height: 1.45;
+  }
+  .body.two-col-body .col-text ul {
+    list-style: none;
+    padding-left: 0;
+  }
+  .body.two-col-body .col-text ul li {
+    padding-left: 24px;
+    position: relative;
+    margin-bottom: 12px;
+  }
+  .body.two-col-body .col-text ul li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: var(--accent);
+    font-size: 20px;
+  }
+  .body.two-col-body .col-image {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+  }
+  .body.two-col-body .col-image .image-slot {
+    flex: 1;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 0;
+  }
+  .body.two-col-body .col-image .image-slot img,
+  .body.two-col-body .col-image .image-slot svg {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    display: block;
+  }
+  .body.two-col-body .col-image .caption {
+    font-size: 18px;
+    font-style: italic;
+    text-align: center;
+    color: #333;
+    flex-shrink: 0;
+  }
+
+  .body.title-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 48px 64px;
+    gap: 18px;
+  }
+  .body.title-body .pretitle {
+    font-family: 'Jersey 10', Geneva, Verdana, sans-serif;
+    font-size: 28px;
+    color: var(--accent);
+    letter-spacing: 1px;
+  }
+  .body.title-body .big-title {
+    font-family: 'Jersey 10', Geneva, Verdana, sans-serif;
+    font-size: 128px;
+    line-height: 0.95;
+    letter-spacing: 0.5px;
+    color: var(--black);
+    margin: 0;
+  }
+  .body.title-body .subtitle {
+    font-size: 26px;
+    color: #333;
+    margin-top: 12px;
+    font-style: italic;
+  }
+  .body.title-body .meta-line {
+    font-size: 22px;
+    margin-top: 36px;
+    color: var(--black);
+  }
+  .body.title-body .hint {
+    font-family: 'Jersey 10', Geneva, Verdana, sans-serif;
+    font-size: 20px;
+    color: var(--accent);
+    margin-top: 28px;
+    letter-spacing: 0.5px;
+  }
+
+  .image-placeholder {
+    width: 100%; height: 100%;
+    border: 1px dashed var(--black);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 12px;
+    font-family: 'Jersey 10', Geneva, Verdana, sans-serif;
+    font-size: 20px;
+    color: #666;
+    background:
+      repeating-linear-gradient(
+        45deg,
+        transparent 0, transparent 10px,
+        rgba(0,0,0,0.04) 10px, rgba(0,0,0,0.04) 20px
+      );
+  }
+
+  .reveal .progress { display: none; }
+  .reveal .slide-number {
+    font-family: 'Jersey 10', Geneva, Verdana, sans-serif;
+    font-size: 16px;
+    background: var(--white);
+    color: var(--black);
+    border: 1px solid var(--black);
+    padding: 2px 8px 0;
+    bottom: 12px;
+    right: 12px;
+  }
+
+  @media print {
+    .reveal .slides section { background-color: var(--white) !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="reveal">
+  <div class="slides">
+
+    <!-- TITLE -->
+    <section class="title-slide">
+      <div class="window">
+        <div class="titlebar">
+          <span class="title-text">Framing</span>
+        </div>
+        <div class="body title-body">
+          <div class="pretitle">MODULE 02</div>
+          <h1 class="big-title">What is AI?</h1>
+          <div class="subtitle">A quick and dirty vocabulary for the next three hours.</div>
+          <div class="meta-line">AI as a Research Tool · University of Zürich · 2026</div>
+          <div class="hint">Press → to begin</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHY SHARED VOCAB -->
+    <section class="text-slide">
+      <div class="window">
+        <div class="titlebar">
+          <span class="title-text">Why this matters</span>
+        </div>
+        <div class="body text-body">
+          <h1>Words are doing too much work</h1>
+          <ul>
+            <li>"AI", "model", "agent", "prompt" — used loosely in press, narrowly in practice.</li>
+            <li>If we can't name the parts, we can't audit them.</li>
+            <li>Goal: a working vocabulary, not a CS course.</li>
+            <li>By the end you'll know what a <em>token</em> is, what RLHF does, and why it matters for your research.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ML FAMILY TREE — IMAGE -->
+    <section class="image-slide">
+      <div class="window">
+        <div class="titlebar">
+          <span class="title-text">Where transformers fit</span>
+        </div>
+        <div class="body image-body">
+          <div class="image-slot">
+            <img src="images/history_LLMs.png" alt="History of LLMs and where transformers fit in the ML family">
+          </div>
+          <div class="caption">Transformers are one architecture within deep learning, within ML, within "AI".</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TOKEN -->
+    <section class="two-col-slide">
+      <div class="window">
+        <div class="titlebar">
+          <span class="title-text">Token</span>
+        </div>
+        <div class="body two-col-body">
+          <div class="col-text">
+            <h2>What's a token?</h2>
+            <ul>
+              <li>Sub-word units, not words.</li>
+              <li>Text in → tokens → numbers → model.</li>
+              <li>Every cost, limit, and "context window" is measured in tokens.</li>
+              <li>"Researcher" might be one token; "Zürich" might be three.</li>
+            </ul>
+          </div>
+          <div class="col-image">
+            <div class="image-slot">
+              <img src="images/tokens.png" alt="A sentence broken into tokens">
+            </div>
+            <div class="caption">A sentence, tokenized.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TRANSFORMER IN ONE MINUTE -->
+    <section class="text-slide">
+      <div class="window">
+        <div class="titlebar">
+          <span class="title-text">The transformer, in one minute</span>
+        </div>
+        <div class="body text-body">
+          <h1>The whole game</h1>
+          <ul>
+            <li>Receives a sequence of tokens.</li>
+            <li>Computes <strong>attention</strong> — which earlier tokens matter for what comes next.</li>
+            <li>Outputs a probability over the next token.</li>
+            <li>Everything else — essays, code, reasoning — is this one step, repeated.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- TRAINING PIPELINE OVERVIEW -->
+    <section class="text-slide">
+      <div class="window">
+        <div class="titlebar">
+          <span class="title-text">Three stages of training</span>
+        </div>
+        <div class="body text-body">
+          <h1>How a model gets built</h1>
+          <ul>
+            <li><strong>Pre-train.</strong> Web-scale data. Predict the next token. Output: a foundation model.</li>
+            <li><strong>Mid-train.</strong> Curated data — code, math, long documents. Sharpens capability.</li>
+            <li><strong>Post-train.</strong> Instruction tuning + RLHF. Turns it into a chatbot.</li>
+            <li>Three stages, three datasets, three objectives.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRE-TRAINING -->
+    <section class="text-slide">
+      <div class="window">
+        <div class="titlebar">
+          <span class="title-text">Pre-training</span>
+        </div>
+        <div class="body text-body">
+          <h1>Predict the next token</h1>
+          <ul>
+            <li>Trained on most of the open web, books, code.</li>
+            <li>One objective: given context, guess the next token.</li>
+            <li>Output: a <strong>foundation model</strong> — fluent, unfocused, no instructions to follow.</li>
+            <li>This is where most of the compute and most of the "knowledge" lives.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- MID-TRAINING -->
+    <section class="text-slide">
+      <div class="window">
+        <div class="titlebar">
+          <span class="title-text">Mid-training</span>
+        </div>
+        <div class="body text-body">
+          <h1>Steering the foundation</h1>
+          <ul>
+            <li>Continued training on curated data: code, math, longer documents, higher-quality text.</li>
+            <li>Stretches capabilities the next stage will rely on.</li>
+            <li>Often where domain coverage (e.g., science, multilingual) is shored up.</li>
+            <li>Still no "follow instructions" behavior yet.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- POST-TRAINING / RLHF -->
+    <section class="text-slide">
+      <div class="window">
+        <div class="titlebar">
+          <span class="title-text">Post-training · RLHF</span>
+        </div>
+        <div class="body text-body">
+          <h1>Turning a model into a chatbot</h1>
+          <ul>
+            <li><strong>Instruction tuning</strong>: examples of "good" question/answer pairs.</li>
+            <li><strong>RLHF</strong> — reinforcement learning from human feedback. Humans rank outputs; the model learns to climb that ranking.</li>
+            <li>This is where the model learns to be helpful, polite, refuse, hedge.</li>
+            <li>The behaviors you experience as "personality" all live here.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- RLHF: KEY CONSEQUENCE -->
+    <section class="text-slide">
+      <div class="window">
+        <div class="titlebar">
+          <span class="title-text">What RLHF actually does</span>
+        </div>
+        <div class="body text-body">
+          <h1>Optimization, not understanding</h1>
+          <ul>
+            <li>An instruction-tuned model is <strong>always</strong> optimizing a loss function.</li>
+            <li>It converges toward a <em>local</em> maximum of "what humans rated as good".</li>
+            <li>Confident-sounding, agreeable, well-formatted — because those win rankings.</li>
+            <li>You are not talking to a knower. You are talking to an optimizer.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- KNOWLEDGE CUTOFF -->
+    <section class="text-slide">
+      <div class="window">
+        <div class="titlebar">
+          <span class="title-text">Knowledge cutoff</span>
+        </div>
+        <div class="body text-body">
+          <h1>The model only knows the past</h1>
+          <ul>
+            <li>Training data has a hard cutoff date.</li>
+            <li>Anything after — elections, papers, deaths, retractions — is invisible to the base model.</li>
+            <li>"Current" outputs come from <strong>tools</strong> (search, retrieval), not the model itself.</li>
+            <li>If you don't know which one produced an answer, you can't trust it.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- IN-CONTEXT LEARNING -->
+    <section class="text-slide">
+      <div class="window">
+        <div class="titlebar">
+          <span class="title-text">In-context learning</span>
+        </div>
+        <div class="body text-body">
+          <h1>Prompting is programming</h1>
+          <ul>
+            <li><strong>Context window</strong>: everything the model can see right now — your prompt, prior turns, attached files.</li>
+            <li><strong>Roles</strong>: <em>system</em> (instructions), <em>user</em> (you), <em>assistant</em> (the model).</li>
+            <li>No weights are updated. The model learns from what's in the window, then forgets.</li>
+            <li>Every new session starts cold.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- REASONING / CoT -->
+    <section class="two-col-slide">
+      <div class="window">
+        <div class="titlebar">
+          <span class="title-text">Reasoning · chain of thought</span>
+        </div>
+        <div class="body two-col-body">
+          <div class="col-text">
+            <h2>Thinking out loud — sort of</h2>
+            <ul>
+              <li>Model generates intermediate steps before its answer.</li>
+              <li>More steps = more tokens = more compute on the problem.</li>
+              <li>"Reasoning models" do this by default, often hidden.</li>
+              <li>Looks like thinking — still next-token prediction.</li>
+            </ul>
+          </div>
+          <div class="col-image">
+            <div class="image-slot">
+              <!-- TODO: confirm filename — using reasoning.png as a placeholder name -->
+              <img src="images/chain_of_thought.png" alt="Chain of thought trace">
+            </div>
+            <div class="caption">Chain of thought, made visible.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VOCABULARY RECAP -->
+    <section class="text-slide">
+      <div class="window">
+        <div class="titlebar">
+          <span class="title-text">Recap</span>
+        </div>
+        <div class="body text-body">
+          <h1>Vocabulary you now own</h1>
+          <ul>
+            <li><strong>Token · context window · foundation model</strong></li>
+            <li><strong>Pre-train · mid-train · post-train · RLHF</strong></li>
+            <li><strong>Knowledge cutoff · in-context learning · roles</strong></li>
+            <li><strong>Chain of thought</strong></li>
+            <li>If a vendor uses one of these loosely — that's a signal.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/dist/reveal.min.js"></script>
+
+<script>
+  const MODULE_NAME       = "Framing";
+  const WORKSHOP_HOME_URL = "./index.html";
+
+  const MENUBAR_HTML = `
+    <div class="menubar">
+      <a class="apple" href="${WORKSHOP_HOME_URL}" title="Back to workshop home" aria-label="Back to workshop home">
+        <svg viewBox="0 0 14 16" width="14" height="16" fill="currentColor" aria-hidden="true">
+          <path d="M10.2 0c-.9.1-1.9.7-2.5 1.5-.5.7-1 1.7-.8 2.7 1 0 2-.6 2.6-1.4.6-.8 1-1.8.7-2.8zM12.4 5.4c-1.4-.1-2.5.8-3.2.8-.7 0-1.7-.8-2.8-.8-1.4 0-2.7.8-3.5 2.2-1.5 2.6-.4 6.4 1 8.5.7 1 1.5 2.2 2.6 2.1 1 0 1.4-.7 2.7-.7 1.3 0 1.6.7 2.7.6 1.1 0 1.8-1 2.5-2 .6-.8 1.1-1.7 1.3-2.7-2.6-1-3.1-4.7-.4-6 .1 0-1.4-2-2.9-2z" transform="scale(0.85) translate(0, 0)"/>
+        </svg>
+      </a>
+      <span class="menu-item">File</span>
+      <span class="menu-item">Edit</span>
+      <span class="menu-item">View</span>
+      <span class="menu-item">Special</span>
+      <span class="clock">Mon 12:00 PM</span>
+    </div>
+  `;
+
+  document.querySelectorAll('.slides > section').forEach(slide => {
+    if (slide.querySelector('.menubar')) return;
+    const tmp = document.createElement('template');
+    tmp.innerHTML = MENUBAR_HTML.trim();
+    slide.insertBefore(tmp.content.firstChild, slide.firstChild);
+  });
+
+  document.querySelectorAll('.titlebar').forEach(tb => {
+    if (tb.querySelector('.close-box')) return;
+    const closeLink = document.createElement('a');
+    closeLink.className = 'close-box';
+    closeLink.href = WORKSHOP_HOME_URL;
+    closeLink.title = 'Close — back to workshop home';
+    closeLink.setAttribute('aria-label', 'Close — back to workshop home');
+    tb.insertBefore(closeLink, tb.firstChild);
+  });
+
+  function updateClocks() {
+    const now = new Date();
+    const days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+    const day = days[now.getDay()];
+    let h = now.getHours();
+    const m = now.getMinutes().toString().padStart(2, '0');
+    const ampm = h >= 12 ? 'PM' : 'AM';
+    h = h % 12 || 12;
+    const text = `${day} ${h}:${m} ${ampm}`;
+    document.querySelectorAll('.clock').forEach(el => { el.textContent = text; });
+  }
+  updateClocks();
+  setInterval(updateClocks, 5000);
+
+  Reveal.initialize({
+    width:        1280,
+    height:       720,
+    margin:       0,
+    minScale:     0.2,
+    maxScale:     2.0,
+    controls:     false,
+    progress:     false,
+    slideNumber:  'c/t',
+    hash:         true,
+    transition:   'none',
+    center:       false,
+    keyboard:     true,
+    overview:     true
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Task: Synthetic Peer Review — AI as a Research Tool</title>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/dist/reveal.min.css">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jersey+10&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --black: #000;
+    --white: #fff;
+    --accent: #0028A5;
+    --accent-light: #BACBFF;
+  }
+
+  .reveal { font-family: Geneva, Verdana, sans-serif; color: var(--black); }
+  .reveal .slides { text-align: left; }
+  .reveal .slides section { padding: 0 !important; height: 100%; }
+
+  .reveal .slides section.present,
+  .reveal .slides section {
+    background-color: var(--white);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='2' height='2'%3E%3Crect width='1' height='1' fill='black'/%3E%3Crect x='1' y='1' width='1' height='1' fill='black'/%3E%3C/svg%3E");
+    background-size: 2px 2px;
+    image-rendering: pixelated;
+  }
+
+  .menubar {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 22px;
+    background: var(--white);
+    border-bottom: 1px solid var(--black);
+    display: flex;
+    align-items: center;
+    padding: 0 8px;
+    font-family: 'Jersey 10', Geneva, Verdana, sans-serif;
+    font-size: 19px;
+    letter-spacing: 0.5px;
+    z-index: 10;
+  }
+  .menubar .apple {
+    width: 14px; height: 16px;
+    margin-right: 14px;
+    display: inline-flex; align-items: center;
+    text-decoration: none; color: inherit;
+  }
+  .menubar .apple:hover { background: var(--accent); color: var(--white); }
+  .menubar .menu-item {
+    padding: 1px 10px;
+    cursor: default;
+    user-select: none;
+    line-height: 18px;
+  }
+  .menubar .menu-item:hover { background: var(--accent); color: var(--white); }
+  .menubar .clock {
+    margin-left: auto;
+    padding: 1px 4px;
+    font-variant-numeric: tabular-nums;
+    line-height: 18px;
+  }
+
+  .window {
+    position: absolute;
+    top: 42px;
+    left: 22px;
+    right: 22px;
+    bottom: 22px;
+    background: var(--white);
+    border: 1px solid var(--black);
+    box-shadow: 3px 3px 0 var(--black);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .titlebar {
+    height: 26px;
+    border-bottom: 1px solid var(--black);
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    background:
+      repeating-linear-gradient(
+        to bottom,
+        var(--accent) 0,
+        var(--accent) 1px,
+        var(--white) 1px,
+        var(--white) 3px
+      );
+    position: relative;
+    flex-shrink: 0;
+    font-family: 'Jersey 10', Geneva, Verdana, sans-serif;
+    font-size: 22px;
+    letter-spacing: 0.5px;
+    line-height: 24px;
+  }
+  .close-box {
+    display: inline-block;
+    width: 13px;
+    height: 13px;
+    background: var(--white);
+    border: 1px solid var(--black);
+    flex-shrink: 0;
+    cursor: pointer;
+    text-decoration: none;
+    padding: 0;
+  }
+  .close-box:hover  { background: var(--accent-light); }
+  .close-box:active { background: var(--accent); }
+  .close-box:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 1px;
+  }
+  .titlebar > span.title-text {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--white);
+    padding: 0 14px;
+  }
+
+  .body {
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .body.text-body {
+    padding: 50px 64px;
+  }
+  .body.text-body h1 {
+    font-family: 'Jersey 10', Geneva, Verdana, sans-serif;
+    font-size: 64px;
+    letter-spacing: 0.5px;
+    line-height: 1;
+    margin-bottom: 30px;
+    color: var(--black);
+  }
+  .body.text-body h2 {
+    font-family: 'Jersey 10', Geneva, Verdana, sans-serif;
+    font-size: 40px;
+    letter-spacing: 0.5px;
+    line-height: 1;
+    margin: 24px 0 14px;
+    color: var(--accent);
+  }
+  .body.text-body p,
+  .body.text-body li {
+    font-size: 30px;
+    line-height: 1.45;
+  }
+  .body.text-body ul {
+    list-style: none;
+    padding-left: 0;
+  }
+  .body.text-body ul li {
+    padding-left: 28px;
+    position: relative;
+    margin-bottom: 14px;
+  }
+  .body.text-body ul li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    top: 2px;
+    color: var(--accent);
+    font-size: 22px;
+  }
+  .body.text-body strong { font-weight: bold; }
+  .body.text-body em { font-style: italic; }
+  .body.text-body a { color: var(--accent); text-decoration: underline; }
+  .body.text-body code,
+  .body.text-body pre {
+    font-family: 'Courier New', Courier, monospace;
+    background: #f2f2f2;
+    border: 1px solid #ccc;
+    padding: 1px 6px;
+    font-size: 22px;
+  }
+  .body.text-body pre {
+    padding: 14px 18px;
+    margin: 10px 0;
+    white-space: pre-wrap;
+    word-break: break-word;
+    line-height: 1.3;
+  }
+
+  .body.image-body {
+    padding: 36px 64px 28px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+  }
+  .body.image-body .image-slot {
+    flex: 1;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 0;
+  }
+  .body.image-body .image-slot img,
+  .body.image-body .image-slot svg {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    display: block;
+  }
+  .body.image-body .caption {
+    font-size: 22px;
+    font-style: italic;
+    text-align: center;
+    color: #333;
+    flex-shrink: 0;
+  }
+
+  .body.two-col-body {
+    padding: 44px 56px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: stretch;
+  }
+  .body.two-col-body .col-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .body.two-col-body .col-text h2 {
+    font-family: 'Jersey 10', Geneva, Verdana, sans-serif;
+    font-size: 42px;
+    letter-spacing: 0.5px;
+    line-height: 1;
+    margin-bottom: 16px;
+    color: var(--accent);
+  }
+  .body.two-col-body .col-text p,
+  .body.two-col-body .col-text li {
+    font-size: 26px;
+    line-height: 1.45;
+  }
+  .body.two-col-body .col-text ul {
+    list-style: none;
+    padding-left: 0;
+  }
+  .body.two-col-body .col-text ul li {
+    padding-left: 24px;
+    position: relative;
+    margin-bottom: 12px;
+  }
+  .body.two-col-body .col-text ul li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: var(--accent);
+    font-size: 20px;
+  }
+  .body.two-col-body .col-image {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+  }
+  .body.two-col-body .col-image .image-slot {
+    flex: 1;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 0;
+  }
+  .body.two-col-body .col-image .image-slot img,
+  .body.two-col-body .col-image .image-slot svg {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    display: block;
+  }
+  .body.two-col-body .col-image .caption {
+    font-size: 18px;
+    font-style: italic;
+    text-align: center;
+    color: #333;
+    flex-shrink: 0;
+  }
+  .body.two-col-body .col-image pre {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 16px 18px;
+    background: #f2f2f2;
+    border: 1px solid var(--black);
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 15px;
+    line-height: 1.35;
+    white-space: pre-wrap;
+    word-break: break-word;
+    overflow: hidden;
+  }
+
+  .body.title-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 48px 64px;
+    gap: 18px;
+  }
+  .body.title-body .pretitle {
+    font-family: 'Jersey 10', Geneva, Verdana, sans-serif;
+    font-size: 28px;
+    color: var(--accent);
+    letter-spacing: 1px;
+  }
+  .body.title-body .big-title {
+    font-family: 'Jersey 10', Geneva, Verdana, sans-serif;
+    font-size: 110px;
+    line-height: 0.95;
+    letter-spacing: 0.5px;
+    color: var(--black);
+    margin: 0;
+  }
+  .body.title-body .subtitle {
+    font-size: 26px;
+    color: #333;
+    margin-top: 12px;
+    font-style: italic;
+  }
+  .body.title-body .meta-line {
+    font-size: 22px;
+    margin-top: 36px;
+    color: var(--black);
+  }
+  .body.title-body .hint {
+    font-family: 'Jersey 10', Geneva, Verdana, sans-serif;
+    font-size: 20px;
+    color: var(--accent);
+    margin-top: 28px;
+    letter-spacing: 0.5px;
+  }
+
+  .image-placeholder {
+    width: 100%; height: 100%;
+    border: 1px dashed var(--black);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Jersey 10', Geneva, Verdana, sans-serif;
+    font-size: 22px;
+    color: #666;
+    background:
+      repeating-linear-gradient(
+        45deg,
+        transparent 0, transparent 10px,
+        rgba(0,0,0,0.04) 10px, rgba(0,0,0,0.04) 20px
+      );
+  }
+
+  .reveal .progress { display: none; }
+  .reveal .slide-number {
+    font-family: 'Jersey 10', Geneva, Verdana, sans-serif;
+    font-size: 16px;
+    background: var(--white);
+    color: var(--black);
+    border: 1px solid var(--black);
+    padding: 2px 8px 0;
+    bottom: 12px;
+    right: 12px;
+  }
+
+  @media print {
+    .reveal .slides section { background-color: var(--white) !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="reveal">
+  <div class="slides">
+
+    <!-- TITLE -->
+    <section class="title-slide">
+      <div class="window">
+        <div class="titlebar">
+          <span class="title-text">Task: Synthetic Peer Review</span>
+        </div>
+        <div class="body title-body">
+          <div class="pretitle">TASK 02</div>
+          <h1 class="big-title">Synthetic<br>Peer Review</h1>
+          <div class="subtitle">Writing a complex skill that critiques your draft.</div>
+          <div class="hint">Press → to begin</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- THE TASK -->
+    <section class="text-slide">
+      <div class="window">
+        <div class="titlebar">
+          <span class="title-text">The task</span>
+        </div>
+        <div class="body text-body">
+          <h1>Reviewer Two, on demand</h1>
+          <ul>
+            <li>You have a draft. You want a structured critique before you present it or send it to a journal.</li>
+            <li>We'll build a <strong>skill</strong> — a reusable file Claude loads on demand — to do exactly that.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- PASS 0: NAIVE -->
+    <section class="text-slide">
+      <div class="window">
+        <div class="titlebar">
+          <span class="title-text">Pass 0 — Just ask</span>
+        </div>
+        <div class="body text-body">
+          <h1>The naive prompt</h1>
+          <p>Open Claude Desktop, attach your draft, type:</p>
+          <pre>Review this paper and tell me what's wrong with it.</pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHAT WENT WRONG -->
+    <section class="text-slide">
+      <div class="window">
+        <div class="titlebar">
+          <span class="title-text">Likely response</span>
+        </div>
+        <div class="body text-body">
+          <h1>The praise sandwich</h1>
+          <ul>
+            <li><strong>Sycophancy: </strong> "This is a thoughtful contribution to the literature."</li>
+            <li><strong>Vague critique:</strong> "Consider clarifying the framing."</li>
+            <li><strong>No teeth:</strong> No identification critique, no causal-language audit.</li>
+          </ul>
+          <p><em>Remember, RLHF rewards sounding helpful. Helpful ≠ rigorous.</em></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHAT A SKILL IS -->
+    <section class="two-col-slide">
+      <div class="window">
+        <div class="titlebar">
+          <span class="title-text">What a skill is</span>
+        </div>
+        <div class="body two-col-body">
+          <div class="col-text">
+            <h2>A reusable recipe</h2>
+            <ul>
+              <li>A markdown file with YAML frontmatter.</li>
+              <li><code>name</code> + <code>description</code> tell Claude when to load it.</li>
+              <li>The body tells Claude <em>how</em> to do the job — role, steps, output format.</li>
+              <li>Lives in <code>~/.claude/skills/</code> (or your project folder).</li>
+            </ul>
+          </div>
+          <div class="col-image">
+            <pre>---
+name: peer-review
+description: Critique an
+  academic draft as a
+  meticulous referee.
+  Use when the user
+  shares a paper and
+  asks for review.
+---
+
+# Peer Review
+
+You are a meticulous
+referee for a top journal.
+
+## Steps
+1. Identify the claim.
+2. Audit the design.
+3. Score Red/Yellow/Green.
+4. Verdict: ACCEPT,
+   REVISE, or REJECT.</pre>
+            <div class="caption">~/.claude/skills/peer-review/SKILL.md</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- INSTALLING A SKILL -->
+    <section class="text-slide">
+      <div class="window">
+        <div class="titlebar">
+          <span class="title-text">Installing a skill</span>
+        </div>
+        <div class="body text-body">
+          <h1>Three ways in Claude Desktop</h1>
+          <ul>
+            <li><strong>Write one with Claude:</strong> describe the job, let Claude scaffold the SKILL.md.</li>
+            <li><strong>Upload:</strong> drop a <code>SKILL.md</code> or <code>.skill</code> bundle into Settings → Capabilities → Skills.</li>
+            <li><strong>Browse:</strong> install from the built-in Skill Library.</li>
+          </ul>
+          <p>Reference: <a href="https://claude.com/docs/skills/how-to" target="_blank" rel="noopener">claude.com/docs/skills/how-to</a></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PASS 1: BASIC SKILL -->
+    <section class="text-slide">
+      <div class="window">
+        <div class="titlebar">
+          <span class="title-text">Pass 1 — A reviewer skill</span>
+        </div>
+        <div class="body text-body">
+          <h1>Give it a role and a rubric</h1>
+          <pre>Using the peer-review skill, critique the attached draft.</pre>
+          <h2>What changes</h2>
+          <ul>
+            <li><strong>Structure:</strong> sections, dimensions, severity scores.</li>
+            <li><strong>Specificity:</strong> findings tied to passages, not impressions.</li>
+            <li><strong>Limit:</strong> still one generalist reviewer covering methods and prose.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- PASS 2: SPECIALIZED CRITICS -->
+    <section class="two-col-slide">
+      <div class="window">
+        <div class="titlebar">
+          <span class="title-text">Pass 2 — Specialize</span>
+        </div>
+        <div class="body two-col-body">
+          <div class="col-text">
+            <h2>Two reviewers, two files</h2>
+            <ul>
+              <li><strong>Methodology skill:</strong> identification, causal language, robustness.</li>
+              <li><strong>Writing skill:</strong> argument structure, clarity, voice.</li>
+              <li>Shorter files are easier to audit, edit, and version.</li>
+              <li>Two specialists tend to outperform one generalist prompt.</li>
+            </ul>
+          </div>
+          <div class="col-image">
+            <pre>review-methodology.md
+---
+name: review-methodology
+description: Check
+  identification, causal
+  language, robustness.
+---
+
+# Methodology Reviewer
+
+Dimensions:
+1. Causal language audit
+2. Identification strategy
+3. Statistical claims
+4. Robustness / limits
+5. Data / measurement
+
+Output: findings per
+dimension, Red/Yellow/
+Green severity.</pre>
+            <div class="caption">cribbed from chrisblattman/claudeblattman</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PASS 3: ORCHESTRATOR -->
+    <section class="two-col-slide">
+      <div class="window">
+        <div class="titlebar">
+          <span class="title-text">Pass 3 — Orchestrate</span>
+        </div>
+        <div class="body two-col-body">
+          <div class="col-text">
+            <h2>One skill that dispatches both</h2>
+            <ul>
+              <li>A top-level <code>peer-review</code> skill runs both critics in parallel.</li>
+              <li>Each runs in a fresh context, so judgments stay independent.</li>
+              <li>The orchestrator synthesizes agreements, disagreements, and unique findings.</li>
+              <li>Adding a third critic later (theory, policy) is cheap.</li>
+            </ul>
+          </div>
+          <div class="col-image">
+            <pre># Peer Review (orchestrator)
+
+## Step 1: Read draft
+Read the file user shared.
+
+## Step 2: Dispatch (parallel)
+- Task: review-methodology
+- Task: review-writing
+
+## Step 3: Synthesize
+- Agreements (highest
+  confidence findings)
+- Disagreements (surface,
+  don't pick a winner)
+- Unique per-critic
+  insight
+
+## Step 4: Verdict
+ACCEPT / REVISE / REJECT
+with Red/Yellow/Green
+breakdown.</pre>
+            <div class="caption">peer-review/SKILL.md — the conductor</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- THE QUALITY GATE -->
+    <section class="text-slide">
+      <div class="window">
+        <div class="titlebar">
+          <span class="title-text">Build a quality gate</span>
+        </div>
+        <div class="body text-body">
+          <h1>A verdict the skill can refuse</h1>
+          <ul>
+            <li><strong>Severity:</strong> each finding gets 🔴 Red, 🟡 Yellow, or 🟢 Green.</li>
+            <li><strong>Rule:</strong> any Red → REVISE. Hard-coded in the skill text.</li>
+            <li><strong>Effect:</strong> removes the praise-sandwich escape hatch.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- EVALUATE THE EVALUATOR -->
+    <section class="text-slide">
+      <div class="window">
+        <div class="titlebar">
+          <span class="title-text">Evaluate the evaluator</span>
+        </div>
+        <div class="body text-body">
+          <h1>Validate it like an instrument</h1>
+          <ul>
+            <li>Run it on a paper you know well: your own work, or a famously flawed paper.</li>
+            <li>Compare its findings to what a human referee caught.</li>
+            <li>Two failure modes: <strong>false Reds</strong> (paranoia), <strong>missed Reds</strong> (sycophancy).</li>
+            <li>Edit the skill until the rate of both drops.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- READING THE PASSES -->
+    <section class="text-slide">
+      <div class="window">
+        <div class="titlebar">
+          <span class="title-text">Reading the four passes</span>
+        </div>
+        <div class="body text-body">
+          <h1>What each pass adds</h1>
+          <ul>
+            <li><strong>Pass 0:</strong> flattery, no rigor.</li>
+            <li><strong>Pass 1 (skill):</strong> role and rubric. One generalist.</li>
+            <li><strong>Pass 2 (+ specialists):</strong> methods and prose reviewed separately.</li>
+            <li><strong>Pass 3 (+ orchestrator + gate):</strong> synthesis and a verdict.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAKEAWAYS -->
+    <section class="text-slide">
+      <div class="window">
+        <div class="titlebar">
+          <span class="title-text">Takeaways</span>
+        </div>
+        <div class="body text-body">
+          <h1>What we built</h1>
+          <ul>
+            <li>A skill is a reusable, editable markdown file: role, steps, output, gate.</li>
+            <li>Smaller composed skills are easier to maintain than one large prompt.</li>
+            <li>A verdict gate is what prevents drift back to flattery.</li>
+            <li>Same pattern applies to grant pre-reads, response-to-reviewers, conference abstracts.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ASYNC EXERCISE -->
+    <section class="text-slide">
+      <div class="window">
+        <div class="titlebar">
+          <span class="title-text">Take home</span>
+        </div>
+        <div class="body text-body">
+          <h1>Async exercise · ~45 min</h1>
+          <ul>
+            <li>Pick a draft of your own, or a working paper you've read closely.</li>
+            <li>In Claude Desktop or Cowork, attach it and run <strong>Pass 0</strong>. Save the output.</li>
+            <li>Write <code>peer-review/SKILL.md</code>, starting from Blattman's <a href="https://github.com/chrisblattman/claudeblattman/blob/main/skills/review-plan.md" target="_blank" rel="noopener">review-plan</a>.</li>
+            <li>Split into <a href="https://github.com/chrisblattman/claudeblattman/blob/main/agents/review-methodology.md" target="_blank" rel="noopener">methodology</a> + <a href="https://github.com/chrisblattman/claudeblattman/blob/main/agents/review-writing.md" target="_blank" rel="noopener">writing</a>. Compare to Pass 0.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/dist/reveal.min.js"></script>
+
+<script>
+  const MODULE_NAME       = "Task: Synthetic Peer Review";
+  const WORKSHOP_HOME_URL = "./index.html";
+
+  const MENUBAR_HTML = `
+    <div class="menubar">
+      <a class="apple" href="${WORKSHOP_HOME_URL}" title="Back to workshop home" aria-label="Back to workshop home">
+        <svg viewBox="0 0 14 16" width="14" height="16" fill="currentColor" aria-hidden="true">
+          <path d="M10.2 0c-.9.1-1.9.7-2.5 1.5-.5.7-1 1.7-.8 2.7 1 0 2-.6 2.6-1.4.6-.8 1-1.8.7-2.8zM12.4 5.4c-1.4-.1-2.5.8-3.2.8-.7 0-1.7-.8-2.8-.8-1.4 0-2.7.8-3.5 2.2-1.5 2.6-.4 6.4 1 8.5.7 1 1.5 2.2 2.6 2.1 1 0 1.4-.7 2.7-.7 1.3 0 1.6.7 2.7.6 1.1 0 1.8-1 2.5-2 .6-.8 1.1-1.7 1.3-2.7-2.6-1-3.1-4.7-.4-6 .1 0-1.4-2-2.9-2z" transform="scale(0.85) translate(0, 0)"/>
+        </svg>
+      </a>
+      <span class="menu-item">File</span>
+      <span class="menu-item">Edit</span>
+      <span class="menu-item">View</span>
+      <span class="menu-item">Special</span>
+      <span class="clock">Mon 12:00 PM</span>
+    </div>
+  `;
+
+  document.querySelectorAll('.slides > section').forEach(slide => {
+    if (slide.querySelector('.menubar')) return;
+    const tmp = document.createElement('template');
+    tmp.innerHTML = MENUBAR_HTML.trim();
+    slide.insertBefore(tmp.content.firstChild, slide.firstChild);
+  });
+
+  document.querySelectorAll('.titlebar').forEach(tb => {
+    if (tb.querySelector('.close-box')) return;
+    const closeLink = document.createElement('a');
+    closeLink.className = 'close-box';
+    closeLink.href = WORKSHOP_HOME_URL;
+    closeLink.title = 'Close — back to workshop home';
+    closeLink.setAttribute('aria-label', 'Close — back to workshop home');
+    tb.insertBefore(closeLink, tb.firstChild);
+  });
+
+  function updateClocks() {
+    const now = new Date();
+    const days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+    const day = days[now.getDay()];
+    let h = now.getHours();
+    const m = now.getMinutes().toString().padStart(2, '0');
+    const ampm = h >= 12 ? 'PM' : 'AM';
+    h = h % 12 || 12;
+    const text = `${day} ${h}:${m} ${ampm}`;
+    document.querySelectorAll('.clock').forEach(el => { el.textContent = text; });
+  }
+  updateClocks();
+  setInterval(updateClocks, 5000);
+
+  Reveal.initialize({
+    width:        1280,
+    height:       720,
+    margin:       0,
+    minScale:     0.2,
+    maxScale:     2.0,
+    controls:     false,
+    progress:     false,
+    slideNumber:  'c/t',
+    hash:         true,
+    transition:   'none',
+    center:       false,
+    keyboard:     true,
+    overview:     true
+  });
+</script>
+
+</body>
+</html>
