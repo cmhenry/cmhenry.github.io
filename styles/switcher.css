@@ -1,0 +1,54 @@
+/* =========================================================================
+   ERA SWITCHER — subtle corner hint + simple flash transition
+   The hint is a fixed-position button in the bottom-right corner.
+   ========================================================================= */
+
+button.era-hint {
+  position: fixed !important;
+  bottom: 14px !important;
+  right: 16px !important;
+  top: auto !important;
+  left: auto !important;
+  z-index: 9997 !important;
+  display: inline-block !important;
+  margin: 0 !important;
+  font-family: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace !important;
+  font-size: 11px !important;
+  letter-spacing: 0.08em !important;
+  padding: 4px 8px !important;
+  background: transparent !important;
+  border: 0 !important;
+  color: currentColor !important;
+  cursor: pointer !important;
+  opacity: 0.35;
+  transition: opacity 140ms ease;
+  text-decoration: underline !important;
+  text-decoration-thickness: 1px !important;
+  text-underline-offset: 3px !important;
+  box-shadow: none !important;
+  pointer-events: auto !important;
+}
+button.era-hint:hover,
+button.era-hint:focus-visible {
+  opacity: 1;
+  outline: none;
+}
+button.era-hint:focus-visible {
+  outline: 1px dotted currentColor !important;
+  outline-offset: 2px;
+}
+
+/* ----------------- Simple fade transition ----------------- */
+
+.era-fade {
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  background: #000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 260ms ease;
+}
+body.is-transitioning .era-fade {
+  opacity: 1;
+}

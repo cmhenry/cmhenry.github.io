@@ -1,0 +1,64 @@
+/* =========================================================================
+   BASE — structural defaults only. Each era sheet paints over this.
+   Rules that live here are SHARED across all 4 eras.
+   ========================================================================= */
+
+* { box-sizing: border-box; }
+
+html, body { margin: 0; padding: 0; }
+
+body {
+  min-height: 100vh;
+  /* Push content below the fixed switcher bar */
+  padding-top: 64px;
+}
+
+img { max-width: 100%; display: block; }
+
+.page {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 2rem 1.25rem 4rem;
+}
+
+/* ---- Shared structural skeleton (styled per-era) ---- */
+
+.hdr { margin-bottom: 2rem; }
+.hdr__photo-modern,
+.hdr__photo-pixel { display: none; }
+
+.nav { margin: 1rem 0 2rem; }
+.nav a { text-decoration: none; }
+
+.card,
+.section { margin: 2.5rem 0; }
+
+.card__title,
+.section__title { margin: 0 0 0.75rem; }
+
+.card__cta { margin-top: 1rem; }
+
+.pub-list,
+.wip-list,
+.link-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.pub,
+.wip { margin: 1rem 0; }
+
+.btn { display: inline-block; text-decoration: none; }
+.btn + .btn { margin-left: 0.5rem; }
+
+.foot {
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+}
+
+/* Hide the single-file page during transition */
+body.is-dialing .page,
+body.is-dialing .nav,
+body.is-dialing .hdr,
+body.is-dialing .foot { /* kept visible — overlay sits on top */ }

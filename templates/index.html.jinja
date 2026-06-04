@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!--
+   ┌─────────────────────────────────────────────────────────────┐
+   │  press T, or visit /1994.html, if you remember the old web. │
+   └─────────────────────────────────────────────────────────────┘
+-->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ meta.name }} — {{ meta.role }}</title>
+<meta name="description" content="{{ meta.affiliation }}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+<main class="page">
+
+  {# ── masthead ───────────────────────────────────────────── #}
+  <hr class="rule rule--thick">
+  <header class="masthead">
+    <p class="masthead__id">
+      <span>iss. {{ meta.last_build[:4] }}</span>
+      <span>build {{ meta.last_build }}</span>
+      <span>vis. {{ meta.visitors }}</span>
+    </p>
+    <h1 class="name">
+      {% for word in meta.name.split() %}<span class="name__line">{{ word }}</span>{% endfor %}
+    </h1>
+    <p class="masthead__role">{{ meta.role }}</p>
+  </header>
+  <hr class="rule">
+
+  {# ── nav ───────────────────────────────────────────────── #}
+  <nav class="nav" aria-label="primary">
+    <a href="#status">status</a><span class="nav__sep">~</span>
+    <a href="#papers">papers</a><span class="nav__sep">~</span>
+    <a href="#projects">projects</a><span class="nav__sep">~</span>
+    <a href="#elsewhere">elsewhere</a><span class="nav__sep">~</span>
+    <a href="#contact">contact</a>
+  </nav>
+  <hr class="rule">
+
+  {# ── status ────────────────────────────────────────────── #}
+  <section id="status" class="section">
+    <h2 class="section__title"><span class="section__mark">§</span> status</h2>
+    <div class="status-block">
+      <figure class="portrait">
+        <img src="thumbnail2.png" alt="">
+        <figcaption>fig. 1</figcaption>
+      </figure>
+      <div class="status-block__text">
+        <p>{{ meta.affiliation }}</p>
+        <p>{{ meta.about }}</p>
+        <p class="cta">
+          <a class="link-cta" href="{{ meta.cv_url }}">cv.pdf →</a>
+        </p>
+      </div>
+    </div>
+  </section>
+  <hr class="rule">
+
+  {# ── papers ────────────────────────────────────────────── #}
+  <section id="papers" class="section">
+    <h2 class="section__title"><span class="section__mark">§</span> papers</h2>
+    {% for label, group in paper_groups %}
+    <div class="paper-group">
+      <h3 class="paper-group__label">
+        <span class="tag">[ {{ label }} ]</span>
+        <span class="paper-group__rule" aria-hidden="true"></span>
+      </h3>
+      {% for paper in group %}
+      <article class="entry">
+        {% if paper.url %}
+        <h4 class="entry__title"><a href="{{ paper.url }}">{{ paper.title }}</a></h4>
+        {% else %}
+        <h4 class="entry__title">{{ paper.title }}</h4>
+        {% endif %}
+        <p class="entry__byline">
+          {{ paper.authors | join(', ') }}{% if paper.venue %} · <em>{{ paper.venue }}</em>{% endif %}{% if paper.date %} · {{ paper.date }}{% endif %}
+        </p>
+        {% if paper.note %}<p class="entry__note">{{ paper.note | safe }}</p>{% endif %}
+      </article>
+      {% endfor %}
+    </div>
+    {% endfor %}
+  </section>
+  <hr class="rule">
+
+  {# ── projects ──────────────────────────────────────────── #}
+  <section id="projects" class="section">
+    <h2 class="section__title"><span class="section__mark">§</span> projects</h2>
+    {% for proj in projects %}
+    <article class="project" id="proj-{{ proj.slug }}">
+      <h3 class="project__title">
+        <span class="tag tag--{{ proj.status }}">[ {{ proj.status_label }} ]</span>
+        {{ proj.name }}
+      </h3>
+      <div class="project__body">
+        {% if proj.role %}<p><span class="kv">role</span> {{ proj.role }}</p>{% endif %}
+        <p>{{ proj.summary | safe }}</p>
+        {% if proj.current %}<p><span class="kv">current</span> {{ proj.current | safe }}</p>{% endif %}
+        {% if proj.methods %}<p><span class="kv">methods</span> {{ proj.methods }}</p>{% endif %}
+        {% if proj.collaborators %}<p><span class="kv">w/</span> {{ proj.collaborators }}</p>{% endif %}
+        {% if proj.links %}
+        <p class="project__links">
+          {% for link in proj.links %}<a class="link-cta" href="{{ link.url }}">{{ link.label }} →</a>{% if not loop.last %} &middot; {% endif %}{% endfor %}
+        </p>
+        {% endif %}
+      </div>
+    </article>
+    {% endfor %}
+  </section>
+  <hr class="rule">
+
+  {# ── elsewhere ─────────────────────────────────────────── #}
+  <section id="elsewhere" class="section">
+    <h2 class="section__title"><span class="section__mark">§</span> elsewhere</h2>
+    <ul class="link-list">
+      {% for link in links %}
+      <li>
+        <a href="{{ link.url }}">{{ link.label }}</a>
+        {% if link.note %}<span class="link-list__note">— {{ link.note }}</span>{% endif %}
+      </li>
+      {% endfor %}
+    </ul>
+  </section>
+  <hr class="rule">
+
+  {# ── contact ───────────────────────────────────────────── #}
+  <section id="contact" class="section">
+    <h2 class="section__title"><span class="section__mark">§</span> contact</h2>
+    <p>researchers, search committees, curious visitors — say hi.</p>
+    <p><a class="link-cta" href="mailto:{{ meta.email }}">{{ meta.email }} →</a></p>
+  </section>
+
+  <hr class="rule rule--thick">
+
+  {# ── colophon ──────────────────────────────────────────── #}
+  <footer class="colophon">
+    <p>
+      <span>set in charter &amp; jetbrains mono.</span>
+      <span>html + css.</span>
+      <span>no trackers.</span>
+      <span>no javascript.</span>
+    </p>
+    <p>last build {{ meta.last_build }}.</p>
+  </footer>
+
+</main>
+</body>
+</html>
