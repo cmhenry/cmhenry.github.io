@@ -1,0 +1,13 @@
+# Pages and artifacts hosted on this site. Shown in the "also here" cell.
+- label: cv.pdf
+  url: https://github.com/cmhenry/cmhenry.github.io/raw/main/pdfs/Henry_academic_CV_CURRENT.pdf
+
+- label: AI as a Research Tool
+  url: workshop/
+  note: workshop
+
+- label: job market paper
+  url: https://github.com/cmhenry/cmhenry.github.io/raw/main/pdfs/Community_Competition.pdf
+
+- label: dissertation
+  url: pages/dissertation.html

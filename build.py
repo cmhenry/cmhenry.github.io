@@ -36,13 +36,25 @@ def load(name):
     return yaml.safe_load((DATA / name).read_text()) or []
 
 
-def group_papers(papers):
-    buckets = {}
+# the grid layout splits papers into two cells
+PAPERS_OUT = ["published", "r-and-r", "under-review"]
+PAPERS_WIP = ["working-paper", "draft"]
+
+
+def label_papers(papers):
     for p in papers:
         s = p.get("status", "draft")
         p["status_label"] = STATUS_LABELS.get(s, s)
-        buckets.setdefault(s, []).append(p)
-    return [(STATUS_LABELS[s], buckets[s]) for s in PAPER_STATUS_ORDER if s in buckets]
+    return papers
+
+
+def split_papers(papers):
+    """Return (out, wip): papers that are out in the world, and papers that aren't."""
+    rank = {s: i for i, s in enumerate(PAPER_STATUS_ORDER)}
+    key = lambda p: rank.get(p.get("status", "draft"), 99)
+    out = sorted((p for p in papers if p.get("status") in PAPERS_OUT), key=key)
+    wip = sorted((p for p in papers if p.get("status") in PAPERS_WIP), key=key)
+    return out, wip
 
 
 def sort_projects(projects):
@@ -58,6 +70,8 @@ def main():
     papers = load("papers.yaml")
     projects = load("projects.yaml")
     links = load("links.yaml")
+    also = load("also.yaml")
+    papers_out, papers_wip = split_papers(label_papers(papers))
 
     env = Environment(
         loader=FileSystemLoader(TEMPLATES),
@@ -67,9 +81,11 @@ def main():
     template = env.get_template("index.html.jinja")
     rendered = template.render(
         meta=meta,
-        paper_groups=group_papers(papers),
+        papers_out=papers_out,
+        papers_wip=papers_wip,
         projects=sort_projects(projects),
         links=links,
+        also=also,
     )
     out = ROOT / "index.html"
     out.write_text(rendered)

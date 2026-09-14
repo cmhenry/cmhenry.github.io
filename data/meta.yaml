@@ -1,10 +1,16 @@
 name: colin henry
 role: researcher · political behavior × digital platforms
+roles:
+  - researcher
+  - methodologist
+  - engineer
+tagline: "& also sometimes teacher, reviewer, maintainer, sysadmin"
+source_url: https://github.com/cmhenry/cmhenry.github.io
 affiliation: Postdoctoral researcher at the University of Zürich, Department of Political Science.
 email: colinmhenry@pm.me
 cv_url: https://github.com/cmhenry/cmhenry.github.io/raw/main/pdfs/Henry_academic_CV_CURRENT.pdf
 visitors: 52,847
-last_build: "2026-05-10"
+last_build: "2026-09-14"
 
 about: |
   I'm part of the
@@ -14,3 +20,12 @@ about: |
   I study how digital platform architecture influences political behavior and community dynamics —
   with a focus on extremism and hate speech.
   Previously a research fellow at George Washington University's Dynamic Online Networks Lab.
+
+# Compressed bio for the grid layout. Keep it to two or three lines —
+# the grid cell is sized for brevity, not for a full paragraph.
+short_about: |
+  I study how the architecture of digital platforms shapes political behavior,
+  with a focus on extremism, hate speech, and content moderation. Postdoc in the
+  <a href="https://www.ipz.uzh.ch/en/research/professorships-and-research-areas/bdm.html">Political Behavior and Digital Media</a>
+  group at the University of Z&uuml;rich; technical lead on the SNSF
+  <a href="https://fabriziogilardi.org/projects/improving-online-discourse/">Improving Public Discourse</a> project.
