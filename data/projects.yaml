@@ -2,6 +2,8 @@
 # Move a project from active to wrapped (or delete it) when it ends.
 
 - slug: snsf
+  short: "Improving Public Discourse"
+  short_note: "SNSF grant, UZH DigDem &mdash; technical lead"
   name: SNSF Improving Public Discourse
   status: active
   role: Technical lead
@@ -22,6 +24,8 @@
       url: https://fabriziogilardi.org/projects/improving-online-discourse/
 
 - slug: virena
+  short: "VIRENA"
+  short_note: "chatroom experiment platform, moderation errors"
   name: VIRENA
   status: active
   summary: |
@@ -36,6 +40,8 @@
   collaborators: Karsten Donnay, Giuliano Formisano, Emma Hoes, Jonathan Klues, Adiba Mahbub Proma, Fabrizio Gilardi (PI)
 
 - slug: dissertation
+  short: "Dissertation"
+  short_note: "governance, competition &amp; extremism"
   name: Dissertation
   status: wrapped
   summary: |
@@ -50,6 +56,8 @@
       url: https://github.com/cmhenry/cmhenry.github.io/raw/main/pdfs/Community_Competition.pdf
 
 - slug: platform-abm
+  short: "Platform ABM"
+  short_note: "Tiebout sorting across platforms"
   name: Platform ABM
   status: active
   summary: |

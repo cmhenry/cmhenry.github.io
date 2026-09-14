@@ -2,6 +2,8 @@
 # Move a paper through the pipeline by changing its `status` field.
 
 - title: Does Violence Against Journalists Deter Detailed Reporting? Evidence From Mexico
+  short: "Violence Against Journalists &amp; Reporting"
+  mark: "jcr &rsquo;23"
   authors: [Henry, Dorff, Ley]
   venue: Journal of Conflict Resolution
   date: 2023-07
@@ -10,6 +12,8 @@
   status: published
 
 - title: Digital Footprints and Data-Security Risks for Political Scientists
+  short: "Digital Footprints &amp; Data-Security Risks"
+  mark: "ps &rsquo;22"
   authors: [Henry, Dorff, Gohdes]
   venue: "PS: Political Science & Politics, Vol 55 Issue 4"
   date: 2022-10
@@ -18,32 +22,46 @@
   status: published
 
 - title: When Do Social Media Platforms Intervene in Online Hate Communities?
+  short: "When Platforms Intervene in Hate Communities"
+  mark: "jop &middot; r&amp;r"
   authors: [Long, Sear, "N. Johnson", Wuchty, "N. Johnson", Lupu, Henry]
   venue: Journal of Politics
   status: r-and-r
 
 - title: "Content and Competition: Structural Sources of Online Extremism"
+  short: "Content and Competition"
+  mark: "job market &middot; review"
   authors: [Henry]
   note: Job market paper
   status: under-review
 
 - title: "From Seeds to Communities: Adaptive Snowball Sampling and Community Detection in Cross-Platform Political Networks"
+  short: "From Seeds to Communities"
+  mark: "review"
   authors: [Henry]
   status: under-review
 
 - title: "Scrolling through Hate: TikTok, Hate Speech and Content Moderation"
+  short: "Scrolling through Hate"
+  mark: "draft"
   authors: [Henry, Donnay, Gilardi, Gennaro, Hangartner, Guinaudeau, Messing, Tucker]
   status: draft
 
 - title: "Indirect Effects of Content Moderation Errors: A Chatroom Experiment with AI Agents"
+  short: "Indirect Effects of Moderation Errors"
+  mark: "draft"
   authors: [Henry, Formisano, Mahbub Proma, Donnay, Gilardi]
   status: draft
 
 - title: Varieties of Platform Governance
+  short: "Varieties of Platform Governance"
+  mark: "draft"
   authors: [Henry]
   status: draft
 
 - title: "Voting with Your Feeds: Platform Competition, Extremism, and the Limits of Tiebout Sorting"
+  short: "Voting with Your Feeds"
+  mark: "working paper"
   authors: [Henry]
   note: Related — <a href="https://academic.oup.com/pnasnexus/article/4/9/pgaf262/8232781">Ideological fragmentation of the social media ecosystem</a> (PNAS Nexus)
   status: working-paper

@@ -1,7 +1,5 @@
-<<<<<<< HEAD
 .superpowers/
 .hermes/
-=======
->>>>>>> main
+.worktrees/
 workshop/BUILD_MODULE_PROMPT.md
 workshop/module-template.html

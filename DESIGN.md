@@ -22,9 +22,27 @@ A standard academic website template (two-column CV layout, Bootstrap theme, blu
 ### Primary References
 
 **[ashleyblewer.com](https://ashleyblewer.com/)**
-The closest single referent for the target aesthetic. A static index page that reads like a typewritten zine page — her name split across two massive display lines flanked by `---` horizontal rules, the entire layout feeling *printed* rather than designed. No JavaScript. The structural rhythm comes entirely from `<hr>` elements and typographic scale. The page names alone (`throttled.html`, `lando.html`, `how-did-i-get-here.html`) telegraph the sensibility: idiosyncratic, hand-built, unmistakably personal.
+The primary referent. Two large geometric panels — a square and a 45&deg;-rotated
+diamond — carry the name and the role words; the text inside each is counter-rotated
+so it reads diagonally in one and horizontally in the other. Both panels are filled
+with a halftone dot pattern over a gradient, outlined, and given a hard offset
+shadow. Thin diagonal rules sweep through them on load. Beside that sits a dense
+six-column CSS grid of bordered cells — see also, publishing, tools, professional,
+syllabi, art, community — each one right-aligned, set in Inconsolata, with
+Space Grotesk for the headings and the panel type. Small CSS-only isometric boxes
+sit in a few cells as decoration. The whole page is one screen; nothing scrolls.
+There is no JavaScript apart from an email obfuscation snippet.
 
-*Key extractions*: horizontal rules as primary structural device; name/title as the visual anchor at maximum scale; flat list navigation over hierarchical menus; everything feeling hand-assembled.
+*Key extractions*: geometric panels as the masthead rather than a wordmark on a rule;
+the six-column grid of bordered cells as the body; right-aligned terse lists instead of
+prose; visible structural borders doing the work that whitespace does elsewhere;
+decoration that is drawn in CSS rather than fetched as an image; one-screen density
+as a constraint that forces every entry to earn its line.
+
+*Not extracted*: the palette. Her site is blue-on-concrete with a teal link color and
+a photographic background texture. Ours stays monochrome ink-on-paper, per the
+severe-palette principle below — the panels are ink-filled with paper-colored dots,
+and the concrete photograph becomes a CSS stipple.
 
 **[bits.ashleyblewer.com/halt-and-catch-fire-syllabus/](https://bits.ashleyblewer.com/halt-and-catch-fire-syllabus/classes/01.html)**
 Demonstrates "performs its subject": a syllabus about early computing history presented in early-web aesthetic. Tilde-separated navigation (`~ #01 ~ #02 ~ #03 ~`), dithered black-and-white images, animated construction GIF. The costume isn't ironic — it's the argument. For an academic site, the implication is that the form should somehow *be* the scholarship, or at least not contradict it.
@@ -117,4 +135,15 @@ These are not aesthetic preferences — they are failures of nerve that this col
 
 ---
 
-*This document was assembled from a curated collection of notable personal sites maintained as a side project. The referent links are live as of May 2026.*
+---
+
+## Revision note, September 2026
+
+The original version of this document described ashleyblewer.com as a typewritten
+zine page built on horizontal rules. That description was written from a cached
+reading and does not match the site. The referent section above has been rewritten
+against the live site. The implementation followed in the same revision: the
+single-column, hr-driven layout was replaced with the geometric-panel masthead and
+the six-column grid of bordered cells, keeping the monochrome palette.
+
+*This document was assembled from a curated collection of notable personal sites maintained as a side project. The referent section was verified against the live site in September 2026.*
