@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI as a Research Tool · UZH · Political Science</title>
+<meta name="description" content="8-module self-paced course on using AI in social science research — University of Zurich, Department of Political Science.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../styles/main.css">
+<style>
+  /* course-page extensions */
+  .module-index { list-style: none; padding: 0; margin: 0; }
+  .module-item { margin: 0 0 2rem; }
+  .module-item:last-child { margin-bottom: 0; }
+  .module-item__head {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    margin: 0 0 0.4rem;
+  }
+  .module-item__num {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--ink);
+    white-space: nowrap;
+    border: 1px solid var(--ink);
+    padding: 0.1em 0.55em;
+  }
+  .module-item__title {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 1.2rem;
+    margin: 0;
+    line-height: 1.3;
+  }
+  .module-item__title a { text-decoration-thickness: 1px; }
+  .module-item__meta {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-soft);
+    margin: 0.25rem 0 0.5rem;
+  }
+  .module-item__desc {
+    margin: 0;
+    line-height: 1.5;
+  }
+  .module-item__links {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.02em;
+    margin: 0.4rem 0 0;
+  }
+  .module-item__links a {
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--ink-soft);
+    padding-bottom: 1px;
+  }
+  .module-item__links a:hover { background: var(--ink); color: var(--paper); border-bottom-color: transparent; }
+
+  .lens-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 0.75rem;
+  }
+  .lens-card {
+    border: 1px solid var(--ink);
+    padding: 1rem;
+  }
+  .lens-card__num {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--ink-soft);
+    margin: 0 0 0.35rem;
+  }
+  .lens-card__q {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 0.95rem;
+    margin: 0 0 0.5rem;
+    line-height: 1.3;
+  }
+  .lens-card__body {
+    font-size: 0.88rem;
+    line-height: 1.45;
+    color: var(--ink-soft);
+    margin: 0;
+  }
+
+  @media (max-width: 600px) {
+    .lens-grid { grid-template-columns: 1fr; }
+  }
+
+  .blockquote-note {
+    border-left: 2px solid var(--ink);
+    padding: 0.5rem 0 0.5rem 1.25rem;
+    margin: 1rem 0;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+  }
+
+  .back-link {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.02em;
+    margin-bottom: 2rem;
+  }
+  .back-link a {
+    color: var(--ink-soft);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--ink-soft);
+    padding-bottom: 1px;
+  }
+  .back-link a:hover { background: var(--ink); color: var(--paper); border-bottom-color: transparent; }
+</style>
+</head>
+<body>
+<main class="page">
+
+  <p class="masthead__id">
+    <span>UZH · Fall 2026</span>
+    <span>8 modules</span>
+    <span>self-paced</span>
+  </p>
+
+  <hr class="rule rule--thick">
+
+  <header class="masthead">
+    <h1 class="name" style="font-size: clamp(2.5rem, 10vw, 4.5rem);">
+      <span class="name__line">AI as a</span><span class="name__line">Research Tool</span>
+    </h1>
+    <p class="masthead__role">workflow design for the social sciences</p>
+  </header>
+
+  <hr class="rule">
+
+  <nav class="nav" aria-label="course">
+    <a href="#overview">overview</a><span class="nav__sep">~</span>
+    <a href="#modules">modules</a><span class="nav__sep">~</span>
+    <a href="#lens">lens</a><span class="nav__sep">~</span>
+    <a href="#resources">resources</a><span class="nav__sep">~</span>
+    <a href="#portfolio">portfolio</a><span class="nav__sep">~</span>
+    <a href="#instructor">instructor</a>
+  </nav>
+
+  <hr class="rule">
+
+  <section id="overview" class="section">
+    <h2 class="section__title"><span class="section__mark">§</span> overview</h2>
+
+    <p>This is a self-paced course on using AI — specifically large language models — in social science research. It was developed from a three-day block seminar taught at the University of Zurich in September&nbsp;2026 and expanded into eight standalone modules.</p>
+
+    <p>The course does not teach you to use specific AI products. Products change; the methodological questions do not. Instead, it teaches a framework for deciding <strong>where, if anywhere, AI should enter your research workflow, under what conditions, and on the basis of what evidence.</strong></p>
+
+    <div class="blockquote-note">
+      Fluency is not truth. A model can produce a perfectly formed paragraph, complete with plausible-sounding citations and confident tone, that is entirely wrong. This is not a bug — it is a direct consequence of how these systems work.
+    </div>
+
+    <h3 style="font-family: var(--mono); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em; margin: 1.5rem 0 0.75rem;">who this is for</h3>
+    <ul style="list-style: none; padding: 0; margin: 0;">
+      <li style="margin-bottom: 0.3rem;">— MA and PhD students in the social sciences</li>
+      <li style="margin-bottom: 0.3rem;">— Researchers who want to use AI thoughtfully rather than optimistically</li>
+      <li style="margin-bottom: 0.3rem;">— No programming experience assumed</li>
+      <li>— No commercial accounts, API keys, installation, or payment required</li>
+    </ul>
+
+    <h3 style="font-family: var(--mono); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em; margin: 1.5rem 0 0.75rem;">how to use this course</h3>
+    <p>Each module is self-contained and can be taken in any order. The recommended path:</p>
+    <p style="font-family: var(--mono); font-size: 0.8rem; letter-spacing: 0.02em;">
+      1 → 2 → 3 → 4 → <strong>7</strong> (validation) → 5 → 6 → <strong>8</strong> (synthesis)
+    </p>
+    <p>You can also take Module&nbsp;1 (foundations) and Module&nbsp;7 (validation) first, then pick the application modules that matter to your research. Module&nbsp;8 is the capstone.</p>
+    <p><strong>Estimated total time:</strong> 24–30 hours (8 modules × 3–4 hours each)</p>
+  </section>
+
+  <hr class="rule">
+
+  <section id="modules" class="section">
+    <h2 class="section__title"><span class="section__mark">§</span> modules</h2>
+
+    <ul class="module-index">
+
+      <li class="module-item">
+        <div class="module-item__head">
+          <span class="module-item__num">mod 01</span>
+          <h3 class="module-item__title"><a href="module-01.html">How LLMs Work</a></h3>
+        </div>
+        <p class="module-item__meta">conceptual workbook + slides · 2–3h</p>
+        <p class="module-item__desc">A practical model of transformer-based language models for social scientists. Tokens, context, prediction, and why fluency is not truth. Introduces the four-question course lens and the capability map.</p>
+        <p class="module-item__links">
+          <a href="module-01.html">workbook →</a> &middot;
+          <a href="module-01.html#exercises">exercises →</a> &middot;
+          <a href="module-01.html#readings">readings →</a>
+        </p>
+      </li>
+
+      <li class="module-item">
+        <div class="module-item__head">
+          <span class="module-item__num">mod 02</span>
+          <h3 class="module-item__title"><a href="module-02.html">Writing with AI</a></h3>
+        </div>
+        <p class="module-item__meta">conceptual + practical · 2.5–3.5h</p>
+        <p class="module-item__desc">Drafting, editing, and style transfer with AI. Criteria-based evaluation: define "good" before generating. Derive a style guide from examples. Write a disclosure for AI-assisted writing.</p>
+        <p class="module-item__links">
+          <a href="module-02.html">workbook →</a> &middot;
+          <a href="module-02.html#exercises">exercises →</a> &middot;
+          <a href="module-02.html#readings">readings →</a>
+        </p>
+      </li>
+
+      <li class="module-item">
+        <div class="module-item__head">
+          <span class="module-item__num">mod 03</span>
+          <h3 class="module-item__title"><a href="module-03.html">Literature Search &amp; Synthesis</a></h3>
+        </div>
+        <p class="module-item__meta">technical html lab · 3–4h</p>
+        <p class="module-item__desc">Design a bounded literature search with explicit scope and stopping rules. Screen results with pre-registered criteria. Build an evidence table. Draft a source-bounded synthesis. Verifiy every cited source exists.</p>
+        <p class="module-item__links">
+          <a href="module-03.html">workbook →</a> &middot;
+          <a href="module-03.html#exercises">exercises →</a> &middot;
+          <a href="module-03.html#readings">readings →</a>
+        </p>
+      </li>
+
+      <li class="module-item">
+        <div class="module-item__head">
+          <span class="module-item__num">mod 04</span>
+          <h3 class="module-item__title"><a href="module-04.html">Text Annotation &amp; Measurement</a></h3>
+        </div>
+        <p class="module-item__meta">technical html lab · 3–4h</p>
+        <p class="module-item__desc">Turn a codebook into an AI prompt. Run a miniature annotation study. Measure reliability and report it honestly. Understand why high agreement &ne; construct validity.</p>
+        <p class="module-item__links">
+          <a href="module-04.html">workbook →</a> &middot;
+          <a href="module-04.html#exercises">exercises →</a> &middot;
+          <a href="module-04.html#readings">readings →</a>
+        </p>
+      </li>
+
+      <li class="module-item">
+        <div class="module-item__head">
+          <span class="module-item__num">mod 05</span>
+          <h3 class="module-item__title"><a href="module-05.html">Code &amp; Data Analysis</a></h3>
+        </div>
+        <p class="module-item__meta">technical python notebook · 3–4h</p>
+        <p class="module-item__desc">Use AI to explain, debug, and document code. Explore data with AI assistance. Indepedently verify statistics and interpretations. Understand common failure modes: halucinated functions, off-by-one errors.</p>
+        <p class="module-item__links">
+          <a href="module-05.html">workbook →</a> &middot;
+          <a href="module-05.html#exercises">exercises →</a> &middot;
+          <a href="module-05.html#readings">readings →</a>
+        </p>
+      </li>
+
+      <li class="module-item">
+        <div class="module-item__head">
+          <span class="module-item__num">mod 06</span>
+          <h3 class="module-item__title"><a href="module-06.html">Agents &amp; Workflow Automation</a></h3>
+        </div>
+        <p class="module-item__meta">conceptual + demo · 3–4h</p>
+        <p class="module-item__desc">Distinguish chat, file-working assistants, and agents by autonomy level. Design a bounded agent workflow. Write persistent instructions. Stress-test an instruction artifact.</p>
+        <p class="module-item__links">
+          <a href="module-06.html">workbook →</a> &middot;
+          <a href="module-06.html#exercises">exercises →</a> &middot;
+          <a href="module-06.html#readings">readings →</a>
+        </p>
+      </li>
+
+      <li class="module-item">
+        <div class="module-item__head">
+          <span class="module-item__num">mod 07</span>
+          <h3 class="module-item__title"><a href="module-07.html">Validation &amp; Research Integrity</a></h3>
+        </div>
+        <p class="module-item__meta">conceptual workbook · 3h</p>
+        <p class="module-item__desc">The evidence spine of the course. Seven validation checks. Reproducibility with LLMs. Data and institutional boundaries. The disclosure standard. Research integrity: fabricated references, confidentiality, accountability.</p>
+        <p class="module-item__links">
+          <a href="module-07.html">workbook →</a> &middot;
+          <a href="module-07.html#exercises">exercises →</a> &middot;
+          <a href="module-07.html#readings">readings →</a>
+        </p>
+      </li>
+
+      <li class="module-item">
+        <div class="module-item__head">
+          <span class="module-item__num">mod 08</span>
+          <h3 class="module-item__title"><a href="module-08.html">Frontiers &amp; Integration</a></h3>
+        </div>
+        <p class="module-item__meta">conceptual + synthesis · 3–4h</p>
+        <p class="module-item__desc">Local and open-weight models. Multimodal AI. Institutional and ethical boundaries. Integrate two or more modules into a coherent research workflow. Build the portfolio that answers: where, if anywhere, should AI enter my research?</p>
+        <p class="module-item__links">
+          <a href="module-08.html">workbook →</a> &middot;
+          <a href="module-08.html#exercises">exercises →</a> &middot;
+          <a href="module-08.html#readings">readings →</a>
+        </p>
+      </li>
+    </ul>
+  </section>
+
+  <hr class="rule">
+
+  <section id="lens" class="section">
+    <h2 class="section__title"><span class="section__mark">§</span> the course lens</h2>
+    <p>Every module uses four questions to evaluate AI use in research. Apply them before using AI, after using AI, and when reading research that uses AI.</p>
+
+    <div class="lens-grid">
+      <div class="lens-card">
+        <p class="lens-card__num">question 1</p>
+        <p class="lens-card__q">What is being delegated?</p>
+        <p class="lens-card__body">Name the task and the decision separately. A task delegation ("summarise these three papers") is diferent from a decision delegation ("identify the most important papers in this field").</p>
+      </div>
+      <div class="lens-card">
+        <p class="lens-card__num">question 2</p>
+        <p class="lens-card__q">What would make the result believable?</p>
+        <p class="lens-card__body">Name evidence outside the model output. Did you check the sources? Did a human agree with the labels? Did you run it twice? The model's confidence is not evidence.</p>
+      </div>
+      <div class="lens-card">
+        <p class="lens-card__num">question 3</p>
+        <p class="lens-card__q">What could be lost or flattened?</p>
+        <p class="lens-card__body">Look for variation, minority cases, ambiguity, provenance, and tacit knowledge. Are edge cases being forced into the closest category? Is the source of a claim becoming invisible?</p>
+      </div>
+      <div class="lens-card">
+        <p class="lens-card__num">question 4</p>
+        <p class="lens-card__q">What must remain visible or human?</p>
+        <p class="lens-card__body">Which decision requires a researcher's judgment? What check must be performed by a person? What record must survive so a reviewer can inspect what happened?</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="rule">
+
+  <section id="resources" class="section">
+    <h2 class="section__title"><span class="section__mark">§</span> shared resources</h2>
+    <p>These reference documents are used across multiple modules:</p>
+    <ul class="link-list">
+      <li><a href="shared.html">glossary</a><span class="link-list__note">— key terms with module references</span></li>
+      <li><a href="shared.html#validation">validation menu</a><span class="link-list__note">— seven checks for AI-assisted claims</span></li>
+      <li><a href="shared.html#disclosure">disclosure template</a><span class="link-list__note">— journal-ready AI use disclosure</span></li>
+    </ul>
+  </section>
+
+  <hr class="rule">
+
+  <section id="portfolio" class="section">
+    <h2 class="section__title"><span class="section__mark">§</span> portfolio</h2>
+    <p>The course culminates in a portfolio that answers one question:</p>
+    <div class="blockquote-note">
+      Where, if anywhere, should AI enter my research workflow, under what conditions, and on the basis of what evidence?
+    </div>
+    <p>You may conclude: integrate, integrate with limits, continue experimenting, or do not integrate. All four conclusions can be equally strong. The grade depends on the quality of evidence and reasoning, not on whether you adopted AI.</p>
+
+    <h3 style="font-family: var(--mono); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em; margin: 1.5rem 0 0.75rem;">constraints</h3>
+    <ul style="list-style: none; padding: 0; margin: 0;">
+      <li style="margin-bottom: 0.3rem;">— <strong>No programming required.</strong> Code is demonstrated and provided as scafold.</li>
+      <li style="margin-bottom: 0.3rem;">— <strong>No commercial accounts, API keys, installation, or payment</strong> required for any asessed component.</li>
+      <li style="margin-bottom: 0.3rem;">— <strong>Every exercise has an equivalent no-account path.</strong> Constructed fallback outputs are provided.</li>
+      <li>— <strong>Do not upload material you lack the authority to share.</strong> Unpublished co-authored drafts, interview transripts, administrative data, and identifiable records stay on your own device.</li>
+    </ul>
+  </section>
+
+  <hr class="rule">
+
+  <section id="instructor" class="section">
+    <h2 class="section__title"><span class="section__mark">§</span> instructor</h2>
+    <p>Dr. Colin Henry, Postdoctoral Researcher<br>
+    Department of Political Science, University of Zurich<br>
+    <a href="mailto:colin.henry@ipz.uzh.ch">colin.henry@ipz.uzh.ch →</a></p>
+    <p style="margin-top: 0.5rem;">Source repository: <a href="https://github.com/cmhenry/uzh_ai_for_research_f2026">github.com/cmhenry/uzh_ai_for_research_f2026 →</a></p>
+  </section>
+
+  <hr class="rule rule--thick">
+
+  <footer class="colophon">
+    <p>
+      <span>set in charter &amp; jetbrains mono.</span>
+      <span>html + css.</span>
+      <span>no trackers.</span>
+    </p>
+    <p>modules last updated october 2026 · <a href="../../index.html" style="color: var(--ink-soft);">← colin henry</a></p>
+  </footer>
+
+</main>
+</body>
+</html>

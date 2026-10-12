@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Module 8: Frontiers &amp; Integration · AI as a Research Tool · UZH</title>
+<meta name="description" content="Module 8 of AI as a Research Tool: local and open-weight models, multimodal AI, ethics and governance, integration, and the portfolio capstone.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../styles/main.css">
+<style>
+  /* module-page extensions */
+  .back-link {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.02em;
+    margin-bottom: 2rem;
+  }
+  .back-link a {
+    color: var(--ink-soft);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--ink-soft);
+    padding-bottom: 1px;
+  }
+  .back-link a:hover { background: var(--ink); color: var(--paper); border-bottom-color: transparent; }
+
+  .module-nav {
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    text-transform: lowercase;
+    letter-spacing: 0.02em;
+    margin: 0 0 1rem;
+  }
+  .module-nav a {
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--ink-soft);
+    padding-bottom: 1px;
+    margin-right: 0.25rem;
+  }
+  .module-nav a:hover { background: var(--ink); color: var(--paper); border-bottom-color: transparent; }
+  .module-nav__sep { color: var(--mute); padding: 0 0.55em; user-select: none; }
+
+  .blockquote-note {
+    border-left: 2px solid var(--ink);
+    padding: 0.5rem 0 0.5rem 1.25rem;
+    margin: 1rem 0;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+  }
+
+  .checklist {
+    list-style: none;
+    padding: 0;
+    margin: 0.5rem 0 1rem;
+  }
+  .checklist li {
+    font-family: var(--mono);
+    font-size: 0.82rem;
+    margin: 0 0 0.25rem;
+    line-height: 1.45;
+  }
+
+  .mod-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0.75rem 0 1.25rem;
+    font-size: 0.85rem;
+  }
+  .mod-table th, .mod-table td {
+    text-align: left;
+    padding: 0.45rem 0.65rem 0.45rem 0;
+    vertical-align: top;
+    border-bottom: 1px solid var(--mute);
+  }
+  .mod-table th {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-soft);
+    font-weight: 500;
+  }
+
+  .ex-sc p { margin: 0 0 0.5rem; }
+  .ex-sc summary {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    color: var(--ink-soft);
+    margin: 0.75rem 0;
+  }
+  .ex-sc summary:hover { color: var(--ink); }
+  .ex-sc details { margin-bottom: 1.25rem; }
+
+  .reading-entry { margin: 0 0 1.25rem; }
+  .reading-entry h4 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 1rem;
+    margin: 0 0 0.3rem;
+    line-height: 1.3;
+  }
+  .reading-entry .reading__why {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-soft);
+  }
+  .reading-entry p { margin: 0.25rem 0; line-height: 1.45; }
+
+  .meta-bar {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ink-soft);
+    margin: 0 0 1.5rem;
+    display: flex;
+    gap: 1.25rem;
+    flex-wrap: wrap;
+  }
+  .meta-bar span { white-space: nowrap; }
+
+  @media (max-width: 600px) {
+    .mod-table { font-size: 0.78rem; }
+  }
+</style>
+</head>
+<body>
+<main class="page">
+
+  <p class="meta-bar">
+    <span>UZH · Fall 2026</span>
+    <span>module 08</span>
+    <span>conceptual + synthesis</span>
+    <span>3–4h</span>
+  </p>
+
+  <hr class="rule rule--thick">
+
+  <header class="masthead">
+    <p class="back-link"><a href="index.html">← course index</a></p>
+    <h1 class="name" style="font-size: clamp(2rem, 8vw, 3.5rem);">
+      <span class="name__line">Frontiers &amp;</span><span class="name__line">Integration</span>
+    </h1>
+    <p class="masthead__role">capstone &middot; portfolio builder</p>
+  </header>
+
+  <hr class="rule">
+
+  <nav class="module-nav" aria-label="module">
+    <a href="#workbook">workbook</a><span class="module-nav__sep">~</span>
+    <a href="#exercises">exercises</a><span class="module-nav__sep">~</span>
+    <a href="#readings">readings</a>
+  </nav>
+
+  <hr class="rule">
+
+  <!-- �� WORKBOOK �� -->
+  <section id="workbook" class="section">
+    <h2 class="section__title"><span class="section__mark">§</span> workbook</h2>
+
+    <p><strong>Estimated time:</strong> 3–4 hours &middot; <strong>Type:</strong> Conceptual + synthesis (workbook + portfolio builder) &middot; <strong>Prerequisites:</strong> Modules 1–7 (or at least Modules 1 and 7, plus your chosen application modules) &middot; <strong>What you'll produce:</strong> A complete portfolio prototype: task, baseline, experiment, evidence, decision, disclosure</p>
+
+    <hr class="rule">
+
+    <h3 style="font-family: var(--mono); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em; margin: 1.5rem 0 0.75rem;">learning outcomes</h3>
+    <p>By the end of this module you will be able to:</p>
+    <ol>
+      <li>Describe the capabilities and limitations of local/open-weight models and multimodal AI for research</li>
+      <li>Navigate the institutional and ethical boundaries of AI use in academic research</li>
+      <li>Integrate two or more course modules into a coherent research workflow</li>
+      <li>Build a portfolio that answers: where, if anywhere, should AI enter my research workflow, under what conditions, and on what evidence?</li>
+    </ol>
+
+    <hr class="rule">
+
+    <h3 style="font-family: var(--mono); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em; margin: 1.5rem 0 0.75rem;">1. local and open-weight models</h3>
+
+    <p>Througout this course, you have used AI through chat interfaces — models running on servers controlled by companies. There is an alternative: running models on your own hardware.</p>
+
+    <h4 style="font-family: var(--serif); font-weight: 400; font-size: 1.05rem; margin: 1rem 0 0.35rem;">what are open-weight models?</h4>
+    <p>An open-weight model is one whose trained parameters (the "weights" — the numerical result of training) are publicly available for download. Anyone with suficient hardware can run the model. Examples include:</p>
+    <ul>
+      <li><strong>Llama</strong> (Meta)</li>
+      <li><strong>Mistral</strong> (Mistral AI)</li>
+      <li><strong>Qwen</strong> (Alibaba)</li>
+      <li><strong>DeepSeek</strong> (DeepSeek AI)</li>
+      <li><strong>OLMo</strong> (Allen Institute for AI)</li>
+    </ul>
+    <p>Thee are distinct from "open source" in the traditional sense — the training data and code may not be public — but the model itself can be downloaded, inspected, modified, and run locally.</p>
+
+    <h4 style="font-family: var(--serif); font-weight: 400; font-size: 1.05rem; margin: 1rem 0 0.35rem;">why run models locally?</h4>
+    <ol>
+      <li><strong>Data stays on your device.</strong> No text you process is sent to an external server. This matters for confidential, sensitive, or restricted data (interview transcripts, administrative records, unpublished drafts).</li>
+      <li><strong>Reproducibility.</strong> You control the model version. A proprietary model accessed through an API can be updated, modified, or deprecated without notice. A file on your hard drive does not change.</li>
+      <li><strong>Cost.</strong> No per-token charges. The cost is your hardware and electricity.</li>
+      <li><strong>Customisation.</strong> You can fine-tune an open-weight model on your own data, adapting it to your domain, terminology, or task.</li>
+    </ol>
+
+    <h4 style="font-family: var(--serif); font-weight: 400; font-size: 1.05rem; margin: 1rem 0 0.35rem;">the trade-ofs</h4>
+    <ul>
+      <li><strong>Hardware requirements.</strong> Running a capabe model requires a reasonably powerful computer, ideally with a dedicated GPU. Smaller models (1–8 billion parameters) run on consumer laptops. Larger models (70B+) need specialised hardware or cloud GPU rental.</li>
+      <li><strong>Capability gap.</strong> The largest open-weight models are competitive with proprietary models on many tasks, but the most capable proprietary models (GPT-5, Claude 4, Gemini) still lead on complex reasoning, long-context tasks, and multilingual performance.</li>
+      <li><strong>Setup overhead.</strong> Installing and running a local model requires some technical comfort — downloading model files, configuring software (LM Studio, Ollama, vLLM), and managing storage. It is not as simple as opening a website.</li>
+    </ul>
+
+    <h4 style="font-family: var(--serif); font-weight: 400; font-size: 1.05rem; margin: 1rem 0 0.35rem;">when local models make sense for research</h4>
+    <ul>
+      <li>Your data cannot leave your device (ethics, GDPR, institutional rules)</li>
+      <li>You need reproducible results over months or years</li>
+      <li>You are processing a large volume of text and API costs would be prohibitive</li>
+      <li>You want to fine-tune a model on domain-specific data</li>
+    </ul>
+
+    <h4 style="font-family: var(--serif); font-weight: 400; font-size: 1.05rem; margin: 1rem 0 0.35rem;">when proprietary models make sense</h4>
+    <ul>
+      <li>You need the highest available capaibility for a complex task</li>
+      <li>Your data is not sensitive and can be transmitted</li>
+      <li>You are doing exploratory work where speed of iteration matters more than long-term reproducibility</li>
+      <li>You lack the hardware or technical comfort to run models locally</li>
+    </ul>
+
+    <p><strong>The course position:</strong> Neither choice is "better." The choice should be justified in your disclosure, with the trade-ofs stated. "Convenience" is not a methodological justification — but "the task required multilingual capability that available open-weight models do not provide at sufficient quality" is.</p>
+
+    <hr class="rule">
+
+    <h3 style="font-family: var(--mono); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em; margin: 1.5rem 0 0.75rem;">2. multimodal AI</h3>
+
+    <p>Everything in Modules 1–7 has been about text. But AI systems increasingly handle images, audio, and video as well.</p>
+
+    <h4 style="font-family: var(--serif); font-weight: 400; font-size: 1.05rem; margin: 1rem 0 0.35rem;">what multimodal models can do</h4>
+    <ul>
+      <li><strong>Image analysis:</strong> Describe what is in a photograph, extract text from a scanned document (OCR), identify objects, read charts and graphs</li>
+      <li><strong>Image generation:</strong> Create images from text descriptions (DALL-E, Midjourney, Stable Difusion)</li>
+      <li><strong>Audio transcription and analysis:</strong> Convert speech to text, identify speakers, detect emotion or sentiment in voice</li>
+      <li><strong>Video understanding:</strong> Summarise video content, detect scene changes, track objects across frames</li>
+    </ul>
+
+    <h4 style="font-family: var(--serif); font-weight: 400; font-size: 1.05rem; margin: 1rem 0 0.35rem;">relevance to social science research</h4>
+    <p>Multimodal AI opens research possibilities that were previously impractical at scale:</p>
+    <ul>
+      <li><strong>Visual content analysis:</strong> Classify images in social media posts, news photographs, or political advertisements — not just their captions</li>
+      <li><strong>Protest event detection:</strong> Scan video footage for crowd size estimation, sign text extraction, or police-protester interaction coding</li>
+      <li><strong>Archival research:</strong> Transcribe and translate handwritten documents, historical audio recordings, or microfilm scans</li>
+      <li><strong>Accessibility:</strong> Generate image descriptions for visually impaired researchers or study participants</li>
+    </ul>
+
+    <h4 style="font-family: var(--serif); font-weight: 400; font-size: 1.05rem; margin: 1rem 0 0.35rem;">the same principles apply</h4>
+    <p>Multimodal models are still prediction engines. They can miscaption an image, hallucinate text that is not in a document, or misidentify an object. Every validation principle from Module 7 applies: verify against human judgment, test on known cases, check whether errors are systematic, and disclose what was used.</p>
+
+    <h4 style="font-family: var(--serif); font-weight: 400; font-size: 1.05rem; margin: 1rem 0 0.35rem;">the boundaries</h4>
+    <ul>
+      <li><strong>Consent and privacy:</strong> Processing images or audio of people raises privacy concerns that text processing does not. Do not upload identifiable images or recordings without consent.</li>
+      <li><strong>Copyright:</strong> Generated images may reproduce elements of copyrighted training data. Using AI-generated images in publication may raise rights issues.</li>
+      <li><strong>Deepfake concern:</strong> The same technology that analyses media can synthesise it. Researchers using multimodal AI should be aware of how their work could be mischaracterised or misused.</li>
+    </ul>
+
+    <hr class="rule">
+
+    <h3 style="font-family: var(--mono); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em; margin: 1.5rem 0 0.75rem;">3. ethics, governance, and institutional boundaries</h3>
+
+    <p>AI use in research operates within institutional, legal, and ethical frameworks. You are responsible for knowing the ones that apply to your work.</p>
+
+    <h4 style="font-family: var(--serif); font-weight: 400; font-size: 1.05rem; margin: 1rem 0 0.35rem;">key frameworks</h4>
+
+    <p><strong>European Research Area (ERA).</strong> <em>Living Guidelines on the Responsible Use of Generative AI in Research</em> (updated May 2026). The factsheet version covers: researchers remain accountable; AI use must be transparent; peer review cannot be delegated; data protection applies. Read it — it is short and directly applicable.</p>
+
+    <p><strong>University of Zurich.</strong> <em>Recommendations on the Use of Generative Artificial Intelligence</em> (September 2023). Implements seven guiding principles: responsibility, transparency, data protection, quality assurance, fairness, sustainability, and human oversight. Available at uzh.ch/en/explore/basics/ai/recommendations.html.</p>
+
+    <p><strong>Swiss National Science Foundation (SNSF).</strong> Statement on AI in funding applications (February 2024). The key paragraph: applicants are responsible for content produced with AI assistance; reviewers cannot use AI to evaluate proposals; confidentiality of third-party data must be preserved.</p>
+
+    <p><strong>Jurnal policies.</strong> <em>American Journal of Political Science</em> (AJPPS) AI Policy (June 2025) and <em>American Political Science Review</em> (APSR) author instructions: AI use must be disclosed; AI cannot be an author; AI-generated references must be verified; reviewers cannot upload manuscripts to AI tools.</p>
+
+    <h4 style="font-family: var(--serif); font-weight: 400; font-size: 1.05rem; margin: 1rem 0 0.35rem;">the principles that cut across all frameworks</h4>
+    <ol>
+      <li><strong>You are accountable.</strong> A tool cannot be a co-author, cannot be cited as a source of fact, and cannot absorb responsibility for an error.</li>
+      <li><strong>Disclose.</strong> Name the tool, the purpose, and the location in the work. The disclosure must be specific enough that a reviewer can evaluate it.</li>
+      <li><strong>Protect data.</strong> Do not upload material you lack the authority to share: unpublished co-authored drafts, interview transcripts, administrative data, identifiable records.</li>
+      <li><strong>Verify.</strong> AI-generated references, claims, and analyses must be checked by a human before submission.</li>
+      <li><strong>Preserve human judgment.</strong> Peer review, grading, and final editorial decisions must be made by people.</li>
+    </ol>
+
+    <hr class="rule">
+
+    <h3 style="font-family: var(--mono); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em; margin: 1.5rem 0 0.75rem;">4. building your workflow: integration</h3>
+
+    <p>The eight modules of this course are designed to be combined. A real research workflow typically involves several of them:</p>
+
+    <ul>
+      <li><strong>Module 2 (Writing) + Module 7 (Validation):</strong> Draft a paper section with AI assistance, then verify claims, citations, and argument structure against the evidence framework.</li>
+      <li><strong>Module 3 (Literature) + Module 4 (Annotation):</strong> Search for and screen papers, then classify them by method, finding, or relevance using a codebook.</li>
+      <li><strong>Module 4 (Annotation) + Module 5 (Code/Data):</strong> Generate labels with an LLM, then analyse the labelled dataset using AI-assisted code — and verify every step.</li>
+      <li><strong>Module 6 (Agents) + Module 7 (Validation):</strong> Design an agent workflow, run it, and audit the output against the seven validation checks.</li>
+      <li><strong>Module 3 (Literature) + Module 6 (Agents):</strong> Build a literature-search agent with persistent instructions, then inspect the screening transcript.</li>
+    </ul>
+
+    <p>The portfolio asks you to integrate at least two modules into a coherent workflow for a task from your own research.</p>
+
+    <h4 style="font-family: var(--serif); font-weight: 400; font-size: 1.05rem; margin: 1rem 0 0.35rem;">the integration checklist</h4>
+
+    <p>Before you finalise your workflow, verify:</p>
+    <ul class="checklist">
+      <li>— Every AI-assisted step has a named human check</li>
+      <li>— The evidence for each claim is traceable to a verified source or a documented computation</li>
+      <li>— The disclosure names every tool, model, date, and purpose</li>
+      <li>— The four questions are answerable for every delegated task</li>
+      <li>— The validation plan uses checks from the menu (Module 7) appropriate to the claims</li>
+      <li>— Data boundaries are respected — nothing uploaded that you lack authority to share</li>
+      <li>— The workflow can be described in a methods section a reviewer could evaluate</li>
+    </ul>
+
+    <hr class="rule">
+
+    <h3 style="font-family: var(--mono); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em; margin: 1.5rem 0 0.75rem;">5. the portfolio: your final integration</h3>
+
+    <p>The portfolio is the course's capstone. It answers one question:</p>
+
+    <div class="blockquote-note">
+      Where, if anywhere, should AI enter my research workflow, under what conditions, and on the basis of what evidence?
+    </div>
+
+    <p>Your answer takes one of four forms:</p>
+    <ul>
+      <li><strong>Integrate</strong> the use into your workflow</li>
+      <li><strong>Integrate with limits</strong> — specify the conditions, checks, and boundaries</li>
+      <li><strong>Continue experimenting</strong> — the evidence is promising but not yet sufficient</li>
+      <li><strong>Do not integrate</strong> — the evidence does not support adoption for this task</li>
+    </ul>
+    <p>All four conclusions can be equally strong. The grade depends on the quality of the evidence and reasoning, not on whether you adopted AI.</p>
+
+    <h4 style="font-family: var(--serif); font-weight: 400; font-size: 1.05rem; margin: 1rem 0 0.35rem;">portfolio structure</h4>
+
+    <p><strong>1. Research task and baseline</strong> (~1 page): What is the task? How do you currently do it? What does success and failure mean for this task?</p>
+
+    <p><strong>2. Proposed AI use</strong> (~1 page): What exactly would the AI do? What judgment is being delegated and what is retained? What data, ethics, or institutional constraints apply?</p>
+
+    <p><strong>3. Experiment</strong> (~2 pages): What claim did you test? What was your comparison? What tool, model, date, instructions, and settings? What did you predict before running? What evidence did you preserve?</p>
+
+    <p><strong>4. Evidence and failures</strong> (~1 page): What did the experiment show? What checks did you run? What failed, was uncertain, or was limited? Why do the failures matter for the research claim?</p>
+
+    <p><strong>5. Decision</strong> (~1 page): "On the evidence I have, I will…" and "I would change this decision if…" Be specific about the condition that would change your mind.</p>
+
+    <p><strong>6. Revised workflow and disclosure</strong> (~1 page): The resulting workflow in any readable form, with who/what performs each step, what check applies, what record remains, and what happens when a check fails. Plus a disclosure paragraph suitable for a methods section.</p>
+
+    <h4 style="font-family: var(--serif); font-weight: 400; font-size: 1.05rem; margin: 1rem 0 0.35rem;">what earns credit</h4>
+    <ul>
+      <li>A bounded task with a meaningful baseline</li>
+      <li>A credible comparison or experiment</li>
+      <li>External evidence — not just the model's output</li>
+      <li>Attention to failure, variation, and boundary cases</li>
+      <li>A decision supported by evidence, with a stated condition for changing it</li>
+      <li>Transparent documentation</li>
+    </ul>
+
+    <h4 style="font-family: var(--serif); font-weight: 400; font-size: 1.05rem; margin: 1rem 0 0.35rem;">what does not earn credit</h4>
+    <ul>
+      <li>Using many tools rather than one well-evaluated one</li>
+      <li>Long or technically complex workflows</li>
+      <li>Polished model output presented as evidence</li>
+      <li>The fact of adoption (integrate is not better than do not integrate)</li>
+      <li>Claiming a human was "in the loop" without showing what the human could reject or change</li>
+    </ul>
+
+    <hr class="rule">
+
+    <h3 style="font-family: var(--mono); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em; margin: 1.5rem 0 0.75rem;">6. the four questions, one last time</h3>
+
+    <p>Apply them to your completed portfolio:</p>
+    <ol>
+      <li><strong>What is being delegated?</strong> In your final workflow, name every task and every decision — and who or what performs each.</li>
+      <li><strong>What would make the result believable?</strong> For each delegated step, name the external evidence that supports it. If you cannot name it, you have not verified it.</li>
+      <li><strong>What could be lost or flattened?</strong> What variation, minority perspective, ambiguity, or tacit knowledge does your AI-assisted workflow handle differently — or not at all — compared to your baseline?</li>
+      <li><strong>What must remain visible or human?</strong> What decisions, checks, and records survive outside the model's context window? If a reviewer cannot inspect them from your disclosure, they do not survive.</li>
+    </ol>
+
+    <hr class="rule">
+
+    <h3 style="font-family: var(--mono); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em; margin: 1.5rem 0 0.75rem;">7. summary</h3>
+
+    <ul>
+      <li>Open-weight models offer data locality, reproducibility, and cost advantages — at the cost of hardware requirements and some capability gap. The choice requires justification.</li>
+      <li>Multimodal AI extends the same principles (and the same validation requirements) to images, audio, and video.</li>
+      <li>Instiutional frameworks (ERA, UZH, SNSF, journals) converge on five principles: accountability, disclosure, data protection, verification, and human judgment.</li>
+      <li>Integration means combining modules into a coherent workflow where every AI-assisted step has a named human check and every claim traces to verifiable evidence.</li>
+      <li>The portfolio is your answer to the course's governing question. The quality of your evidence and reasoning determines the answer's strength — not whether you adopted AI.</li>
+    </ul>
+
+    <hr class="rule">
+
+    <h3 style="font-family: var(--mono); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em; margin: 1.5rem 0 0.75rem;">8. the course, in one paragraph</h3>
+
+    <div class="blockquote-note">
+      AI can make research faster, larger, and more ambitious. It can also make it sloppier, less transparent, and harder to reproduce — and the same tool can do both, depending on how it is used. The diference is not the model, the interface, or the prompt. It is the researcher's willingness to ask what is being delegated, to demand evidence from outside the system, to watch for what is lost or flattened, and to keep visible what must remain human. That is the method. The tool is just the tool.
+    </div>
+
+  </section>
+
+  <hr class="rule">
+
+  <!-- �� EXERCISES �� -->
+  <section id="exercises" class="section">
+    <h2 class="section__title"><span class="section__mark">§</span> exerises</h2>
+
+    <!-- Ex 8.1 -->
+    <div class="ex-sc">
+      <h3 style="font-family: var(--serif); font-weight: 400; font-size: 1.15rem; margin: 1.25rem 0 0.5rem;">Exercise 8.1: Model Choice Justification</h3>
+      <p style="font-family: var(--mono); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-soft); margin: 0 0 0.5rem;">Goal: Practice justifying a model choice for a research task.</p>
+      <p>For your portfolio task, write a 2–3 sentence justification for your model choice. Your justification must address:</p>
+      <ul>
+        <li><strong>Why this model?</strong> (capability, accessibility, data locality, cost, reproducibility — not "convenience")</li>
+        <li><strong>What alternatives did you consider?</strong> (name at least one)</li>
+        <li><strong>What trade-ofs did you accept?</strong> (capability, privacy, cost, reproducibility)</li>
+      </ul>
+      <p><strong>Your justification:</strong> _______________</p>
+
+      <details>
+        <summary><strong>Answer Key</strong> (click to expand)</summary>
+        <p>A good justification is specific and honest about trade-ofs:</p>
+        <p><strong>Strong:</strong> "I used Claude 4 (Anthropic, via API, 15 Otober 2026) because the classification task required handling 50,000 abstracts with consistent output formatting, and Claude provides structured output capabilities that available open-weight models at similar parameter counts do not reliably produce. The trade-of is that the data was transmitted to Anthropic's servers; the abstracts are publicly available and contain no sensitive information. For a replication, the prompt and sampling parameters are preserved; the specific model version may not be available indefinitely."</p>
+        <p><strong>Weak:</strong> "I used ChatGPT because it's free and easy." (No justification of capability, no alternatives considered, no trade-ofs acknowledged.)</p>
+        <p>The point is not to defend a particular choice. It is to show that you made a choice — rather than using whatever was at hand — and that you understand what you gained and lost.</p>
+      </details>
+    </div>
+
+    <hr class="rule">
+
+    <!-- Ex 8.2 -->
+    <div class="ex-sc">
+      <h3 style="font-family: var(--serif); font-weight: 400; font-size: 1.15rem; margin: 1.25rem 0 0.5rem;">Exercise 8.2: Data Boundary Classification</h3>
+      <p style="font-family: var(--mono); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-soft); margin: 0 0 0.5rem;">Goal: Practice identifying what can and cannot be uploaded to external AI services.</p>
+      <p>Classify each data type according to the four-pile framework from Module 7:</p>
+
+      <table class="mod-table">
+        <tr><th>Data type</th><th>Classification</th></tr>
+        <tr><td>Published journal article abstracts from OpenAlex</td><td></td></tr>
+        <tr><td>Unpublished co-authored draft with identifiable informant quotes</td><td></td></tr>
+        <tr><td>Your own field notes from public observations (no names)</td><td></td></tr>
+        <tr><td>Administrative dataset with individual-level health records</td><td></td></tr>
+        <tr><td>A dataset you downloaded from a public repository (ICPSR)</td><td></td></tr>
+        <tr><td>Interview transcripts where participants gave written consent for analysis</td><td></td></tr>
+        <tr><td>Tweets collected via the X API (public accounts)</td><td></td></tr>
+        <tr><td>Your thesis draft before submission</td><td></td></tr>
+      </table>
+      <p><strong>Classifcations:</strong> Safe / Safe after transformation / Not safe / Uncertain (ask suprvisor)</p>
+
+      <details>
+        <summary><strong>Answer Key</strong> (click to expand)</summary>
+        <table class="mod-table">
+          <tr><th>Data type</th><th>Classification</th><th>Reasoning</th></tr>
+          <tr><td>Published abstracts</td><td><strong>Safe</strong></td><td>Already public; no privacy concern.</td></tr>
+          <tr><td>Unpublished co-authored draft with quotes</td><td><strong>Not safe</strong></td><td>Co-author has not consented; informants may be identifiable.</td></tr>
+          <tr><td>Field notes from public observations</td><td><strong>Safe after transformation</strong></td><td>Remove any identifiers; verify no one can be re-identified from context.</td></tr>
+          <tr><td>Health records</td><td><strong>Not safe</strong></td><td>GDPR-protected; even de-identified health data requires specific consent and institutional approval.</td></tr>
+          <tr><td>ICPSR dataset</td><td><strong>Safe after transformation</strong></td><td>Check the ICPSR terms of use — some datasets prohibit upload to third-party services even if public.</td></tr>
+          <tr><td>Interview transcripts with consent</td><td><strong>Uncertain</strong></td><td>Consent for analysis is not consent for upload to an AI provider. Check the consent form and ethics approval.</td></tr>
+          <tr><td>Public tweets</td><td><strong>Safe after transformation</strong></td><td>X API terms may restrict redistribution. Check the terms; if in doubt, do not upload raw data — process locally.</td></tr>
+          <tr><td>Thesis draft</td><td><strong>Uncertain</strong></td><td>Your own work, but if it contains unpublished data, co-authored material, or sensitive findings, treat as not safe. Many universities have specific policies on thesis drafts and AI.</td></tr>
+        </table>
+        <p>The key principle: <strong>"Public" does not mean "I can upload it anywhere."</strong> Platform terms of service, ethics approvals, co-author consent, and institutional policies all apply. When in doubt, ask your supervisor — not the AI.</p>
+      </details>
+    </div>
+
+    <hr class="rule">
+
+    <!-- Ex 8.3 -->
+    <div class="ex-sc">
+      <h3 style="font-family: var(--serif); font-weight: 400; font-size: 1.15rem; margin: 1.25rem 0 0.5rem;">Exercise 8.3: Write Your "I Would Change This Decision If…"</h3>
+      <p style="font-family: var(--mono); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-soft); margin: 0 0 0.5rem;">Goal: Articulate the condition that would change your portfolio decision.</p>
+      <p>Your portfolio requires a decision statement and a change condition. The condition must be specific enough that someone else could tell whether it had been met.</p>
+      <p><strong>Weak:</strong> "I would change this decision if new evidence emerged." (Too vague — what evidence?)<br>
+      <strong>Weak:</strong> "I would change this decision if the technology improved." (Too vague — what improvement?)<br>
+      <strong>Strong:</strong> "I would change this decision if a human-model reliability study on my specific codebook showed kappa ≥ 0.80 on a sample of at least 200 items, with no category having recall below 0.85."</p>
+      <p><strong>"I would change this decision if…"</strong> _______________</p>
+
+      <details>
+        <summary><strong>Answer Key</strong> (click to expand)</summary>
+        <p>A good change condition is:</p>
+        <ul>
+          <li><strong>Specific:</strong> Names the evidence that would change your mind</li>
+          <li><strong>Obervable:</strong> Someone else could check whether it has been met</li>
+          <li><strong>Proportionate:</strong> The evidence required matches the decision at stake</li>
+          <li><strong>Not impossible:</strong> A condition that can never be met ("if the model becomes perfect") is not a condition — it is a refusal to reconsider</li>
+        </ul>
+        <p>Examples by decision type:</p>
+        <ul>
+          <li><strong>Do not integrate → Integrate:</strong> "I would integrate LLM-based screening if a comparison study on my dataset showed recall ≥ 0.95 for relevant papers, with no more than 5% of excluded papers being false negatives, on a sample of at least 500 records."</li>
+          <li><strong>Integrate with limits → Integrate fully:</strong> "I would remove the human-review step if two independent model runs produced identical labels on ≥ 98% of records for three consecutive batches of 1,000 items each."</li>
+          <li><strong>Integrate → Integrate with limits:</strong> "I would add a human verification step if the model's accuracy on boundary cases (ambiguous abstracts) fell below 80% in a quarterly audit of 100 randomly selected cases."</li>
+        </ul>
+      </details>
+    </div>
+
+    <hr class="rule">
+
+    <!-- Ex 8.4 -->
+    <div class="ex-sc">
+      <h3 style="font-family: var(--serif); font-weight: 400; font-size: 1.15rem; margin: 1.25rem 0 0.5rem;">Exercise 8.4: Build Your Portfolio Prototype</h3>
+      <p style="font-family: var(--mono); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-soft); margin: 0 0 0.5rem;">Goal: Assemble the six sections of your portfolio using work from previous modules.</p>
+      <p>Using the template from the workbook (Section 5), draft each section. Where possible, pull material from your module exercises:</p>
+
+      <table class="mod-table">
+        <tr><th>Portfolio section</th><th>Source material</th></tr>
+        <tr><td>1. Research task and baseline</td><td>Capability map (Module 1, Exercise 1.5)</td></tr>
+        <tr><td>2. Proposed AI use</td><td>Four questions applied (Module 1, Exercise 1.3; and domain modules)</td></tr>
+        <tr><td>3. Experiment</td><td>Any module exercise where you tested an AI use</td></tr>
+        <tr><td>4. Evidence and failures</td><td>Validation exercises (Module 7) + error analyses from domain modules</td></tr>
+        <tr><td>5. Decision</td><td>Exercise 8.3 above</td></tr>
+        <tr><td>6. Revised workflow and disclosure</td><td>Disclosure exercises (Module 2, Module 7) + workflow design (Module 6)</td></tr>
+      </table>
+
+      <p>Write a complete first draft. It does not need to be final — but it should be complete enough that a peer could read it and identify the strongest and weakest pieces of evidence.</p>
+
+      <details>
+        <summary><strong>Answer Key</strong> (click to expand)</summary>
+        <p>The portfolio is your work — there is no correct answer beyond the rubric. But check your draft against these quality criteria:</p>
+        <ul>
+          <li><strong>Section 1:</strong> The task is specific and bounded. The baseline is real — what you actually do now, not a straw man. Success and failure are defined in terms that matter for research, not for the tool.</li>
+          <li><strong>Section 2:</strong> The AI's role is precisely described. Task and decision are separated. Constraints (data, ethics, institutional) are named.</li>
+          <li><strong>Section 3:</strong> There is a comparison — not just "I tried AI and it worked." The prediction before the run is stated. The materials (prompt, model, date, settings) are preserved.</li>
+          <li><strong>Section 4:</strong> Evidence comes from outside the model — human comparison, source verification, repeated runs, or another check. At least one failure or limitation is reported, and its consequence for the research claim is explained.</li>
+          <li><strong>Section 5:</strong> The decision matches the evidence — not stronger, not weaker. The change condition is specific and observable.</li>
+          <li><strong>Section 6:</strong> The workflow is readable. Every step has a named actor (human or model). Checks are specified. A reviewer could evaluate the disclosure.</li>
+        </ul>
+      </details>
+    </div>
+
+    <hr class="rule">
+
+    <!-- Ex 8.5 -->
+    <div class="ex-sc">
+      <h3 style="font-family: var(--serif); font-weight: 400; font-size: 1.15rem; margin: 1.25rem 0 0.5rem;">Exercise 8.5: The Course Reflection</h3>
+      <p style="font-family: var(--mono); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-soft); margin: 0 0 0.5rem;">Goal: Consolidate what you have learned and identify what to investigate next.</p>
+      <p>Answer briefly:</p>
+      <ol>
+        <li><strong>What is the most important thing you learned in this course?</strong> _______________</li>
+        <li><strong>What surprised you most about how AI performed on a research task?</strong> _______________</li>
+        <li><strong>What one AI capability do you want to explore further after this course?</strong> _______________</li>
+        <li><strong>What one AI capability do you think is overhyped for social science research?</strong> _______________</li>
+        <li><strong>What will you do differently in your next research project because of this course?</strong> _______________</li>
+      </ol>
+
+      <details>
+        <summary><strong>Answer Key</strong> (click to expand)</summary>
+        <p>There is no correct answer — this is a reflection, not a test. But strong reflections tend to:</p>
+        <ul>
+          <li>Reference specific experiences (a particular exercise, a surprising model output, a failed experiment)</li>
+          <li>Distinguish what they observed from what they expected</li>
+          <li>Identfy a concrete next step, not a vague intention to "use AI more"</li>
+          <li>Show awareness of both capability and limitation — neither uncritical enthusiasm nor blanket rejection</li>
+        </ul>
+        <p>The reflection is for you. It is not submitted or graded.</p>
+      </details>
+    </div>
+
+  </section>
+
+  <hr class="rule">
+
+  <!-- �� READINGS �� -->
+  <section id="readings" class="section">
+    <h2 class="section__title"><span class="section__mark">§</span> annotated readings</h2>
+
+    <h3 style="font-family: var(--mono); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em; margin: 1.5rem 0 0.75rem;">core readings</h3>
+
+    <div class="reading-entry">
+      <h4>European Research Area. <em>Living Guidelines on the Responsible Use of Generative AI in Research</em> (updated 8 May 2026).</h4>
+      <p class="reading__why">Why read it:</p>
+      <p>The most current European-level guidance on AI in research. Covers accountability, transparency, data protection, and peer review. The factsheet version is short and directly applicable to your portfolio.</p>
+      <p><strong>What to take:</strong> Four principles: researchers remain accountable; AI use must be transparent; peer review cannot be delegated to AI; data protection and confidentiality apply to AI tools as they do to any other research tool.</p>
+    </div>
+
+    <div class="reading-entry">
+      <h4>University of Zurich. <em>Recommendations on the Use of Generative Artificial Intelligence</em> (September 2023).</h4>
+      <p class="reading__why">Why read it:</p>
+      <p>Your institution's policy. Seven guiding principles: responsibility, transparency, data protection, quality assurance, fairness, sustainability, and human oversight. Available at uzh.ch/en/explore/basics/ai/recommendations.html.</p>
+      <p><strong>What to take:</strong> The principles are high-level, but they establish the expectations. Your portfolio disclosure should demonstrate how your workflow satisfies them.</p>
+    </div>
+
+    <div class="reading-entry">
+      <h4>Swiss National Science Foundation. "The SNSF's Approach to the Use of Artificial Intelligence in Funding Applications" (28 February 2024).</h4>
+      <p class="reading__why">Why read it:</p>
+      <p>The funder's rules. Key paragraphs: applicants are responsible for AI-produced content; reviewers cannot use AI to evaluate proposals; confidentiality of third-party data must be preserved.</p>
+      <p><strong>What to take:</strong> If you are writing an SNSF application, these rules apply directly. Even if you are not, they represent the standard that funding bodies are converging toward.</p>
+    </div>
+
+    <div class="reading-entry">
+      <h4>American Journal of Political Science. <em>AI Policy</em> (17 June 2025); American Political Science Review. <em>Author Instructions, AI Section</em>.</h4>
+      <p class="reading__why">Why read it:</p>
+      <p>The publication standards. AJPPS and APSR require AI use disclosure, prohibit AI as author, and require verification of AI-generated references. These policies are models for what other journals will adopt.</p>
+      <p><strong>What to take:</strong> Your portfolio disclosure should meet the standards these journals set. If a journal editor could not evaluate your AI use from your disclosure, it is not adequate.</p>
+    </div>
+
+    <h3 style="font-family: var(--mono); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em; margin: 1.5rem 0 0.75rem;">frontier readings</h3>
+
+    <div class="reading-entry">
+      <h4>Toveron, H., et al. (2023). "Llama 2: Open Foundation and Fine-Tuned Chat Models." <em>arXiv:2307.09288</em>.</h4>
+      <p class="reading__why">Why read it:</p>
+      <p>The paper that accompanied the release of Llama 2, one of the most widely used open-weight models. Read the introduction and the safety/limitations sections — not the technical architecture.</p>
+      <p><strong>What to take:</strong> Open-weight models are released with documentation about their capabilities, limitations, and intended uses. Read it — the same critical evaluation you apply to AI output should be applied to the model's own claims about itself.</p>
+    </div>
+
+    <div class="reading-entry">
+      <h4>Birhane, A., et al. (2024). "Into the LAION's Den: Investigating Hate in Multimodal Datasets." <em>Advances in Neural Information Processing Systems</em>, 37.</h4>
+      <p class="reading__why">Why read it:</p>
+      <p>An investigation of problematic content in a large multimodal training dataset. Relevant because multimodal models inherit the biases and content of their training data.</p>
+      <p><strong>What to take:</strong> Multimodal AI is not neutral. The images a model was trained on shape what it can "see" and how it classifies what it sees. The same critical framework you apply to text output applies to image descriptions and classifications.</p>
+    </div>
+
+    <h3 style="font-family: var(--mono); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em; margin: 1.5rem 0 0.75rem;">integration and portfolio readings</h3>
+
+    <div class="reading-entry">
+      <h4>Bail, C. A. (2024). "Can Generative AI Improve Social Science?" <em>PNAS</em>, 121(21).</h4>
+      <p class="reading__why">Why read it:</p>
+      <p>The optimistic case. Read together with Grossmann et al. (2023) for the debate. Both papers were listed in Module 1; now, with all eight modules behind you, you can evaluate their arguments against your own experimental evidence.</p>
+      <p><strong>What to take:</strong> Bail argues AI can expand the scope and scale of social science. After this course, you should be able to evaluate that claim for your own research area: expand in what way? At what cost to validity? With what evidence?</p>
+    </div>
+
+    <div class="reading-entry">
+      <h4>Grossmann, I., et al. (2023). "AI and the Transformation of Social Science Research." <em>Science</em>, 380(6650).</h4>
+      <p class="reading__why">Why read it:</p>
+      <p>The cautious case. Read with Bail (2024). Grossmann et al. emphasise the risks: loss of theoretical grounding, over-reliance on inductive pattern-finding, and the erosion of methodological standards.</p>
+      <p><strong>What to take:</strong> The debate between Bail and Grossmann is not about whether AI is useful — it is about under what conditions and with what safeguards. Your portfolio is your contribution to that debate, applied to your own research.</p>
+    </div>
+
+    <div class="reading-entry">
+      <h4>Doshi, A. R., &amp; Hauser, O. P. (2024). "Generative AI Enhances Individual Creativity but Reduces the Collective Diversity of Novel Content." <em>Science Advances</em>, 10(28).</h4>
+      <p class="reading__why">Why read it:</p>
+      <p>The diversity finding. AI helps individuals produce more creative output, but when everyone uses similar AI tools, the collective output becomes more homogeneous. This is the "everyone sounds the same" problem.</p>
+      <p><strong>What to take:</strong> Your workflow should preserve what is distinctive about your research — your theoretical framework, your methodological choices, your voice. If AI makes your work more like everyone else's, you have lost something consequential.</p>
+    </div>
+
+    <div class="reading-entry">
+      <h4>Christin, A. (2020). "The Ethnographer and the Algorithm: Beyond the Black Box." <em>Global Perspectives</em>, 1(1).</h4>
+      <p class="reading__why">Why read it:</p>
+      <p>Revisit from Module 6. Now that you have designed a workflow and built an instruction artifact, Christin's argument about opacity as a choice — not a technical necessity — should resonate differently.</p>
+      <p><strong>What to take:</strong> Your disclosure and audit trail make your workflow less of a black box. The question is whether you have made it transparent enough that a reviewer can evaluate it.</p>
+    </div>
+
+    <h3 style="font-family: var(--mono); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em; margin: 1.5rem 0 0.75rem;">optional: going further</h3>
+
+    <div class="reading-entry">
+      <h4>Bender, E. M., Gebru, T., McMilllan-Major, A., &amp; Shmitchell, S. (2021). "On the Dangers of Stochastic Parrots." Revisit from Module 1.</h4>
+      <p class="reading__why">Why read it again:</p>
+      <p>After eight modules of working with LLMs, return to the foundational critique. Do you agree more, less, or differently than when you first read it?</p>
+    </div>
+
+    <div class="reading-entry">
+      <h4>Kapoor, S., &amp; Narayanan, A. (2023). "Leakage and the Reproducibility Crisis." Revisit from Modules 1 and 6.</h4>
+      <p class="reading__why">Why read it again:</p>
+      <p>The reproducibility argument applies to every module. After building your own workflow, evaluate: would it survive the leakage and reproducibility critiques Kapoor and Narayanan raise?</p>
+    </div>
+
+  </section>
+
+  <hr class="rule rule--thick">
+
+  <footer class="colophon">
+    <p>
+      <span>module 8 of 8.</span>
+      <span>AI as a Research Tool: Workflow Design for the Social Sciences.</span>
+      <span>University of Zurich.</span>
+    </p>
+    <p><a href="index.html" style="color: var(--ink-soft);">← course index</a></p>
+    <p><a href="shared.html" style="color: var(--ink-soft); font-family: var(--mono); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.12em;">glosary · validation menu · disclosure template</a></p>
+  </footer>
+
+</main>
+</body>
+</html>

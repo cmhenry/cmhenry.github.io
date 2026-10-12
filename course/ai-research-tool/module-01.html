@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Module 1 · How LLMs Work · AI as a Research Tool</title>
+<meta name="description" content="Module 1: How LLMs Work — a practical model of transformer-based language models for social scientists. UZH Fall 2026.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../styles/main.css">
+<style>
+  /* module-page extensions */
+
+  .back-link {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.02em;
+    margin-bottom: 2rem;
+  }
+  .back-link a {
+    color: var(--ink-soft);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--ink-soft);
+    padding-bottom: 1px;
+  }
+  .back-link a:hover { background: var(--ink); color: var(--paper); border-bottom-color: transparent; }
+
+  .blockquote-note {
+    border-left: 2px solid var(--ink);
+    padding: 0.5rem 0 0.5rem 1.25rem;
+    margin: 1rem 0;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+  }
+
+  .insight {
+    border-left: 2px solid var(--ink);
+    padding: 0.75rem 0 0.75rem 1.25rem;
+    margin: 1.25rem 0;
+    background: rgba(0,0,0,0.02);
+  }
+  .insight p { margin: 0; line-height: 1.5; }
+  .insight strong { font-weight: 600; }
+
+  /* workbook sub-sections */
+  .workbook-section { margin: 1.25rem 0; }
+  .workbook-section h3 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 1.1rem;
+    margin: 1.5rem 0 0.6rem;
+    line-height: 1.35;
+  }
+
+  /* tables */
+  .table-wrap {
+    overflow-x: auto;
+    margin: 1rem 0;
+  }
+  .table-wrap table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.92rem;
+    line-height: 1.45;
+  }
+  .table-wrap th {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    text-align: left;
+    padding: 0.4rem 0.75rem 0.4rem 0;
+    border-bottom: 1px solid var(--ink);
+    vertical-align: top;
+  }
+  .table-wrap td {
+    padding: 0.4rem 0.75rem 0.4rem 0;
+    vertical-align: top;
+    border-bottom: 1px solid var(--mute);
+  }
+  .table-wrap tr:last-child td { border-bottom: none; }
+
+  /* code and pre */
+  code {
+    font-family: var(--mono);
+    font-size: 0.82rem;
+    letter-spacing: 0.02em;
+    background: rgba(0,0,0,0.04);
+    padding: 0.1em 0.35em;
+  }
+  pre {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.02em;
+    line-height: 1.5;
+    margin: 0.85rem 0;
+    padding: 0.85rem 1rem;
+    background: rgba(0,0,0,0.03);
+    overflow-x: auto;
+    border: 1px solid var(--mute);
+  }
+  pre code {
+    background: none;
+    padding: 0;
+    font-size: inherit;
+  }
+
+  /* exercises */
+  .exercise {
+    margin: 1.25rem 0 1.75rem;
+  }
+  .exercise__num {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--ink-soft);
+    margin: 0 0 0.2rem;
+  }
+  .exercise__title {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 1.1rem;
+    margin: 0 0 0.5rem;
+    line-height: 1.3;
+  }
+  .exercise__body {
+    margin: 0.5rem 0;
+  }
+  .exercise__blank {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--mute);
+    background: rgba(0,0,0,0.03);
+    padding: 0.15rem 0.5rem;
+    display: inline-block;
+    min-width: 8em;
+    margin: 0.15rem 0;
+  }
+  .exercise__prompt {
+    border-left: 2px solid var(--mute);
+    padding: 0.35rem 0 0.35rem 1rem;
+    margin: 0.6rem 0;
+    font-style: italic;
+    color: var(--ink-soft);
+    font-size: 0.95rem;
+  }
+  .exercise ol { margin: 0.4rem 0; padding-left: 1.5rem; }
+  .exercise ol li { margin-bottom: 0.35rem; }
+
+  /* answer key (inside details) */
+  .answer {
+    margin: 0.85rem 0 0;
+    padding: 0.75rem 1rem;
+    background: rgba(0,0,0,0.03);
+    border: 1px solid var(--mute);
+    font-size: 0.93rem;
+    line-height: 1.5;
+  }
+  .answer p { margin: 0.5rem 0; }
+  .answer p:first-child { margin-top: 0; }
+  .answer p:last-child { margin-bottom: 0; }
+  .answer strong { font-weight: 600; }
+
+  details {
+    margin: 0.75rem 0;
+  }
+  details summary {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    color: var(--ink);
+    padding: 0.35rem 0;
+    list-style: none;
+  }
+  details summary::-webkit-details-marker { display: none; }
+  details summary::marker { display: none; }
+  details summary::before {
+    content: "+ ";
+    font-weight: 600;
+  }
+  details[open] summary::before {
+    content: "− ";
+  }
+  details summary:hover { color: var(--ink-soft); }
+
+  /* reading entries */
+  .reading-entry {
+    margin: 0 0 1.25rem;
+  }
+  .reading-entry__title {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 1.05rem;
+    line-height: 1.3;
+    margin: 0 0 0.2rem;
+  }
+  .reading-entry__byline {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+    margin: 0;
+    line-height: 1.4;
+  }
+  .reading-entry__why {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-soft);
+    margin: 0.5rem 0 0;
+  }
+  .reading-entry__note {
+    font-size: 0.9rem;
+    line-height: 1.45;
+    margin: 0.35rem 0 0;
+    color: var(--ink-soft);
+  }
+
+  /* reading group header */
+  .reading-group h3 {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin: 1.5rem 0 0.85rem;
+    color: var(--ink-soft);
+ }
+
+  /* module metadata bar */
+  .module-meta {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ink-soft);
+    display: flex;
+    gap: 1.25rem;
+    flex-wrap: wrap;
+    margin: 0.5rem 0 0;
+  }
+  .module-meta span { white-space: nowrap; }
+
+  /* capability map */
+  .capmap {
+    font-family: var(--mono);
+    font-size: 0.82rem;
+    letter-spacing: 0.02em;
+    line-height: 1.55;
+    margin: 0.85rem 0;
+    padding: 0.85rem 1rem;
+    background: rgba(0,0,0,0.03);
+    border: 1px solid var(--mute);
+    overflow-x: auto;
+    white-space: pre-wrap;
+  }
+
+  /* colophon in module pages */
+  .colophon {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--ink-soft);
+    margin-top: 1rem;
+  }
+  .colophon p { margin: 0.4rem 0; display: flex; gap: 1.25rem; flex-wrap: wrap; }
+
+  /* next-module nav */
+  .next-module {
+    font-family: var(--mono);
+    font-size: 0.82rem;
+    letter-spacing: 0.02em;
+    margin: 1.25rem 0 0;
+  }
+
+  @media (max-width: 600px) {
+    .module-meta { gap: 0.75rem; }
+  }
+</style>
+</head>
+<body>
+<main class="page">
+
+  <p class="back-link"><a href="index.html">← course index</a></p>
+
+  <p class="masthead__id">
+    <span>module 01</span>
+    <span>UZH · Fall 2026</span>
+  </p>
+
+  <hr class="rule rule--thick">
+
+  <header class="masthead">
+    <h1 class="name" style="font-size: clamp(2.2rem, 8vw, 3.8rem);">
+      <span class="name__line">How LLMs</span><span class="name__line">Work</span>
+    </h1>
+    <p class="masthead__role">a practical model for social scientists</p>
+    <p class="module-meta">
+      <span>⏱ 2–3 hours</span>
+      <span>📋 conceptual workbook</span>
+      <span>⌀ no prerequisites</span>
+      <span>📄 capability map</span>
+    </p>
+  </header>
+
+  <hr class="rule">
+
+  <nav class="nav" aria-label="module">
+    <a href="#overview">overview</a><span class="nav__sep">~</span>
+    <a href="#workbook">workbook</a><span class="nav__sep">~</span>
+    <a href="#exercises">exercises</a><span class="nav__sep">~</span>
+    <a href="#readings">readings</a>
+  </nav>
+
+  <hr class="rule">
+
+  <section id="overview" class="section">
+    <h2 class="section__title"><span class="section__mark">§</span> learning outcomes</h2>
+
+    <p>By the end of this module you will be able to:</p>
+
+    <ol>
+      <li>Explain, at a practical level, how a transformer-based language model generates text</li>
+      <li>Distinguish a model from the interfaces, tools, retrieval systems, and agents built around it</li>
+      <li>Predict what an LLM will do well and what it will do poorly on a research task, before running it</li>
+      <li>Use the four-question course lens to evaluate any proposed use of AI in research</li>
+    </ol>
+
+    <p style="margin-top: 1rem;">This module establishes the conceptual foundation for the entire course. You will learn what large language models actually do — next-token prediction at scale — and why that matters for using them in research. You will leave with a working vocabulary for AI systems and a one-page "AI capability map" for your research area.</p>
+  </section>
+
+  <hr class="rule">
+
+  <section id="workbook" class="section">
+    <h2 class="section__title"><span class="section__mark">§</span> workbook</h2>
+
+    <!-- §1 -->
+    <div class="workbook-section">
+      <h3>1. What Is a Large Language Model?</h3>
+
+      <p>A large language model is a system trained on an enormous quantity of text — typically trillions of words drawn from the open internet, books, academic papers, code repositories, and other sources. Its training objective is simple: <strong>predict the next word</strong> in a sequence, given all the words that came before.</p>
+
+      <p>That is genuinely the whole mechanism. The model receives text as input and produces text as output, one piece at a time, each time asking: "Given everything I have seen so far, what is the most statistically plausible thing to come next?"</p>
+
+      <p>This sounds too simple to produce the fluent, knowledgeable-seeming output we observe. But three things make it work at scale:</p>
+
+      <ol>
+        <li><strong>Scale.</strong> The model has seen more text than any human could read in a thousand lifetimes. The patterns it absorbs — grammatical structures, argumentative forms, academic conventions, factual associations — are drawn from that vast training corpus.</li>
+        <li><strong>Attention.</strong> The transformer architecture (Vaswani et al., 2017) gives the model a mechanism for weighting the importance of every previous piece of text when predicting the next one. This is why modern LLMs can maintain coherence over long passages: they can "attend" to a key term defined three pages ago when it becomes relevant again.</li>
+        <li><strong>Training, not programming.</strong> No one wrote rules for how to form a paragraph or what counts as a plausible academic citation. The model learned these patterns from the statistical structure of its training data.</li>
+      </ol>
+
+      <h3>What the model IS NOT</h3>
+
+      <p>The model does <em>not</em>:</p>
+
+      <ul>
+        <li><strong>Know</strong> things in the way a person knows them. It has no stable internal representation of facts that it can update when it learns new information.</li>
+        <li><strong>Check</strong> its own output against reality. The only test of a token is whether it is statistically plausible given the preceding text, not whether it is true.</li>
+        <li><strong>Understand</strong> the text it processes in any semantic sense. It models the <em>distribution</em> of language, not its <em>meaning</em>.</li>
+        <li><strong>Remember</strong> anything between conversations (unless the system around it provides memory). Each conversation starts fresh.</li>
+      </ul>
+
+      <div class="insight">
+        <p><strong>Key insight:</strong> Fluency is not truth. A model can produce a perfectly formed paragraph, complete with plausible-sounding citations and confident tone, that is entirely wrong. This is not a bug — it is a direct consequence of how the system works.</p>
+      </div>
+    </div>
+
+    <hr class="rule">
+
+    <!-- §2 -->
+    <div class="workbook-section">
+      <h3>2. Tokens, Context, and Prediction</h3>
+
+      <h3>Tokens</h3>
+
+      <p>LLMs do not process words as words. They break text into <strong>tokens</strong> — the smallest units the model can read or produce. A token might be:</p>
+
+      <ul>
+        <li>A whole common word: "the", "research"</li>
+        <li>Part of a longer word: "method" → "meth", "od"</li>
+        <li>A punctuation mark: ".", ",", "?"</li>
+        <li>A special symbol marking the start or end of text</li>
+      </ul>
+
+      <p>Most modern models use roughly 1.3 tokens per English word on average, though this varies by language and domain. A 500-word abstract is about 650 tokens.</p>
+
+      <h3>The Context Window</h3>
+
+      <p>The <strong>context window</strong> is the model's working memory — the maximum number of tokens it can "see" at once. Everything counts against this limit:</p>
+
+      <ul>
+        <li>Your instructions (the prompt)</li>
+        <li>Any examples you provide</li>
+        <li>The conversation history</li>
+        <li>Any documents or data you include</li>
+        <li>The model's own responses</li>
+        <li>Outputs from tools the model calls</li>
+      </ul>
+
+      <p>When the context window fills, earlier material drops out. This has practical consequences:</p>
+
+      <ul>
+        <li>A model cannot "remember" a detail from the beginning of a very long conversation.</li>
+        <li>If you give it a 50-page document and ask about page 3, it may not have page 3 in its active context if the document was processed in chunks.</li>
+        <li>Long conversations drift because the early constraints and instructions fall out of the window.</li>
+      </ul>
+
+      <p>Context windows have grown dramatically — from 2,048 tokens (GPT-3, 2020) to 1 millon tokens or more in current models (2025–26). But a larger window does not mean the model uses all of it equally well; attention tends to concentrate on the beginning and end of the context.</p>
+
+      <h3>Next-Token Prediction in Practice</h3>
+
+      <p>Here is what happens, step by step, when you type a prompt and receive a response:</p>
+
+      <ol>
+        <li>Your prompt is tokenized — broken into tokens.</li>
+        <li>The model processes all tokens in its context window through its transformer layers.</li>
+        <li>It produces a probability distribution over every possible next token.</li>
+        <li>It selects one token according to a sampling strategy.</li>
+        <li>That token is appended to the sequence.</li>
+        <li>Steps 2–5 repeat until the model produces a special "stop" token or hits a length limit.</li>
+      </ol>
+
+      <p>At no point in this process does the model pause to ask "is this true?" or "do I have evidence for this claim?" It is always and only predicting the next token.</p>
+    </div>
+
+    <hr class="rule">
+
+    <!-- §3 -->
+    <div class="workbook-section">
+      <h3>3. Sampling: Why the Same Prompt Gives Different Answers</h3>
+
+      <p>If the model always picked the single most probable next token, it would produce the same output every time — and that output would be repetitive and dull. Instead, models use <strong>sampling</strong> strategies that introduce controlled randomness:</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Strategy</th><th>What it does</th><th>Effect</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Temperature</strong></td>
+              <td>Scales the probability distribution. Low temperature (0.1) → peaked, deterministic. High temperature (1.5) → flattened, creative.</td>
+              <td>Controls the creativity–predictability trade-off.</td>
+            </tr>
+            <tr>
+              <td><strong>Top-p (nucleus sampling)</strong></td>
+              <td>Only considers tokens whose cumulative probability reaches <em>p</em> (e.g., 0.9).</td>
+              <td>Cuts off the long tail of very unlikely tokens.</td>
+            </tr>
+            <tr>
+              <td><strong>Top-k</strong></td>
+              <td>Only considers the <em>k</em> most probable tokens.</td>
+              <td>A simpler version of the same idea.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p><strong>Why this matters for research:</strong> The same prompt, run twice on the same model with the same settings, can produce different outputs. This is a feature (it allows variation and creativity), but it is also a reproducibility problem. If your classification label depends on which run you happened to get, your measurement is not reliable. We return to this in Module 4 (annotation) and Module 7 (validation).</p>
+    </div>
+
+    <hr class="rule">
+
+    <!-- §4 -->
+    <div class="workbook-section">
+      <h3>4. What LLMs Can and Cannot Do</h3>
+
+      <h3>What they tend to do well</h3>
+
+      <ul>
+        <li><strong>Produce fluent, well-structured text</strong> in the languages and registers represented in their training data</li>
+        <li><strong>Sumarise</strong> text by identifying and condensing key information</li>
+        <li><strong>Translate</strong> between languages, especially high-resource pairs</li>
+        <li><strong>Classify</strong> text according to explicit criteria, when the categories are clearly defined</li>
+        <li><strong>Generate code</strong> for common programming tasks, especially in widely-used languages</li>
+        <li><strong>Answer factual questions</strong> when the answer appears frequently in the training data</li>
+        <li><strong>Restructure or reformat</strong> information (e.g., "convert these notes into a paragraph")</li>
+      </ul>
+
+      <h3>What they tend to do poorly</h3>
+
+      <ul>
+        <li><strong>Produce factual claims about low-frequency or specialised knowledge</strong> without hallucination</li>
+        <li><strong>Reason about quantities, dates, or logical relationships</strong> that require computation rather than pattern matching</li>
+        <li><strong>Maintain consistency</strong> across very long outputs or multi-step reasoning chains</li>
+        <li><strong>Express appropriate uncertainty</strong> — they tend to sound confident regardless of whether they are correct</li>
+        <li><strong>Identify their own errors</strong> — they cannot check their output against reality</li>
+        <li><strong>Handle tasks requiring world knowledge that postdates their training cutoff</strong></li>
+      </ul>
+
+      <h3>The hallucination problem</h3>
+
+      <p>Hallucination — the production of plausible but false information — is not a separate failure mode. It is what the model <em>always</em> does: produce statistically plausible text. Sometimes that text corresponds to facts in the world; sometimes it does not. The model has no internal mechanism for distinguishing the two cases.</p>
+
+      <p>This is why every module in this course requires <strong>evidence from outside the model</strong>. You cannot trust the output by reading the output. You must check it against sources, against human judgment, against repeated runs, against alternative prompts — against something that is not the model itself.</p>
+    </div>
+
+    <hr class="rule">
+
+    <!-- §5 -->
+    <div class="workbook-section">
+      <h3>5. The Vocabulary of AI Systems</h3>
+
+      <p>People use "AI," "LLM," "ChatGPT," and "language model" interchangeably, but these are different things. Here is the vocabulary we will use throughout the course:</p>
+
+      <h3>Model</h3>
+      <p>The trained neural network — the thing that takes tokens in and produces tokens out. GPT-4, Claude 4, Llama 3, and Qwen are models. A model has no interface, no memory, and no tools. It is a pure text-in/text-out function.</p>
+
+      <h3>Interface</h3>
+      <p>The application wrapped around a model. ChatGPT, Claude.ai, and Gemni are interfaces. The interface may add features the model does not have:</p>
+      <ul>
+        <li>Conversation history (memory across turns)</li>
+        <li>File upload and processing</li>
+        <li>Web search capability</li>
+        <li>Image generation or analysis</li>
+        <li>Custom instructions or system prompts</li>
+      </ul>
+      <p>When you use an interface, you are using the model <em>plus</em> whatever the interface provides. The model itself does not "know" it can search the web — the interface intercepts certain outputs, runs a search, and feeds the results back into the context window.</p>
+
+      <h3>System Prompt / Custom Instructions</h3>
+      <p>Text provided to the model before the conversation that sets its behaviour, constraints, and available tools. In most interfaces, this is invisible to the user. Some interfaces let you edit part of it (often called "custom instructions" or "project instructions").</p>
+
+      <h3>Tool Use / Function Calling</h3>
+      <p>The ability of a system to call external tools: a calculator, a web search, a code interpreter, or a file system. The model does not execute the tool — it produces a structured request that the surrounding system executes. The result is then fed back into the context window as if the model had produced it.</p>
+
+      <h3>Retrieval-Augmented Generation (RAG)</h3>
+      <p>A pattern where the system searches for relevant documents before generating a response. The retrieved documents are placed in the context window, and the model generates its response with those documents "in view." This grounds the output in specific sources — but it does not guarantee the model will use those sources faithfuly.</p>
+
+      <h3>Agent</h3>
+      <p>A system combining an LLM with tools, memory, and a loop: the model decides what to do, the system executes it, the result enters the context, and the model decides the next action. Agents can operate at different levels of autonomy:</p>
+      <ul>
+        <li><strong>Assisted:</strong> The agent proposes an action but asks before executing it.</li>
+        <li><strong>Agent:</strong> The agent acts without asking but reports what it did.</li>
+        <li><strong>Unattended:</strong> The agent runs without a human in the loop at all.</li>
+      </ul>
+      <p>We cover agents in depth in Module 6.</p>
+
+      <h3>Why the distinctions matter</h3>
+      <p>When someone says "I used ChatGPT to analyse my data," it is unclear what happened. Did they paste data into a chat window? Use the code interpreter? Run an agent? The model, the interface, and the tools matter for reproducibility and validity. Being precise about what was used is the first step toward a credible disclosure.</p>
+    </div>
+
+    <hr class="rule">
+
+    <!-- §6 -->
+    <div class="workbook-section">
+      <h3>6. The Course Lens: Four Questions</h3>
+
+      <p>Every AI use you evaluate in this course — whether a demonstration, an exercise, or your own experiment — will be examined through four questions. Learn them now; you will use them in every module.</p>
+
+      <h3>1. What is being delegated?</h3>
+      <p>Name the <strong>task</strong> and the <strong>decision</strong> separately. "Summarise these papers" is a task delegation. "Decide which papers are relevant" is a decision delegation. They have different risk profiles and require different evidence.</p>
+
+      <h3>2. What would make the result believable?</h3>
+      <p>Name evidence <strong>outside the model output</strong>. A verified source. A human comparison. A repeated run. A test on a known case. The model's confidence is not evidence.</p>
+
+      <h3>3. What could be lost or flattened?</h3>
+      <p>Look for variation, minority cases, ambiguity, provenance, and tacit knowledge. What does the non-AI version preserve that the AI version might erase?</p>
+
+      <h3>4. What must remain visible or human?</h3>
+      <p>Name the decision, check, or record a reviewer must be able to inspect. If the answer is "nothing — the model can handle everything," you have probably delegated a decision you should not have.</p>
+
+      <div class="insight">
+        <p><strong>Read the full treatment:</strong> <code>modules/shared/four_questions.md</code> — keep it open as a reference throughout the course.</p>
+      </div>
+    </div>
+
+    <hr class="rule">
+
+    <!-- §7 -->
+    <div class="workbook-section">
+      <h3>7. Demonstration: Same Task, Different Runs</h3>
+
+      <p>Let's make this concrete. Here is a simple research task:</p>
+
+      <div class="exercise__prompt">
+        <p>"Classify the following abstract as quantitative, qualitative, or mixed-methods. Return only the label."</p>
+      </div>
+
+      <p>I will run this prompt on the same abstract three times, on the same model, with the same settings. The only thing that varies is the sampling — the random seed that determines which tokens are selected at each step.</p>
+
+      <p><strong>Abstract</strong> (from a real published paper):</p>
+
+      <div class="blockquote-note">
+        <p>This study examines the relationship between social media use and political polarisation using a two-wave panel survey of 2,400 respondents in four countries. We estimate fixed-effects models to account for unobserved individual heterogeneity and find that social media use is associated with modest increases in affective polarisation, particularly among respondents with high levels of political interest. The effect is concentrated on platforms using algorithmic content curation.</p>
+      </div>
+
+      <p><strong>Run 1:</strong> quantitative<br>
+      <strong>Run 2:</strong> quantitative<br>
+      <strong>Run 3:</strong> quantitative</p>
+
+      <p><em>In this case, the model was consistent — but it could have been otherwise.</em> Try this yourself with a more ambiguous abstract, or a more nuanced classification task, and you may see variation across runs. That variation is not random noise to be ignored — it is evidence about the reliability of the measurement.</p>
+
+      <div class="insight">
+        <p><strong>Exercise:</strong> Before reading the next section, take a research task you know well. Write the prompt you would use to ask an LLM to help with it. Then answer the four questions for that task — before you run anything.</p>
+      </div>
+    </div>
+
+    <hr class="rule">
+
+    <!-- §8 -->
+    <div class="workbook-section">
+      <h3>8. Your AI Capability Map</h3>
+
+      <p>The final exercise for this module is to produce a one-page <strong>AI capability map</strong> for your research area. This is a living document you will update as you work through the course. For now, complete the first version:</p>
+
+      <h3>Capability Map Template</h3>
+
+      <div class="capmap">AI Capability Map: [Your Research Area]
+
+1. Tasks AI could plausibly assist with:
+   - [List 3–5 specific tasks: writing, searching, classifying, coding, etc.]
+
+2. Tasks AI should probably not touch:
+   - [List tasks where delegation would be inappropriate: final interpretive judgments,
+      ethics decisions, confidential data handling, etc.]
+
+3. What I would need to verify before trusting AI output on #1:
+   - [For each task: what external evidence would make the result believable?]
+
+4. What could be lost if AI handled #1:
+   - [Variation, minority perspectives, tacit knowledge, provenance, etc.]
+
+5. My current baseline (how I do these tasks now):
+   - [Describe your current workflow briefly]
+
+6. One task I want to experiment with during this course:
+   - [Pick one bounded task from #1 to use across modules]</div>
+
+      <p><strong>Keep this map.</strong> You will revisit it in Module 7 when you design your validation plan, and in Module 8 when you build your portfolio prototype.</p>
+    </div>
+
+    <hr class="rule">
+
+    <!-- §9 -->
+    <div class="workbook-section">
+      <h3>9. Summary</h3>
+
+      <ul>
+        <li>LLMs predict the next token. That is the whole mechanism. Fluency is not truth.</li>
+        <li>Tokens are the unit of processing; the context window is the model's working memory.</li>
+        <li>Sampling introduces controlled randomness. The same prompt can produce different outputs.</li>
+        <li>Models, interfaces, tools, and agents are different things. Be precise about what you used.</li>
+        <li>The four questions are your lens for every AI use in this course: delegate, verify, watch for loss, keep visible.</li>
+        <li>Your capability map is your starting point. Update it as you learn.</li>
+      </ul>
+    </div>
+
+    <hr class="rule">
+
+    <div class="workbook-section">
+      <h3>What's Next</h3>
+
+      <p><strong>Module 2</strong> applies the concepts from this module to writing tasks: drafting, editing, style transfer, and criteria-based evaluation. You will use the four questions on real writing examples.</p>
+
+      <p>If you want to go deeper on the technical side before moving on:</p>
+      <ul>
+        <li>Read the optional deep-dive in <code>slides.md</code> (a content-first slide script covering the transformer architecture, training, and the RLHF alignment process)</li>
+        <li>Browse the annotated reading list in <code>readings.md</code></li>
+      </ul>
+    </div>
+
+  </section>
+
+  <hr class="rule rule--thick">
+
+  <section id="exercises" class="section">
+    <h2 class="section__title"><span class="section__mark">§</span> exercises</h2>
+
+    <p>Each exercise includes an answer key. <strong>Work through the exercise before reading the key.</strong> The point is to form a judgment before seeing a model's output or a prepared answer — this is the "human first" principle you will use throughout the course.</p>
+
+    <hr class="rule">
+
+    <!-- Exercise 1.1 -->
+    <div class="exercise">
+      <p class="exercise__num">Exercise 1.1</p>
+      <h3 class="exercise__title">Predict the Token</h3>
+
+      <p class="exercise__body"><strong>Goal:</strong> Experience next-token prediction from the model's perspective.</p>
+
+      <p>Below is the beginning of a sentence. Without overthinking it, write the single most likely next word:</p>
+
+      <div class="exercise__prompt">
+        <p>"The researcher conducted a survey of 1,200 participants and found that social media use was positively associated with..."</p>
+      </div>
+
+      <p><strong>Your answer:</strong> <span class="exercise__blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+
+      <p>Now read these alternative continuations. Which do you think a model trained on social-science text would assign the highest probability?</p>
+
+      <p>(a) "...political polarisation."<br>
+      (b) "...happiness."<br>
+      (c) "...the amount of time spent outdoors."<br>
+      (d) "...a statistically significant coefficient."</p>
+
+      <details>
+        <summary>Answer Key</summary>
+        <div class="answer">
+          <p>The model assigns probabilities based on patterns in its training data. In a corpus heavy with social-science abstracts, "political polarisation" and "a statistically significant coefficient" would both receive high probability — they are common completions in that genre. "Happiness" would be plausible but less specific. "The amount of time spent outdoors" would be unlikely because it breaks the expected register and topic.</p>
+          <p>The point is not which answer is "correct" — there is no correct answer. The model is not retrieving a fact. It is making a statistical bet about what typically follows the words "positively associated with" in academic text. When the bet is good, the output looks knowledgeable. When it is bad, the output looks like hallucination. But the mechanism is the same either way.</p>
+        </div>
+      </details>
+    </div>
+
+    <hr class="rule">
+
+    <!-- Exercise 1.2 -->
+    <div class="exercise">
+      <p class="exercise__num">Exercise 1.2</p>
+      <h3 class="exercise__title">Model, Interface, or Agent?</h3>
+
+      <p class="exercise__body"><strong>Goal:</strong> Practice distinguishing components of AI systems.</p>
+
+      <p>Classify each scenario as primarily involving a <strong>model</strong>, an <strong>interface</strong>, a <strong>tool</strong>, or an <strong>agent</strong>:</p>
+
+      <ol>
+        <li>You type a prompt into a chat window and receive a response.</li>
+        <li>The system searches the web, retrieves three articles, and incorporates them into its answer.</li>
+        <li>The system reads a CSV file, writes Python code to analyse it, executes the code, and reports the results.</li>
+        <li>You download a file containing the trained neural network weights and run it on your own computer.</li>
+        <li>The system, without asking you, reads your Zotero library, identifies papers on a topic, drafts a literature review, and saves it to your drive.</li>
+      </ol>
+
+      <p><strong>Your answers:</strong></p>
+      <p>1. <span class="exercise__blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+      <p>2. <span class="exercise__blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+      <p>3. <span class="exercise__blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+      <p>4. <span class="exercise__blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+      <p>5. <span class="exercise__blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+
+      <details>
+        <summary>Answer Key</summary>
+        <div class="answer">
+          <p><strong>1. Interface</strong> — You are using a chat interface (like ChatGPT or Claude.ai) built around an underlying model. The interface handles the conversation history and display; the model handles the text generation.</p>
+          <p><strong>2. Interface + Tool</strong> — The interface provides web search as a tool. The model does not "know" how to search the web; the interface intercepts, executes the search, and feeds results back into the context window. This is a Retrieval-Augmented Generation (RAG) pattern.</p>
+          <p><strong>3. Interface + Tool (code interpreter)</strong> — The interface provides a code execution environment. The model writes code, the interface executes it, and the results re-enter the context. This is tool use, not full agency — the system is following a single instruction, not running an open-ended loop.</p>
+          <p><strong>4. Model</strong> — You have the raw model (the trained weights). You still need software to run it (like LM Studio, Olama, or vLLM), but what you downloaded is the model itself, not an interface or agent.</p>
+          <p><strong>5. Agent</strong> — The system is making multiple decisions without asking: what to read, what to include, what to write, where to save. It has tools (Zotero access, file writing) and is operating autonomously. This is the "unattended" end of the agent spectrum.</p>
+        </div>
+      </details>
+    </div>
+
+    <hr class="rule">
+
+    <!-- Exercise 1.3 -->
+    <div class="exercise">
+      <p class="exercise__num">Exercise 1.3</p>
+      <h3 class="exercise__title">The Four Questions on a Real Task</h3>
+
+      <p class="exercise__body"><strong>Goal:</strong> Apply the course lens to a concrete task before running anything.</p>
+
+      <p>Choose a research task you actually do — or might do. It can be anything: drafting a paragraph, searching for literature, classifying text, analysing data. Write it down:</p>
+
+      <p><strong>Your task:</strong> <span class="exercise__blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+
+      <p>Now answer the four questions for this task:</p>
+
+      <p><strong>1. What is being delegated?</strong><br>
+      &nbsp; Task: <span class="exercise__blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><br>
+      &nbsp; Decision: <span class="exercise__blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+
+      <p><strong>2. What would make the result believable?</strong><br>
+      &nbsp; Evidence outside the model: <span class="exercise__blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+
+      <p><strong>3. What could be lost or flattened?</strong><br>
+      &nbsp; <span class="exercise__blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+
+      <p><strong>4. What must remain visible or human?</strong><br>
+      &nbsp; <span class="exercise__blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+
+      <details>
+        <summary>Answer Key</summary>
+        <div class="answer">
+          <p>There is no single correct answer — the four questions are a lens, not a checklist with right answers. But here is an example of what a good response looks like:</p>
+          <p><strong>Task:</strong> Classify 500 news articles as covering "economic policy" or not, for a dataset I am building.</p>
+          <p><strong>1. What is being delegated?</strong><br>
+          — Task: Reading each article and assigning a binary label.<br>
+          — Decision: The classification itself — the model decides which articles count as economic policy coverage. I am also delegating the interpretation of my category definition, since the prompt is my operationalisation.</p>
+          <p><strong>2. What would make the result believable?</strong><br>
+          — Double-code a random sample of 100 articles myself and check agreement with the model.<br>
+          — Test the prompt on 10 articles I already know the answer to.<br>
+          — Check whether errors are concentrated in a particular type of article (e.g., articles that mention economics only in passing).</p>
+          <p><strong>3. What could be lost or flattened?</strong><br>
+          — Ambiguous articles that partially discuss economic policy might be forced into one category.<br>
+          — The model might miss economic policy discussions that use non-standard terminology.<br>
+          — My own tacit knowledge about what "counts" as economic policy in my theoretical framework might not be captured in the prompt.</p>
+          <p><strong>4. What must remain visible or human?</strong><br>
+          — The codebook (category definitions and decision rules) must be written by me, not the model.<br>
+          — The final dataset must record which articles were model-labelled and which were human-checked.<br>
+          — Any article where the model's label disagrees with mine must be resolved by me, not by accepting the model's label.</p>
+        </div>
+      </details>
+    </div>
+
+    <hr class="rule">
+
+    <!-- Exercise 1.4 -->
+    <div class="exercise">
+      <p class="exercise__num">Exercise 1.4</p>
+      <h3 class="exercise__title">Hallucination Hunt</h3>
+
+      <p class="exercise__body"><strong>Goal:</strong> Experience hallucination directly and understand why it happens.</p>
+
+      <p>Ask any LLM (whatever chat interface you have access to) the following question:</p>
+
+      <div class="exercise__prompt">
+        <p>"Please provide the full reference for Smith, J. (2023). 'Artificial Intelligence and Survey Methodology.' <em>Journal of Political Methodology,</em> 45(2), 112–138. Include the DOI if available."</p>
+      </div>
+
+      <p><strong>Model's response:</strong> <span class="exercise__blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+
+      <p>Now try to find the paper. Search for the journal, the DOI, the author. Does it exist?</p>
+
+      <p><strong>Does it exist?</strong> <span class="exercise__blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+
+      <p>If the paper does not exist: the model produced a plausible-looking reference — right journal name format, plausible author name, plausible title, plausible volume and page numbers — that is entirely fabricated. Why?</p>
+
+      <details>
+        <summary>Answer Key</summary>
+        <div class="answer">
+          <p>The model produced the reference the same way it produces everything else: by predicting tokens that are statistically plausible given the prompt. The prompt asked for a reference in a specific format, with a specific journal name and a plausible-sounding title. The model's training data contains millons of real references in exactly this format. So it produces something that looks like a reference, with components that go together plausibly — and it has no mechanism to check whether the specific paper exists.</p>
+          <p>This is why the course rule on citations is absolute: <strong>every reference you submit must have been personally verified.</strong> A model cannot tell you whether a paper exists. It can only tell you what a paper that exists would probably look like.</p>
+          <p>If the paper <em>did</em> exist: you got lucky — or the model's training data happened to include that specific reference. But the mechanism is the same. The model was not "retrieving" the reference from a database. It was predicting tokens, and those tokens happened to correspond to a real paper. You cannot tell the difference from the output alone.</p>
+        </div>
+      </details>
+    </div>
+
+    <hr class="rule">
+
+    <!-- Exercise 1.5 -->
+    <div class="exercise">
+      <p class="exercise__num">Exercise 1.5</p>
+      <h3 class="exercise__title">Build Your Capability Map</h3>
+
+      <p class="exercise__body"><strong>Goal:</strong> Create the starting document for your course-long portfolio.</p>
+
+      <p>Using the template from Section 8 of the workbook, create your AI Capability Map. Write it in a text file, a note-taking app, or on paper. You will return to it in Modules 7 and 8.</p>
+
+      <p><strong>Keep it somewhere you can find it.</strong> This is not submitted — it is your working document.</p>
+    </div>
+
+  </section>
+
+  <hr class="rule rule--thick">
+
+  <section id="readings" class="section">
+    <h2 class="section__title"><span class="section__mark">§</span> readings</h2>
+
+    <p>Nothing on this list is required before starting the module. Read in any order — before, during, or after. Each entry explains <em>why</em> it is useful and what to take from it.</p>
+
+    <div class="reading-group">
+      <h3>Core Readings</h3>
+
+      <div class="reading-entry">
+        <p class="reading-entry__title">"Attention Is All You Need"</p>
+        <p class="reading-entry__byline">Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomex, A. N., Kaiser, Ł., &amp; Polosukhin, I. (2017). <em>Advances in Neural Information Processing Systems,</em> 30.</p>
+        <p class="reading-entry__why">Why read it</p>
+        <p class="reading-entry__note">This is the paper that introduced the transformer architecture — the foundation of every modern LLM. You do not need to understand the mathematics. Read the abstract, the introduction, and Section 3 (Model Architecture) for the diagrams. The key insight is that "attention" lets the model weight the importance of every previous token when predicting the next one, which is what enables coherent long-form generation.</p>
+        <p class="reading-entry__note"><strong>What to take:</strong> The transformer is an architecture for processing sequences. Its core innovation — attention — is why modern LLMs can maintain coherence over long passages. Everything else (scale, training data, RLHF) is built on this foundation.</p>
+      </div>
+
+      <div class="reading-entry">
+        <p class="reading-entry__title">"Talking About Large Language Models"</p>
+        <p class="reading-entry__byline">Shanahan, M. (2024). <em>Communications of the ACM,</em> 67(2), 68–79.</p>
+        <p class="reading-entry__why">Why read it</p>
+        <p class="reading-entry__note">The best short introduction to what LLMs are and — critically — what they are not. Shanahan argues that anthropomorphic language ("the model knows," "the model thinks") leads researchers and users astray. He offers precise alternative language: models are "sequence predictors," not knowledge bases or reasoning engines.</p>
+        <p class="reading-entry__note"><strong>What to take:</strong> The vocabulary you use shapes what you expect. Saying a model "hallucinated" implies it normally tells the truth and occasionally slips — but the model is always producing statistically plausible text. Some of it corresponds to facts; some does not. The model does not know which is which.</p>
+      </div>
+
+      <div class="reading-entry">
+        <p class="reading-entry__title">"On the Dangers of Stochastic Parrots: Can Language Models Be Too Big?"</p>
+        <p class="reading-entry__byline">Bender, E. M., Gebru, T., McMilann-Major, A., &amp; Shmitchell, S. (2021). <em>Procedings of the 2021 ACM Conference on Fairness, Accountability, and Transparency.</em></p>
+        <p class="reading-entry__why">Why read it</p>
+        <p class="reading-entry__note">The paper that popularised the term "stochastic parrot" — the argument that LLMs do not understand language but rather probabilistically reassemble patterns from their training data. Whether you agree with the full argument or not, the paper forces you to articulate what you believe the model is doing when it produces plausible output.</p>
+        <p class="reading-entry__note"><strong>What to take:</strong> The central question — "is the model understanding, or is it pattern-matching at scale?" — is not merely philosophical. It has practical consequences for when and how you trust the output. If the model is a stochastic parrot, every factual claim requires external verification. If you believe it does something more, you still need to specify what that "something more" is and how you would test for it.</p>
+      </div>
+
+      <div class="reading-entry">
+        <p class="reading-entry__title"><em>Text as Data: A New Framework for Machine Learning and the Social Sciences</em></p>
+        <p class="reading-entry__byline">Grimmer, J., Roberts, M. E., &amp; Stewart, B. M. (2022). Princeton University Press. Chapters 1–2.</p>
+        <p class="reading-entry__why">Why read it</p>
+        <p class="reading-entry__note">The standard social-science introduction to computational text analysis. Chapters 1–2 establish the conceptual framework: text as data, representation, and the relationship between human judgment and automated methods. This framework predates LLMs but applies directly to them. The distinction between <em>discovery</em>, <em>measurement</em>, and <em>inference</em> is one you will use throughout the course.</p>
+        <p class="reading-entry__note"><strong>What to take:</strong> The methodological questions Grimmer, Roberts, and Stewart raise about automated text analysis — what is being measured? how is it validated? what are the consequential errors? — are the same questions the course lens asks about LLMs. The technology changed; the methodological demands did not.</p>
+      </div>
+
+      <div class="reading-entry">
+        <p class="reading-entry__title">"Measuring the Impact of Early-2025 AI on Experienced Open-Source Developer Productivity"</p>
+        <p class="reading-entry__byline">Becker, J., Rush, N., Barnes, E., &amp; Rein, D. (2025). arXix:2507.09089.</p>
+        <p class="reading-entry__why">Why read it</p>
+        <p class="reading-entry__note">This paper is about programmers, not social scientists. Read it for the <strong>self-assesment gap</strong>: developers who used AI reported feeling more productive, but objective measures showed smaller and less consistent gains. The gap between perceived and actual improvement is a pattern that appears across AI application domains — and it is one of the reasons this course requires evidence from outside the model.</p>
+        <p class="reading-entry__note"><strong>What to take:</strong> The abstract and the discussion of the self-assesment gap (not the full methods). The key finding: your feeling that AI helped is not evidence that it did. You need an external check.</p>
+      </div>
+    </div>
+
+    <div class="reading-group">
+      <h3>Optional Deep Dives</h3>
+
+      <div class="reading-entry">
+        <p class="reading-entry__title">"Language Models are Few-Shot Learners"</p>
+        <p class="reading-entry__byline">Brown, T. B., Mann, B., Ryder, N., et al. (2020). <em>Advances in Neural Information Processing Systems,</em> 33.</p>
+        <p class="reading-entry__why">Why read it</p>
+        <p class="reading-entry__note">The GPT-3 paper. Read the introduction and the sections on limitations (Section 8). The paper that established the scaling paradigm — bigger models, more data, emergent capabilities — and also documented the failure modes that remain: hallucination, inconsistency, bias, and the inability to distinguish truth from plausibility.</p>
+      </div>
+
+      <div class="reading-entry">
+        <p class="reading-entry__title">"Learning Principles" (PRINCIPLES.md)</p>
+        <p class="reading-entry__byline">Hicks, C. (2025). github.com/DrCatHicks/learning-opportunities (CC-BY-4.0).</p>
+        <p class="reading-entry__why">Why read it</p>
+        <p class="reading-entry__note">A short, practical guide to learning effectively when using AI tools. Written about programmers; read it about yourself. The principles — predict before seeing, explain to someone else, vary the task, test on new cases — are the pedagogical foundation of this course's "human first" approach.</p>
+      </div>
+
+      <div class="reading-entry">
+        <p class="reading-entry__title">"Leakage and the Reproducibility Crisis in Machine-Learning-Based Science"</p>
+        <p class="reading-entry__byline">Kapoor, S., &amp; Narayanan, A. (2023). <em>Patterns,</em> 4(9).</p>
+        <p class="reading-entry__why">Why read it</p>
+        <p class="reading-entry__note">A clear explanation of how data leakage — when information from the test set bleeds into training — can inflate performance claims. The relevance to LLMs: if a model was trained on a corpus that includes the papers you are asking it to classify or the facts you are asking it to retrieve, its performance may look better than it would on truly unseen material. Knowing what was in the training data is often impossible, which makes independent verification essential.</p>
+      </div>
+    </div>
+
+    <div class="reading-group">
+      <h3>Read Later (Acros Modules)</h3>
+
+      <p style="font-size: 0.92rem; color: var(--ink-soft); margin: 0.5rem 0 0.85rem;">These readings are listed here because they span multiple modules. You will see them referenced again:</p>
+
+      <div class="reading-entry">
+        <p class="reading-entry__title">"Can Generative AI Improve Social Science?"</p>
+        <p class="reading-entry__byline">Bail, C. A. (2024). <em>PNAS,</em> 121(21).</p>
+        <p class="reading-entry__note">A broad argument for AI's potential in social science. Read with Grosmann et al. (2023) for the counterpoint. Revisit in Modules 7 and 8.</p>
+      </div>
+
+      <div class="reading-entry">
+        <p class="reading-entry__title">"AI and the Transformation of Social Science Research"</p>
+        <p class="reading-entry__byline">Grosmann, I., et al. (2023). <em>Science,</em> 380(6650).</p>
+        <p class="reading-entry__note">A more cautious assessment. Read with Bail (2024) for the debate. Revisit in Modules 7 and 8.</p>
+      </div>
+
+      <div class="reading-entry">
+        <p class="reading-entry__title">"Generative AI Enances Individual Creativity but Reduces the Collective Diversity of Novel Content"</p>
+        <p class="reading-entry__byline">Doshi, A. R., &amp; Hauser, O. P. (2024). <em>Science Advances,</em> 10(28).</p>
+        <p class="reading-entry__note">AI helps individuals, but when everyone uses it, outputs converge. A pattern to watch for in your own experiments.</p>
+      </div>
+    </div>
+
+  </section>
+
+  <hr class="rule rule--thick">
+
+  <footer class="colophon">
+    <p>
+      <span>module 1 of 8</span>
+      <span>set in charter &amp; jetbrains mono</span>
+      <span>html + css</span>
+      <span>no trackers</span>
+    </p>
+    <p>AI as a Research Tool · University of Zurich · <a href="../../index.html" style="color: var(--ink-soft);">← colin henry</a></p>
+  </footer>
+
+</main>
+</body>
+</html>

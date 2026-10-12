@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Module 3: Literature Search &amp; Synthesis · AI as a Research Tool · UZH</title>
+<meta name="description" content="Design a bounded literature search with explicit scope and stopping rules. Screen results with pre-registered criteria. Build an evidence table. Draft a source-bounded synthesis.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../styles/main.css">
+<style>
+  /* module-page extensions */
+  .back-link {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.02em;
+    margin-bottom: 2rem;
+  }
+  .back-link a {
+    color: var(--ink-soft);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--ink-soft);
+    padding-bottom: 1px;
+  }
+  .back-link a:hover { background: var(--ink); color: var(--paper); border-bottom-color: transparent; }
+
+  .module-meta {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ink-soft);
+    margin: 0 0 1.5rem;
+    display: flex;
+    gap: 1.25rem;
+    flex-wrap: wrap;
+  }
+  .module-meta span { white-space: nowrap; }
+
+  .blockquote-note {
+    border-left: 2px solid var(--ink);
+    padding: 0.5rem 0 0.5rem 1.25rem;
+    margin: 1rem 0;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+  }
+
+  .blockquote-note--template {
+    border-left: 2px solid var(--ink);
+    padding: 0.5rem 0 0.5rem 1.25rem;
+    margin: 1rem 0;
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+    line-height: 1.55;
+  }
+
+  /* key-insight callout box */
+  .callout {
+    border: 1px solid var(--ink);
+    padding: 1rem 1.25rem;
+    margin: 1.25rem 0;
+  }
+  .callout__label {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--ink-soft);
+    margin: 0 0 0.5rem;
+  }
+  .callout__body { margin: 0; line-height: 1.5; }
+
+  /* section headings for workbook */
+  .wb-heading {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 1.2rem;
+    margin: 1.75rem 0 0.75rem;
+    line-height: 1.3;
+  }
+  .wb-subhead {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 1.05rem;
+    font-style: italic;
+    margin: 1.25rem 0 0.5rem;
+    line-height: 1.3;
+  }
+  .wb-subhead--mono {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin: 1.5rem 0 0.75rem;
+    font-style: normal;
+  }
+
+  /* evidence table */
+  .ev-table {
+    width: 100%;
+    border-collapse: collaps;
+    margin: 1rem 0;
+    font-size: 0.88rem;
+    line-height: 1.45;
+  }
+  .ev-table th {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-soft);
+    text-align: left;
+    padding: 0.4rem 0.6rem 0.4rem 0;
+    border-bottom: 1px solid var(--ink);
+    vertical-align: bottom;
+  }
+  .ev-table td {
+    padding: 0.4rem 0.6rem 0.4rem 0;
+    border-bottom: 1px solid var(--mute);
+    vertical-align: top;
+  }
+  .ev-table tr:last-child td { border-bottom: 1px solid var(--ink); }
+
+  /* details/summary for answer keys */
+  details {
+    border-left: 2px solid var(--ink);
+    padding: 0.25rem 1.25rem;
+    margin: 1rem 0;
+    font-size: 0.92rem;
+  }
+  summary {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-soft);
+    cursor: pointer;
+    margin-bottom: 0.5rem;
+  }
+  summary:hover { color: var(--ink); }
+  summary strong { font-weight: 500; }
+
+  /* reading list entries */
+  .entry { margin: 0 0 1.5rem; }
+  .entry:last-child { margin-bottom: 0; }
+  .entry__title {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 1.05rem;
+    line-height: 1.3;
+    margin: 0 0 0.2rem;
+  }
+  .entry__title a { text-decoration-thickness: 1px; }
+  .entry__byline {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+    margin: 0;
+    line-height: 1.4;
+  }
+  .entry__note {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.02em;
+    color: var(--ink-soft);
+    margin: 0.25rem 0 0;
+  }
+  .entry__note a { color: var(--ink-soft); }
+
+  .section { margin: 1.25rem 0 1.5rem; }
+
+  /* navigation within module */
+  .mod-nav {
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    text-transform: lowercase;
+    letter-spacing: 0.02em;
+  }
+  .mod-nav a {
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--ink-soft);
+    padding-bottom: 1px;
+  }
+  .mod-nav a:hover,
+  .mod-nav a:focus {
+    background: var(--ink);
+    color: var(--paper);
+    border-bottom-color: transparent;
+  }
+  .mod-nav__sep {
+    color: var(--mute);
+    padding: 0 0.55em;
+    user-select: none;
+  }
+
+  /* link-cta */
+  .link-cta {
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    letter-spacing: 0.02em;
+    text-decoration: none;
+    border-bottom: 1px solid var(--ink);
+    padding-bottom: 1px;
+  }
+  .link-cta:hover { background: var(--ink); color: var(--paper); border-bottom-color: transparent; }
+
+  /* exercise heading */
+  .ex-heading {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 1.1rem;
+    margin: 1.75rem 0 0.75rem;
+    line-height: 1.3;
+  }
+
+  code {
+    font-family: var(--mono);
+    font-size: 0.82rem;
+  }
+
+  /* kv tag for metadata */
+  .kv {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--ink-soft);
+    margin-right: 0.4em;
+    padding: 0.05em 0.4em;
+    border: 1px solid var(--ink-soft);
+    vertical-align: 0.12em;
+  }
+
+  @media (max-width: 600px) {
+    .ev-table { font-size: 0.78rem; }
+  }
+</style>
+</head>
+<body>
+<main class="page">
+
+  <p class="back-link"><a href="index.html">← course index</a></p>
+
+  <p class="module-meta">
+    <span>module 03</span>
+    <span>3–4h</span>
+    <span>technical html lab</span>
+  </p>
+
+  <header class="masthead">
+    <h1 class="name" style="font-size: clamp(2rem, 8vw, 3.25rem);">
+      <span class="name__line">Literature Search</span><span class="name__line">&amp; Synthesis</span>
+    </h1>
+    <p class="masthead__role">bounded search · explicit screening · evidence tables · source-bounded synthesis</p>
+  </header>
+
+  <hr class="rule rule--thick">
+
+  <nav class="mod-nav" aria-label="module">
+    <a href="#overview">overview</a><span class="mod-nav__sep">~</span>
+    <a href="#workbook">workbook</a><span class="mod-nav__sep">~</span>
+    <a href="#exercises">exercises</a><span class="mod-nav__sep">~</span>
+    <a href="#readings">readings</a>
+  </nav>
+
+  <hr class="rule">
+
+  <!-- ── OVERVIEW ──────────────────────────────────────────────>
+  <section id="overview" class="section">
+    <h2 class="section__title"><span class="section__mark">§</span> overview</h2>
+
+    <div class="module-meta" style="margin-bottom: 0.75rem;">
+      <span>prerequisites: Module 1 (How LLMs Work) recommended</span>
+      <span>type: Technical (HTML lab + workbook)</span>
+      <span>what you'll produce: screened bibliography with evidence table and bounded synthesis paragraph</span>
+    </div>
+
+    <h3 class="wb-subhead--mono">learning outcomes</h3>
+    <p>By the end of this module you will be able to:</p>
+    <ol>
+      <li>Design a bounded literature search with explicit scope, stopping rules, and query provenance</li>
+      <li>Screen search results using pre-registered inclusion and exclusion criteria</li>
+      <li>Build an evidence table that connects claims to specific sources</li>
+      <li>Draft a source-bounded synthesis that does not overstate what the search found</li>
+      <li>Verifiy that every cited source exists and says what you claim it says</li>
+    </ol>
+  </section>
+
+  <hr class="rule">
+
+  <!-- ── WORKBOOK ──────────────────────────────────────────────>
+  <section id="workbook" class="section">
+    <h2 class="section__title"><span class="section__mark">§</span> workbook</h2>
+
+    <!-- 1. The Literature Problem -->
+    <h3 class="wb-heading">1. The Literature Problem</h3>
+    <p>AI makes literature work faster. That is precisely the problem.</p>
+    <p>A model can summarise a paper, find related work, and draft a literature review in seconds. What it cannot do — because no model can — is guarantee that:</p>
+    <ul>
+      <li>Every paper it cites actually exists</li>
+      <li>Every claim it attributes to a paper is supported by that paper</li>
+      <li>The search it ran found all relevant work (or even most of it)</li>
+      <li>The synthesis it wrote accurately represents the field rather than the most-cited or most-accessible papers</li>
+    </ul>
+    <p>These are not implementation problems that will be fixed in the next model version. They are consequences of the architecture: the model predicts statistically plausible text. A plausible-sounding literature review is not the same thing as an accurate one, and the model cannot tell the difference.</p>
+    <p>This module teaches you to use AI for literature work while keeping the researcher — you — in control of scope, screening, evidence, and claims.</p>
+
+    <!-- 2. Bounded Search -->
+    <h3 class="wb-heading">2. Bounded Search</h3>
+    <p>A literature search that &ldquo;finds everything&rdquo; is impossible. A search with no stopping rule runs until you get tired. A search with no scope drifts. A search with no provenance record cannot be described in a methods section.</p>
+    <p>Before you search, define:</p>
+
+    <h4 class="wb-subhead">Scope</h4>
+    <p>What is the question the search should answer? Be specific. &ldquo;AI and political science&rdquo; is not a scope. &ldquo;How have researchers used LLM-based classification to measure political polarisation in social media text since 2020?&rdquo; is a scope.</p>
+
+    <h4 class="wb-subhead">Stopping rule</h4>
+    <p>When do you stop searching? Possibilities: after <em>N</em> results screened, after no new relevant results in the last <em>K</em> records, after a fixed time budget. State the rule before you start; do not adjust it after seeing results.</p>
+
+    <h4 class="wb-subhead">Query provenance</h4>
+    <p>Record every search you run: the database, the query string, the date, the filters, and the number of results. If someone cannot reproduce your search from your record, your search is not reproducible. Save query snapshots, not just final results.</p>
+
+    <h4 class="wb-subhead">Inclusion and exclusion criteria</h4>
+    <p>Write your screening criteria before you see any results. A good criterion answers: &ldquo;What would make me include (or exclude) this paper, regardless of whether I find its conclusions congenial?&rdquo; Test your criteria on a few papers you already know. Revise the criteria, not the screening decisions, if you discover ambiguity.</p>
+
+    <!-- 3. Screening with Explicit Criteria -->
+    <h3 class="wb-heading">3. Screening with Explicit Criteria</h3>
+    <p>Screening is the most consequential step in a literature review — and the one where AI assistance is most dangerous if the criteria are vague or the researcher defers to the model's judgment.</p>
+
+    <h4 class="wb-subhead">The screening workflow</h4>
+    <ol>
+      <li><strong>Write your criteria first.</strong> Before you see any search results, write down what makes a paper relevant or irrelevant. Be specific. &ldquo;Interesting&rdquo; is not a criterion. &ldquo;Reports original empirical results using LLM-based classification on political text&rdquo; is a criterion.</li>
+      <li><strong>Screen titles and abstracts only.</strong> At this stage, you are deciding which papers to read, not which to include in the final review. When in doubt, retain. A retained paper gets a full-text assessment; an excluded paper does not.</li>
+      <li><strong>Record a reason for every exclusion.</strong> &ldquo;Not relevant&rdquo; is not a reason. &ldquo;Does not use LLM-based methods&rdquo; is a reason. The reason should reference your criteria.</li>
+      <li><strong>Treat missing information as a reason to retain, not exclude.</strong> If the abstract does not say whether the paper uses LLM-based methods, retain it for full-text assessment. Do not guess.</li>
+      <li><strong>Verify before citing.</strong> A paper that passes screening is a candidate for inclusion. It becomes a citation only after you have read enough of it to confirm it exists, it is what the abstract claimed, and it supports the specific point you are citing it for.</li>
+    </ol>
+
+    <h4 class="wb-subhead">The AI role in screening</h4>
+    <p>You can ask an AI assistant to apply your criteria to a set of abstracts. This can save time — but it introduces a measurement problem (see Module 4 for the full treatment). The AI is making classification decisions, and those decisions can be wrong. Always:</p>
+    <ul>
+      <li>Screen a sample yourself first, so you know what the task feels like</li>
+      <li>Compare the AI's decisions to yours on at least a random subset</li>
+      <li>Resolve disagreements yourself — do not default to the AI's label</li>
+      <li>Treat the AI's screening as a first pass, not a final decision</li>
+    </ul>
+
+    <!-- 4. The Evidence Table -->
+    <h3 class="wb-heading">4. The Evidence Table</h3>
+    <p>Before you write a synthesis paragraph, build an evidence table. This is the bridge between screening and writing.</p>
+    <p>An evidence table has one row per source you are citing and these columns:</p>
+
+    <table class="ev-table">
+      <thead>
+        <tr><th>Column</th><th>What goes in it</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Source</strong></td><td>Full citation (authoor, year, title, journal/venue)</td></tr>
+        <tr><td><strong>Verified?</strong></td><td>Yes (you personally checked the source exists and says what you claim)</td></tr>
+        <tr><td><strong>Claim supported</strong></td><td>The specific claim this source supports in your synthesis</td></tr>
+        <tr><td><strong>Evidence type</strong></td><td>Empirical? Theoretical? Review? Commentary?</td></tr>
+        <tr><td><strong>Locator</strong></td><td>Page, section, or figure where the evidence appears</td></tr>
+        <tr><td><strong>Notes</strong></td><td>Any caveats: the evidence is partial, the claim is contested, the methods have known limitations</td></tr>
+      </tbody>
+    </table>
+
+    <p>Build the table before you write. If a row has &ldquo;No&rdquo; in the Verified column, do not cite that source. If you cannot fill the &ldquo;Claim supported&rdquo; column for a source, it does not belong in your synthesis.</p>
+
+    <!-- 5. Source-Bounded Synthesis -->
+    <h3 class="wb-heading">5. Source-Bounded Synthesis</h3>
+    <p>A source-bounded synthesis is a paragraph (or several) that:</p>
+    <ol>
+      <li>States the question the synthesis addresses</li>
+      <li>Reports what the retrieved and screened sources say about that question</li>
+      <li>Stays within the bounds of the search that was actually run</li>
+      <li>Discloses what the search did not cover</li>
+      <li>Distinguishes the sources' claims from your own interpretation</li>
+    </ol>
+    <p>A source-bounded synthesis is <strong>not</strong> a comprehensive literature review. It is a transparent report on what a specific search found, what those sources claim, and what limitations apply.</p>
+
+    <h4 class="wb-subhead">Template</h4>
+    <div class="blockquote-note--template">
+      <p><em>This synthesis draws on [</em>N<em>] sources identified through [describe search: database, query, date, filters]. After title/abstract screening using the criteria in [reference], [</em>K<em>] sources were retained for full-text assessment. The synthesis reports claims supported by those sources. It does not claim to be exhaustive: [state known gaps: databases not searched, languages not covered, date range limitation, etc.].</em></p>
+    </div>
+
+    <h4 class="wb-subhead">What the synthesis should NOT do</h4>
+    <ul>
+      <li>Claim to be &ldquo;a systematic review&rdquo; unless it follows systematic review methodology (dual screening, risk-of-bias assessment, registered protocol, etc.)</li>
+      <li>Cite sources you have not personally verified</li>
+      <li>Draw conclusions that go beyond what the retrieved sources support</li>
+      <li>Use the model's summary of a paper as a substitute for reading it</li>
+    </ul>
+
+    <!-- 6. Demonstration -->
+    <h3 class="wb-heading">6. Demonstration: A Bounded Literature Search</h3>
+    <p>Let's walk through a concrete example. The research question:</p>
+
+    <div class="blockquote-note">
+      <p>&ldquo;What evidence exists on whether deplatforming (removing users or communities from social media platforms) reduces the spread of harmful content?&rdquo;</p>
+    </div>
+
+    <h4 class="wb-subhead">Step 1: Define scope and criteria</h4>
+    <p><strong>Scope:</strong> Empirical studies (quantitative or qualitative) examining the effects of deplatforming on content spread, published 2015–2026, in English.</p>
+    <p><strong>Stopping rule:</strong> Screen up to 100 results; stop after 100 or when 20 consecutive results are irrelevant, whichever comes first.</p>
+    <p><strong>Inclusion criteria:</strong></p>
+    <ul>
+      <li>Reports original empirical results on deplatforming effects</li>
+      <li>Examines content spread, user migration, or community-level outcomes</li>
+      <li>Published in a peer-reviewed venue or as a working paper with methods described</li>
+    </ul>
+    <p><strong>Exclusion criteria:</strong></p>
+    <ul>
+      <li>Opinion, commentary, or legal analysis without empirical component</li>
+      <li>Studies of content moderation generally (not specifically deplatforming)</li>
+      <li>Studies of platform design or policy without outcome measurement</li>
+    </ul>
+
+    <h4 class="wb-subhead">Step 2: Run the search</h4>
+    <p><strong>Database:</strong> OpenAlex (open academic graph)<br>
+    <strong>Query:</strong> <code>(deplat-forming OR &ldquo;account suspension&rdquo; OR &ldquo;community ban&rdquo;) AND (political OR participation OR expression)</code><br>
+    <strong>Date:</strong> 15 October 2026<br>
+    <strong>Filters:</strong> publication_year:2015–2026, type:article<br>
+    <strong>Results:</strong> 47 matching works (first page of 20 retrieved)</p>
+
+    <h4 class="wb-subhead">Step 3: Screen</h4>
+    <p>Of the 20 retrieved records, applying the criteria above:</p>
+    <ul>
+      <li><strong>Retain (6):</strong> Papers with empirical evidence on deplatforming effects</li>
+      <li><strong>Exclude (14):</strong> Opinion pieces (5), general moderation studies without deplatforming focus (6), platform policy descriptions (3)</li>
+    </ul>
+
+    <h4 class="wb-subhead">Step 4: Build evidence table (partial)</h4>
+    <table class="ev-table">
+      <thead>
+        <tr><th>Source</th><th>Verified?</th><th>Claim supported</th><th>Evidence type</th><th>Locator</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Ali et al. (2025). &ldquo;Deplat-forming and content diffusion on Redit.&rdquo; <em>ICWSM</em>.</td>
+          <td>Yes</td>
+          <td>Deplat-forming reduced toxic content in target communities but increased it in neighbouring communities</td>
+          <td>Empirical (quantitative)</td>
+          <td>§§3–4</td>
+        </tr>
+        <tr>
+          <td>Thomas et al. (2024). &ldquo;The migration patterns of deplatformed influencers.&rdquo; <em>JCMC</em>.</td>
+          <td>Yes</td>
+          <td>Deplat-formed users who migrated to alternative platforms maintained approximately 40% of their original audience</td>
+          <td>Empirical (mixed)</td>
+          <td>§2, Table 3</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h4 class="wb-subhead">Step 5: Draft synthesis</h4>
+    <div class="blockquote-note--template">
+      <p><em>The six retained studies provide mixed evidence on deplatforming effectiveness. Ali et al. (2025) find that removing toxic subredits reduced harmful content within those communities but produced spillover effects in adjacent communities. Thomas et al. (2024) show that deplatformed influencers retain a substantial portion of their audience on alternative platforms. These findings suggest deplatforming may displace rather than eliminate harmful content — though the evidence base is small (six studies, all on US/EU platforms, none pre-registered) and should not be treated as conclusive. The search was limited to English-language publications indexed in OpenAlex; non-English and grey-literature sources were not covered.</em></p>
+    </div>
+
+    <!-- 7. The Lab -->
+    <h3 class="wb-heading">7. The Lab</h3>
+    <p>The Html lab for this module provides a self-contained literature screening environment:</p>
+    <ol>
+      <li><strong>Pre-loaded search results:</strong> A set of real academic records from OpenAlex (pre-fetched — no API key required)</li>
+      <li><strong>Screening interface:</strong> Apply your criteria, record decisions with reasons</li>
+      <li><strong>Evidenc table builder:</strong> Connect claims to verified sources</li>
+      <li><strong>Synthesis workspace:</strong> Draft a source-bounded paragraph</li>
+    </ol>
+    <p>Open <code>lab/literature.html</code> in any browser. All computation is local; no data is sent anywhere. Read the instructor notes at <code>lab/instructor.md</code> for the full walkthrough.</p>
+
+    <!-- 8. The Four Questions for Literature Work -->
+    <h3 class="wb-heading">8. The Four Questions for Literature Work</h3>
+    <p>Apply the course lens before, during, and after your literature task:</p>
+    <ol>
+      <li><strong>What is being delegated?</strong> The search execution? The screening decisions? The synthesis writing? Each has different risks.</li>
+      <li><strong>What would make the result believable?</strong> Every cited source personally verified. A search record someone else could reproduce. Screening decisions checked against human judgment.</li>
+      <li><strong>What could be lost or flattened?</strong> Non-English literature. Grey literature and working papers. Work from adjacent fields that uses different terminology. Minority or critical perspectives that are less cited.</li>
+      <li><strong>What must remain visible or human?</strong> The search provenance. The screening criteria and decisions. The distinction between what the sources say and what you conclude. Every citation.</li>
+    </ol>
+
+    <!-- 9. Summary -->
+    <h3 class="wb-heading">9. Summary</h3>
+    <ul>
+      <li>Define scope, stopping rules, and screening criteria <strong>before</strong> you search</li>
+      <li>Screen with explicit, pre-registered criteria; record a reason for every exclusion</li>
+      <li>Treat AI-assisted screening as a first pass, not a final decision</li>
+      <li>Build an evidence table before you write; verify every source</li>
+      <li>Write source-bounded synthesis: transparent about what the search covered and what it did not</li>
+      <li>The lab provides a complete, self-contained environment — no API keys, no accounts</li>
+    </ul>
+
+    <!-- What's Next -->
+    <h3 class="wb-heading">What's Next</h3>
+    <p><strong>Module 4</strong> applies the measurement principles from this module to text annotation: building codebooks, designing prompts, evaluating reliability, and understanding the difference between agreement and validity.</p>
+  </section>
+
+  <hr class="rule rule--thick">
+
+  <!-- ── EXERCISES ──────────────────────────────────────────────>
+  <section id="exercises" class="section">
+    <h2 class="section__title"><span class="section__mark">§</span> exercises</h2>
+
+    <!-- Exercise 3.1 -->
+    <h3 class="ex-heading">Exercise 3.1: Write Screening Criteria</h3>
+    <p><strong>Goal:</strong> Practice writing explicit, testable inclusion and exclusion criteria before seeing any results.</p>
+    <p>Choose a research question in your field — ideally the one from your capability map (Module 1, Exercise 1.5). Write:</p>
+    <p><strong>Research question:</strong> _______________</p>
+    <p><strong>Inclusion criteria</strong> (what makes a paper relevant — be specific, not &ldquo;interesting&rdquo;):</p>
+    <ol>
+      <li>_______________</li>
+      <li>_______________</li>
+      <li>_______________</li>
+    </ol>
+    <p><strong>Exclusion criteria</strong> (what makes a paper irrelevant even if it seems related):</p>
+    <ol>
+      <li>_______________</li>
+      <li>_______________</li>
+      <li>_______________</li>
+    </ol>
+    <p><strong>Stopping rule</strong> (when do you stop screening?): _______________</p>
+    <p>Now test your criteria on two papers you already know — one that should be included and one that should be excluded. Do your criteria produce the right decisions? If not, revise the criteria, not the decisions.</p>
+
+    <details>
+      <summary><strong>Answer Key</strong></summary>
+      <p>There is no single correct answer — the criteria depend on your question. But good criteria share these properties:</p>
+      <ul>
+        <li><strong>Specific:</strong> &ldquo;Reports original empirical results using survey experiments&rdquo; is better than &ldquo;empirical&rdquo;</li>
+        <li><strong>Testable:</strong> Another researcher reading the same abstract should usually reach the same decision</li>
+        <li><strong>Exhaustive:</strong> Every paper can be classified as included or excluded (with a &ldquo;retain for full-text&rdquo; option when the abstract is ambiguous)</li>
+        <li><strong>Pre-registered:</strong> Written before screening begins; not adjusted to include or exclude specific papers</li>
+      </ul>
+      <p>Common mistakes:</p>
+      <ul>
+        <li>&ldquo;Interesting&rdquo; or &ldquo;relevant&rdquo; without defining what makes something interesting/relevant</li>
+        <li>Criteria that are impossible to apply from titles and abstracts alone (&ldquo;uses rigorous methods&rdquo; — you cannot assess rigour from an abstract)</li>
+        <li>Criteria that change during screening to include a paper you want to include</li>
+      </ul>
+    </details>
+
+    <hr class="rule">
+
+    <!-- Exercise 3.2 -->
+    <h3 class="ex-heading">Exercise 3.2: Screen a Result Set</h3>
+    <p><strong>Goal:</strong> Apply your criteria to real search results and practice recording decisions.</p>
+    <p>Open the lab at <code>lab/literature.html</code>. The pre-loaded results contain 20 academic records from a search on AI-assisted content moderation. Using the criteria below (or your own from Exercise 3.1), screen each record:</p>
+    <p><strong>Screening criteria:</strong></p>
+    <ul>
+      <li><strong>INCLUDE:</strong> Reports original empirical results (quantitative or qualitative) on using AI/LLMs for content moderation or classification of online political content</li>
+      <li><strong>EXCLUDE:</strong> Opinion/commentary, legal/policy analysis without empirical component, studies of AI generally without content moderation focus, pre-2020 publications</li>
+    </ul>
+    <p>For each record, record:</p>
+    <ul>
+      <li><strong>Decision:</strong> RETAIN or EXCLUDE</li>
+      <li><strong>Rule:</strong> Which criterion drove the decision</li>
+      <li><strong>Reason:</strong> One sentence explaining the decision</li>
+    </ul>
+
+    <details>
+      <summary><strong>Answer Key</strong></summary>
+      <p>The correct decisions depend on the specific records in the pre-loaded set. The instructor key (<code>lab/instructor.md</code>) contains reference screening decisions for all 20 records. Compare your decisions to the reference.</p>
+      <p>Where you disagree:</p>
+      <ol>
+        <li>Check whether you applied the same criteria — did you miss a relevant detail in the abstract?</li>
+        <li>Check whether the criteria are ambiguous — does the disagreement reveal a criterion that needs clarification?</li>
+        <li>Do NOT change your decision just to match the reference. Disagreement that reveals an underspecified criterion is a finding, not an error.</li>
+      </ol>
+      <p>Key patterns to watch for:</p>
+      <ul>
+        <li>Papers that mention AI but study human moderators → EXCLUDE (does not study AI/LLM use)</li>
+        <li>Papers that study content moderation but use traditional ML, not LLMs → border case; decide whether your criterion specifies LLMs or AI broadly</li>
+        <li>Papers where the abstract is ambiguous about methods → RETAIN for full-text assessment</li>
+      </ul>
+    </details>
+
+    <hr class="rule">
+
+    <!-- Exercise 3.3 -->
+    <h3 class="ex-heading">Exercise 3.3: Build an Evidence Table</h3>
+    <p><strong>Goal:</strong> Practice connecting claims to verified sources.</p>
+    <p>From the records you retained in Exercise 3.2, choose 3–5 that you would cite in a literature review. For each, complete this row:</p>
+
+    <table class="ev-table">
+      <thead>
+        <tr><th>Source</th><th>Verified?</th><th>Claim supported</th><th>Evidence type</th><th>Locator</th><th>Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+        <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+        <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+      </tbody>
+    </table>
+
+    <p><strong>Critical rule:</strong> If you cannot personally verify that the source exists and says what you claim, mark &ldquo;No&rdquo; in the Verified column. A model's summary does not count as verification.</p>
+
+    <details>
+      <summary><strong>Answer Key</strong></summary>
+      <p>The evidence table is a working document, not a test with right answers. But check your table against these quality criteria:</p>
+      <ul>
+        <li><strong>Every row has a specific claim</strong>, not &ldquo;relevant to my topic&rdquo;</li>
+        <li><strong>The claim is something the source actually says</strong> (if you haven't read the full text, mark as unverified or note that the claim is based on the abstract only)</li>
+        <li><strong>The locator is specific</strong> (section, page, figure, table — not &ldquo;the whole paper&rdquo;)</li>
+        <li><strong>Notes include caveats</strong> when the evidence is partial or the methods have known limitations</li>
+        <li><strong>No row relies on an AI-generated summary</strong> as its sole source</li>
+      </ul>
+      <p>If the sources are pre-loaded constructed records from the lab, the instructor key provides reference evidence for each.</p>
+    </details>
+
+    <hr class="rule">
+
+    <!-- Exercise 3.4 -->
+    <h3 class="ex-heading">Exercise 3.4: Draft a Source-Bounded Synthesis</h3>
+    <p><strong>Goal:</strong> Write a synthesis paragraph that is transparent about its scope and limitations.</p>
+    <p>Using the evidence table from Exercise 3.3, draft a synthesis paragraph of 150–250 words. Your paragraph must:</p>
+    <ol>
+      <li>State the question it addresses</li>
+      <li>Report what the sources say (not what you wish they said)</li>
+      <li>Stay within the bounds of the search you actually ran</li>
+      <li>Disclose at least one limitation of the search</li>
+      <li>Distinguish the sources' claims from your interpretation</li>
+    </ol>
+
+    <details>
+      <summary><strong>Answer Key</strong></summary>
+      <p>A good source-bounded synthesis has these properties:</p>
+      <ul>
+        <li><strong>It starts with a question</strong>, not a claim: &ldquo;What does the retrieved literature say about...&rdquo; rather than &ldquo;The literature shows that...&rdquo;</li>
+        <li><strong>It reports what was found</strong>, including negative or null results, not just supporting evidence</li>
+        <li><strong>It quantifies when possible</strong>: &ldquo;Of the 20 records screened, 6 met inclusion criteria. Three of those...&rdquo;</li>
+        <li><strong>It discloses scope limitations</strong>: &ldquo;The search was limited to OpenAlex (English-language, peer-reviewed articles, 2015–2026). Non-English literature, books, and grey literature were not covered.&rdquo;</li>
+        <li><strong>It distinguishes evidence from interpretation</strong>: &ldquo;Ali et al. (2025) find that...&rdquo; (evidence) vs. &ldquo;This suggests that deplatforming may be counterproductive...&rdquo; (interpretation)</li>
+        <li><strong>It does not claim to be systematic</strong> unless it follows systematic review methodology</li>
+      </ul>
+      <p>Red flags:</p>
+      <ul>
+        <li>&ldquo;The literature clearly shows...&rdquo; (the literature rarely clearly shows anything)</li>
+        <li>Citing sources you haven't verified</li>
+        <li>Drawing conclusions that go beyond the retrieved evidence</li>
+        <li>No disclosure of search limitations</li>
+      </ul>
+    </details>
+
+    <hr class="rule">
+
+    <!-- Exercise 3.5 -->
+    <h3 class="ex-heading">Exercise 3.5: Verify a Reference</h3>
+    <p><strong>Goal:</strong> Experience the reference verification process — and the hallucination problem.</p>
+    <p>Ask any AI assistant for three references on a topic in your field. Write them down:</p>
+    <ol>
+      <li>_______________</li>
+      <li>_______________</li>
+      <li>_______________</li>
+    </ol>
+    <p>Now try to find each one. Search for the title in Google Scholar, the journal's website, or your university library. For each reference:</p>
+    <ul>
+      <li><strong>Exists and is real:</strong> Mark as verified <span class="kv">✓</span></li>
+      <li><strong>Does not exist:</strong> Mark as hallucinated <span class="kv">✗</span> — write down what gave it away (if anything)</li>
+      <li><strong>Exists but the details are wrong:</strong> Note the corrections needed (wrong author, wrong year, wrong journal, etc.)</li>
+      <li><strong>Cannot determine:</strong> Note what you would need to check</li>
+    </ul>
+
+    <details>
+      <summary><strong>Answer Key</strong></summary>
+      <p>There is no fixed answer — the results depend on your topic and the model you used. But patterns to expect:</p>
+      <ul>
+        <li><strong>Real references are more common</strong> for high-profile papers in well-known journals. The model has seen these in its training data.</li>
+        <li><strong>Halucinated references look real</strong> — they have plausible author names, plausible journal names, plausible titles. The giveaway is usually that the paper simply does not exist when you search for it.</li>
+        <li><strong>Partially correct references</strong> are common: the paper exists but the year is wrong, or the author list is incomplete, or the journal name is slightly off. These are harder to detect — you might find a paper that looks right but is actually a different paper by the same author.</li>
+        <li><strong>The model will sound confident either way.</strong> There is no correlation between the model's confidence and the reference's accuracy.</li>
+      </ul>
+      <p>The lesson: <strong>you cannot trust a reference until you have personally verified it.</strong> This is not a caution for the future. It is the rule for this course. Every citation in every exercise and every portfolio component must be verified.</p>
+    </details>
+  </section>
+
+  <hr class="rule rule--thick">
+
+  <!-- ── READINGS ──────────────────────────────────────────────>
+  <section id="readings" class="section">
+    <h2 class="section__title"><span class="section__mark">§</span> readings</h2>
+
+    <h3 class="wb-subhead--mono">core readings</h3>
+
+    <div class="entry">
+      <h3 class="entry__title">Booth, A., Sutton, A., &amp; Papaioannou, D. (2016). <em>Systematic Approaches to a Successful Literature Review</em>, 2nd ed. Sage. Chapters 1–3.</h3>
+      <p class="entry__byline">The standard guide to literature reviewing methodology.</p>
+      <p class="entry__note"><strong>Why read it:</strong> Chapters 1–3 cover question formulation, search strategy design, and screening. You do not need to conduct a full systematic review — but understanding what one requires helps you know what your bounded search is <em>not</em> claiming to be.</p>
+      <p class="entry__note"><strong>What to take:</strong> The distinction between a systematic review (comprehensive, protocol-driven, dual-screened) and a scoping or narrative review. Your module 3 synthesis is closer to a rapid evidence assessment — transparent about its limits, not claiming comprehensiveness.</p>
+    </div>
+
+    <div class="entry">
+      <h3 class="entry__title">Gusenbauer, M., &amp; Haddaway, N. R. (2020). &ldquo;Which Academic Search Systems are Suitable for Systematic Reviews or Meta-Analyses? Evaluating Retrieval Qualities of Google Scholar, PubMed, and 28 Other Resources.&rdquo; <em>Research Synthesis Methods</em>, 11(2), 181–217.</h3>
+      <p class="entry__byline">A systematic evaluation of search systems.</p>
+      <p class="entry__note"><strong>Why read it:</strong> The key finding: Google Scholar alone is insufficient for systematic searching because its ranking algorithm is opaque and its coverage is inconsistent. OpenAlex (used in this module's lab) is one of the evaluated resources.</p>
+      <p class="entry__note"><strong>What to take:</strong> No single database covers everything. Disclose which databases you searched and what they are known to miss.</p>
+    </div>
+
+    <div class="entry">
+      <h3 class="entry__title">OpenAlex. &ldquo;About OpenAlex.&rdquo; <a href="https://openalex.org/about">openalex.org/about →</a></h3>
+      <p class="entry__byline">The open academic graph used in this module's lab.</p>
+      <p class="entry__note"><strong>Why read it:</strong> OpenAlex indexes over 250 million scholarly works and is free to use. Understanding what it covers (and what it does not) is essential for interpreting your search results.</p>
+      <p class="entry__note"><strong>What to take:</strong> OpenAlex covers works with DOIs, PubMed IDs, and other persistent identifiers. It is strong on English-language journal articles and weaker on books, book chapters, non-English publications, and grey literature. A search limited to OpenAlex is not a comprehensive search.</p>
+    </div>
+
+    <h3 class="wb-subhead--mono">methodological readings</h3>
+
+    <div class="entry">
+      <h3 class="entry__title">King, G. (1995). &ldquo;Replication, Replication.&rdquo; <em>PS: Political Science and Politics</em>, 28(3), 444–452.</h3>
+      <p class="entry__byline">The classic argument for replication in political science.</p>
+      <p class="entry__note"><strong>Why read it:</strong> Though written before LLMs, its framework applies directly: can someone else reproduce your search from your record? If not, your literature search is not replicable.</p>
+      <p class="entry__note"><strong>What to take:</strong> The replication standard: provide enough information that another researcher could reproduce your search and screening and obtain substantially the same results.</p>
+    </div>
+
+    <div class="entry">
+      <h3 class="entry__title">Barrie, C., Palmer, A., &amp; Spirling, A. &ldquo;Replication for Language Models: Problems, Principles, and Best Practice for Political Science.&rdquo; <em>American Journal of Political Science</em>, forthcoming.</h3>
+      <p class="entry__byline">The extension of replication principles to LLM-based research.</p>
+      <p class="entry__note"><strong>Why read it:</strong> What happens when you run the same prompt twice? When the model is deprecated? When the provider changes the underlying system?</p>
+      <p class="entry__note"><strong>What to take:</strong> Record the model, date, prompt, and settings for every AI-assisted literature task. A result that cannot be reproduced because the model no longer exists is not replicable.</p>
+    </div>
+
+    <h3 class="wb-subhead--mono">AI and literature searching</h3>
+
+    <div class="entry">
+      <h3 class="entry__title">Wagner, G., Lukyanenko, R., &amp; Paré, G. (2022). &ldquo;Artificial Intelligence and the Conduct of Literature Reviews.&rdquo; <em>Journal of Information Technology</em>, 37(2), 209–226.</h3>
+      <p class="entry__byline">A survey of AI tools for literature reviewing, from search and screening through synthesis.</p>
+      <p class="entry__note"><strong>Why read it:</strong> Published just before the LLM explosion, it provides a useful baseline for what is genuinely new and what is faster automation of existing approaches.</p>
+      <p class="entry__note"><strong>What to take:</strong> AI can accelerate every stage of literature reviewing — and accelerate every type of error. Speed makes systematic errors harder to catch, not easier.</p>
+    </div>
+
+    <div class="entry">
+      <h3 class="entry__title">Kusal, S., et al. (2025). &ldquo;AI-Supported Academic Literature Reviewing: A Systematic Survey.&rdquo; <em>arXiv</em>.</h3>
+      <p class="entry__byline">A recent survey of AI tools specifically for literature reviewing, including LLM-based approaches.</p>
+      <p class="entry__note"><strong>Why read it:</strong> Covers search, screening, extraction, and synthesis.</p>
+      <p class="entry__note"><strong>What to take:</strong> The landscape is moving fast. Most tools are not evaluated against human benchmark performance. Treat vendor claims about accuracy with the same scepticism you apply to model output.</p>
+    </div>
+
+    <h3 class="wb-subhead--mono">optional: going deeper</h3>
+
+    <div class="entry">
+      <h3 class="entry__title">Grant, M. J., &amp; Booth, A. (2009). &ldquo;A Typology of Reviews: An Analysis of 14 Review Types and Associated Methodologies.&rdquo; <em>Health Information and Libraries Journal</em>, 26(2), 91–108.</h3>
+      <p class="entry__byline">If you need to decide what kind of review to conduct — systematic, scoping, rapid, critical, mapping, etc.</p>
+      <p class="entry__note"><strong>Why read it:</strong> This typology helps you choose and name the right methodology.</p>
+    </div>
+
+    <div class="entry">
+      <h3 class="entry__title">Tricco, A. C., et al. (2018). &ldquo;PRISMA Extension for Scoping Reviews (PRISMA-ScR): Checklist and Explanation.&rdquo; <em>Annals of Internal Medicine</em>, 169(7), 467–473.</h3>
+      <p class="entry__byline">The PRISMA-ScR checklist is the standard for reporting scoping reviews.</p>
+      <p class="entry__note"><strong>Why read it:</strong> Even if you are not conducting one, the checklist items are a good guide to what a transparent literature search should report.</p>
+    </div>
+
+    <h3 class="wb-subhead--mono">read later (across modules)</h3>
+
+    <div class="entry">
+      <p class="entry__note"><strong>Egami et al. (forthcoming)</strong> on predicted variables in downstream analyses — relevant when your literature synthesis informs a measurement decision. See <a href="module-07.html">Module 7 →</a>.</p>
+    </div>
+
+    <div class="entry">
+      <p class="entry__note"><strong>Bisbee et al. (2024)</strong> on synthetic replacements for survey data — the &ldquo;means look fine, everything downstream is wrong&rdquo; problem. See <a href="module-07.html">Module 7 →</a>.</p>
+    </div>
+  </section>
+
+  <hr class="rule rule--thick">
+
+  <footer class="colophon">
+    <p>
+      <span>set in charter &amp; jetbrains mono.</span>
+      <span>html + css.</span>
+      <span>no trackers.</span>
+    </p>
+    <p>module 3 of 8 · AI as a Research Tool: Workflow Design for the Social Sciences · University of Zurich · <a href="index.html" style="color: var(--ink-soft);">← course index</a></p>
+  </footer>
+
+</main>
+</body>
+</html>
