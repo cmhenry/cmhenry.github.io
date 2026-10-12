@@ -1,0 +1,1244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Module 5 · Code &amp; Data Analysis · AI as a Research Tool</title>
+<meta name="description" content="Module 5 of AI as a Research Tool: Code and data analysis with AI assistants — explain, debug, document, and translate code. Supervised delegation for social scientists.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../styles/main.css">
+<style>
+  /* module-page extensions */
+  .masthead__module-tag {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--ink);
+    border: 1px solid var(--ink);
+    padding: 0.1em 0.55em;
+    display: inline-block;
+    margin-bottom: 0.75rem;
+  }
+
+  .module-meta {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-soft);
+    margin: 0.25rem 0 1rem;
+  }
+  .module-meta span { white-space: nowrap; }
+
+  .back-link {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.02em;
+    margin-bottom: 2rem;
+  }
+  .back-link a {
+    color: var(--ink-soft);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--ink-soft);
+    padding-bottom: 1px;
+  }
+  .back-link a:hover { background: var(--ink); color: var(--paper); border-bottom-color: transparent; }
+
+  .blockquote-note {
+    border-left: 2px solid var(--ink);
+    padding: 0.5rem 0 0.5rem 1.25rem;
+    margin: 1rem 0;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+  }
+
+  .workbook-nav {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.02em;
+    line-height: 1.7;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .workbook-nav a {
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--ink-soft);
+    padding-bottom: 1px;
+  }
+  .workbook-nav a:hover { background: var(--ink); color: var(--paper); border-bottom-color: transparent; }
+
+  /* content typography */
+  .content h3 {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin: 1.5rem 0 0.75rem;
+    font-weight: 500;
+  }
+
+  .content h2 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 1.3rem;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+    margin: 2rem 0 0.75rem;
+  }
+
+  .content h2:first-child { margin-top: 0; }
+
+  .content p { margin: 0 0 0.75rem; line-height: 1.55; }
+
+  .content ul, .content ol {
+    margin: 0 0 0.75rem;
+    padding-left: 1.5rem;
+    line-height: 1.55;
+  }
+  .content li { margin-bottom: 0.3rem; }
+  .content li:last-child { margin-bottom: 0; }
+
+  .content ul[style*="list-style: none"] {
+    padding-left: 0;
+  }
+  .content ul[style*="list-style: none"] li { padding-left: 0; }
+
+  code {
+    font-family: var(--mono);
+    font-size: 0.82rem;
+    background: rgba(0,0,0,0.05);
+    padding: 0.1em 0.3em;
+  }
+
+  pre {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    line-height: 1.5;
+    background: rgba(0,0,0,0.03);
+    border: 1px solid rgba(0,0,0,0.12);
+    padding: 1rem;
+    margin: 0.75rem 0;
+    overflow-x: auto;
+  }
+  pre code {
+    background: none;
+    padding: 0;
+    font-size: inherit;
+  }
+
+  /* tables */
+  .content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0.75rem 0;
+    font-size: 0.9rem;
+    line-height: 1.45;
+  }
+  .content th {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    text-align: left;
+    padding: 0.5rem 0.75rem 0.5rem 0;
+    border-bottom: 1px solid var(--ink);
+    font-weight: 500;
+  }
+  .content td {
+    padding: 0.4rem 0.75rem 0.4rem 0;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    vertical-align: top;
+  }
+
+  /* details / answer keys */
+  details {
+    border: 1px solid rgba(0,0,0,0.15);
+    padding: 0.75rem 1rem;
+    margin: 1rem 0;
+  }
+  summary {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    color: var(--ink-soft);
+  }
+  summary strong { font-weight: 500; }
+
+  .content strong { font-weight: 600; }
+
+  .content em { font-style: italic; }
+
+  .exercise-block {
+    margin: 1.5rem 0;
+    padding: 1rem;
+    border: 1px solid rgba(0,0,0,0.12);
+  }
+  .exercise-block__num {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--ink-soft);
+    margin: 0 0 0.5rem;
+  }
+
+  .blank-line {
+    display: block;
+    border-bottom: 1px dotted rgba(0,0,0,0.2);
+    min-width: 12rem;
+    height: 1.2em;
+    margin: 0.15rem 0;
+  }
+
+  .reading-entry { margin: 0 0 1.25rem; }
+  .reading-entry:last-child { margin-bottom: 0; }
+  .reading-entry__title {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 1.35;
+    margin: 0 0 0.2rem;
+  }
+  .reading-entry__byline {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 0.88rem;
+    color: var(--ink-soft);
+    margin: 0;
+    line-height: 1.4;
+  }
+  .reading-entry__note {
+    margin: 0.3rem 0 0;
+    font-size: 0.88rem;
+    line-height: 1.45;
+    color: var(--ink-soft);
+  }
+  .reading-entry__note strong { font-weight: 600; color: var(--ink); }
+
+  @media (max-width: 600px) {
+    pre { font-size: 0.7rem; padding: 0.75rem; }
+    .content table { font-size: 0.8rem; }
+  }
+</style>
+</head>
+<body>
+<main class="page">
+
+  <p class="masthead__id">
+    <span>UZH · Fall 2026</span>
+    <span>Module 5 of 8</span>
+    <span>3–4h</span>
+  </p>
+
+  <hr class="rule rule--thick">
+
+  <header class="masthead">
+    <span class="masthead__module-tag">mod 05</span>
+    <h1 class="name" style="font-size: clamp(2rem, 8vw, 3.5rem);">
+      <span class="name__line">Code &amp; Data</span><span class="name__line">Analysis</span>
+    </h1>
+    <p class="masthead__role">with AI assistants · supervised delegation for social scientists</p>
+  </header>
+
+  <hr class="rule">
+
+  <p class="back-link"><a href="index.html">← course index</a></p>
+
+  <nav class="nav" aria-label="module">
+    <a href="#workbook">workbook</a><span class="nav__sep">~</span>
+    <a href="#exercises">exercises</a><span class="nav__sep">~</span>
+    <a href="#readings">readings</a>
+  </nav>
+
+  <hr class="rule">
+
+  <section id="workbook" class="section">
+    <h2 class="section__title"><span class="section__mark">§</span> workbook</h2>
+
+    <div class="content">
+
+      <p class="module-meta">
+        <span>Type: Technical — Python notebook + markdown workbook</span><br>
+        <span>Prerequisites: Module 1 (How LLMs Work); Modules 4 (Text Annotation) or 7 (Validation) recommended</span><br>
+        <span>What you'll produce: A documented data analysis with at least one independently verified statistic and interpretation, plus an AI use disclosure</span>
+      </p>
+
+      <h3>Learning Outcomes</h3>
+
+      <p>By the end of this module you will be able to:</p>
+
+      <ol>
+        <li>Use an AI assistant to <strong>explain</strong>, <strong>debug</strong>, <strong>document</strong>, and <strong>transate</strong> code in a language you do not need to write from scratch</li>
+        <li>Explore a small dataset with AI assistance — summaries, checks, plots, and transformations — without relying on programming experience</li>
+        <li><strong>Independently verify</strong> at least one statistic and one interpretation the AI produced, using external calculation or reasoning</li>
+        <li>Identify <strong>common failure modes</strong> in AI-assisted data analysis: hallucinated functions, plausible wrong analyses, off-by-one errors, and dropped observations</li>
+        <li><strong>Document</strong> what the AI contributed, what was checked, and what judgments the researcher retained, using the course disclosure template</li>
+      </ol>
+
+      <hr class="rule">
+
+      <h2>1. Why AI for Code and Data?</h2>
+
+      <p>Social scientists increasingly encounter code in their research even when they are not programmers. A collaborator shares a replication script. A journal requires data deposit. A reviewer asks about a transformation. An RA hands you a <code>.py</code> file and moves on.</p>
+
+      <p>Until recently, engaging with code required either learning to program or finding someone who could. AI assistants change the terms of engagement: they can read the code you cannot write, explain what it does, spot problems, and generate new analysis. But they also generate code that looks correct and is not — and you cannot always tell the difference by looking.</p>
+
+      <p>This module is not a programming course. It is a course about <strong>supervised delegation</strong>: how to ask an AI assistant to work with code and data while keeping the research decisions visible and the results verifiable.</p>
+
+      <h3>The Scaffold Approach</h3>
+
+      <p>The core principle of this module is that you never need to write code from a blank editor. Instead, you work from a <strong>scafold</strong> — a pre-written script or notebook that provides the structure — and adapt it using AI assistance. The instructor provides the scaffold; you provide the research questions and the verification.</p>
+
+      <p>This is the pattern you will use:</p>
+
+      <ol>
+        <li><strong>Start with a working script or notebook</strong> (provided, or one you already have)</li>
+        <li><strong>Ask the AI to explain</strong> what each part does, in plain language</li>
+        <li><strong>Ask the AI to extend or modify</strong> the analysis to answer your question</li>
+        <li><strong>Verify</strong> at least one statistic and one interpretation independently</li>
+        <li><strong>Document</strong> the AI's contribution and your checks</li>
+      </ol>
+
+      <div class="blockquote-note">
+        <strong>Key insight:</strong> The AI is your interpreter and assistant — not your supervisor. You decide what question to ask, which result to trust, and when to override. If you cannot verify a result, you treat it as provisional.
+      </div>
+
+      <hr class="rule">
+
+      <h2>2. AI for Code: What It Can Do</h2>
+
+      <p>AI assistants can perform several distinct tasks with code. Each has a different risk profile and requires different verification.</p>
+
+      <h3>Explanation</h3>
+
+      <p><strong>What it is:</strong> You paste a script into a chat window and ask "What does this do?" The AI produces a plain-language explanation of the logic, the variables, and the output.</p>
+
+      <p><strong>When to use it:</strong> Whenever you inherit code you did not write — a replication script, an RA's analysis, a methods appendix snippet. This is the lowest-risk use: the AI is describing code that already exists. The code is the ground truth; you can check the explanation against it.</p>
+
+      <p><strong>What can go wrong:</strong> The AI may invent a plausible interpretation of an ambiguous variable name. It may claim the code does something it does not, or miss something it does. Always cross-check: read the explanation alongside the code and confirm at least one claim by tracing a value through the logic yourself.</p>
+
+      <h3>Debugging</h3>
+
+      <p><strong>What it is:</strong> You give the AI a script that produces an error or the wrong result, describe what you expected, and ask for a fix. The AI identifies the problem and proposes a corrected version.</p>
+
+      <p><strong>When to use it:</strong> When a script fails with an error message you do not understand, or when the output does not match what the codebook says it should produce.</p>
+
+      <p><strong>What can go wrong:</strong> The AI may fix the surface error but introduce a new error. It may change the analysis logic in a way you do not notice. It may drop observations, change the unit of analysis, or silently reinterpret a missing-data code. Always run the fixed script and verify the output against a value you computed independently.</p>
+
+      <h3>Documentation</h3>
+
+      <p><strong>What it is:</strong> You give the AI an uncommented script and ask it to add comments explaining what each section does, or to generate a docstring describing the function's purpose, inputs, and outputs.</p>
+
+      <p><strong>When to use it:</strong> Before sharing code with a collaborator, depositing replication materials, or submitting to a journal.</p>
+
+      <p><strong>What can go wrong:</strong> Comments may be factually wrong about what the code does. They may describe what the AI <em>expected</em> the code to do rather than what it actually does. Always read the comments alongside the code and verify at least one claim by tracing it.</p>
+
+      <h3>Transation</h3>
+
+      <p><strong>What it is:</strong> You give the AI a script in one language (R, Stata, Python) and ask it to produce an equivalent script in another language.</p>
+
+      <p><strong>When to use it:</strong> When you are more comfortable reading one language than another, or when a collaborator works in a different language.</p>
+
+      <p><strong>What can go wrong:</strong> Statistical functions with the same name may behave differently across languages (e.g., default standard error calculations, missing-value handling, factor variable treatment). The translation may look correct but produce different numbers. Always run both versions on the same data and compare outputs.</p>
+
+      <h3>Generation (with caution)</h3>
+
+      <p><strong>What it is:</strong> You describe an analysis you want ("load this CSV, compute means by group, make a bar chart") and the AI writes the script.</p>
+
+      <p><strong>When to use it:</strong> For exploratory work on non-sensitive data, when you can verify every output. In this course, we prefer the scafold approach — modifying existing working code — over generating from scratch. Generation is riskier because there is no baseline to compare against.</p>
+
+      <p><strong>What can go wrong:</strong> Everything listed above, plus: the AI may use packages that do not exist, call functions with wrong arguments, or write code that runs without error but produces the wrong result. The fluency of the code is not a guarantee of its correctness.</p>
+
+      <hr class="rule">
+
+      <h2>3. Data Exploration with AI</h2>
+
+      <p>The most common research use of AI-assisted coding is data exploration: loading a dataset, producing summaries, checking for problems, creating plots, and running simple models. Here is a workflow you can use, structured around verification:</p>
+
+      <h3>Step 1: Load and inspect</h3>
+
+      <p>Ask the AI to load your dataset and display the first few rows, the column names, the data types, and the dimensions (rows × columns). Verify one of these values yourself: count the columns by hand, or confirm that the number of rows matches what you expect from your data source.</p>
+
+      <h3>Step 2: Summary statistics</h3>
+
+      <p>Ask the AI to produce summary statistics: means, medians, standard deviations, minimums, maximums, and counts of missing values for each variable. <strong>Pick one statistic for one variable and compute it yourself</strong> — with a calculator, in a spreadsheet, or by counting cases — before trusting any other number the AI reports.</p>
+
+      <h3>Step 3: Data quality checks</h3>
+
+      <p>Ask the AI to check for:</p>
+      <ul>
+        <li>Missing values (how many, in which variables)</li>
+        <li>Impossible values (e.g., age = 250, a Likert scale with a value of 99)</li>
+        <li>Duplicate rows</li>
+        <li>Inconsistent categories (e.g., "male", "Male", "m", "M" all appearing in the same column)</li>
+      </ul>
+
+      <p>For each issue the AI flags, confirm at least one example manually: find the row it identified and check that the problem is real.</p>
+
+      <h3>Step 4: Transformations</h3>
+
+      <p>Ask the AI to create new variables: recode a categorical variable, compute a scale mean, create a binary indicator. <strong>Before running the transformation</strong>, predict what the result should be for one specific case. After the AI produces the transformation, check whether your prediction matches.</p>
+
+      <h3>Step 5: Visualisation</h3>
+
+      <p>Ask the AI to produce a plot: a histogram, a bar chart, a scatterplot. Read the plot: does the pattern make sense given what you know about the data? Are the axis labels correct? Are the units right? Pick one data point on the plot and confirm it against the raw data.</p>
+
+      <h3>Step 6: Simple models</h3>
+
+      <p>Ask the AI to run a regression, a t-test, or a correlation. Before looking at the result, write down what direction you expect the relationship to have and why. After seeing the result: did the AI use the right variables? The right unit of analysis? The right standard errors? Verify one coefficient by running a simpler calculation: if the model says the mean of group A is 4.3, compute that mean yourself.</p>
+
+      <hr class="rule">
+
+      <h2>4. What to Verify Indepedently</h2>
+
+      <p>You cannot verify everything — that would defeat the purpose of using AI. But you must verify something, or you are accepting output on faith. The <strong>validation menu</strong> from Module 4 provides seven checks you can choose from — source verification, human comparison, repeated runs, prompt variation, boundary cases, sensitivity to model or settings, and downstream consequence. For code and data analysis, checks 2 (human comparison — compute one value yourself), 5 (boundary cases — test on a known-answer case), and 7 (downstream consequence — does the error change your interpretation?) are the most directly applicable.</p>
+
+      <p>Here is a minimum verification checklist for any AI-assisted data analysis:</p>
+
+      <table>
+        <thead>
+          <tr><th>What to verify</th><th>How</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>One descriptive statistic</strong></td><td>Compute it by hand or in a spreadsheet</td></tr>
+          <tr><td><strong>One count</strong></td><td>Count rows, cases, or groups yourself</td></tr>
+          <tr><td><strong>One plot point</strong></td><td>Find the corresponding value in the raw data</td></tr>
+          <tr><td><strong>One transformation</strong></td><td>Predict the result for one case before running, then check</td></tr>
+          <tr><td><strong>The unit of analysis</strong></td><td>Confirm that each row is what you think it is (respondent? country-year? article?)</td></tr>
+          <tr><td><strong>Missing-data handling</strong></td><td>Check what happened to cases with missing values — were they dropped, imputed, or silently included?</td></tr>
+          <tr><td><strong>One interpretation</strong></td><td>Ask: "Does the number actually support this claim?" Read the output yourself</td></tr>
+          <tr><td><strong>Edge cases</strong></td><td>Test the code on a case you constructed with a known answer</td></tr>
+        </tbody>
+      </table>
+
+      <div class="blockquote-note">
+        If you verify nothing, you know nothing. If you verify one thing, you have a toehold. If you verify three things across different aspects of the analysis (a count, a statistic, and an interpretation), you have a basis for evaluating the rest.
+      </div>
+
+      <hr class="rule">
+
+      <h2>5. Common Failure Modes</h2>
+
+      <p>AI-assisted data analysis fails in predictable ways. Knowing what to watch for is half the defence.</p>
+
+      <h3>Hallucinated functions</h3>
+
+      <p>The AI calls a function that does not exist — <code>pandas.read_csv_smart()</code> or <code>ggplot.geom_smooth_robust()</code>. This is usually easy to spot because the code produces an error. Less visible: the AI calls a real function with wrong arguments that have plausible defaults, and the code runs silently with unexpected behaviour.</p>
+
+      <h3>Plausible wrong analyses</h3>
+
+      <p>The AI runs the analysis you asked for, but on the wrong subset of data, with the wrong denominator, or with the wrong variable coding. The output looks correct — coefficients, p-values, R-squared — but every number is wrong. You cannot detect this by looking at the output; you must trace one value back to the raw data.</p>
+
+      <h3>Of-by-one errors</h3>
+
+      <p>The AI selects rows 1–10 when you wanted the first ten rows but the data has a header row, and row 1 is the header. Or it splits data at index 100 but the index is zero-based. These are classic programming errors that AI inherits from its training data.</p>
+
+      <h3>Droped observations</h3>
+
+      <p>The AI silently drops rows with missing values and reports results on a smaller N than you expect. Or it fills missing values with zeros or means without telling you. Always compare the N in the model output to the N you expect from your data description.</p>
+
+      <h3>Silent recoding</h3>
+
+      <p>The AI treats "99" as a number rather than a missing-value code, or converts a categorical variable to numbers in a different order than you expected. The analysis runs; the results are wrong. This is why the codebook matters: the AI cannot infer data semantics from numbers alone.</p>
+
+      <h3>The self-assessment gap</h3>
+
+      <p>Becker et al. (2025) found that developers using AI felt more productive, but objective measures showed smaller and less consistent gains. The same gap appears in data analysis: the AI makes you feel faster and more confident, but that feeling is not evidence that the results are correct. Confidence and correctness are separate dimensions.</p>
+
+      <hr class="rule">
+
+      <h2>6. The Four Questions Applied to Code and Data Tasks</h2>
+
+      <p>Before every AI-assisted code or data task, answer the four questions. Here they are applied to a typical scenario: asking an AI to explore a survey dataset.</p>
+
+      <h3>1. What is being delegated?</h3>
+
+      <p><strong>Task:</strong> The AI loads the data, computes descriptive statistics, produces plots, and runs a regression.</p>
+
+      <p><strong>Decisions being delegated:</strong> Which statistics to report (the AI selects from available variables). How to handle missing values (the AI chooses a default strategy). Which regression specification to run (the AI infers from the prompt). How to interpret the coefficient (the AI produces a narrative interpretation).</p>
+
+      <em><em>Notice that "task" and "decision" blur together in data analysis. Every computational step embeds a methodological choice. Separating them is the first step toward deciding what you need to verify.</em></p>
+
+      <h3>2. What would make the result believable?</h3>
+
+      <ul>
+        <li>I compute one mean by hand and match it to the AI's output.</li>
+        <li>I trace one case through a transformation and confirm the result.</li>
+        <li>I read the regression output myself and confirm the coefficient sign matches my expectation.</li>
+        <li>I check that the N in the model matches the N of complete cases I counted.</li>
+        <li>I run the same analysis on a different AI system (or the same system twice) and compare.</li>
+      </ul>
+
+      <h3>3. What could be lost or flattened?</h3>
+
+      <ul>
+        <li>Cases with missing values might be silently dropped, changing my effective sample.</li>
+        <li>Outliers might be included in means without my knowledge, skewing the results.</li>
+        <li>The AI might choose a default reference category for a categorical variable that obscures the comparison I care about.</li>
+        <li>My own judgment about which variables are substantively important is replaced by the AI's statistically-driven selection.</li>
+        <li>The data provenance — where it came from, how it was collected, what the codes mean — is invisible to the AI.</li>
+      </ul>
+
+      <h3>4. What must remain visible or human?</h3>
+
+      <ul>
+        <li>The codebook must be written by me, not the AI, because the AI cannot know what the data mean.</li>
+        <li>The decision about which cases to include or exclude must be documented and justified by me.</li>
+        <li>The interpretation of what a coefficient <em>means</em> for my research question is mine.</li>
+        <li>The disclosure must record what the AI did, what I checked, and what I decided.</li>
+        <li>I must be able to say: "Here is the exact code the AI ran, here is the output, here is what I verified, and here is what I would need to see to change my interpretation."</li>
+      </ul>
+
+      <hr class="rule">
+
+      <h2>7. Demonstration: Debug a Broken Analysis</h2>
+
+      <p>Let's walk through a concrete example. Below is a short Python script that computes the mean of a survey variable by region. The script runs without error — but it contains at least two problems.</p>
+
+      <pre><code>URVEY_ROWS = [
+    {"respondent_id": 1, "region": "urban", "trust_eu": 6},
+    {"respondent_id": 2, "region": "urban", "trust_eu": 7},
+    {"respondent_id": 3, "region": "urban", "trust_eu": 99},
+    {"respondent_id": 4, "region": "rural", "trust_eu": 4},
+    {"respondent_id": 5, "region": "rural", "trust_eu": 5},
+    {"respondent_id": 6, "region": "rural", "trust_eu": 3},
+    {"respondent_id": 7, "region": "rural", "trust_eu": None},
+    {"respondent_id": 8, "region": "urban", "trust_eu": 5},
+]
+
+def mean_trust_by_region(rows):
+    totals = {}
+    counts = {}
+    for row in rows:
+        if row["trust_eu"] is None:
+            continue
+        region = row["region"]
+        totals[region] = totals.get(region, 0) + row["trust_eu"]
+        counts[region] = counts.get(region, 0) + 1
+    return {region: totals[region] / counts[region] for region in totals}
+
+# What does this actually compute?</code></pre>
+
+      <p><strong>Without reading the codebook</strong>, can you identify what is wrong? The script runs. It produces numbers. But:</p>
+
+      <ol>
+        <li><strong>Problem 1:</strong> Respondent 3 has <code>trust_eu = 99</code>. In many survey datasets, 99 is a missing-value code, not a genuine trust score. Including it in the mean inflates the urban average. The AI cannot know this from the code alone — it needs the codebook.</li>
+        <li><strong>Problem 2:</strong> Respondent 7 has <code>trust_eu = None</code> and is excluded. But the script does not report <em>how many</em> cases were excluded, so the user does not know the denominator changed.</li>
+        <li><strong>Problem 3 (less visible):</strong> The output reports only the mean, not the count. A mean of 5.0 from 100 cases means something different from a mean of 5.0 from 3 cases. Without the N, the statistic is uninterpretable.</li>
+      </ol>
+
+      <p>Now, with the <strong>codebook</strong> in hand, we learn:</p>
+      <ul>
+        <li><code>trust_eu</code>: 0 = no trust, 10 = complete trust</li>
+        <li>99 = "no answer" (missing)</li>
+        <li><code>None</code> = system missing</li>
+      </ul>
+
+      <p>The fix is to exclude 99 as well as <code>None</code>, and to report the count alongside the mean. An AI can suggest these changes — but it can only do so <em>after</em> you provide the codebook. The AI cannot infer data semantics from numbers.</p>
+
+      <h3>Verify one statistic</h3>
+
+      <p>Urban respondents (excluding 99 and None): 6, 7, 5 → mean = (6 + 7 + 5) / 3 = 6.0. Compute this yourself. Do not trust the printed output until you have confirmed one value independently.</p>
+
+      <h3>Document the finding</h3>
+
+      <div class="blockquote-note">
+        The AI was given a script that computed mean trust scores by region. It identified that the value 99 should be treated as missing (per the codebook), proposed excluding it, and recommended reporting the count alongside each mean. The researcher independently computed the urban mean as 6.0 and confirmed the AI's output matched. The AI did not identify the missing-count issue without prompting; the researcher added the requirement to report dropped cases.
+      </div>
+
+      <hr class="rule">
+
+      <h2>8. Exercise Instructions</h2>
+
+      <p>The exercises for this module are in <a href="#exercises">the exercises section below</a>. Work through them in order:</p>
+
+      <ul>
+        <li><strong>Exercise 5.1:</strong> Ask AI to explain a short script; verify the explanation</li>
+        <li><strong>Exercise 5.2:</strong> Ask AI to add comments; check for errors in the comments</li>
+        <li><strong>Exercise 5.3:</strong> Give AI a dataset and ask for summary statistics; independently verify three</li>
+        <li><strong>Exercise 5.4:</strong> Ask AI to debug a script with an intentional error; identify what was fixed and what was missed</li>
+        <li><strong>Exercise 5.5:</strong> Apply the four questions to a code/data workflow</li>
+      </ul>
+
+      <p>Each exercise includes a collapsible answer key. <strong>Work through the exercise before reading the key.</strong> The point is to form a judgment before seeing a prepared answer.</p>
+
+      <h3>The demo notebook</h3>
+
+      <p>The <code>notebooks/</code> directory contains <code>analysis_demo.ipynb</code>, a Python notebook you can open in Google Colab (free, no installation). It demonstrates the full scafold workflow: load a small CSV, request summary statistics, create a plot, run a regression, and verify each step. Open it, run the cells, and use it as a template for your own data.</p>
+
+      <hr class="rule">
+
+      <h2>9. Summary</h2>
+
+      <ul>
+        <li>AI can explain, debug, document, translate, and generate code — but every use requires independent verification.</li>
+        <li>The scafold approach lets you work with code without writing from scratch: start with working code, ask the AI to modify it, and verify the output.</li>
+        <li>For data exploration, verify one statistic, one count, one plot point, and one transformation before trusting the rest.</li>
+        <li>Common failure modes — hallucinated functions, plausible wrong analyses, off-by-one errors, dropped observations, silent recoding — are predictable. Check for them explicitly.</li>
+        <li>The AI cannot infer what your data mean. The codebook, the research question, and the interpretive judgments are yours.</li>
+        <li>Apply the four questions before and after every AI-assisted code or data task.</li>
+        <li>Every output you use in your research must carry a disclosure naming the tool, the task, the verification performed, and the decisions the researcher retained.</li>
+      </ul>
+
+      <hr class="rule">
+
+      <h2>10. Connection to Module 6</h2>
+
+      <p>Module 6 (Agents) extends the code-and-data workflow in one direction: automation. Where Module 5 uses AI as an assistant — you ask, AI responds, you verify — Module 6 introduces the agent loop: the AI decides what to do next, executes it, and reports back, potentially without asking at every step. The verification discipline you build in this module is the foundation for that delegation. An agent running unattended is only as trustworthy as the checks you built into its workflow. If you have not learned to verify a single statistic independently, you cannot supervise an agent that produces a hundred.</p>
+
+      <p>Module 7 (Validation, Reproducibility, and Research Integrity) extends the workflow in the other direction: evidence standards. It asks how much verification is enough for a publication claim, what a reviewer can inspect, and what happens to your results when the model is updated or deprecated.</p>
+
+      <hr class="rule">
+
+    </div>
+  </section>
+
+  <section id="exercises" class="section">
+    <h2 class="section__title"><span class="section__mark">§</span> exercises</h2>
+
+    <div class="content">
+
+      <p>Each exercise includes an answer key. <strong>Work through the exercise before reading the key.</strong> The point is to form a judgment before seeing a prepared answer — this is the "human first" principle from Module 1, applied to code and data.</p>
+
+      <p>You will need access to any AI chat interface (ChatGPT, Claude, Gemini, or equivalent — a free account is sufficient). No programming experience, API keys, or installed software is required. Exercises 5.3–5.4 use the supplied scripts and data, which can be pasted directly into a chat window. Exercise 5.5 can be done with the demo notebook or with your own data.</p>
+
+      <hr class="rule">
+
+      <div class="exercise-block">
+        <p class="exercise-block__num">exercise 5.1</p>
+        <h3>Ask AI to Explain a Script</h3>
+
+        <p><strong>Goal:</strong> Practice asking an AI to explain code, and verify the explanation against the code.</p>
+
+        <p>Below is a short Python script. Paste it into an AI chat window with the instruction: <em>"Please explain what this script does, line by line, in plain language. Identify the unit of analysis, what is being computed, and any assumptions the code makes that are not explicit in the code itself."</em></p>
+
+        <pre><code>SURVEY_ROWS = [
+    {"id": 1, "region": "north", "turnout": 1},
+    {"id": 2, "region": "north", "turnout": 0},
+    {"id": 3, "region": "north", "turnout": 2},
+    {"id": 4, "region": "north", "turnout": 1},
+    {"id": 5, "region": "south", "turnout": 1},
+    {"id": 6, "region": "south", "turnout": 0},
+    {"id": 7, "region": "south", "turnout": 0},
+    {"id": 8, "region": "south", "turnout": 2},
+]
+
+def turnout_rate_by_region(rows):
+    totals = {}
+    counts = {}
+    for row in rows:
+        region = row["region"]
+        totals[region] = totals.get(region, 0) + row["turnout"]
+        counts[region] = counts.get(region, 0) + 1
+    return {region: totals[region] / counts[region] for region in totals}</code></pre>
+
+        <p><strong>Write the AI's explanation here</strong> (or paste the key parts):</p>
+        <p><span class="blank-line" style="width:100%"></span></p>
+        <p><span class="blank-line" style="width:100%"></span></p>
+        <p><span class="blank-line" style="width:100%"></span></p>
+
+        <p>Now, answer these questions yourself, using the code, not the AI's explanation:</p>
+
+        <ol>
+          <li>What is each row? <span class="blank-line"></span></li>
+          <li>What does the function compute? <span class="blank-line"></span></li>
+          <li>What happens to respondent 3 (turnout = 2)? <span class="blank-line"></span></li>
+          <li>Does the AI's explanation mention this? <span class="blank-line"></span></li>
+          <li>What assumption is the code making about the turnout values? <span class="blank-line"></span></li>
+        </ol>
+
+        <details>
+          <summary><strong>Answer Key</strong> (click to expand)</summary>
+
+          <p><strong>What the AI should identify:</strong></p>
+
+          <p>The script groups rows by <code>region</code> and computes the <strong>mean</strong> of <code>turnout</code> for each region. It does this by accumulating a <code>totals</code> dictionary (sum of turnout values per region) and a <code>counts</code> dictionary (number of rows per region), then dividing.</p>
+
+          <p><strong>What the AI cannot know from the code alone:</strong></p>
+
+          <ol>
+            <li><strong>What the turnout values mean.</strong> The code treats 0, 1, and 2 as numbers on a continuous scale. But turnout is typically coded as 0 = did not vote, 1 = voted, and 2 = not eligible. Computing a <em>mean</em> of these values is nonsensical — what is a "mean turnout" of 0.75 when the values are categorical? The AI cannot detect this from the code. You need the codebook.</li>
+            <li><strong>That respondent 3 (turnout = 2) should be excluded.</strong> The code includes all rows. If 2 means "not eligible," including it produces the wrong result because the denominator includes ineligible people. The code should compute the <em>proportion of eligible respondents who voted</em>, excluding those coded 2. The AI may or may not flag the value 2 as suspicious — but without the codebook, it cannot know.</li>
+            <li><strong>The unit of analysis.</strong> The code assumes one row = one respondent, but a script cannot tell you whether this is a person-level or aggregate dataset from the variable names alone.</li>
+          </ol>
+
+          <p><strong>Good AI responses will:</strong></p>
+          <ul>
+            <li>Distinguish what the code does (computes means) from what the variables mean (unknown without a codebook)</li>
+            <li>Note that the function does not report the count alongside the mean</li>
+            <li>Flag that value 2 in a variable called "turnout" is unusual and ask for a codebook</li>
+          </ul>
+
+          <p><strong>Weaker AI responses will:</strong></p>
+          <ul>
+            <li>Confidently state that the code computes "turnout rates" without noting the coding issue</li>
+            <li>Treat turnout as continuous without questioning it</li>
+            <li>Not mention that the denominator includes all rows regardless of eligibility</li>
+          </ul>
+
+          <p><strong>Your verification:</strong> You should check at least one claim from the AI's explanation against the code. For example: "The AI says the code computes the mean — let me compute the north mean by hand: (1+0+2+1)/4 = 1.0. Yes, that is a mean."</p>
+        </details>
+      </div>
+
+      <div class="exercise-block">
+        <p class="exercise-block__num">exercise 5.2</p>
+        <h3>Ask AI to Add Comments — Then Check for Errors</h3>
+
+        <p><strong>Goal:</strong> Experience the gap between what the AI <em>thinks</em> the code does and what it <em>actually</em> does.</p>
+
+        <p>Below is an uncommented script. Paste it into an AI chat window with the instruction: <em>"Add a comment to every line of this script explaining what it does. Use plain language. Do not change the code — only add comments."</em></p>
+
+        <pre><code>SURVEY_ROWS = [
+    {"respondent_id": 1, "region": "urban", "trust_eu": 6},
+    {"respondent_id": 2, "region": "urban", "trust_eu": 7},
+    {"respondent_id": 3, "region": "urban", "trust_eu": 99},
+    {"respondent_id": 4, "region": "rural", "trust_eu": 4},
+    {"respondent_id": 5, "region": "rural", "trust_eu": 5},
+    {"respondent_id": 6, "region": "rural", "trust_eu": 3},
+    {"respondent_id": 7, "region": "rural", "trust_eu": None},
+    {"respondent_id": 8, "region": "urban", "trust_eu": 5},
+]
+
+def mean_trust_by_region(rows):
+    totals = {}
+    counts = {}
+    for row in rows:
+        if row["trust_eu"] is None:
+            continue
+        region = row["region"]
+        totals[region] = totals.get(region,0) + row["trust_eu"]
+        counts[region] = counts.get(region,0) + 1
+    return {region: totals[region] / counts[region] for region in totals}</code></pre>
+
+        <p><strong>Paste the AI's commented version here</strong> (or write the key comments it added):</p>
+        <p><span class="blank-line" style="width:100%"></span></p>
+        <p><span class="blank-line" style="width:100%"></span></p>
+
+        <p>Now answer these questions:</p>
+
+        <ol>
+          <li>Did the AI identify that 99 is included in the mean? <span class="blank-line"></span></li>
+          <li>Did the AI note that the function only skips <code>None</code>, not other missing-value codes? <span class="blank-line"></span></li>
+          <li>Did the AI comment on what "trust_eu" means, or did it only describe the operation? <span class="blank-line"></span></li>
+          <li>Pick one comment from the AI's output. Trace the corresponding code. Does the comment accurately describe what the code does? <span class="blank-line"></span></li>
+          <li>Did the AI add any comment that is <strong>wrong</strong> or <strong>misleading</strong>? If so, which one? <span class="blank-line"></span></li>
+        </ol>
+
+        <details>
+          <summary><strong>Answer Key</strong> (click to expand)</summary>
+
+          <p><strong>What a good AI response looks like:</strong></p>
+
+          <p>The AI should add comments like:</p>
+          <ul>
+            <li><code># Loop through each survey respondent row</code> (correct — states the unit of analysis explicitly)</li>
+            <li><code># Skip rows where trust_eu is missing (None)</code> (correct — but incomplete)</li>
+            <li><code># Add the trust_eu value to the region's running total</code> (correct)</li>
+            <li><code># Increment the count of valid responses for this region</code> (correct)</li>
+            <li><code># Calculate the mean trust score for each region</code> (correct)</li>
+          </ul>
+
+          <p><strong>What a weak AI response looks like:</strong></p>
+
+          <p>The AI might add comments like:</p>
+          <ul>
+            <li><code># Calculate the average trust in the EU by region</code> (makes a substantive claim about what "trust_eu" means — the code cannot tell you it is "trust in the EU" versus "trust in national government")</li>
+            <li><code># The value 99 is an outlier and will skew the mean</code> (the AI guesses 99 is an outlier; with the codebook we know it is a missing-value code — a different problem)</li>
+          </ul>
+
+          <p><strong>Common errors in AI-generated comments:</strong></p>
+
+          <ol>
+            <li><strong>Silent assumption about variable meaning:</strong> The AI may write "trust in the EU" based on the variable name. But <code>trust_eu</code> could mean "trust in European Union institutions," "trust that the EU will act," or "trust measured on a scale from the EU Social Survey." The variable name is suggestive, not definitive. The codebook is the authority.</li>
+            <li><strong>Incomplete missing-data handling:</strong> The AI will correctly note that <code>None</code> is skipped, but most AIs will not flag that 99 is included. A good AI response will add a comment like <code># NOTE: value 99 is included in the mean — check whether this is a missing-value code.</code></li>
+            <li><strong>Wrong interpretation of the denominator:</strong> The AI may say the function computes "mean trust among all respondents" when it actually computes "mean trust among respondents with non-None trust_eu." The denominator changed, and the AI's comment may not reflect this.</li>
+            <li><strong>No mention of what is NOT reported:</strong> The function does not report the count of valid responses or the number excluded. Most AIs will not flag this as a problem unless prompted.</li>
+          </ol>
+
+          <p><strong>Your verification check:</strong> Pick one comment and trace it. Example: "The AI's comment says 'Skip rows where trust_eu is missing (None).' I see the <code>if row["trust_eu"] is None: continue</code> line. That is correct — it skips None. But it does not skip 99. The comment is accurate about what the code does, but incomplete about what it should do."</p>
+        </details>
+      </div>
+
+      <div class="exercise-block">
+        <p class="exercise-block__num">exercise 5.3</p>
+        <h3>Ask AI for Summary Statistics — Then Verify Three</h3>
+
+        <p><strong>Goal:</strong> Practice the core verification workflow: ask, compute, compare.</p>
+
+        <p>Below is a small dataset. Paste it into an AI chat window with the instruction: <em>"This is survey data. Load it and produce summary statistics for all numeric variables: mean, median, minimum, maximum, standard deviation, and count of missing values. Use Python (or R, if you prefer). Then create one histogram and one bar chart of your choice. Report the output."</em></p>
+
+        <pre><code>id,age,income,education,trust_gov
+1,34,45000,3,5
+2,28,32000,2,7
+3,45,67000,5,4
+4,99,41000,4,3
+5,31,,2,6
+6,42,52000,3,99
+7,29,38000,1,5
+8,37,61000,4,4
+9,44,49000,5,2
+10,33,44000,3,5</code></pre>
+
+        <p><strong>Paste the AI's summary statistics here:</strong></p>
+        <p><span class="blank-line" style="width:100%"></span></p>
+        <p><span class="blank-line" style="width:100%"></span></p>
+
+        <p>Now, independently verify <strong>three</strong> of the AI's statistics:</p>
+
+        <p><strong>Verification 1: A mean</strong></p>
+        <ul style="list-style: none; padding-left: 0;">
+          <li>Variable: <span class="blank-line"></span></li>
+          <li>Your calculation (show your work): <span class="blank-line"></span></li>
+          <li>AI's value: <span class="blank-line"></span></li>
+          <li>Match? <span class="blank-line"></span></li>
+        </ul>
+
+        <p><strong>Verification 2: A count</strong></p>
+        <ul style="list-style: none; padding-left: 0;">
+          <li>Variable: <span class="blank-line"></span></li>
+          <li>Your count (how many valid cases?): <span class="blank-line"></span></li>
+          <li>AI's count: <span class="blank-line"></span></li>
+          <li>Match? <span class="blank-line"></span></li>
+        </ul>
+
+        <p><strong>Verification 3: A data quality issue</strong></p>
+        <ul style="list-style: none; padding-left: 0;">
+          <li>Did the AI flag age = 99 as suspicious? <span class="blank-line"></span></li>
+          <li>Did the AI flag trust_gov = 99 as suspicious? <span class="blank-line"></span></li>
+          <li>Did the AI handle the missing income value (row 5)? <span class="blank-line"></span></li>
+          <li>What did the AI do that you would change? <span class="blank-line"></span></li>
+        </ul>
+
+        <details>
+          <summary><strong>Answer Key</strong> (click to expand)</summary>
+
+          <p><strong>Expected summary statistics (correct values):</strong></p>
+
+          <p><strong>age</strong> (10 values, all present):</p>
+          <ul>
+            <li>Mean: (34+28+45+99+31+42+29+37+44+33) / 10 = 422/10 = <strong>42.2</strong></li>
+            <li>Median: sort → 28, 29, 31, 33, 34, 37, 42, 44, 45, 99 → median of even set = (34+37)/2 = <strong>35.5</strong></li>
+            <li>Min: 28 · Max: 99</li>
+          </ul>
+
+          <p><strong>income</strong> (9 values, 1 missing — row 5):</p>
+          <ul>
+            <li>Mean of valid: (45000+32000+67000+41000+52000+38000+61000+49000+44000) / 9 = 429000/9 = <strong>47666.67</strong></li>
+            <li>Missing: 1 (row 5, id=5)</li>
+          </ul>
+
+          <p><strong>education</strong> (10 values, all present):</p>
+          <ul>
+            <li>Mean: (3+2+5+4+2+3+1+4+5+3) / 10 = 32/10 = <strong>3.2</strong></li>
+            <li>Missing: 0</li>
+          </ul>
+
+          <p><strong>trust_gov</strong> (10 values, all present):</p>
+          <ul>
+            <li>Mean: (5+7+4+3+6+99+5+4+2+5) / 10 = 140/10 = 14.0 ← <strong>THIS IS WRONG. 99 is a missing-value code.</strong></li>
+            <li>Correct mean (excluding 99): (5+7+4+3+6+5+4+2+5) / 9 = 41/9 = <strong>4.56</strong></li>
+          </ul>
+
+          <p><strong>What a good AI response does:</strong></p>
+          <ol>
+            <li>Flags age = 99 as a likely data entry error or missing-value code</li>
+            <li>Flags trust_gov = 99 as a likely missing-value code (a 0–10 trust scale cannot have 99)</li>
+            <li>Reports missing income count</li>
+            <li>Reports statistics both with and without the suspected-missing 99 values, and lets the user decide</li>
+          </ol>
+
+          <p><strong>What a weak AI response does:</strong></p>
+          <ol>
+            <li>Reports means including 99 as valid values without comment</li>
+            <li>Does not notice that trust_gov = 99 is impossible on a 0–10 scale</li>
+            <li>Computes all statistics without noting any data quality concerns</li>
+          </ol>
+
+          <p><strong>Common AI failure patterns in this exercise:</strong></p>
+          <ul>
+            <li>The AI reports summary statistics without inspecting the data for impossible values</li>
+            <li>The AI excludes the missing income row but does not report how many cases were dropped</li>
+            <li>The AI treats age = 99 as a genuine age without questioning it (a 99-year-old respondent is possible but uncommon; the AI should flag it)</li>
+            <li>The AI's histogram may include the 99 values, distorting the visual scale</li>
+          </ul>
+
+          <p><strong>Your verification:</strong></p>
+          <ul>
+            <li>If you computed the age mean as 42.2 and the AI reported something different, the AI may have excluded 99 (treating it as missing) or made an arithmetic error. Either way, you have detected the discrepancy.</li>
+            <li>If you counted 9 valid income values and the AI reported 9, that matches. If it reported 10, it may have filled the missing value with 0 without telling you.</li>
+            <li>The trust_gov mean including 99 is 14.0 — clearly wrong for a 0–10 scale. A competent AI should flag this, but some will not.</li>
+          </ul>
+        </details>
+      </div>
+
+      <div class="exercise-block">
+        <p class="exercise-block__num">exercise 5.4</p>
+        <h3>Ask AI to Debug a Script — What Did It Miss?</h3>
+
+        <p><strong>Goal:</strong> Experience AI debugging and learn to evaluate what the AI fixed versus what it overlooked.</p>
+
+        <p>Below is a script with an <strong>intentional error</strong>. Paste it into an AI chat window with the instruction: <em>"This script is supposed to compute the proportion of eligible respondents who voted, separately by region, using the codebook below. It contains at least one error. Find and fix the error(s). Show the corrected script."</em></p>
+
+        <p><strong>The script:</strong></p>
+
+        <pre><code>SURVEY_ROWS = [
+    {"id": 1, "region": "north", "turnout": 1},
+    {"id": 2, "region": "north", "turnout": 0},
+    {"id": 3, "region": "north", "turnout": 2},
+    {"id": 4, "region": "north", "turnout": 1},
+    {"id": 5, "region": "south", "turnout": 1},
+    {"id": 6, "region": "south", "turnout": 0},
+    {"id": 7, "region": "south", "turnout": 0},
+    {"id": 8, "region": "south", "turnout": 2},
+]
+
+def turnout_rate_by_region(rows):
+    totals = {}
+    counts = {}
+    for row in rows:
+        region = row["region"]
+        totals[region] = totals.get(region,0) + row["turnout"]
+        counts[region] = counts.get(region,0) + 1
+    return {region: totals[region] / counts[region] for region in totals}
+
+def main():
+    results = turnout_rate_by_region(SURVEY_ROWS)
+    for region, rate in sorted(results.items()):
+        print(f"{region}: turnout rate = {rate:.3f}")</code></pre>
+
+        <p><strong>The codebook:</strong></p>
+        <ul>
+          <li><strong>turnout:</strong> 0 = eligible, did not vote; 1 = eligible, voted; 2 = not eligible</li>
+          <li><strong>Analysis population:</strong> eligible respondents only (turnout = 0 or 1)</li>
+          <li><strong>Target quantity:</strong> proportion of eligible respondents who voted, by region</li>
+        </ul>
+
+        <p><strong>Paste the AI's corrected script here:</strong></p>
+        <p><span class="blank-line" style="width:100%"></span></p>
+        <p><span class="blank-line" style="width:100%"></span></p>
+
+        <p>Now answer:</p>
+
+        <ol>
+          <li><strong>What error(s) did the AI find and fix?</strong> <span class="blank-line"></span></li>
+          <li><strong>What did the AI miss?</strong> (Hint: does the corrected script report what a reviewer would need to know?) <span class="blank-line"></span></li>
+          <li><strong>Compute the north turnout rate by hand using the codebook.</strong> Your calculation: <span class="blank-line"></span> · AI's output: <span class="blank-line"></span> · Match? <span class="blank-line"></span></li>
+          <li><strong>If you ran the AI's corrected script, would the denominator be correct?</strong> Verify by checking which rows are included. <span class="blank-line"></span></li>
+          <li><strong>Did the AI change anything it should not have changed?</strong> (e.g., variable names, output format, logic unrelated to the fix) <span class="blank-line"></span></li>
+        </ol>
+
+        <details>
+          <summary><strong>Answer Key</strong> (click to expand)</summary>
+
+          <p><strong>The error:</strong></p>
+
+          <p>The script includes all eight rows in the calculation, but the codebook specifies that the analysis population is <strong>eligible respondents only</strong> (turnout = 0 or 1). Respondents coded 2 (not eligible) should be excluded from the analysis entirely.</p>
+
+          <p>Without the fix:</p>
+          <ul>
+            <li>North: (1+0+2+1)/4 = 1.0 → "turnout rate of 100%" — wrong because respondent 3 (not eligible) is in the denominator</li>
+            <li>South: (1+0+0+2)/4 = 0.75 → wrong for the same reason</li>
+          </ul>
+
+          <p>With the fix (excluding turnout = 2):</p>
+          <ul>
+            <li>North: (1+0+1)/3 = 0.667 → 66.7% of eligible respondents voted</li>
+            <li>South: (1+0+0)/3 = 0.333 → 33.3% of eligible respondents voted</li>
+          </ul>
+
+          <p><strong>What the AI should fix:</strong></p>
+
+          <p>The AI should add a filter: <code>if row["turnout"] == 2: continue</code> (or equivalent) before the accumulation. The corrected script should exclude ineligible respondents from both the numerator (totals) and denominator (counts).</p>
+
+          <p><strong>What many AIs miss:</strong></p>
+
+          <ol>
+            <li><strong>Reporting the excluded count.</strong> The script should report how many respondents were excluded as ineligible. A reviewer needs to know: "North: 3 eligible (1 excluded), South: 3 eligible (1 excluded)." Without this, the denominator is invisible.</li>
+            <li><strong>Documenting the analysis population in the function.</strong> The docstring or comments should state: "Computes turnout among eligible respondents. Excludes turnout = 2 (not eligible)."</li>
+            <li><strong>Reporting anything beyond the proportion.</strong> The function returns only the ratio. A responsible analysis also reports the N (number of eligible respondents) and the number excluded.</li>
+            <li><strong>Handling the edge case of zero eligible respondents.</strong> What happens if a region has only ineligible respondents? The script would divide by zero. A good fix includes a check for this.</li>
+          </ol>
+
+          <p><strong>Hand verification — North:</strong></p>
+
+          <p>Eligible respondents (turnout = 0 or 1):</p>
+          <ul>
+            <li>id=1: turnout=1 (voted)</li>
+            <li>id=2: turnout=0 (did not vote)</li>
+            <li>id=4: turnout=1 (voted)</li>
+          </ul>
+
+          <p>Voted = 2, Eligible = 3 → 2/3 = 0.667</p>
+
+          <p>Compare to the AI's output. If the AI reports 1.0, it did not fix the error. If it reports 0.667, the fix is correct.</p>
+
+          <p><strong>What the AI might change unnecessarily:</strong></p>
+
+          <p>Some AIs will rewrite the entire script — adding imports, error handling, type hints, or changing the data structure. A good fix is minimal: add the filter line and maybe improve the output message. If the AI rewrote the script from scratch, compare the new logic to the old logic carefully — the AI may have introduced new errors in the rewrite.</p>
+
+          <p><em>This exercise is drawn from the Day 1 code evaluation materials. The original exercise asks students to evaluate the script <strong>before</strong> seeing the codebook, then again <strong>after</strong>. If you want additional practice, repeat Exercise 5.4 without the codebook and compare the AI's answers.</em></p>
+        </details>
+      </div>
+
+      <div class="exercise-block">
+        <p class="exercise-block__num">exercise 5.5</p>
+        <h3>Apply the Four Questions to a Code/Data Workflow</h3>
+
+        <p><strong>Goal:</strong> Complete the four-question framework on a real or realistic code-and-data task.</p>
+
+        <p>Choose one of the following, or use your own:</p>
+        <ul>
+          <li><strong>Option A:</strong> The demo notebook — load a CSV, compute summaries, create a plot, run a regression</li>
+          <li><strong>Option B:</strong> The script from Exercise 5.3 — load survey data, produce summary statistics and plots</li>
+          <li><strong>Option C:</strong> A short script or dataset you have from your own research (do not upload sensitive data to an external AI service)</li>
+        </ul>
+
+        <p><strong>Before running anything</strong>, answer the four questions:</p>
+
+        <h3>1. What is being delegated?</h3>
+        <p><strong>Task</strong> (what specific action is the AI performing?):<Br>
+        <span class="blank-line" style="width:100%"></span></p>
+        <p><strong>Decision</strong> (what methodological judgment is being handed over?):<br>
+        <span class="blank-line" style="width:100%"></span></p>
+
+        <h3>2. What would make the result believable?</h3>
+        <p>Name <strong>at least three</strong> pieces of evidence outside the model output:</p>
+        <ol>
+          <li><span class="blank-line" style="width:80%"></span></li>
+          <li><span class="blank-line" style="width:80%"></span></li>
+          <li><span class="blank-line" style="width:80%"></span></li>
+        </ol>
+
+        <h3>3. What could be lost or flattened?</h3>
+        <p>Identify at least two risks:</p>
+        <ol>
+          <li><span class="blank-line" style="width:80%"></span></li>
+          <li><span class="blank-line" style="width:80%"></span></li>
+        </ol>
+
+        <h3>4. What must remain visible or human?</h3>
+        <p>Name at least two things that cannot disappear into the interface:</p>
+        <ol>
+          <li><span class="blank-line" style="width:80%"></span></li>
+          <li><span class="blank-line" style="width:80%"></span></li>
+        </ol>
+
+        <p><strong>Now run the task</strong> (or trace through the notebook). After running, answer the four questions again:</p>
+
+        <h3>After running — What was different?</h3>
+        <ol>
+          <li>What did the AI do that you did not expect? <span class="blank-line"></span></li>
+          <li>What did you need to verify that you had not planned to? <span class="blank-line"></span></li>
+          <li>What, if anything, would you change about your prompt or instructions if you ran it again? <span class="blank-line"></span></li>
+        </ol>
+
+        <h3>Disclosure</h3>
+        <p>Write a disclosure statement for this task using the course template:</p>
+
+        <pre><code>AI Use Disclosure
+
+Tool(s): _________________________________
+Purpose: _________________________________
+Location: _________________________________
+Verification: _________________________________
+Human decisions: _________________________________
+
+The author takes full responsibility for all content in this document.
+No AI tool was used as a source of fact, and no AI-generated reference
+was included without personal verification.</code></pre>
+
+        <details>
+          <summary><strong>Answer Key</strong> (click to expand)</summary>
+
+          <p>There is no single correct answer — the four questions are a lens, not a checklist with right answers. This answer key provides an example for <strong>Option A</strong> (the demo notebook: load CSV, summaries, plot, regression) and flags what a strong response contains.</p>
+
+          <h3>Before running — example answers</h3>
+
+          <p><strong>1. What is being delegated?</strong></p>
+          <ul>
+            <li><strong>Task:</strong> Loading the CSV, computing descriptive statistics (means, SDs, correlations), generating a scatterplot, and running an OLS regression.</li>
+            <li><strong>Decision:</strong> How to handle missing values (the AI chooses silently). Which variables to include in the regression (the AI selects from the prompt). Whether to use robust standard errors (the AI chooses OLS defaults). The interpretation of the coefficient direction and magnitude.</li>
+          </ul>
+
+          <p><strong>2. What would make the result believable?</strong></p>
+          <ol>
+            <li>I compute one mean by hand from the raw data and confirm it matches the AI's output.</li>
+            <li>I check that the N in the regression matches the number of complete cases I count in the dataset.</li>
+            <li>I verify one data point on the scatterplot against the raw CSV data.</li>
+            <li>I run the same instructions on a different AI system (or same system, second time) and compare the regression coefficients.</li>
+          </ol>
+
+          <p><strong>3. What could be lost or flattened?</strong></p>
+          <ol>
+            <li>Cases with missing values could be silently dropped, changing which respondents are represented.</li>
+            <li>Outliers could drive the regression results without being flagged — the AI might not check for influential observations.</li>
+          </ol>
+
+          <p><strong>4. What must remain visible or human?</strong></p>
+          <ol>
+            <li>The interpretation of whether the coefficient is substantively meaningful (not just statistically significant) is my judgment.</li>
+            <li>The disclosure must record what the AI did, what I verified, and what I decided.</li>
+          </ol>
+
+          <h3>After running — signs of a thorough response</h3>
+
+          <ul>
+            <li><strong>A specific discrepancy found:</strong> "The AI's histogram included a value of 99 in age without flagging it. I had to ask explicitly for a check of impossible values."</li>
+            <li><strong>A verification performed:</strong> "I computed the mean age by hand: 36.9. The AI reported 36.9. Match confirmed."</li>
+            <li><strong>A prompt improvement identified:</strong> "I should have specified 'use robust standard errors' in the prompt, because the AI used OLS defaults and I don't know whether the assumptions hold."</li>
+            <li><strong>A judgment retained:</strong> "The AI said the relationship was 'significant and positive.' I read the coefficient and p-value myself and concluded the effect size is small (0.12) even though the p-value is &lt; 0.05."</li>
+          </ul>
+
+          <h3>Disclosure example</h3>
+
+          <pre><code>AI Use Disclosure
+
+Tool(s): Claude 4 (Anthropic), via claude.ai, [date]
+Purpose: To load a CSV of survey data, compute descriptive statistics,
+  generate a scatterplot of age vs. trust, and run an OLS regression
+Location: The analysis in this exercise document; the plot and
+  regression output in the accompanying notebook
+Verification: The mean age was computed by hand and matched the AI's
+  output (36.9). The regression N (200) was confirmed against the
+  row count of complete cases. One data point on the scatterplot
+  was traced to its source row and confirmed.
+Human decisions: The choice of variables to analyse, the
+  interpretation of the regression coefficient direction and
+  magnitude, and the decision to flag age=99 as a likely error
+  are the author's. The AI was not asked to select variables or
+  interpret the substantive meaning of the results.</code></pre>
+
+          <p><strong>What a weak response looks like:</strong></p>
+          <ul>
+            <li>"The AI did a good job, the results look fine" (no verification performed)</li>
+            <li>"I trust the AI" (the point of the exercise is to not trust without checking)</li>
+            <li>"The AI's output was correct" (how do you know?)</li>
+          </ul>
+        </details>
+      </div>
+
+    </div>
+  </section>
+
+  <hr class="rule">
+
+  <section id="readings" class="section">
+    <h2 class="section__title"><span class="section__mark">§</span> readings</h2>
+
+    <div class="content">
+
+      <p class="module-meta">Nothing on this list is required before starting the module. Read in any order — before, during, or after. Each entry explains <em>why</em> it is useful and what to take from it.</p>
+
+      <hr class="rule">
+
+      <h3>Core Readings</h3>
+
+      <div class="reading-entry">
+        <p class="reading-entry__title">Grimmer, J., Roberts, M. E., & Stewart, B. M. (2022). <em>Text as Data: A New Framework for Machine Learning and the Social Sciences</em>. Princeton University Press. Chapters 1–4, 6, and 18.</p>
+        <p class="reading-entry__note"><strong>Why read it:</strong> This is the standard social-science reference for computational text analysis, and Chapters 3–4 and 6 are directly relevant to data analysis with AI. Chapter 3 covers the discovery–measurement–inference framework that structures any empirical project. Chapter 4 treats selection, representation, and the decisions that shape a dataset before analysis begins. Chapter 6 covers validation: how do you know your measurement is working? Chapter 18 (conclusion) returns to the core argument: computational methods are social-science methods, and the same standards of validity, reliability, and transparency apply.</p>
+        <p class="reading-entry__note"><strong>What to take:</strong> The book's framework predates LLMs but applies directly to them. The questions Grimmer, Roberts, and Stewart ask about any computational method — what is being measured? how is it validated? what are the consequential errors? — are the same questions this module asks about AI-assisted code and data analysis. The technology changed; the methodological demands did not.</p>
+      </div>
+
+      <div class="reading-entry">
+        <p class="reading-entry__title">Wickham, H., & Grolemund, G. (2023). <em>R for Data Science</em>, 2nd ed. O'Reilly Media. Chapters 1–5 and 9–10. Freely available at <a href="https://r4ds.hadley.nz">r4ds.hadley.nz →</a></p>
+        <p class="reading-entry__note"><strong>Why read it:</strong> The standard introduction to data science with R. This module uses Python examples, but the conceptual workflow — import, tidy, transform, visualise, model, communicate — is language-agnostic. Chapters 1–5 cover data import, transformation, and exploratory analysis. Chapters 9–10 cover visualisation with ggplot2. If you want to understand what the AI is doing when it generates ggplot code or pandas transformations, these chapters give you the mental model.</p>
+        <p class="reading-entry__note"><strong>What to take:</strong> The workflow, not the syntax. You do not need to learn R. Read for the concepts: what is a "tidy" dataset? why does every row need to be an observation? what does a good exploratory plot reveal that a summary statistic hides? These are the questions you should be asking the AI to answer, regardless of which language it writes in.</p>
+      </div>
+
+      <div class="reading-entry">
+        <p class="reading-entry__title">Becker, J., Rush, N., Barnes, E., & Rein, D. (2025). "Measuring the Impact of Early-2025 AI on Experienced Open-Source Developer Productivity." arXiv:2507.09089.</p>
+        <p class="reading-entry__note"><strong>Why read it:</strong> This paper is about programmers, not social scientists. Read it for the <strong>self-assessment gap</strong>: developers who used AI reported feeling more productive, but objective measures showed smaller and less consistent gains. The gap between perceived and actual improvement is a pattern that appears across AI application domains — and it is the reason this module requires independent verification of AI-generated statistics and interpretations.</p>
+        <p class="reading-entry__note"><strong>What to take:</strong> The abstract and the discussion of the self-assessment gap (Sections 1 and 5–6, not the full methods). The key finding: your feeling that the AI saved you time or produced correct results is not evidence that it did. Confidence and correctness are separate dimensions. You need an external check.</p>
+      </div>
+
+      <div class="reading-entry">
+        <p class="reading-entry__title">Kapoor, S., & Narayanan, A. (2023). "Leakage and the Reproducibility Crisis in Machine-Learning-Based Science." <em>Patterns</em>, 4(9).</p>
+        <p class="reading-entry__note"><strong>Why read it:</strong> A clear explanation of how data leakage — when information from the test set bleeds into training — can infate performance claims. The relevance to AI-assisted data analysis: if an AI was trained on code and data similar to what you are asking it to analyse (which it almost certainly was), its performance may look better than it would on genuinely novel analytical tasks. The model may "know" the structure of your data without understanding it.</p>
+        <p class="reading-entry__note"><strong>What to take:</strong> The concept of leakage, not the technical details. For this module, the practical implication is: do not assume the AI's plausible-looking output is correct because it looks right. It may be reproducing patterns from its training data rather than engaging with your specific dataset. Verification — computing one statistic yourself — is the only way to detect this.</p>
+      </div>
+
+      <div class="reading-entry">
+        <p class="reading-entry__title">Spirling, A., Smith, N. A., & Palmer, A. (2023). "Using proprietary language models in academic research requires explicit justification." <em>Nature Computational Science</em>.</p>
+        <p class="reading-entry__note"><strong>Why read it:</strong> A short argument that using commercial, proprietary AI models in research carries obligations that free and open-source models do not: the model may change or become unavailable, the training data is undocumented, and reproducibility is compromised. The argument applies to AI-assisted data analysis the same way it applies to AI-assisted writing or annotation.</p>
+        <p class="reading-entry__note"><strong>What to take:</strong> The justification framework. If you use a commercial AI (ChatGPT, Claude, Gemini) for data analysis in your portfolio or publication, you need to say <em>why</em> that model rather than an open alternative, and what happens to your results if the model is updated or deprecated. This connects to Module 7 (Validation, Reproducibility, and Research Integrity).</p>
+      </div>
+
+      <hr class="rule">
+
+      <h3>AI + Code: Methods and Cautionary Papers</h3>
+
+      <div class="reading-entry">
+        <p class="reading-entry__title">Barke, S., James, M. B., & Polikarpova, N. (2023). "Grounded Copilot: How Programmers Interact with Code-Generating Models." <em>Proceedings of the ACM on Programming Languages</em>, 7(OOSLA1).</p>
+        <p class="reading-entry__note"><strong>Why read it:</strong> An empirical study of how programmers actually use AI code generation in practice. The key finding: programmers who accept AI-generated code without reading it carefully introduce more bugs; programmers who treat the AI as a suggestion engine and verify the output produce better code. The finding generalises beyond programming to any AI-assisted analytical work.</p>
+        <p class="reading-entry__note"><strong>What to take:</strong> The distinction between "acceleration" (AI writes, you accept) and "exploration" (AI suggests, you verify). This module teaches the exploration mode. Section 4 on interaction patterns is the most relevant.</p>
+      </div>
+
+      <div class="reading-entry">
+        <p class="reading-entry__title">Ziegler, A., Kalliamvakou, E., Li, X. A., et al. (2024). "Measuring GitHub Copilot's Impact on Productivity." <em>Communications of the ACM</em>, 67(3).</p>
+        <p class="reading-entry__note"><strong>Why read it:</strong> A large-scale study of AI-assisted programming productivity. Like Becker et al. (2025), it finds that perceived productivity gains exceed measured ones, but it also documents <em>where</em> AI helps most: boilerplate code, repetitive transformations, and standard analyses. These are exactly the tasks this module delegates to AI — and exactly the tasks where verification is most important, because the AI's fluency masks potential errors.</p>
+        <p class="reading-entry__note"><strong>What to take:</strong> The findings on task types. AI is strongest on routine, well-documented tasks and weakest on novel or domain-specific analysis. If you are doing something standard (compute means by group, run a t-test), the AI will probably produce correct code — but you still need to verify the output against your data, because the AI does not know your data's semantics.</p>
+      </div>
+
+      <div class="reading-entry">
+        <p class="reading-entry__title">Perry, N., Srivastava, M., Kumar, D., & Boneh, D. (2023). "Do Users Write More Insecure Code with AI Assistants?" <em>Proceedings of the 2023 ACM SIGSAC Conference on Computer and Communications Security</em>.</p>
+        <p class="reading-entry__note"><strong>Why read it:</strong> A controlled experiment showing that participants who used an AI assistant wrote code with more security vulnerabilities than those who did not — and were <em>more confident</em> in the security of their code. This is the same self-assessment gap documented in other domains, applied specifically to code quality.</p>
+        <p class="reading-entry__note"><strong>What to take:</strong> The finding that AI increases confidence more than it increases correctness. This is the core rationale for the "verify one thing independently" rule in this module. You do not need to read the full methods; Sections 1 (introduction) and 6–7 (discussion and implications) are sufficient.</p>
+      </div>
+
+      <hr class="rule">
+
+      <h3>Read Across Modules (Previously Listed)</h3>
+
+      <p>These readings were introduced in earlier modules and remain relevant to code and data analysis:</p>
+
+      <ul>
+        <li><strong>Shanahan, M. (2024). "Talking About Large Language Models." <em>Communications of the ACM</em>, 67(2).</strong> — The vocabulary of "knowing" and "thinking" misleads. The model predicts tokens; it does not understand your data. (Module 1)</li>
+        <li><strong>Bender, E. M., Gebru, T., McMillan-Major, A., & Shmitchell, S. (2021). "On the Dangers of Stochastic Parrots." <em>FAccT 2021</em>.</strong> — The model reassembles patterns from training data. When it writes data analysis code, it is not reasoning about your dataset; it is reproducing statistical patterns it has seen. (Module 1)</li>
+        <li><strong>Egami, N., Hinck, M., Stewart, B. M., & Wei, H. (forthcoming). "Using Large Language Model Annotations for the Social Sciences." <em>American Journal of Political Science</em>.</strong> — What happens when machine-generated values enter your analysis as if they were observations. Read Section 3 on measurement error and downstream bias. (Module 4)</li>
+        <li><strong>Barrie, C., Palmer, A., & Spirling, A. (forthcoming). "Replication for Language Models." <em>American Journal of Political Science</em>.</strong> — What happens when you run the same analysis twice and get different results, and what happens when the model is deprecated. Relevant to the reproducibility dimension of AI-assisted data analysis. (Module 7)</li>
+      </ul>
+
+      <hr class="rule">
+
+      <h3>Optional Reference</h3>
+
+      <div class="reading-entry">
+        <p class="reading-entry__title">Wickham, H., Çetinkaya-Rundel, M., & Grolemund, G. (2023). <em>R for Data Science</em>, 2nd ed. Full text at <a href="https://r4ds.hadley.nz">r4ds.hadley.nz →</a></p>
+        <p class="reading-entry__note">The complete book. Chapters 22–25 cover communication (R Markdown, graphics for publication) and are useful if you want to produce publication-ready output from AI-assisted analysis. Chapters 26–30 cover the programming fundamentals underlying data analysis in any language.</p>
+      </div>
+
+      <div class="reading-entry">
+        <p class="reading-entry__title">McKinney, W. (2022). <em>Python for Data Analysis</em>, 3rd ed. O'Reilly Media.</p>
+        <p class="reading-entry__note">The Python equivalent of R for Data Science. If you want to understand what <code>pandas</code> and <code>matplotib</code> are doing when the AI writes code for you, Chapters 1–6 provide the foundation. Not required reading — the AI handles the syntax — but useful for the verification step, when you need to trace a value through the code.</p>
+      </div>
+
+      <div class="reading-entry">
+        <p class="reading-entry__title">University of Zurich. (2023). "Recommendations on the Use of Generative Artificial Intelligence."</p>
+        <p class="reading-entry__note">The institutional policy framework that governs AI use in research at UZH. Read the sections on data handling, disclosure, and researcher responsibility. Relevant whenever AI-assisted analysis touches university data or produces output for a graded submission.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <hr class="rule rule--thick">
+
+  <footer class="colophon">
+    <p>
+      <span>set in charter &amp; jetbrains mono.</span>
+      <span>html + css.</span>
+      <span>no trackers.</span>
+    </p>
+    <p>module 5 · <a href="index.html" style="color: var(--ink-soft;">← course index</a> · last updated october 2026</p>
+  </footer>
+
+</main>
+</body>
+</html>

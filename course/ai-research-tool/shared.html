@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shared Resources · AI as a Research Tool</title>
+<meta name="description" content="Module : Glossary, Four Questions, Validation Menu, Disclosure — 8-module self-paced course on using AI in social science research.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../styles/main.css">
+<style>
+  .back-link {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.02em;
+    margin-bottom: 2rem;
+  }
+  .back-link a {
+    color: var(--ink-soft);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--ink-soft);
+    padding-bottom: 1px;
+  }
+  .back-link a:hover { background: var(--ink); color: var(--paper); border-bottom-color: transparent; }
+
+  .module-meta {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink-soft);
+    margin: 1rem 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .module-meta span { white-space: nowrap; }
+
+  .module-body h2 {
+    font-family: var(--mono);
+    font-weight: 500;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    margin: 2rem 0 0.75rem;
+    color: var(--ink);
+  }
+  .module-body h3 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 1.15rem;
+    margin: 1.5rem 0 0.5rem;
+    line-height: 1.3;
+  }
+  .module-body p {
+    margin: 0 0 0.85rem;
+    line-height: 1.55;
+  }
+  .module-body ul, .module-body ol {
+    margin: 0 0 0.85rem;
+    padding-left: 1.5rem;
+    line-height: 1.55;
+  }
+  .module-body li { margin-bottom: 0.25rem; }
+  .module-body code {
+    font-family: var(--mono);
+    font-size: 0.85em;
+    background: rgba(0,0,0,0.05);
+    padding: 0.1em 0.35em;
+  }
+  .module-body strong { font-weight: 600; }
+  .module-body em { font-style: italic; }
+
+  .callout {
+    border-left: 2px solid var(--ink);
+    padding: 0.5rem 0 0.5rem 1.25rem;
+    margin: 1rem 0;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+  }
+  .callout strong { font-style: normal; }
+
+  .checks-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .checks-list li {
+    border: 1px solid var(--ink);
+    padding: 1rem;
+    margin-bottom: 0.75rem;
+  }
+  .checks-list li:last-child { margin-bottom: 0; }
+  .checks-list .check-num {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--ink-soft);
+    margin: 0 0 0.25rem;
+  }
+  .checks-list .check-title {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin: 0 0 0.35rem;
+  }
+  .checks-list .check-body {
+    font-size: 0.88rem;
+    line-height: 1.45;
+    color: var(--ink-soft);
+    margin: 0;
+  }
+
+  .exercise {
+    border-top: 1px solid var(--ink-soft);
+    padding: 1rem 0;
+    margin: 0;
+  }
+  .exercise:first-of-type { border-top: none; }
+  .exercise h3 {
+    font-family: var(--serif);
+    font-size: 1rem;
+    margin: 0 0 0.5rem;
+  }
+  .exercise p { margin: 0 0 0.5rem; }
+  .exercise details {
+    margin-top: 0.5rem;
+  }
+  .exercise summary {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    color: var(--ink-soft);
+    padding: 0.25rem 0;
+  }
+  .exercise summary:hover { color: var(--ink); }
+  .exercise .answer {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: var(--ink-soft);
+    padding: 0.5rem 0;
+  }
+
+  .reading-entry { margin: 0 0 1rem; }
+  .reading-entry:last-child { margin-bottom: 0; }
+  .reading-entry h4 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 0.95rem;
+    margin: 0 0 0.15rem;
+    line-height: 1.3;
+  }
+  .reading-entry .reading-note {
+    font-family: var(--serif);
+    font-size: 0.88rem;
+    color: var(--ink-soft);
+    margin: 0;
+    line-height: 1.45;
+  }
+  .reading-entry em { font-style: italic; }
+
+  @media (max-width: 480px) {
+    .module-meta { flex-direction: column; gap: 0.25rem; }
+  }
+</style>
+</head>
+<body>
+<main class="page">
+
+  <p class="back-link"><a href="index.html">← course index</a></p>
+
+  <header class="masthead">
+    <h1 class="name" style="font-size: clamp(2rem, 8vw, 3.5rem);">
+      <span class="name__line">Module </span><span class="name__line">Glossary, Four Questions, Validation Menu, Disclosure</span>
+    </h1>
+    <p class="module-meta">
+      <span>⏱ </span>
+      <span>📋 </span>
+      <span>📌 </span>
+      <span>🎯 </span>
+    </p>
+  </header>
+
+  <hr class="rule">
+
+  <nav class="nav" aria-label="module">
+    <a href="#outcomes">outcomes</a><span class="nav__sep">~</span>
+    <a href="#workbook">workbook</a><span class="nav__sep">~</span>
+    <a href="#exercises">exercises</a><span class="nav__sep">~</span>
+    <a href="#readings">readings</a>
+    <a href="#glossary">glossary</a><span class="nav__sep">~</span><a href="#four-questions">questions</a><span class="nav__sep">~</span><a href="#validation">validation</a><span class="nav__sep">~</span><a href="#disclosure">disclosure</a>
+  </nav>
+
+  <hr class="rule">
+
+  <div class="module-body">
+
+<section id="glossary">
+<h2 class="section__title"><span class="section__mark">§</span> glossary</h2>
+
+</section>
+
+<hr class="rule">
+
+<section id="four-questions">
+<h2 class="section__title"><span class="section__mark">§</span> the four questions</h2>
+<p>1|# The Four Questions: A Course Lens</p>
+<p>2|</p>
+<p>3|These four questions are the core analytical framework used across all eight modules. Apply them to every AI use you evaluate, whether it is your own experiment, a demonstration, or a published study.</p>
+<p>4|</p>
+<p>5|---</p>
+<p>6|</p>
+<p>7|## The Questions</p>
+<p>8|</p>
+<p>9|### 1. What is being delegated?</p>
+<p>10|</p>
+<p>11|Name the task and the decision separately.</p>
+<p>12|</p>
+<p>13|- <strong>Task:</strong> What specific action is the AI performing? Drafting? Searching? Classifying? Summarising? Computing?</p>
+<p>14|- <strong>Decision:</strong> What methodological judgment is being handed over? The choice of which sources to include? The classification of an ambiguous case? The interpretation of a coefficient?</p>
+<p>15|</p>
+<p>16|A task delegation ("summarise these three papers") is different from a decision delegation ("identify the most important papers in this field"). Be precise about which is which.</p>
+<p>17|</p>
+<p>18|### 2. What would make the result believable?</p>
+<p>19|</p>
+<p>20|Name evidence outside the model output.</p>
+<p>21|</p>
+<p>22|- Did you check the sources it cited?</p>
+<p>23|- Did a human coder agree with the labels?</p>
+<p>24|- Did you run it twice and compare?</p>
+<p>25|- Did you test it on a case you already knew the answer to?</p>
+<p>26|- Can someone else reproduce it from the record you kept?</p>
+<p>27|</p>
+<p>28|The model's confidence, fluency, or internal reasoning are not evidence. Evidence comes from outside the system.</p>
+<p>29|</p>
+<p>30|### 3. What could be lost or flattened?</p>
+<p>31|</p>
+<p>32|Look for variation, minority cases, ambiguity, provenance, and tacit knowledge.</p>
+<p>33|</p>
+<p>34|- Are edge cases being forced into the closest category?</p>
+<p>35|- Are minority viewpoints being averaged away?</p>
+<p>36|- Is the source of a claim becoming invisible?</p>
+<p>37|- Is your own judgment about what "good" looks like being replaced by the model's training distribution?</p>
+<p>38|- What tacit knowledge did you use in the non-AI version that the prompt does not capture?</p>
+<p>39|</p>
+<p>40|### 4. What must remain visible or human?</p>
+<p>41|</p>
+<p>42|Name the decision, check, or record that cannot disappear into the interface.</p>
+<p>43|</p>
+<p>44|- Which step requires a researcher's judgment rather than a model's prediction?</p>
+<p>45|- What check must be performed by a person, not a script?</p>
+<p>46|- What record must survive so that a reviewer can inspect what happened?</p>
+<p>47|- What would make you override the model's output?</p>
+<p>48|</p>
+<p>49|---</p>
+<p>50|</p>
+<p>51|## Using the Four Questions</p>
+<p>52|</p>
+<p>53|<strong>Before using AI on a task:</strong> Answer all four questions on paper. This is your prediction and your safety boundary.</p>
+<p>54|</p>
+<p>55|<strong>After using AI on a task:</strong> Answer them again. What was different? What did you learn?</p>
+<p>56|</p>
+<p>57|<strong>When reading research that uses AI:</strong> Apply the questions to the published description. Can you answer them from what the paper reports? If not, the disclosure is incomplete.</p>
+<p>58|</p>
+<p>59|<strong>In your portfolio:</strong> Each of the four questions should have a concrete answer, supported by evidence, for the AI use you evaluated.</p>
+<p>60|</p>
+<p>61|---</p>
+<p>62|</p>
+<p>63|<em>The four questions are introduced in Module 1 and used throughout every module. They replace the nine-column tool audit and special workflow notation from earlier versions of this course.</em></p>
+</section>
+
+<hr class="rule">
+
+<section id="validation">
+<h2 class="section__title"><span class="section__mark">§</span> validation menu</h2>
+<p>1|# The Validation Menu: Seven Checks</p>
+<p>2|</p>
+<p>3|This menu is introduced in Module 4 and used throughout Modules 5–8. For any AI-assisted result, choose the checks that are appropriate to the claim. No single check is sufficient for every claim, and running every check is usually wasteful. Select the ones that could actually change your interpretation.</p>
+<p>4|</p>
+<p>5|---</p>
+<p>6|</p>
+<p>7|## The Seven Checks</p>
+<p>8|</p>
+<p>9|| # | Check | Question it answers | What it costs |</p>
+<p>10||---|---|---|---|</p>
+<p>11|| 1 | <strong>Source verification</strong> | Does every cited source exist and say what is claimed? | Time to look up each reference. |</p>
+<p>12|| 2 | <strong>Human comparison</strong> | Would a competent human produce the same result? | Recruiting, training, and paying coders, or your own time. |</p>
+<p>13|| 3 | <strong>Repeated runs</strong> | How much does the output vary across runs with the same input? | Compute time or API cost for multiple runs. |</p>
+<p>14|| 4 | <strong>Prompt variation</strong> | Does the result hold when you reword the instructions? | Time to design and test alternative prompts. |</p>
+<p>15|| 5 | <strong>Boundary cases</strong> | Does the system fail sensibly on edge cases, or produce confident wrong answers? | Designing or collecting difficult cases. |</p>
+<p>16|| 6 | <strong>Sensitivity to model or settings</strong> | Would a different model or sampling setting produce a different conclusion? | Access to multiple models or API credits. |</p>
+<p>17|| 7 | <strong>Downstream consequence</strong> | Do the errors that exist actually change the estimate, decision, or interpretation? | Running the full analysis with the AI-generated data. |</p>
+<p>18|</p>
+<p>19|---</p>
+<p>20|</p>
+<p>21|## How to Choose Checks</p>
+<p>22|</p>
+<p>23|1. <strong>Start with the claim.</strong> What are you asserting? "This search found all relevant papers." "These labels are accurate." "This summary is faithful to the sources."</p>
+<p>24|</p>
+<p>25|2. <strong>Ask what would falsify the claim.</strong> What kind of evidence would show you were wrong?</p>
+<p>26|</p>
+<p>27|3. <strong>Pick the checks that would detect that falsification.</strong> If fabricated references would falsify your claim, run check 1. If label inconsistency would falsify it, run checks 2 and 3. If the conclusion depends on a specific prompt wording, run check 4.</p>
+<p>28|</p>
+<p>29|4. <strong>One check is better than none; two well-chosen checks are better than five run superficially.</strong></p>
+<p>30|</p>
+<p>31|---</p>
+<p>32|</p>
+<p>33|## Example: Literature Search Claim</p>
+<p>34|</p>
+<p>35|<strong>Claim:</strong> "This search identified all relevant papers on AI-assisted classification in political science published since 2020."</p>
+<p>36|</p>
+<p>37|<strong>Falsification:</strong> A known relevant paper is missing; an irrelevant paper is included; the date or field filter excluded something it should not have.</p>
+<p>38|</p>
+<p>39|<strong>Checks to run:</strong></p>
+<p>40|- <strong>Check 1 (source verification):</strong> Verify that each returned paper exists and is about the claimed topic.</p>
+<p>41|- <strong>Check 2 (human comparison):</strong> Have a colleague suggest three papers they would expect to find. Are they in the results?</p>
+<p>42|- <strong>Check 5 (boundary cases):</strong> Test whether the search returns papers from adjacent fields (sociology, computational linguistics) that use the same methods.</p>
+<p>43|</p>
+<p>44|---</p>
+<p>45|</p>
+<p>46|## Example: Annotation Claim</p>
+<p>47|</p>
+<p>48|<strong>Claim:</strong> "The LLM-labelled dataset can be used in a regression as if it were human-coded."</p>
+<p>49|</p>
+<p>50|<strong>Falsification:</strong> The regression coefficient changes sign or significance when human labels replace LLM labels; errors are concentrated in one category.</p>
+<p>51|</p>
+<p>52|<strong>Checks to run:</strong></p>
+<p>53|- <strong>Check 2 (human comparison):</strong> Double-code a random sample and compute agreement and disagreement patterns.</p>
+<p>54|- <strong>Check 7 (downstream consequence):</strong> Run the regression with human labels and with LLM labels on the same cases. Does the substantive conclusion differ?</p>
+<p>55|- <strong>Check 5 (boundary cases):</strong> Examine cases where human and LLM disagree. Is there a systematic pattern?</p>
+<p>56|</p>
+<p>57|---</p>
+<p>58|</p>
+<p>59|<em>The validation menu is introduced in Module 4 (Text Annotation and Measurement) and revisited in Module 7 (Validation, Reproducibility, and Research Integrity).</em></p>
+</section>
+
+<hr class="rule">
+
+<section id="disclosure">
+<h2 class="section__title"><span class="section__mark">§</span> disclosure template</h2>
+<p>1|# Disclosure Template</p>
+<p>2|</p>
+<p>3|Every portfolio component and every module exercise that produces AI-assisted output should include a disclosure statement. This template follows the format expected by the <em>American Journal of Political Science</em> (AJPS) and <em>American Political Science Review</em> (APSR), adapted for course use.</p>
+<p>4|</p>
+<p>5|---</p>
+<p>6|</p>
+<p>7|## Required Elements</p>
+<p>8|</p>
+<p>9|A complete disclosure states:</p>
+<p>10|</p>
+<p>11|1. <strong>What tool(s) were used</strong> — Name the model, the interface, and the date(s) of use. Example: "Claude 4 (Anthropic), via claude.ai, 10 September 2026."</p>
+<p>12|</p>
+<p>13|2. <strong>For what purpose</strong> — Be specific. "To suggest restructuring of the introduction" is better than "for writing." "To generate initial labels for 200 abstracts using the codebook in Appendix A" is better than "for classification."</p>
+<p>14|</p>
+<p>15|3. <strong>Where in the work</strong> — Point to the specific sections, figures, tables, or analyses. "The literature synthesis in Section 3" or "The labelled dataset used in Table 2."</p>
+<p>16|</p>
+<p>17|4. <strong>What was verified and how</strong> — What checks did you perform? "All citations verified against their source publications." "A random sample of 50 labels checked by a second human coder (kappa = 0.82)."</p>
+<p>18|</p>
+<p>19|5. <strong>What the human decided</strong> — What judgments did you retain? "The final selection of papers for inclusion was made by the author after reviewing the AI-generated screening." "The interpretation of the regression results in Section 5 is the author's alone."</p>
+<p>20|</p>
+<p>21|---</p>
+<p>22|</p>
+<p>23|## Template</p>
+<p>24|</p>
+<p>25|```</p>
+<p>26|AI Use Disclosure</p>
+<p>27|</p>
+<p>28|Tool(s): [Model name, version, interface, date(s) of use]</p>
+<p>29|Purpose: [Specific task the AI performed]</p>
+<p>30|Location: [Where in this work the AI contribution appears]</p>
+<p>31|Verification: [What checks were performed, with evidence where available]</p>
+<p>32|Human decisions: [What judgments were retained by the author]</p>
+<p>33|</p>
+<p>34|The author takes full responsibility for all content in this document.</p>
+<p>35|No AI tool was used as a source of fact, and no AI-generated reference</p>
+<p>36|was included without personal verification.</p>
+<p>37|```</p>
+<p>38|</p>
+<p>39|---</p>
+<p>40|</p>
+<p>41|## Examples</p>
+<p>42|</p>
+<p>43|### Example 1: Writing Assistance</p>
+<p>44|</p>
+<p>45|```</p>
+<p>46|AI Use Disclosure</p>
+<p>47|</p>
+<p>48|Tool(s): Claude 4 (Anthropic), via claude.ai, 12 September 2026</p>
+<p>49|Purpose: To suggest alternative organisations for the literature review section</p>
+<p>50|Location: The structure of Section 2 (Literature Review)</p>
+<p>51|Verification: All sources cited in Section 2 were located, read, and verified</p>
+<p>52|  by the author before inclusion. The AI's structural suggestions were evaluated</p>
+<p>53|  against the author's own outline and modified substantially.</p>
+<p>54|Human decisions: The final organisation, the selection of which studies to</p>
+<p>55|  include and emphasise, and all interpretive claims are the author's.</p>
+<p>56|```</p>
+<p>57|</p>
+<p>58|### Example 2: Annotation</p>
+<p>59|</p>
+<p>60|```</p>
+<p>61|AI Use Disclosure</p>
+<p>62|</p>
+<p>63|Tool(s): GPT-5 (OpenAI), via API, 15 October 2026</p>
+<p>64|Purpose: To generate initial binary labels (relevant/not relevant) for</p>
+<p>65|  2,000 abstracts using the codebook in Appendix A</p>
+<p>66|Location: The screening data reported in Section 3 and Table 1</p>
+<p>67|Verification: A random sample of 200 abstracts was independently coded by</p>
+<p>68|  a second human coder. Agreement: 89% (Cohen's kappa = 0.76).</p>
+<p>69|  Disagreements concentrated in the "ambiguous" category; all disagreements</p>
+<p>70|  were resolved by the author.</p>
+<p>71|Human decisions: The final inclusion/exclusion decision for every abstract</p>
+<p>72|  flagged as "ambiguous" was made by the author. The codebook was developed</p>
+<p>73|  by the author before any AI-assisted coding.</p>
+<p>74|```</p>
+<p>75|</p>
+<p>76|### Example 3: No AI Used</p>
+<p>77|</p>
+<p>78|```</p>
+<p>79|AI Use Disclosure</p>
+<p>80|</p>
+<p>81|No AI tools were used in the preparation of this work.</p>
+<p>82|```</p>
+<p>83|</p>
+<p>84|---</p>
+<p>85|</p>
+<p>86|## Important Rules</p>
+<p>87|</p>
+<p>88|1. <strong>The disclosure must include itself.</strong> If you used AI to help write the disclosure, say so.</p>
+<p>89|</p>
+<p>90|2. <strong>"Verified" means you personally checked.</strong> You cannot delegate verification to the same tool that produced the output.</p>
+<p>91|</p>
+<p>92|3. <strong>Fabricated references are never acceptable,</strong> disclosed or not. If you include a reference you have not personally confirmed exists and says what you claim, the disclosure does not protect you.</p>
+<p>93|</p>
+<p>94|4. <strong>A tool is not a co-author and not a source of fact.</strong> These are the positions of ICMJE, COPE, the SNSF, the ERC, and every major journal.</p>
+<p>95|</p>
+<p>96|---</p>
+<p>97|</p>
+<p>98|<em>This template is introduced in Module 2 and used throughout the course. See Module 7 for the full treatment of validation, reproducibility, and research integrity.</em></p>
+</section>
+  </div>
+
+  <hr class="rule rule--thick">
+
+  <footer class="colophon">
+    <p>
+      <span>set in charter &amp; jetbrains mono.</span>
+      <span>html + css.</span>
+      <span>no trackers.</span>
+    </p>
+    <p><a href="index.html" style="color: var(--ink-soft);">← ai as a research tool</a> · <a href="../../index.html" style="color: var(--ink-soft);">colin henry</a></p>
+  </footer>
+
+</main>
+</body>
+</html>

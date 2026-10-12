@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Module 6: Agents &amp; Workflow Automation · AI as a Research Tool · UZH</title>
+<meta name="description" content="Module 6 — Agents &amp; Workflow Automation: bounded delegation, persistent instructions, and the five-box safety check.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../styles/main.css">
+<style>
+  /* ── module 06 page extensions ────────────────────────── */
+
+  .back-link {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.02em;
+    margin-bottom: 2rem;
+  }
+  .back-link a {
+    color: var(--ink-soft);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--ink-soft);
+    padding-bottom: 1px;
+  }
+  .back-link a:hover { background: var(--ink); color: var(--paper); border-bottom-color: transparent; }
+
+  /* ── autonomy spectrum table ─────────────────────────── */
+  .spectrum-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.88rem;
+    line-height: 1.45;
+    margin: 0.75rem 0 1.25rem;
+  }
+  .spectrum-table th {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    text-align: left;
+    padding: 0.5rem 0.65rem 0.4rem;
+    border-bottom: 2px solid var(--ink);
+    color: var(--ink-soft);
+  }
+  .spectrum-table td {
+    padding: 0.45rem 0.65rem;
+    border-bottom: 1px solid var(--ink-soft);
+    vertical-align: top;
+  }
+  .spectrum-table tr:last-child td { border-bottom: none; }
+  .spectrum-table .level-num {
+    font-family: var(--mono);
+    font-weight: 500;
+    white-space: nowrap;
+    width: 3.2em;
+  }
+
+  /* ── five-box safety check (visually distinct) ───────── */
+  .five-box {
+    margin: 1rem 0 1.5rem;
+  }
+  .five-box__item {
+    border: 1px solid var(--ink);
+    border-left: 3px solid var(--ink);
+    padding: 0.75rem 1rem 0.75rem 1.25rem;
+    margin: 0 0 0.5rem;
+    position: relative;
+  }
+  .five-box__item:last-child { margin-bottom: 0; }
+  .five-box__num {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--ink);
+    display: block;
+    margin: 0 0 0.25rem;
+  }
+  .five-box__item p {
+    margin: 0;
+    font-size: 0.93rem;
+    line-height: 1.5;
+  }
+  .five-box__item p + p { margin-top: 0.35rem; }
+
+  /* ── blockquote note ─────────────────────────────────────── */
+  .blockquote-note {
+    border-left: 2px solid var(--ink);
+    padding: 0.5rem 0 0.5rem 1.25rem;
+    margin: 1rem 0;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+  }
+
+  /* ── instruction artifact demo ─────────────────────── */
+  .artifact-demo {
+    border: 1px solid var(--ink-soft);
+    padding: 1rem 1.25rem;
+    margin: 1rem 0;
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    line-height: 1.55;
+    letter-spacing: 0.02em;
+  }
+  .artifact-demo h4 {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ink-soft);
+    margin: 1rem 0 0.35rem;
+  }
+  .artifact-demo h4:first-of-type { margin-top: 0; }
+
+  /* ── exercises ─────────────────────────────────────── */
+  .exercise-details {
+    margin: 0.75rem 0 1rem;
+  }
+  .exercise-details > summary {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    border: 1px solid var(--ink-soft);
+    padding: 0.4rem 0.9rem;
+    display: inline-block;
+    color: var(--ink-soft);
+  }
+  .exercise-details > summary:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .exercise-details[open] > summary { border-bottom: 1px dotted var(--ink-soft); margin-bottom: 0.75rem; }
+  .exercise-details .answer-body {
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+  .exercise-details .answer-body p { margin: 0 0 0.5rem; }
+  .exercise-details .answer-body p:last-child { margin-bottom: 0; }
+  .exercise-details .answer-body ul { margin: 0.35rem 0 0.5rem 1.2rem; padding:0; }
+  .exercise-details .answer-body li { margin-bottom: 0.25rem; }
+
+  /* ── readings ─────────────────────────────────────── */
+  .reading-entry { margin: 0 0 1.25rem; }
+  .reading-entry:last-child { margin-bottom: 0; }
+  .reading-entry h4 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 1.35;
+    margin: 0 0 0.25rem;
+  }
+  .reading-entry .why-read {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ink-soft);
+    margin: 0 0 0.4rem;
+  }
+  .reading-entry p { margin: 0 0 0.4rem; font-size: 0.9rem; line-height: 1.5; }
+  .reading-entry p:last-child { margin-bottom: 0; }
+
+  /* ── section-nav (on-page jump links) ─────────────── */
+  .section-nav {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.02em;
+    margin: 0 0 0.75rem;
+  }
+  .section-nav a {
+    color: var(--ink-soft);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--ink-soft);
+    padding-bottom: 1px;
+  }
+  .section-nav a:hover { background: var(--ink); color: var(--paper); border-bottom-color: transparent; }
+
+  /* ── colophon ─────────────────────────────────────── */
+  .colophon {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--ink-soft);
+    margin-top: 1rem;
+  }
+  .colophon p { margin: 0.4rem 0; display: flex; gap: 1.25rem; flex-wrap: wrap; }
+</style>
+</head>
+<body>
+<main class="page">
+
+  <!-- ── back link ─────────────────────────────────────── -->
+  <p class="back-link"><a href="index.html">← all modules</a></p>
+
+  <!-- ── masthead ────────────────────────────────────────── -->
+  <header class="masthead">
+    <h1 class="name" style="font-size: clamp(2rem, 8vw, 3.5rem);">
+      <span class="name__line">Module 06</span><span class="name__line">Agents &amp; Workflow</span><span class="name__line">Automation</span>
+    </h1>
+    <p class="masthead__role">conceptual + interactive demo · estimated 3–4 hours</p>
+  </header>
+
+  <hr class="rule">
+
+  <p class="section-nav">
+    <a href="#workbook">workbook</a> ·
+    <a href="#exercises">exercises</a> ·
+    <a href="#readings">readings</a>
+  </p>
+
+  <hr class="rule">
+
+  <!-- ───────────────────────────────────────────────────────
+       W O R K B O O K
+      ─────────────────────────────────────────────────────── -->
+  <section id="workbook" class="section">
+    <h2 class="section__title"><span class="section__mark">§</span> workbook</h2>
+
+    <h3 style="font-family: var(--mono); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em; margin: 1.25rem 0 0.75rem;">learning outcomes</h3>
+
+    <p>By the end of this module you will be able to:</p>
+    <ol style="padding-left: 1.3rem; margin: 0.25rem 0 0; line-height: 1.55;">
+      <li>Distinguish chat interfaces, file-working assistants, and agents by their level of autonomy</li>
+      <li>Design a bounded agent workflow with explicit access, decision, and record boundaries</li>
+      <li>Use the five-box safety check before every agent run</li>
+      <li>Write persistent instructions (skills, CLAUDE.md, AGENTS.md) that document methodological decisions</li>
+      <li>Stress-test an instruction artifact and revise it based on what a peer could misunderstand</li>
+    </ol>
+
+    <!-- ── 1. What Makes Something an Agent? ────────── -->
+    <h3 style="font-family: var(--mono); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em; margin: 1.75rem 0 0.75rem;">1 · what makes something an agent?</h3>
+
+    <p>In Module 1, we distinguished models, interfaces, tools, and agents. Here we go deeper into the agent end of the spectrum.</p>
+
+    <p>An <strong>agent</strong> is a system that combines:</p>
+    <ol style="padding-left: 1.3rem; line-height: 1.55;">
+      <li><strong>An LLM</strong> — the text-in/text-out core</li>
+      <li><strong>Tools</strong> — things the system can do: search the web, read files, write files, execute code, call APIs</li>
+      <li><strong>A loop</strong> — the model decides what to do, the system executes it, the result enters the context window, and the model decides the next action</li>
+      <li><strong>Memory</strong> — the context window plus any persistent storage the system provides</li>
+    </ol>
+
+    <p>The key property of an agent is that it <strong>acts in a loop without needing a human to approve every step.</strong> This is what makes agents powerful — and dangerous.</p>
+
+    <h4 style="font-family: var(--mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--ink-soft); margin: 1.25rem 0 0.6rem;">the autonomy spectrum</h4>
+
+    <table class="spectrum-table">
+      <thead>
+        <tr><th>level</th><th>name</th><th>what it does</th><th>human role</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="level-num"><strong>0</strong></td>
+          <td><strong>Chat</strong></td>
+          <td>Responds to each message; no tools, no memory across conversations</td>
+          <td>Human drives every exchange</td>
+        </tr>
+        <tr>
+          <td class="level-num"><strong>1</strong></td>
+          <td><strong>Chat + tools</strong></td>
+          <td>Can search, calculate, or run code when asked</td>
+          <td>Human asks for each tool use</td>
+        </tr>
+        <tr>
+          <td class="level-num"><strong>2</strong></td>
+          <td><strong>File-working assistant</strong></td>
+          <td>Reads and edits files; asks before acting</td>
+          <td>Human approves each action</td>
+        </tr>
+        <tr>
+          <td class="level-num"><strong>3</strong></td>
+          <td><strong>Assisted agent</strong></td>
+          <td>Proposes a plan; executes with confirmation at checkpoints</td>
+          <td>Human approves the plan and key decisions</td>
+        </tr>
+        <tr>
+          <td class="level-num"><strong>4</strong></td>
+          <td><strong>Agent</strong></td>
+          <td>Acts on its own within defined boundaries; reports what it did</td>
+          <td>Human defines the boundaries and reviews the report</td>
+        </tr>
+        <tr>
+          <td class="level-num"><strong>5</strong></td>
+          <td><strong>Unattended agent</strong></td>
+          <td>Runs without a human in the loop</td>
+          <td>Human checks the output later — or never</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>For research, levels 2–4 are where most useful work happens. Level 5 is rarely appropriate: if you are not checking the output, you are not doing research — you are publishing model output.</p>
+
+    <!-- ── 2. Bounded Delegation ─────────────────────── -->
+    <h3 style="font-family: var(--mono); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em; margin: 1.75rem 0 0.75rem;">2 · bounded delegation</h3>
+
+    <p>The central challenge of agent design is bounded delegation: giving the agent enough authority to be useful without giving it so much that you lose control of the research process.</p>
+
+    <p>Before every agent run, answer five questions:</p>
+
+    <!-- ── FIVE-BOX SAFETY CHECK ─────────────────────── -->
+    <h4 style="font-family: var(--mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--ink-soft); margin: 1rem 0 0.5rem;">the five-box safety check</h4>
+
+    <div class="five-box">
+      <div class="five-box__item">
+        <span class="five-box__num">box 1 · access</span>
+        <p><strong>What can it access?</strong> Files, databases, APIs, the internet. Be specific. "The <code>data/</code> folder" is better than "my computer." "Read-only access to the Zotero library" is better than "access to Zotero."</p>
+      </div>
+
+      <div class="five-box__item">
+        <span class="five-box__num">box 2 · autonomy</span>
+        <p><strong>What can it do without asking?</strong> Read files? Write files? Delete files? Send emails? Publish to the web? Each capability you grant is a decision you have delegated.</p>
+      </div>
+
+      <div class="five-box__item">
+        <span class="five-box__num">box 3 · human decision</span>
+        <p><strong>Where is the human decision?</strong> Name the specific step where you must approve, reject, or modify. "Before writing the final CSV" or "before including a paper in the review." The decision point must be visible in the workflow, not buried in the agent's internal reasoning.</p>
+      </div>
+
+      <div class="five-box__item">
+        <span class="five-box__num">box 4 · record</span>
+        <p><strong>What record remains?</strong> What can a reviewer inspect after the run to understand what happened? The prompt, the model, the date, the actions taken, the outputs produced, and any errors or overrides. If the record is "the agent's final output," that is not enough — you cannot audit a decision from its result.</p>
+      </div>
+
+      <div class="five-box__item">
+        <span class="five-box__num">box 5 · failure</span>
+        <p><strong>How does it fail safely?</strong> What happens if the agent misunderstands the task, encounters an error, or produces output that does not meet your criteria? Does it stop and ask? Does it continue with wrong assumptions? Does it overwrite good data with bad?</p>
+      </div>
+    </div>
+
+    <p>Answer all five questions <em>in writing</em> before the run. After the run, answer them again — what was different from what you predicted?</p>
+
+    <!-- ── 3. Persistent Instructions ─────────────────── -->
+    <h3 style="font-family: var(--mono); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em; margin: 1.75rem 0 0.75rem;">3 · persistent instructions</h3>
+
+    <p>A prompt is text you write once. A persistent instruction is text the system loads every time — before you type anything.</p>
+
+    <p>Persistent instructions go by many names:</p>
+    <ul style="padding-left: 1.3rem; line-height: 1.55;">
+      <li><strong>System prompt</strong> (the hidden instruction set by the provider)</li>
+      <li><strong>Custom instructions</strong> (the part you can edit in some chat interfaces)</li>
+      <li><strong>Project instructions</strong> (Claude, ChatGPT)</li>
+      <li><strong>CLAUDE.md / AGENTS.md / SOUL.md</strong> (files that coding agents read on startup)</li>
+      <li><strong>Skills</strong> (reusable instruction bundles in some agent frameworks)</li>
+    </ul>
+
+    <p>Despite the different names and loading mechanisms, these are all the same thing: <strong>text that enters the context window before the conversation begins, shaping every response.</strong></p>
+
+    <h4 style="font-family: var(--mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--ink-soft); margin: 1rem 0 0.5rem;">what persistent instructions can do</h4>
+
+    <ul style="padding-left: 1.3rem; line-height: 1.55;">
+      <li>Define the agent's role and expertise ("You are a research assistant specialising in quantitative text analysis")</li>
+      <li>Set constraints ("Never include a citation you have not personally verified")</li>
+      <li>Specify output formats ("Return results as CSV with these columns")</li>
+      <li>Document methodological decisions ("Use Krippendorff's alpha for reliability, not percentage agreement")</li>
+      <li>Define stopping conditions ("If you cannot find the answer after three searches, report what you found and stop")</li>
+    </ul>
+
+    <h4 style="font-family: var(--mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--ink-soft); margin: 1rem 0 0.5rem;">what persistent instructions cannot do</h4>
+
+    <ul style="padding-left: 1.3rem; line-height: 1.55;">
+      <li><strong>Make the model verify anything.</strong> An instruction that says "verify all citations" does not give the model the ability to verify citations. It may make the model <em>say</em> it verified them — which is worse.</li>
+      <li><strong>Serve as a gate on their own.</strong> An instruction is text, not a check. If the model violates an instruction, the instruction does not catch it. A separate verification step — outside the model — is the gate.</li>
+      <li><strong>Guarantee consistent behaviour.</strong> The same instructin, on the same model, with the same input, can produce different behaviour across runs. Instructions shape probabilities; they do not determine outcomes.</li>
+    </ul>
+
+    <h4 style="font-family: var(-mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(-ink-soft); margin: 1rem 0 0.5rem;">designing an instruction artifact</h4>
+
+    <p>An instruction artifact is a persistent instruction that documents a complete methodoogical workflow. It should answer six questions:</p>
+
+    <ol style="padding-left: 1.3rem; line-height: 1.55;">
+      <li><strong>Task authorised:</strong> What is the agent allowed to do?</li>
+      <li><strong>Inputs allowed:</strong> What data, files, or sources can it access?</li>
+      <li><strong>Decisions already specified:</strong> What methodological choices have you made that the agent should not revisit?</li>
+      <li><strong>When to stop or ask:</strong> Under what conditions should the agent pause and request human input?</li>
+      <li><strong>Output and record:</strong> What should the agent produce, and what record of its actions should it keep?</li>
+      <li><strong>How checked:</strong> How will you verify the agent's output?</li>
+    </ol>
+
+    <!-- ── 4. The Agent Demonstration ─────────────────── -->
+    <h3 style="font-family: var(-mono); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em; margin: 1.75rem 0 0.75rem;">4 · the agent demonstration</h3>
+
+    <p>This module includes an interactive demonstration: a pre-computed agent run with inspection tools. Open <code>lab/agent_demo.html</code> in any browser.</p>
+
+    <p>The demonstratin shows:</p>
+    <ol style="padding-left: 1.3rem; line-height: 1.55;">
+      <li><strong>The task:</strong> Screen 20 abstracts using a supplied codebook, write a screening CSV, and draft a paragraph summarising the retained papers.</li>
+      <li><strong>The instruction artifact:</strong> The exact persistent instructions given to the agent.</li>
+      <li><strong>The run transcript:</strong> Every action the agent took, in order, with timestamps.</li>
+      <li><strong>The output:</strong> The CSV and the paragraph the agent produced.</li>
+      <li><strong>The audit:</strong> What the agent got right, what it got wrong, and what the human had to override.</li>
+    </ol>
+
+    <div class="blockquote-note">
+      Your job is to inspect the run and answer: <strong>would you accept this output for your own research?</strong> If not, what would you change in the instruction artifact?
+    </div>
+
+    <!-- ── 5. Peer Stress Testing ─────────────────── -->
+    <h3 style="font-family: var(-mono); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em; margin: 1.75rem 0 0.75rem;">5 · peer stress testing</h3>
+
+    <p>The best way to find weaknesses in an instruction artifact is to give it to someone who did not write it.</p>
+
+    <h4 style="font-family: var(-mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(-ink-soft); margin: 1rem 0 0.5rem;">the stress test protocol</h4>
+
+    <ol style="padding-left: 1.3rem; line-height: 1.55;">
+      <li><strong>Exchange only the artifact and the input.</strong> Do not explain your intent. Do not provide oral instructions. The artifact must stand alone.</li>
+      <li><strong>First attempt: silent.</strong> The reviewer attempts to follow the artifact exactly, without asking questions. They record every point where they had to guess.</li>
+      <li><strong>Second attempt: with questions.</strong> The reviewer can now ask: "What did you mean by X?" "What should I do when Y happens?" The author answers, and both revise the artifact.</li>
+      <li><strong>Record the changes.</strong> What did you add, clarify, or remove because the reviewer could not follow it?</li>
+    </ol>
+
+    <p>A good instruction artifact survives the silent first attempt: someone who has never seen it before can produce substantially the same output you would produce, given the same input.</p>
+
+    <!-- ── 6. The Four Questions for Agents ─────────→ -->
+    <h3 style="font-family: var(-mono); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em; margin: 1.75rem 0 0.75rem;">6 · the four questions for agents</h3>
+
+    <ol style="padding-left: 1.3rem; line-height: 1.55;">
+      <li><strong>What is being delegated?</strong> Not just the task — the sequence of decisions. An agent that screens, classifies, and writes is delegating a chain of judgments, not a single action.</li>
+      <li><strong>What would make the result believable?</strong> The audit trail. Can you reconstruct what happened from the record? Can you identify where a judgment was made and whether it was correct?</li>
+      <li><strong>What could be lost or flattened?</strong> The moment-by-moment decisions that a human researcher makes implicitly. The agent makes them explicitly or not at all — and what is not in the instruction artifact does not happen.</li>
+      <li><strong>What must remain visible or human?</strong> The five-bx answers. The decision points. The record. The verification step that is outside the agent's control.</li>
+    </ol>
+
+    <!-- ── 7. Summary ─────────────────────────────── -->
+    <h3 style="font-family: var(-mono); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em; margin: 1.75rem 0 0.75rem;">7 · summary</h3>
+
+    <ul style="padding-left: 1.3rem; line-height: 1.55;">
+      <li>Agents combine models, tools, loops, and memory. Their defining feature is autonomy — acting without per-step human approval.</li>
+      <li>Bounded delegation: grant enough authority to be useful, not enough to lose control. Use the five-box check.</li>
+      <li>Persistent instructions document methodological decisions. They are text, not gates — they shape behaviour but do not guarantee it.</li>
+      <li>Stress-test instruction artifacts with a peer. If someone else cannot follow it silently, it is not ready.</li>
+      <li>The audit trail is the evidence. If you cannot reconstruct what the agent did and why, you cannot publish the result.</li>
+    </ul>
+
+    <!-- ── What's Next ─────────────────────────────── -->
+    <h3 style="font-family: var(-mono); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em; margin: 1.75rem 0 0.75rem;">what's next</h3>
+
+    <p><strong>Module 7</strong> provides the evidence framework for evaluating everything you have built: the seven validation checks, reproducibility standards, data boundaries, and disclosure requirements. Every module so far has pointed toward this — now you get the full treatment.</p>
+
+    <p><strong>Module 8</strong> integrates everything into a coherent research workflow and helps you build the final portfolio: task, baseline, experiment, evidence, decision, disclosure.</p>
+
+  </section>
+
+  <hr class="rule">
+
+  <!-- ───────────────────────────────────────────────────────
+       E X E R C I S E S
+      ─────────────────────────────────────────────── -->
+  <section id="exercises" class="section">
+    <h2 class="section__title"><spn class="section__mark">§</span> exercises</h2>
+
+    <!-- Exercise 6.1 ─────────────────────────── -->
+    <h3 style="font-family: var(-mono); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em; margin: 1.25rem 0 0.5rem;">exercise 6.1 · classify by autonomy level</h3>
+
+    <p>For each scenario, identify the autonomy level (0–5) from the workbook:</p>
+
+    <ol style="padding-left: 1.3rem; line-height: 1.55;">
+      <li>You paste a prompt into a chat window and receive a text response. <strong>Level:</strong> ___</li>
+      <li>You ask the system to read a CSV and produce summary statistics; it does so and displays them. <strong>Level:</strong> ___</li>
+      <li>You give the system access to a folder of papers and ask it to screen them, write a CSV, and save it. It reads, classifies, writes, and reports what it did — without asking between steps. <strong>Level:</strong> ___</li>
+      <li>You schedule a script to run every morning: search for new papers, screen them, and email you the ones that pass. <strong>Level:</strong> ___</li>
+      <li>You ask the system to draft a literature review. It searches for papers, reads them, writes the review, and saves it — all while you are at lunch. <strong>Level:</strong> ___</li>
+    </ol>
+
+    <detals class="exercise-detals">
+      <sumary>answer key</summary>
+      <div class="answer-body">
+        <p><strong>1. Level 0 (Chat)</strong> — Pure ext-in/text-out, no tools.</p>
+        <p><strong>2. Level 1 (Chat + tools)</strong> — The system used a code interpreter tool once, at your request.</p>
+        <p><strong>3. Level 4 (Agent)</strong> — The system acted in a loop (read → classify → write → report) without per-step approval, but within defined boundaries.</p>
+        <p><strong>4. Level 5 (Unattended agent)</strong> — The system runs without a human in the loop at all. You check the output later.</p>
+        <p><strong>5. Level 5 (Unattended agent)</strong> — Multiple tool uses, no human in the loop, output delivered after the fact.</p>
+        <p style="margin-top: 0.75rem; font-style: italic;">Note: scenario 3 and scenario 5 are both agent runs, but scenario 5 delegates more (search strategy, paper selection, synthesis writing) and removes the human further. The difference between level 4 and level 5 is whether a human reviews before publication or use.</p>
+      </div>
+    </detals>
+
+    <!-- Exercise 6.2 ─────────────────────────── -->
+    <h3 style="font-family: var(-mono); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em; margin: 1.5rem 0 0.5rem;">exercise 6.2 · the five-box check</h3>
+
+    <p>Choose a research task you might delegate to an agent — ideally from your capability map (Module 1). Fill in all five boxes:</p>
+
+    <p><strong>Task:</strong> _______________</p>
+
+    <div class="five-box" style="margin: 0.75rem 0 1rem;">
+      <div class="five-box__item">
+        <span class="five-box__num">box 1 · access</span>
+        <p><strong>What can it access?</strong> _______________</p>
+      </div>
+      <div class="five-box__item">
+        <span class="five-box__num">box 2 · autonomy</span>
+        <p><strong>What can it do without asking?</strong> _______________</p>
+      </div>
+      <div class="five-box__item">
+        <span cass="five-box__num">box 3 · human decision</span>
+        <p><strong>Where is the human decision?</strong> _______________</p>
+      </div>
+      <div class="five-box__item">
+        <span cass="five-box__num">box 4 · record</span>
+        <p><strong>What record remains?</strong> _______________</p>
+      </div>
+      <div class="five-box__item">
+        <span cass="five-box__num">box 5 · failure</span>
+        <p><strong>How does it fail safely?</strong> _______________</p>
+      </div>
+    </div>
+
+    <p>Now ask: if you handed these five boxes to a colleague, could they predict what the agent would do and what you would review? If any box is vague, make it specific.</p>
+
+    <detals class="exercise-detals">
+      <sumary>answer key</summary>
+      <div class="answer-body">
+        <p>A good five-box check is:</p>
+        <ul>
+          <li><strong>Specific about access:</strong> Names folders, databases, or APIs — not "my computer"</li>
+          <li><strong>Honest about autonomy:</strong> Distinguishes actions the agent can take without asking from actions that require approval</li>
+          <li><strong>Explicit about decisions:</strong> Names the exact point where the human reviews and can override</li>
+          <li><strong>Auditable:</strong> The record would let a reviewer reconstruct what happened</li>
+          <li><strong>Safe by default:</strong> The failure mode is "stop and report," not "continue with assumptions"</li>
+        </ul>
+        <p style="margin-top: 0.5rem; font-style: italic;">Common gaps: access that is too broad ("my whole drive"); no named human decision point (the agent "just does it"); record is "the final output" (not the actions that produced it); failure mode is "try again" (which may compound errors).</p>
+      </div>
+    </detals>
+
+    <!-- Exercise 6.3 ─────────────────────────── -->
+    <h3 style="font-family: var(-mono); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em; margin: 1.5rem 0 0.5rem;">exercise 6.3 · write an instruction artifact</h3>
+
+    <p>Write an instruction artifact (CLAUDE.md, AGENTS.md, or a skill) for a bounded research task. Use the six-question template from the workbook (Section 3):</p>
+
+    <ol style="padding-left: 1.3rem; line-height: 1.55;">
+      <li><strong>Task authorised:</strong> _______________</li>
+      <li><strong>Inputs allowed:</strong> _______________</li>
+      <li><strong>Decisions already specified:</strong> _______________</li>
+      <li><strong>When to stop or ask:</strong> _______________</li>
+      <li><strong>Output and record:</strong> _______________</li>
+      <li><strong>How checked:</strong> _______________</li>
+    </ol>
+
+    <p>Keep it short — a good instruction artifact is precise, not long.</p>
+
+    <detals class="exercise-detals">
+      <sumary>answer key</summary>
+      <div class="answer-body">
+        <p>Here is an example for a literature screening task:</p>
+
+        <div class="artifact-demo">
+          <h4>Literature Screening Agent</h4>
+
+          <h4>Task authorised</h4>
+          <p>Screen the supplied abstracts (data/screening_input.csv) using the codebook in codebook.md. For each abstract, return RETAIN or EXCLUDE with the specific rule applied and a one-sentence reason.</p>
+
+          <h4>Inputs allowed</h4>
+          <p>- data/screening_input.csv (read-only)<br>- codebook.md (read-only)</p>
+
+          <h4>Decisions already specified</h4>
+          <p>- The codebook is fixed. Do not revise categories or decision rules.<br>- If an abstract is ambiguous, RETAIN for full-text assessment.<br>- Missing information is a reason to RETAIN, not EXCLUDE.</p>
+
+          <h4>When to stop or ask</h4>
+          <p>- If you cannot determine the document type from the available metadata, flag the record and continue.<br>- If the input file is malformed or empty, stop and report the error.<br>- Stop after processing all records. Do not paginate or search for more.</p>
+
+          <h4>Output and record</h4>
+          <p>- Write results to data/screening_output.csv with columns: item_id, decision, rule, reason, timetamp<br>- Write a run log to data/screening_log.md with: model, date, total records, counts per decision, any flags</p>
+
+          <h4>How checked</h4>
+          <p>- The human will review all EXCLUDE decisions and a random 20% of RETAIN decisions against the codebook.<br>- Any record flagged for ambiguity will be resolved by the human.<br>- The screening_output.csv will be compared to a human-coded sample.</p>
+        </div>
+      </div>
+    </detals>
+
+    <!-- Exercise 6.4 ─────────────────────────── -->
+    <h3 style="font-family: var(-mono); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em; margin: 1.5rem 0 0.5rem;">exercise 6.4 · stress-test an artifact</h3>
+
+    <p>Exchange your instruction artifact from Exercise 6.3 with a partner (or use the example in the answer key above). Without asking the author any questions:</p>
+
+    <ol style="padding-left: 1.3rem; line-height: 1.55;">
+      <li>Follow the artifact exactly. Record every point where you had to guess.</li>
+      <li>List what the artifact did NOT specify that you needed to know.</li>
+    </ol>
+
+    <p>Now discuss with the author. What did they assume you would know? What did you interpret differently than they intended?</p>
+
+    <detals class="exercise-detals">
+      <sumary>answer key</summary>
+      <div class="answer-body">
+        <p>Common gaps that stress testing reveals:</p>
+        <ul>
+          <li><strong>Assumed knowledge:</strong> "Screen using the codebook" — but how? One abstract at a time? All at once? In what format?</li>
+          <li><strong>Undefined terms:</strong> "Flag the record" — what does flagging mean? A column? A separate file? A note in the log?</li>
+          <li><strong>Missing edge cases:</strong> What if an abstract is in a language the agent cannot read? What if the codebook references a category that does not appear in any abstract?</li>
+          <li><strong>Implicit workflow:</strong> The author knows the steps; the artifact does not state them. "Screen the abstracts" assumes the reader knows whether to do it in one prompt or many, in what order, with what checks between steps.</li>
+        </ul>
+        <p>The stress test is not a test of the reader. It is a test of the artifact. Every guess the reader had to make is a gap in the artifact.</p>
+      </div>
+    </detals>
+
+    <!-- Exercise 6.5 ─────────────────────────── -->
+    <h3 style="font-family: var(-mono); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em; margin: 1.5rem 0 0.5rem;">exercise 6.5 · audit the agent run</h3>
+
+    <p>Open the agent demonstration at <code>lab/agent_demo.html</code>. Review the run transcript and output. Then answer:</p>
+
+    <ol style="padding-left: 1.3rem; line-height: 1.55;">
+      <li><strong>What did the agent get right?</strong> _______________</li>
+      <li><strong>What did it get wrong?</strong> _______________</li>
+      <li><strong>Would you have caught the errors from the output alone (without the transcript)?</strong> _______________</li>
+      <li><strong>What would you change in the instruction artifact to prevent the errors?</strong> _______________</li>
+      <li><strong>Would you accept this output for a publication?</strong> Why or why not?</li>
+    </ol>
+
+    <detals class="exercise-detals">
+      <sumary>answer key</summary>
+      <div class="answer-body">
+        <p>The specific errors depend on the demonstration version, but common patterns:</p>
+        <ul>
+          <li><strong>Errors invisible from output alone:</strong> The agent classified a paper incorrectly, but the output CSV looks correct — only the transcript reveals the misclassification. This is why the transcript matters.</li>
+          <li><strong>Plausible wrong answers:</strong> The agent wrote a confident-sounding synthesis that misrepresents some papers. The fluency of the output does not correlate with its accuracy.</li>
+          <li><strong>Instruction gaps:</strong> The agent made a reasonable decision that violated the researcher's intent because the instruction artifact did not specify the constraint. The fix is a clearer artifact, not a smarter model.</li>
+        </ul>
+        <p style="margin-top: 0.5rem; font-style: italic;">The core lesson: <strong>an agent run without an auditable transcript is a black box.</strong> If you cannot inspect what the agent did, you cannot verify its output — and you cannot publish it.</p>
+      </div>
+    </detals>
+
+  </section>
+
+  <hr class="rule">
+
+  <!-- ───────────────────────────────────────────────────────
+       R E A D I N G S
+      ─────────────────────────────────────────────── -->
+  <section id="readngs" class="section">
+    <h2 class="section__title"><spn class="section__mark">§</span> annotated readings</h2>
+
+    <h3 style="font-family: var(-mono); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em; margin: 1.25rem 0 0.75rem;">core readings</h3>
+
+    <div class="reading-entry">
+      <h4>Spirling, A., Smith, N. A., &amp; Palmer, A. (2023). "Using Proprietary Language Models in Academic Research Requires Explicit Justification." <em>Nature Computational Science</em>.</h4>
+      <p class="why-read">why read it</p>
+      <p>The case for justifying <em>which model</em> you use, not just <em>that</em> you used one. Proprietary models can be deprecated, modified, or withdrawn without notice. Open-weight models can be preserved and re-run. The choice affects reproducibility.</p>
+      <p class="why-read">what to take</p>
+      <p>Your disclosure should name the model and justify the choice. "Convenience" is not a methodological justification. If you use a proprietary model, explain why an open-weight alternative was not suitable.</p>
+    </div>
+
+    <div class="reading-entry">
+      <h4>Kapoor, S., &amp; Narayanan, A. (2023). "Leakage and the Reproducibility Crisis in Machine-Learning-Based Science." <em>Patterns</em>, 4(9).</h4>
+      <p class="why-read">why read it</p>
+      <p>A clear explanation of data leakage and its consequences. Relevant to agents because an agent that searches the web or accesses a database may retrieve information that contaminates what should be a held-out test.</p>
+      <p class="why-read">what to take</p>
+      <p>Know what your agent can access. If it can search the web, it can find the papers you are asking it to classify — and its "classification" may be retrieval, not judgment.</p>
+    </div>
+
+    <div class="reading-entry">
+      <h4>Christin, A. (2020). "The Ethnographer and the Algorithm: Beyond the Black Box." <em>Global Perspectives</em>, 1(1).</h4>
+      <p class="why-read">why read it</p>
+      <p>An ethnographic perspective on algorithmic systems. Christin argues that the "black box" metaphor is misleading — algorithms are not opaque by nature; they are made opaque by the practices around them. The same applies to agents.</p>
+      <p class="why-read">what to take</p>
+      <p>Opacity is a choice. An agent whose actions are recorded is less of a black box than a chat interface whose internal reasoning is hidden. Design for auditability.</p>
+    </div>
+
+    <h3 style="font-family: var(--mono); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em; margin: 1.75rem 0 0.75rem;">methodological readings</h3>
+
+    <div class="reading-entry">
+      <h4>Wu, T., Terry, M., &amp; Cai, C. J. (2022). "AI Chains: Transparent and Controllable Human-AI Interaction by Chaining Large Language Model Prompts." <em>Proceedings of the 2022 CHI Conference</em>.</h4>
+      <p class="why-read">why read it</p>
+      <p>A framework for breaking complex AI tasks into chains of smaller, inspectable steps — each with a human check between them. This is the alternative to giving an agent a large task and hoping.</p>
+      <p class="why-read">what to take</p>
+      <p>Prefer chains to monoliths. A chain of small, verifiable steps (search → screen → extract → synthesise, with human review between each) is more auditable than one large agent run.</p>
+    </div>
+
+    <div class="reading-entry">
+      <h4>Zhou, S., et al. (2024). "Swe-agent: Agent-Computer Interfaces Enable Automated Software Engineering." <em>arXiv</em>.</h4>
+      <p class="why-read">why read it</p>
+      <p>A technical paper on agent design, but the principles transfer: define the interface (what the agent can see and do), provide feedback (what happened after each action), and maintain a state (what the agent knows so far).</p>
+      <p class="why-read">what to take</p>
+      <p>An agent's design — what it can access, what it can do, what feedback it receives — shapes its behaviour more than the underlying model. A well-designed agent with a modest model can outperform a poorly-designed agent with a powerful model.</p>
+    </div>
+
+    <h3 style="font-family: var(--mono); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em; margin: 1.75rem 0 0.75rem;">optional: going deeper</h3>
+
+    <div class="reading-entry">
+      <h4>Park, J. S., et al. (2023). "Generative Agents: Interactive Simulacra of Human Behavior." <em>Proceedings of the 36th Annual ACM Symposium on User Interface Software and Technology</em>.</h4>
+      <p class="why-read">why read it</p>
+      <p>The paper that introduced generative agents — LLM-powered agents with memory, planning, and reflection. It is a research paper, not a how-to guide, but it illustrates what agents can do when given persistent memory and a planning loop.</p>
+      <p class="why-read">what to take</p>
+      <p>Memory changes agent behaviour qualitatively. An agent that remembers previous runs is a different system from one that starts fresh each time. Your instruction artifact should specify whether the agent persists state between runs.</p>
+    </div>
+
+    <h3 style="font-family: var(--mono); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em; margin: 1.75rem 0 0.75rem;">read later (across modules)</h3>
+
+    <ul style="padding-left: 1.3rem; line-height: 1.55; font-size: 0.9rem;">
+      <li><strong>ERA Living Guidelines (2026)</strong> and <strong>UZH Recommendations (2023)</strong> on responsible AI use — particularly relevant for unattended agent runs. See Module 7.</li>
+      <li><strong>Barrie, Palmer &amp; Spirling (forthcoming)</strong> on replication — what to record so that an agent run can be reproduced. See Module 7.</li>
+    </ul>
+
+  </section>
+
+  <hr class="rule rule--thick">
+
+  <footer class="colophon">
+    <p>
+      <span>set in charter &amp; jetbrains mono.</span>
+      <span>html + css.</span>
+      <span>no trackers.</span>
+    </p>
+    <p>module 06 of 8 · AI as a Research Tool: Workflow Design for the Social Sciences · University of Zurich · <a href="index.html" style="color: var(--ink-soft);">← course index</a></p>
+  </footer>
+
+</main>
+</body>
+</html>
