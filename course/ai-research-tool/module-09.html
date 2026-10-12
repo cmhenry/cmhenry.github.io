@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Module 09: Research Tools Directory · AI as a Research Tool</title>
+<meta name="description" content="A curated directory of AI tools for academic research — coding agents, model access, literature tools, and research infrastructure.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../styles/main.css">
+<style>
+  .back-link { font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.02em; margin-bottom: 2rem; }
+  .back-link a { color: var(--ink-soft); text-decoration: none; border-bottom: 1px dotted var(--ink-soft); padding-bottom: 1px; }
+  .back-link a:hover { background: var(--ink); color: var(--paper); border-bottom-color: transparent; }
+  .module-meta { font-family: var(--mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-soft); margin: 1rem 0; display: flex; flex-wrap: wrap; gap: 1rem; }
+  .module-meta span { white-space: nowrap; }
+
+  .tool-section { margin: 2rem 0; }
+  .tool-section h3 {
+    font-family: var(--mono);
+    font-weight: 500;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin: 0 0 1rem;
+    color: var(--ink);
+    border-bottom: 1px solid var(--ink);
+    padding-bottom: 0.4rem;
+  }
+
+  .tool-entry {
+    margin: 0 0 1.25rem;
+    padding-left: 0;
+  }
+  .tool-entry__name {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: 1rem;
+    margin: 0 0 0.15rem;
+  }
+  .tool-entry__name a { text-decoration-thickness: 1px; }
+  .tool-entry__tags {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-soft);
+    margin: 0 0 0.3rem;
+  }
+  .tool-entry__tags .tag-pill {
+    display: inline-block;
+    border: 1px solid var(--ink-soft);
+    padding: 0.05em 0.5em;
+    margin-right: 0.4em;
+    white-space: nowrap;
+  }
+  .tool-entry__desc {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: var(--ink-soft);
+    margin: 0;
+  }
+
+  .category-nav {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.02em;
+    line-height: 1.8;
+    margin-bottom: 1rem;
+  }
+  .category-nav a {
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--ink-soft);
+    padding-bottom: 1px;
+  }
+  .category-nav a:hover { background: var(--ink); color: var(--paper); border-bottom-color: transparent; }
+  .category-nav span { color: var(--mute); padding: 0 0.3em; }
+
+  .note { border-left: 2px solid var(--ink); padding: 0.5rem 0 0.5rem 1.25rem; margin: 1rem 0; font-style: italic; font-size: 0.9rem; color: var(--ink-soft); }
+
+  .course-lens { margin: 1.5rem 0; padding: 1rem; border: 1px solid var(--ink); }
+  .course-lens h4 { font-family: var(--mono); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.14em; margin: 0 0 0.5rem; }
+  .course-lens p { font-size: 0.88rem; line-height: 1.45; margin: 0 0 0.5rem; }
+  .course-lens p:last-child { margin: 0; }
+
+  hr.rule-thin { border: 0; border-top: 1px dotted var(--ink-soft); margin: 0.75rem 0; }
+</style>
+</head>
+<body>
+<main class="page">
+
+  <p class="back-link"><a href="index.html">← course index</a></p>
+
+  <header class="masthead">
+    <h1 class="name" style="font-size: clamp(2rem, 8vw, 3.5rem);">
+      <span class="name__line">Module 09</span><span class="name__line">Research Tools</span>
+    </h1>
+    <p class="module-meta">
+      <span>⏱ reference</span>
+      <span>📋 curated directory</span>
+      <span>📌 any time</span>
+      <span>🎯 tools for your research workflow</span>
+    </p>
+  </header>
+
+  <hr class="rule">
+
+  <nav class="nav" aria-label="module">
+    <a href="#why">why this exists</a><span class="nav__sep">~</span>
+    <a href="#coding">coding agents</a><span class="nav__sep">~</span>
+    <a href="#agentic">agentic systems</a><span class="nav__sep">~</span>
+    <a href="#models">model access</a><span class="nav__sep">~</span>
+    <a href="#lit">literature & writing</a><span class="nav__sep">~</span>
+    <a href="#infra">infrastructure</a>
+  </nav>
+
+  <hr class="rule">
+
+  <section id="why">
+    <h2 class="section__title"><span class="section__mark">§</span> why this exists</h2>
+
+    <p>The AI tools landscape moves fast. By the time you read this, some tools listed here will have changed names, merged, or disappeared. That is expected. This directory is not a consumer guide — it is a <strong>curated map of the tool <em>categories</em></strong> that matter for academic research, with representative examples in each.</p>
+
+    <p>Every tool listed here is either <strong>free</strong>, <strong>open-source</strong>, or has a <strong>free tier sufficient for academic use</strong>. No tool on this list requires a paid subscription to evaluate. Tools marked <span style="font-family: var(--mono); font-size: 0.7rem; text-transform: uppercase;">[oss]</span> are open-source; tools marked <span style="font-family: var(--mono); font-size: 0.7rem; text-transform: uppercase;">[free]</span> have workable free tiers.</p>
+
+    <div class="course-lens">
+      <h4>apply the four questions</h4>
+      <p><strong>1. What is being delegated?</strong> You are delegating tool discovery, not tool selection. This list is a starting point, not a recommendation.</p>
+      <p><strong>2. What would make a tool choice believable?</strong> Test it on your own task, with your own data, against an explicit criterion. Do not adopt a tool because it appears on a curated list.</p>
+      <p><strong>3. What could be lost?</strong> Time spent evaluating tools that don't fit your workflow. The research question should drive tool choice, not the reverse.</p>
+      <p><strong>4. What must remain human?</strong> The decision of which tool to use, under what data-governance constraints, and with what verification.</p>
+    </div>
+  </section>
+
+  <hr class="rule">
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- CODING AGENTS & HARNESSES -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+
+  <section id="coding" class="tool-section">
+    <h3>Ⅰ · coding agents & terminal harnesses</h3>
+    <p style="font-size:0.9rem; color: var(--ink-soft); margin: 0 0 1rem;">AI tools that write, edit, and explain code — from your terminal, editor, or browser.</p>
+
+    <div class="tool-entry">
+      <p class="tool-entry__name"><a href="https://docs.anthropic.com/en/docs/claude-code">Claude Code</a></p>
+      <p class="tool-entry__tags"><span class="tag-pill">terminal</span> <span class="tag-pill">anthropic</span> <span class="tag-pill">mcp</span></p>
+      <p class="tool-entry__desc">Anthropic's terminal-native coding agent. Deep codebase understanding, git-aware, with Model Context Protocol (MCP) for extensible tool use. Free tier via Claude Max subscription; also available via OpenRouter.</p>
+    </div>
+
+    <div class="tool-entry">
+      <p class="tool-entry__name"><a href="https://github.com/openai/codex">OpenAI Codex CLI</a></p>
+      <p class="tool-entry__tags"><span class="tag-pill">terminal</span> <span class="tag-pill">openai</span> <span class="tag-pill">oss</span> <span class="tag-pill">sandboxed</span></p>
+      <p class="tool-entry__desc">OpenAI's lightweight open-source coding agent. Cloud sandboxed execution, git worktree isolation. Runs via OpenAI OAuth or API key. The open-source reference implementation for terminal coding agents.</p>
+    </div>
+
+    <div class="tool-entry">
+      <p class="tool-entry__name"><a href="https://opencode.ai/">OpenCode</a></p>
+      <p class="tool-entry__tags"><span class="tag-pill">terminal</span> <span class="tag-pill">oss</span> <span class="tag-pill">multi-model</span></p>
+      <p class="tool-entry__desc">Open-source terminal AI agent from SST with 150K+ GitHub stars. Supports 75+ model providers. Free, privacy-first, with LSP integration. GitHub Copilot auth partnership for free model access.</p>
+    </div>
+
+    <div class="tool-entry">
+      <p class="tool-entry__name"><a href="https://aider.chat/">Aider</a></p>
+      <p class="tool-entry__tags"><span class="tag-pill">terminal</span> <span class="tag-pill">oss</span> <span class="tag-pill">git-native</span></p>
+      <p class="tool-entry__desc">Terminal-based AI pair programming tool. Every AI edit is auto-committed to git. Model-agnostic — works with Claude, GPT, Gemini, and local models. Strong for iterative editing of existing codebases.</p>
+    </div>
+
+    <div class="tool-entry">
+      <p class="tool-entry__name"><a href="https://github.com/google-gemini/gemini-cli">Gemini CLI</a></p>
+      <p class="tool-entry__tags"><span class="tag-pill">terminal</span> <span class="tag-pill">google</span> <span class="tag-pill">oss</span> <span class="tag-pill">free</span></p>
+      <p class="tool-entry__desc">Google's open-source terminal agent. Free tier includes Gemini 2.5 Pro access with 1M token context window. Being succeeded by Antigravity CLI but remains functional and widely used.</p>
+    </div>
+
+    <div class="tool-entry">
+      <p class="tool-entry__name"><a href="https://www.cursor.com/">Cursor</a></p>
+      <p class="tool-entry__tags"><span class="tag-pill">ide</span> <span class="tag-pill">vscode-fork</span></p>
+      <p class="tool-entry__desc">AI-first VS Code fork. Multi-file edits, agent mode, codebase-wide chat. Currently the category leader for AI-augmented IDEs. Free tier available; Pro subscription for extended usage.</p>
+    </div>
+
+    <div class="tool-entry">
+      <p class="tool-entry__name"><a href="https://github.com/cline/cline">Cline</a></p>
+      <p class="tool-entry__tags"><span class="tag-pill">vscode</span> <span class="tag-pill">oss</span> <span class="tag-pill">autonomous</span></p>
+      <p class="tool-entry__desc">Autonomous coding agent that runs inside VS Code. Can create/edit files, run commands, browse the web, and use MCP servers. Open-source. Uses your own API keys.</p>
+    </div>
+
+    <div class="tool-entry">
+      <p class="tool-entry__name"><a href="https://github.com/SST/open-code">Roo Code</a></p>
+      <p class="tool-entry__tags"><span class="tag-pill">vscode</span> <span class="tag-pill">oss</span> <span class="tag-pill">multi-mode</span></p>
+      <p class="tool-entry__desc">Cline fork with multi-mode agent loop (code, architect, debug). VS Code extension. Supports configurable modes for different task types.</p>
+    </div>
+
+    <div class="tool-entry">
+      <p class="tool-entry__name"><a href="https://github.com/continuedev/continue">Continue</a></p>
+      <p class="tool-entry__tags"><span class="tag-pill">ide</span> <span class="tag-pill">oss</span> <span class="tag-pill">self-hosted</span></p>
+      <p class="tool-entry__desc">Open-source IDE assistant for VS Code and JetBrains. Self-hostable. Configurable models. Good for researchers who want an AI coding assistant without vendor lock-in.</p>
+    </div>
+  </section>
+
+  <hr class="rule">
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- AGENTIC SYSTEMS & ORCHESTRATORS -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+
+  <section id="agentic" class="tool-section">
+    <h3>Ⅱ · agentic systems & orchestrators</h3>
+    <p style="font-size:0.9rem; color: var(--ink-soft); margin: 0 0 1rem;">Systems that coordinate multiple AI agents, manage workflows, or operate as autonomous research assistants.</p>
+
+    <div class="tool-entry">
+      <p class="tool-entry__name"><a href="https://github.com/nousresearch/hermes-agent">Hermes Agent</a></p>
+      <p class="tool-entry__tags"><span class="tag-pill">agent</span> <span class="tag-pill">oss</span> <span class="tag-pill">nous</span> <span class="tag-pill">multi-platform</span></p>
+      <p class="tool-entry__desc">Self-improving AI agent by Nous Research. Built-in learning loop — creates skills from experience, improves them during use, searches past conversations. Runs on any LLM provider. Connects via Telegram, Slack, Discord, WhatsApp, Signal, and CLI. Scheduled automations, subagent parallelism. Research-ready with batch trajectory generation.</p>
+    </div>
+
+    <div class="tool-entry">
+      <p class="tool-entry__name"><a href="https://github.com/All-Hands-AI/OpenHands">OpenHands</a></p>
+      <p class="tool-entry__tags"><span class="tag-pill">platform</span> <span class="tag-pill">oss</span> <span class="tag-pill">mit</span> <span class="tag-pill">sandboxed</span></p>
+      <p class="tool-entry__desc">Open-source platform for AI software developers as generalist agents. Docker-sandboxed execution, multi-agent delegation, evaluation framework. 64K+ GitHub stars. Strong for prototyping agent workflows in a safe environment.</p>
+    </div>
+
+    <div class="tool-entry">
+      <p class="tool-entry__name"><a href="https://github.com/langchain-ai/open-swe">Open SWE</a></p>
+      <p class="tool-entry__tags"><span class="tag-pill">platform</span> <span class="tag-pill">oss</span> <span class="tag-pill">langchain</span> <span class="tag-pill">async</span></p>
+      <p class="tool-entry__desc">Open-source software factory by LangChain. Turns engineering work into repeatable systems: investigate, implement, validate, deliver PRs. Reviews code, monitors CI, responds to feedback. Deployable in your own infrastructure.</p>
+    </div>
+
+    <div class="tool-entry">
+      <p class="tool-entry__name"><a href="https://devin.ai/">Devin</a></p>
+      <p class="tool-entry__tags"><span class="tag-pill">platform</span> <span class="tag-pill">autonomous</span> <span class="tag-pill">cognition</span></p>
+      <p class="tool-entry__desc">Cognition's autonomous AI software engineer. Browser, shell, and editor in one sandbox. Runs tasks asynchronously. Commercial product; academic pricing may be available.</p>
+    </div>
+
+    <div class="tool-entry">
+      <p class="tool-entry__name"><a href="https://github.com/crewAIInc/crewAI">CrewAI</a></p>
+      <p class="tool-entry__tags"><span class="tag-pill">framework</span> <span class="tag-pill">oss</span> <span class="tag-pill">multi-agent</span></p>
+      <p class="tool-entry__desc">Role-based multi-agent framework. Define agents with roles, goals, and tools; orchestrate them as a crew. Python library. Useful for designing research workflows with specialized AI roles.</p>
+    </div>
+
+    <div class="tool-entry">
+      <p class="tool-entry__name"><a href="https://github.com/microsoft/autogen">AutoGen</a></p>
+      <p class="tool-entry__tags"><span class="tag-pill">framework</span> <span class="tag-pill">oss</span> <span class="tag-pill">microsoft</span></p>
+      <p class="tool-entry__desc">Microsoft's conversational multi-agent framework. Agents can chat with each other, use tools, and incorporate human feedback. Strong for designing collaborative research assistant workflows.</p>
+    </div>
+
+    <div class="tool-entry">
+      <p class="tool-entry__name"><a href="https://github.com/langchain-ai/langgraph">LangGraph</a></p>
+      <p class="tool-entry__tags"><span class="tag-pill">framework</span> <span class="tag-pill">oss</span> <span class="tag-pill">stateful</span></p>
+      <p class="tool-entry__desc">Stateful multi-agent graph framework from LangChain. Durable execution, thread state, checkpointing. Good foundation for building research pipelines that need reliable agent state management.</p>
+    </div>
+  </section>
+
+  <hr class="rule">
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- MODEL ACCESS & DATABASES -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+
+  <section id="models" class="tool-section">
+    <h3>Ⅲ · model access & registries</h3>
+    <p style="font-size:0.9rem; color: var(--ink-soft); margin: 0 0 1rem;">Where to find, access, and run language models — from cloud APIs to local hardware.</p>
+
+    <div class="tool-entry">
+      <p class="tool-entry__name"><a href="https://huggingface.co/models">HuggingFace Hub</a></p>
+      <p class="tool-entry__tags"><span class="tag-pill">registry</span> <span class="tag-pill">free</span> <span class="tag-pill">community</span></p>
+      <p class="tool-entry__desc">The primary repository for open-weight models. 500K+ models, datasets, and demos. Free model hosting and inference API. Essential for discovering and accessing research models.</p>
+    </div>
+
+    <div class="tool-entry">
+      <p class="tool-entry__name"><a href="https://openrouter.ai/">OpenRouter</a></p>
+      <p class="tool-entry__tags"><span class="tag-pill">api</span> <span class="tag-pill">multi-provider</span> <span class="tag-pill">free-tier</span></p>
+      <p class="tool-entry__desc">Unified API for 300+ models across providers. Single API key accesses OpenAI, Anthropic, Google, Meta, DeepSeek, and dozens more. Free tier available. Good for comparing models without managing multiple accounts.</p>
+    </div>
+
+    <div class="tool-entry">
+      <p class="tool-entry__name"><a href="https://ollama.com/">Ollama</a></p>
+      <p class="tool-entry__tags"><span class="tag-pill">local</span> <span class="tag-pill">oss</span> <span class="tag-pill">privacy</span></p>
+      <p class="tool-entry__desc">Run LLMs locally on your own hardware. Simple CLI: `ollama run llama3.2`. Supports Llama, Mistral, Qwen, DeepSeek, Gemma, and more. No data leaves your machine. Essential for working with sensitive research data.</p>
+    </div>
+
+    <div class="tool-entry">
+      <p class="tool-entry__name"><a href="https://lmstudio.ai/">LM Studio</a></p>
+      <p class="tool-entry__tags"><span class="tag-pill">local</span> <span class="tag-pill">gui</span> <span class="tag-pill">free</span></p>
+      <p class="tool-entry__desc">Desktop application for running LLMs locally. Browse HuggingFace models, download, and run with a chat interface. No terminal required. Good for researchers who want a GUI for local model experimentation.</p>
+    </div>
+
+    <div class="tool-entry">
+      <p class="tool-entry__name"><a href="https://replicate.com/">Replicate</a></p>
+      <p class="tool-entry__tags"><span class="tag-pill">api</span> <span class="tag-pill">hosted</span> <span class="tag-pill">cog</span></p>
+      <p class="tool-entry__desc">Cloud API for running open-source models. Pay-per-inference. Cog framework for packaging models. Good for running models that won't fit on your hardware without managing cloud infrastructure.</p>
+    </div>
+
+    <div class="tool-entry">
+      <p class="tool-entry__name"><a href="https://github.com/BerriAI/litellm">LiteLLM</a></p>
+      <p class="tool-entry__tags"><span class="tag-pill">proxy</span> <span class="tag-pill">oss</span> <span class="tag-pill">unified-api</span></p>
+      <p class="tool-entry__desc">Unified gateway for 100+ LLM providers with an OpenAI-compatible API. Self-hostable. Load balancing, fallbacks, spend tracking. Useful for research projects that need provider-agnostic model access.</p>
+    </div>
+
+    <div class="tool-entry">
+      <p class="tool-entry__name"><a href="https://github.com/ggml-org/llama.cpp">llama.cpp</a></p>
+      <p class="tool-entry__tags"><span class="tag-pill">local</span> <span class="tag-pill">oss</span> <span class="tag-pill">c++</span> <span class="tag-pill">gguf</span></p>
+      <p class="tool-entry__desc">C/C++ inference for LLMs in GGUF format. Runs on CPU, GPU (CUDA, Metal, Vulkan). The engine behind Ollama and most local LLM tools. Essential for researchers who need to run models on consumer hardware.</p>
+    </div>
+  </section>
+
+  <hr class="rule">
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- LITERATURE & WRITING -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+
+  <section id="lit" class="tool-section">
+    <h3>Ⅳ · literature, writing & academic tools</h3>
+    <p style="font-size:0.9rem; color: var(--ink-soft); margin: 0 0 1rem;">AI-powered tools for literature search, synthesis, writing, and academic workflow.</p>
+
+    <div class="tool-entry">
+      <p class="tool-entry__name"><a href="https://openalex.org/">OpenAlex</a></p>
+      <p class="tool-entry__tags"><span class="tag-pill">literature</span> <span class="tag-pill">free</span> <span class="tag-pill">api</span> <span class="tag-pill">open-data</span></p>
+      <p class="tool-entry__desc">Open catalog of 250M+ scholarly works. Free REST API with no rate limits for academic use. Replaces Microsoft Academic Graph. Essential for programmatic literature search. Used in Module 3 of this course.</p>
+    </div>
+
+    <div class="tool-entry">
+      <p class="tool-entry__name"><a href="https://www.semanticscholar.org/">Semantic Scholar</a></p>
+      <p class="tool-entry__tags"><span class="tag-pill">literature</span> <span class="tag-pill">free</span> <span class="tag-pill">api</span></p>
+      <p class="tool-entry__desc">AI-powered academic search engine. 200M+ papers with citation graph, TLDR summaries, and influence scores. Free API with generous rate limits. Strong for citation network exploration.</p>
+    </div>
+
+    <div class="tool-entry">
+      <p class="tool-entry__name"><a href="https://www.zotero.org/">Zotero</a></p>
+      <p class="tool-entry__tags"><span class="tag-pill">reference</span> <span class="tag-pill">free</span> <span class="tag-pill">oss</span></p>
+      <p class="tool-entry__desc">Open-source reference manager. Browser connector for one-click paper saving. PDF annotation, cloud sync (free up to 300MB). MCP server available for AI agent integration. The standard for academic reference management.</p>
+    </div>
+
+    <div class="tool-entry">
+      <p class="tool-entry__name"><a href="https://arxiv.org/">arXiv</a></p>
+      <p class="tool-entry__tags"><span class="tag-pill">preprint</span> <span class="tag-pill">free</span> <span class="tag-pill">api</span></p>
+      <p class="tool-entry__desc">Open-access preprint repository. 2.5M+ papers across physics, math, CS, econ, stats, and more. Free API for programmatic access. RSS feeds for new submissions in your field.</p>
+    </div>
+
+    <div class="tool-entry">
+      <p class="tool-entry__name"><a href="https://www.connectedpapers.com/">Connected Papers</a></p>
+      <p class="tool-entry__tags"><span class="tag-pill">literature</span> <span class="tag-pill">visual</span> <span class="tag-pill">free-tier</span></p>
+      <p class="tool-entry__desc">Visual citation graph explorer. Enter a paper, get a graph of related work with similarity-based layout. Good for getting oriented in a new field. Free tier with limited graphs per month.</p>
+    </div>
+
+    <div class="tool-entry">
+      <p class="tool-entry__name"><a href="https://elicit.com/">Elicit</a></p>
+      <p class="tool-entry__tags"><span class="tag-pill">literature</span> <span class="tag-pill">ai-search</span> <span class="tag-pill">free-tier</span></p>
+      <p class="tool-entry__desc">AI research assistant. Ask a research question, get a table of relevant papers with extracted findings, methods, and outcomes. Free tier available. Good for rapid literature scoping — but verify every extracted claim.</p>
+    </div>
+
+    <div class="tool-entry">
+      <p class="tool-entry__name"><a href="https://www.overleaf.com/">Overleaf</a></p>
+      <p class="tool-entry__tags"><span class="tag-pill">writing</span> <span class="tag-pill">latex</span> <span class="tag-pill">collaborative</span></p>
+      <p class="tool-entry__desc">Online LaTeX editor with real-time collaboration. Git integration. Many journals provide direct Overleaf submission. Free plan available.</p>
+    </div>
+
+    <div class="tool-entry">
+      <p class="tool-entry__name"><a href="https://obsidian.md/">Obsidian</a></p>
+      <p class="tool-entry__tags"><span class="tag-pill">notes</span> <span class="tag-pill">free</span> <span class="tag-pill">local-first</span></p>
+      <p class="tool-entry__desc">Local-first markdown knowledge base. Plain text files on your filesystem — no vendor lock-in. Graph view, backlinks, plugin ecosystem. Good for research notes, literature synthesis, and project management.</p>
+    </div>
+  </section>
+
+  <hr class="rule">
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- INFRASTRUCTURE -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+
+  <section id="infra" class="tool-section">
+    <h3>Ⅴ · research infrastructure & evaluation</h3>
+    <p style="font-size:0.9rem; color: var(--ink-soft); margin: 0 0 1rem;">Sandboxes, evaluation frameworks, and infrastructure for reliable AI-assisted research.</p>
+
+    <div class="tool-entry">
+      <p class="tool-entry__name"><a href="https://modelcontextprotocol.io/">Model Context Protocol (MCP)</a></p>
+      <p class="tool-entry__tags"><span class="tag-pill">protocol</span> <span class="tag-pill">anthropic</span> <span class="tag-pill">standard</span></p>
+      <p class="tool-entry__desc">Open standard for connecting AI agents to external tools and data sources. Supported by Claude Code, Codex CLI, Cursor, OpenCode, and others. Growing ecosystem of MCP servers for filesystems, databases, APIs, and research tools.</p>
+    </div>
+
+    <div class="tool-entry">
+      <p class="tool-entry__name"><a href="https://github.com/BerriAI/litellm">Weights & Biases</a></p>
+      <p class="tool-entry__tags"><span class="tag-pill">tracking</span> <span class="tag-pill">experiments</span> <span class="tag-pill">free-tier</span></p>
+      <p class="tool-entry__desc">Experiment tracking and model evaluation platform. Log hyperparameters, metrics, artifacts, and model checkpoints. Free tier for individuals. Useful for recording LLM evaluation runs with provenance.</p>
+    </div>
+
+    <div class="tool-entry">
+      <p class="tool-entry__name"><a href="https://github.com/EleutherAI/lm-evaluation-harness">lm-evaluation-harness</a></p>
+      <p class="tool-entry__tags"><span class="tag-pill">evaluation</span> <span class="tag-pill">oss</span> <span class="tag-pill">eleutherai</span></p>
+      <p class="tool-entry__desc">Standard framework for evaluating language models. 200+ benchmark tasks (MMLU, GSM8K, HellaSwag, etc.). Used by most model release papers. Essential if you need to benchmark a model for research claims.</p>
+    </div>
+
+    <div class="tool-entry">
+      <p class="tool-entry__name"><a href="https://github.com/browser-use/browser-use">Browser Use</a></p>
+      <p class="tool-entry__tags"><span class="tag-pill">browser</span> <span class="tag-pill">oss</span> <span class="tag-pill">agent-tool</span></p>
+      <p class="tool-entry__desc">Open-source browser automation for AI agents. Lets LLMs navigate websites, fill forms, extract data. Good for web-based research tasks like systematic data collection from online sources.</p>
+    </div>
+
+    <div class="tool-entry">
+      <p class="tool-entry__name"><a href="https://github.com/jina-ai/reader">Jina Reader</a></p>
+      <p class="tool-entry__tags"><span class="tag-pill">extraction</span> <span class="tag-pill">free</span> <span class="tag-pill">url-to-text</span></p>
+      <p class="tool-entry__desc">Convert any URL to clean, LLM-readable markdown. Prefix any URL with `r.jina.ai/` to get extracted text. Free tier. Useful for feeding web content into AI tools for analysis.</p>
+    </div>
+
+    <div class="tool-entry">
+      <p class="tool-entry__name"><a href="https://firecrawl.dev/">Firecrawl</a></p>
+      <p class="tool-entry__tags"><span class="tag-pill">extraction</span> <span class="tag-pill">api</span> <span class="tag-pill">free-tier</span></p>
+      <p class="tool-entry__desc">Turn websites into LLM-ready data. Crawls pages, extracts clean markdown, handles JavaScript rendering. Free tier available. Good for systematic web data collection for research.</p>
+    </div>
+
+    <div class="tool-entry">
+      <p class="tool-entry__name"><a href="https://github.com/run-llama/llama_index">LlamaIndex</a></p>
+      <p class="tool-entry__tags"><span class="tag-pill">framework</span> <span class="tag-pill">oss</span> <span class="tag-pill">rag</span></p>
+      <p class="tool-entry__desc">Data framework for LLM applications. Connect models to your data — documents, databases, APIs. Good for building retrieval-augmented generation (RAG) pipelines over research corpora.</p>
+    </div>
+
+    <div class="tool-entry">
+      <p class="tool-entry__name"><a href="https://github.com/microsoft/markitdown">MarkItDown</a></p>
+      <p class="tool-entry__tags"><span class="tag-pill">conversion</span> <span class="tag-pill">oss</span> <span class="tag-pill">microsoft</span></p>
+      <p class="tool-entry__desc">Microsoft's tool for converting files to markdown. Handles PDF, Word, Excel, PowerPoint, images, audio, HTML, CSV, JSON, XML, ZIP. Good for preparing documents for AI processing.</p>
+    </div>
+
+    <div class="tool-entry">
+      <p class="tool-entry__name"><a href="https://github.com/langgenius/docker">Docker</a></p>
+      <p class="tool-entry__tags"><span class="tag-pill">sandbox</span> <span class="tag-pill">containers</span> <span class="tag-pill">reproducibility</span></p>
+      <p class="tool-entry__desc">Container platform for reproducible environments. Run AI tools in isolation. Essential for ensuring that your research code runs identically on different machines. Many AI coding tools run inside Docker sandboxs.</p>
+    </div>
+  </section>
+
+  <hr class="rule rule--thick">
+
+  <footer class="colophon">
+    <p>
+      <span>set in charter &amp; jetbrains mono.</span>
+      <span>html + css.</span>
+      <span>no trackers.</span>
+    </p>
+    <p>curated october 2026 · tools change fast — verify before adopting · <a href="index.html" style="color: var(--ink-soft);">← ai as a research tool</a> · <a href="../../index.html" style="color: var(--ink-soft);">colin henry</a></p>
+  </footer>
+
+</main>
+</body>
+</html>
