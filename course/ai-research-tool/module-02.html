@@ -4,176 +4,50 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Module 02: Writing with AI · AI as a Research Tool</title>
-<meta name="description" content="Module 02: Writing with AI — 8-module self-paced course on using AI in social science research.">
+<meta name="description" content="Writing with AI — 8-module self-paced course on using AI in social science research.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../../styles/main.css">
 <style>
-  .back-link {
-    font-family: var(--mono);
-    font-size: 0.78rem;
-    letter-spacing: 0.02em;
-    margin-bottom: 2rem;
-  }
-  .back-link a {
-    color: var(--ink-soft);
-    text-decoration: none;
-    border-bottom: 1px dotted var(--ink-soft);
-    padding-bottom: 1px;
-  }
+  .back-link { font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.02em; margin-bottom: 2rem; }
+  .back-link a { color: var(--ink-soft); text-decoration: none; border-bottom: 1px dotted var(--ink-soft); padding-bottom: 1px; }
   .back-link a:hover { background: var(--ink); color: var(--paper); border-bottom-color: transparent; }
-
-  .module-meta {
-    font-family: var(--mono);
-    font-size: 0.72rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--ink-soft);
-    margin: 1rem 0;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-  }
+  .module-meta { font-family: var(--mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-soft); margin: 1rem 0; display: flex; flex-wrap: wrap; gap: 1rem; }
   .module-meta span { white-space: nowrap; }
-
-  .module-body h2 {
-    font-family: var(--mono);
-    font-weight: 500;
-    font-size: 0.95rem;
-    text-transform: uppercase;
-    letter-spacing: 0.16em;
-    margin: 2rem 0 0.75rem;
-    color: var(--ink);
-  }
-  .module-body h3 {
-    font-family: var(--serif);
-    font-weight: 400;
-    font-size: 1.15rem;
-    margin: 1.5rem 0 0.5rem;
-    line-height: 1.3;
-  }
-  .module-body p {
-    margin: 0 0 0.85rem;
-    line-height: 1.55;
-  }
-  .module-body ul, .module-body ol {
-    margin: 0 0 0.85rem;
-    padding-left: 1.5rem;
-    line-height: 1.55;
-  }
+  .module-body h2 { font-family: var(--mono); font-weight: 500; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.16em; margin: 2rem 0 0.75rem; color: var(--ink); }
+  .module-body h3 { font-family: var(--serif); font-weight: 400; font-size: 1.15rem; margin: 1.5rem 0 0.5rem; line-height: 1.3; }
+  .module-body h4 { font-family: var(--serif); font-weight: 400; font-size: 1.05rem; margin: 1.25rem 0 0.5rem; }
+  .module-body p { margin: 0 0 0.85rem; line-height: 1.55; }
+  .module-body ul, .module-body ol { margin: 0 0 0.85rem; padding-left: 1.5rem; line-height: 1.55; }
   .module-body li { margin-bottom: 0.25rem; }
-  .module-body code {
-    font-family: var(--mono);
-    font-size: 0.85em;
-    background: rgba(0,0,0,0.05);
-    padding: 0.1em 0.35em;
-  }
+  .module-body code { font-family: var(--mono); font-size: 0.85em; background: rgba(0,0,0,0.05); padding: 0.1em 0.35em; }
   .module-body strong { font-weight: 600; }
   .module-body em { font-style: italic; }
-
-  .callout {
-    border-left: 2px solid var(--ink);
-    padding: 0.5rem 0 0.5rem 1.25rem;
-    margin: 1rem 0;
-    font-style: italic;
-    font-size: 0.95rem;
-    color: var(--ink-soft);
-  }
+  .module-body pre { font-family: var(--mono); font-size: 0.82rem; background: rgba(0,0,0,0.04); padding: 1rem; overflow-x: auto; line-height: 1.5; margin: 0.75rem 0; }
+  .callout { border-left: 2px solid var(--ink); padding: 0.5rem 0 0.5rem 1.25rem; margin: 1rem 0; font-style: italic; font-size: 0.95rem; color: var(--ink-soft); }
   .callout strong { font-style: normal; }
-
-  .checks-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  .checks-list li {
-    border: 1px solid var(--ink);
-    padding: 1rem;
-    margin-bottom: 0.75rem;
-  }
-  .checks-list li:last-child { margin-bottom: 0; }
-  .checks-list .check-num {
-    font-family: var(--mono);
-    font-size: 0.65rem;
-    text-transform: uppercase;
-    letter-spacing: 0.14em;
-    color: var(--ink-soft);
-    margin: 0 0 0.25rem;
-  }
-  .checks-list .check-title {
-    font-family: var(--serif);
-    font-weight: 600;
-    font-size: 0.95rem;
-    margin: 0 0 0.35rem;
-  }
-  .checks-list .check-body {
-    font-size: 0.88rem;
-    line-height: 1.45;
-    color: var(--ink-soft);
-    margin: 0;
-  }
-
-  .exercise {
-    border-top: 1px solid var(--ink-soft);
-    padding: 1rem 0;
-    margin: 0;
-  }
+  .checks-list { list-style: none; padding: 0; margin: 0; }
+  .checks-list li { border: 1px solid var(--ink); padding: 1rem; margin-bottom: 0.75rem; }
+  .checks-list .check-num { font-family: var(--mono); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.14em; color: var(--ink-soft); }
+  .checks-list .check-title { font-family: var(--serif); font-weight: 600; font-size: 0.95rem; margin: 0.25rem 0 0.35rem; }
+  .checks-list .check-body { font-size: 0.88rem; line-height: 1.45; color: var(--ink-soft); }
+  .exercise { border-top: 1px solid var(--ink-soft); padding: 1rem 0; margin: 0; }
   .exercise:first-of-type { border-top: none; }
-  .exercise h3 {
-    font-family: var(--serif);
-    font-size: 1rem;
-    margin: 0 0 0.5rem;
-  }
-  .exercise p { margin: 0 0 0.5rem; }
-  .exercise details {
-    margin-top: 0.5rem;
-  }
-  .exercise summary {
-    font-family: var(--mono);
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    cursor: pointer;
-    color: var(--ink-soft);
-    padding: 0.25rem 0;
-  }
+  .exercise h3 { font-family: var(--serif); font-size: 1rem; margin: 0 0 0.5rem; }
+  .exercise details { margin-top: 0.5rem; }
+  .exercise summary { font-family: var(--mono); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; cursor: pointer; color: var(--ink-soft); padding: 0.25rem 0; }
   .exercise summary:hover { color: var(--ink); }
-  .exercise .answer {
-    font-size: 0.9rem;
-    line-height: 1.5;
-    color: var(--ink-soft);
-    padding: 0.5rem 0;
-  }
-
+  .exercise .answer { font-size: 0.9rem; line-height: 1.5; color: var(--ink-soft); padding: 0.5rem 0; }
   .reading-entry { margin: 0 0 1rem; }
-  .reading-entry:last-child { margin-bottom: 0; }
-  .reading-entry h4 {
-    font-family: var(--serif);
-    font-weight: 400;
-    font-size: 0.95rem;
-    margin: 0 0 0.15rem;
-    line-height: 1.3;
-  }
-  .reading-entry .reading-note {
-    font-family: var(--serif);
-    font-size: 0.88rem;
-    color: var(--ink-soft);
-    margin: 0;
-    line-height: 1.45;
-  }
-  .reading-entry em { font-style: italic; }
-
-  @media (max-width: 480px) {
-    .module-meta { flex-direction: column; gap: 0.25rem; }
-  }
+  .reading-entry h4 { font-family: var(--serif); font-weight: 400; font-size: 0.95rem; margin: 0 0 0.15rem; }
+  .reading-entry .reading-note { font-size: 0.88rem; color: var(--ink-soft); line-height: 1.45; }
+  @media (max-width: 480px) { .module-meta { flex-direction: column; gap: 0.25rem; } }
 </style>
 </head>
 <body>
 <main class="page">
-
   <p class="back-link"><a href="index.html">← course index</a></p>
-
   <header class="masthead">
     <h1 class="name" style="font-size: clamp(2rem, 8vw, 3.5rem);">
       <span class="name__line">Module 02</span><span class="name__line">Writing with AI</span>
@@ -181,383 +55,276 @@
     <p class="module-meta">
       <span>⏱ 2.5–3.5h</span>
       <span>📋 conceptual + practical</span>
-      <span>📌 Module 1 recomended</span>
+      <span>📌 Module 1 recommended</span>
       <span>🎯 Style guide, worked editing example, disclosure</span>
     </p>
   </header>
-
   <hr class="rule">
-
-  <nav class="nav" aria-label="module">
-    <a href="#outcomes">outcomes</a><span class="nav__sep">~</span>
-    <a href="#workbook">workbook</a><span class="nav__sep">~</span>
-    <a href="#exercises">exercises</a><span class="nav__sep">~</span>
-    <a href="#readings">readings</a>
-    
-  </nav>
-
+  <nav class="nav" aria-label="module"><a href="#outcomes">outcomes</a><span class="nav__sep">~</span><a href="#workbook">workbook</a><span class="nav__sep">~</span><a href="#exercises">exercises</a><span class="nav__sep">~</span><a href="#readings">readings</a></nav>
   <hr class="rule">
-
   <div class="module-body">
 <section id="workbook">
 <h2 class="section__title"><span class="section__mark">§</span> workbook</h2>
-<section id="outcomes">
+<section id="learning-outcomes">
 <h3>Learning Outcomes</h3>
-<p>1|# Module 2: Writing with AI — Drafting, Editing, and Style</p>
-<p>2|</p>
-<p>3|<strong>Estimated time:</strong> 2.5–3.5 hours</p>
-<p>4|<strong>Type:</strong> Conceptual + practical (markdown workbook + exercises)</p>
-<p>5|<strong>Prerequisites:</strong> Module 1 (How LLMs Work)</p>
-<p>6|<strong>What you'll produce:</strong> A style guide, a worked editing example with disclosure, and a documented writing workflow</p>
-<p>7|</p>
-<p>8|---</p>
-<p>9|</p>
-<p>10|## Learning Outcomes</p>
-<p>11|</p>
-<p>12|By the end of this module you will be able to:</p>
-<p>13|</p>
-<p>14|1. Use an LLM to draft, edit, restructure, and summarise text — and identify where it helps and where it fails</p>
-<p>15|2. Evaluate AI-generated writing against explicit criteria you defined <strong>before</strong> seeing the output</p>
-<p>16|3. Derive a style guide from examples and apply it to new text, with and without AI assistance</p>
-<p>17|4. Write a complete AI-use disclosure for a writing task, following the course template</p>
-<p>18|5. Apply the four-question lens to any AI-assisted writing workflow</p>
-<p>19|</p>
-<p>20|---</p>
-<p>21|</p>
-<p>22|## 1. AI as a Writing Assistant: What It Does Well and Poorly</p>
-<p>23|</p>
-<p>24|### The promise</p>
-<p>25|</p>
-<p>26|Writing is one of the most immediately appealing use cases for LLMs. Paste in a rough paragraph, ask for a revision, and the model returns something smoother, clearer, and better-structured — often in seconds. For social scientists who write constantly — seminar papers, thesis chapters, grant applications, journal articles — this feels like a breakthrough.</p>
-<p>27|</p>
-<p>28|The model can:</p>
-<p>29|</p>
-<p>30|- <strong>Restructure</strong> a paragraph or section to improve logical flow</p>
-<p>31|- <strong>Condense</strong> a long passage into a concise abstract or summary</p>
-<p>32|- <strong>Rephrase</strong> awkward or unclear sentences while preserving meaning</p>
-<p>33|- <strong>Translate</strong> between registers: turn notes into prose, jargon into plain language, or a dense paragraph into bullet points</p>
-<p>34|- <strong>Flag</strong> gaps, contradictions, or unsupported claims in a draft</p>
-<p>35|- <strong>Generate alternatives</strong> — five ways to open a paragraph, three possible conclusions — that you can select from</p>
-<p>36|</p>
-<p>37|### The risk</p>
-<p>38|</p>
-<p>39|Everything you learned in Module 1 applies with full force to writing. The model does not know what your paper is trying to argue. It does not know which claims your evidence supports and which it does not. It does not know your voice, your disciplinary conventions, or your audience's expectations — unless you tell it.</p>
-<p>40|</p>
-<p>41|When those things are absent from your prompt, the model supplies defaults. The defaults are statistically plausible given the model's training data. They are not your argument. They are not your evidence. They are not your voice.</p>
-<p>42|</p>
-<p>43|The most common failure pattern in AI-assisted writing is not grammatical error or nonsense. It is <strong>plausible rewriting that silently changes the claim</strong>. A cautious "may be associated with" becomes a confident "is associated with." An empirical puzzle becomes a recommendation. A limitation disappears. The prose improves; the argument drifts.</p>
-<p>44|</p>
-<p>45|> <strong>Key insight:</strong> Better prose is not better argument. Smoothness is not accuracy. When an LLM revises your writing, it is predicting what your text <em>would</em> look like if it were more like the texts in its training data. That can make it clearer — or it can make it wrong in a more polished way.</p>
-<p>46|</p>
-<p>47|---</p>
-<p>48|</p>
-<p>49|## 2. Criteria-Based Evaluation: The Baseline Rule</p>
-<p>50|</p>
-<p>51|### Define "good" before you see the output</p>
-<p>52|</p>
-<p>53|The single most important rule in this module — and one you will return to throughout the course — is:</p>
-<p>54|</p>
-<p>55|> <strong>Write your evaluation criteria before the model produces anything.</strong></p>
-<p>56|</p>
-<p>57|If you read the model's output first and then ask "is this good?", you are judging the output against an impression formed <em>after</em> seeing it. You will be influenced by fluency, by the specific choices the model made, by whether it "feels right." That is the opposite of evaluation.</p>
-<p>58|</p>
-<p>59|Instead, define concretely what "good" means for this specific piece of writing:</p>
-<p>60|</p>
-<p>61|| Criterion | How would you check it? |</p>
-<p>62||---|---|</p>
-<p>63|| The argument is the one I intended | Compare the claim sentence against the claim sentence in my outline or author brief |</p>
-<p>64|| Every factual statement is supported | Trace each claim to a source I have open; mark any that lack support |</p>
-<p>65|| Uncertainty is preserved where appropriate | Count hedging language (may, suggests, possibly) — has any been removed? |</p>
-<p>66|| The voice is mine, not generic academic | Read aloud; does it sound like something I would say? |</p>
-<p>67|| The structure follows my outline | Check section-by-section against the outline I wrote beforehand |</p>
-<p>68|| No claim is stronger than my evidence permits | Underline every causal or comparative claim; check scope against what the evidence actually shows |</p>
-<p>69|</p>
-<p>70|These are not universal criteria. They are criteria for a specific task, written by a specific researcher, before the model runs. A different task — say, condensing a methods section for a lay summary — would have different criteria: clarity for a non-specialist, removal of jargon, preservation of the core finding.</p>
-<p>71|</p>
-<p>72|### The human-first workflow</p>
-<p>73|</p>
-<p>74|Every writing exercise in this module follows the same pattern:</p>
-<p>75|</p>
-<p>76|1. <strong>Define the task</strong> — What exactly do you want the model to do? Draft? Revise? Summarise? Restructure?</p>
-<p>77|2. <strong>Write the criteria</strong> — What would make the result good for your purpose? Be specific.</p>
-<p>78|3. <strong>Write an author brief</strong> (if relevant) — What is your purpose, intended claim, evidence boundary, and voice?</p>
-<p>79|4. <strong>Run the model</strong></p>
-<p>80|5. <strong>Evaluate against your criteria</strong> — Not against your impression. Against the list you wrote at step 2.</p>
-<p>81|6. <strong>Revise or discard</strong> — If it fails a criterion, either fix it or throw it out. Never accept output that fails your criteria just because it reads well.</p>
-<p>82|</p>
-<p>83|Steps 1–3 happen before the model sees anything. This is the "human first" principle from Module 1, applied to writing.</p>
-<p>84|</p>
-<p>85|---</p>
-<p>86|</p>
-<p>87|## 3. Style Transfer: Academic, Plain-Language, and Personal Voice</p>
-<p>88|</p>
-<p>89|### What style transfer is</p>
-<p>90|</p>
-<p>91|Style transfer means asking the model to rewrite text in a different register while preserving the content: turn a journal abstract into a blog post, or meeting notes into a formal paragraph, or a dense methodology section into a plain-language summary for participants.</p>
-<p>92|</p>
-<p>93|The model can do this because it has seen millions of examples of each register in its training data. It has absorbed the statistical patterns of academic prose, journalistic prose, legal prose, and everyday speech.</p>
-<p>94|</p>
-<p>95|### What style transfer is not</p>
-<p>96|</p>
-<p>97|Style transfer is not neutral. The model's idea of "academic style" is the average of the academic prose in its training data — which skews toward certain disciplines, certain decades, and certain rhetorical conventions. Its idea of "plain language" may flatten nuance or remove hedging that you need. Its idea of your "personal voice" — unless you supply examples — is a guess.</p>
-<p>98|</p>
-<p>99|### Deriving a style guide from examples</p>
-<p>100|</p>
-<p>101|The most reliable way to get the model to write in a specific style is to <strong>show it examples</strong> and ask it to extract the patterns. This is what Exercise 2.3 asks you to do.</p>
-<p>102|</p>
-<p>103|A style guide derived from examples might include:</p>
-<p>104|</p>
-<p>105|- <strong>Sentence length and structure:</strong> Short declarative sentences? Complex nesting? Varied?</p>
-<p>106|- <strong>Vocabulary register:</strong> Technical terminology defined on first use? Jargon avoided? Specific verbs over general ones?</p>
-<p>107|- <strong>Voice and stance:</strong> First person ("I argue") or third person ("this paper argues")? Active or passive? Cautious ("suggests") or declarative ("demonstrates")?</p>
-<p>108|- <strong>Paragraph structure:</strong> Topic sentence → evidence → implication? Or narrative flow?</p>
-<p>109|- <strong>Citation conventions:</strong> Integrated into prose or parenthetical? How are authors introduced?</p>
-<p>110|- <strong>Treatment of uncertainty:</strong> Explicitly flagged? Confined to a limitations section? Absent?</p>
-<p>111|</p>
-<p>112|The model can extract these patterns from examples far more reliably than it can guess them from a one-line instruction like "write in my style."</p>
-<p>113|</p>
-<p>114|### Demonstration: Three styles from the same content</p>
-<p>115|</p>
-<p>116|Here is a single claim, rendered three ways:</p>
-<p>117|</p>
-<p>118|<strong>Original (rough notes):</strong></p>
-<p>119|> social media use → polarisation. but only for people already politically interested. algorithmic curation seems to be the mechanism. not clear if this generalises outside the 4 countries studied.</p>
-<p>120|</p>
-<p>121|<strong>Style 1: Academic prose (journal article)</strong></p>
-<p>122|> Social media use is associated with modest increases in affective polarisation, concentrated among respondents reporting high levels of political interest. The effect appears to be driven by platforms employing algorithmic content curation. However, the present findings are drawn from a four-country panel design, and their generalisability beyond these contexts remains an open empirical question.</p>
-<p>123|</p>
-<p>124|<strong>Style 2: Plain-language summary (for study participants)</strong></p>
-<p>125|> We found that people who use social media a lot tend to feel slightly more negative toward people who support a different political party. This was mainly true for people who are already very interested in politics, and for people using platforms that choose what to show them with algorithms. We don't yet know whether the same pattern holds in countries beyond the four we studied.</p>
-<p>126|</p>
-<p>127|<strong>Style 3: Policy brief</strong></p>
-<p>128|> <strong>Finding:</strong> Social media use modestly increases affective political polarisation. The effect is strongest among politically engaged users on algorithmically curated platforms.</p>
-<p>129|> <strong>Limitation:</strong> Evidence is from four countries. Generalisability to other contexts is untested.</p>
-<p>130|> <strong>Implication:</strong> Platform design choices — specifically, algorithmic curation — may contribute to polarisation dynamics. Policy interventions targeting curation mechanisms may be more effective than interventions targeting overall usage.</p>
-<p>131|</p>
-<p>132|The same content; three different audiences, three different sets of conventions. The model can do all three — but you must tell it which one you want, and preferably show it examples.</p>
-<p>133|</p>
-<p>134|---</p>
-<p>135|</p>
-<p>136|## 4. The Four Questions Applied to Writing Tasks</p>
-<p>137|</p>
-<p>138|Apply the course lens to any AI-assisted writing task <em>before</em> you run the model. Here is what the questions look like for writing specifically:</p>
-<p>139|</p>
-<p>140|### 1. What is being delegated?</p>
-<p>141|</p>
-<p>142|Writing tasks and writing decisions are different things:</p>
-<p>143|</p>
-<p>144|| Task (low-risk delegation) | Decision (high-risk delegation) |</p>
-<p>145||---|---|</p>
-<p>146|| "Reorganise these paragraphs into a logical sequence" | "Decide what the logical sequence should be" |</p>
-<p>147|| "Suggest five alternative openings for this section" | "Choose the best opening" |</p>
-<p>148|| "Flag claims that lack supporting evidence" | "Decide which claims to keep" |</p>
-<p>149|| "Convert this paragraph from passive to active voice" | "Decide whether active voice is appropriate here" |</p>
-<p>150|| "Summarise Section 3 in three sentences" | "Decide which findings from Section 3 are worth including in the abstract" |</p>
-<p>151|</p>
-<p>152|The task/decision distinction from Module 1 is especially sharp in writing. The model can execute a writing task — restructure, rephrase, condense. But deciding what the argument is, what evidence supports it, and what voice is appropriate: those are methodological judgments. They belong to you.</p>
-<p>153|</p>
-<p>154|### 2. What would make the result believable?</p>
-<p>155|</p>
-<p>156|For writing tasks, "believable" usually means "preserves my argument, evidence, and voice." Evidence comes from comparison:</p>
-<p>157|</p>
-<p>158|- Compare the model's output against your outline, author brief, or criteria document</p>
-<p>159|- Compare the original paragraph and the revised paragraph side by side; mark every change to the claim</p>
-<p>160|- Have a colleague read both versions without knowing which is which and ask which argument is clearer</p>
-<p>161|- Check every factual claim that appears in the output against its source (if the model added anything, it must be verified or removed)</p>
-<p>162|</p>
-<p>163|### 3. What could be lost or flattened?</p>
-<p>164|</p>
-<p>165|Writing with AI risks losing:</p>
-<p>166|</p>
-<p>167|- <strong>Your voice.</strong> The model's default academic register is an average. It sounds like everyone. If you do not supply a voice specification, you get the generic.</p>
-<p>168|- <strong>Uncertainty.</strong> Models tend to strengthen claims — hedging becomes declarative, "may suggest" becomes "shows." This is a direct consequence of the training data: academic prose that reaches strong conclusions is overrepresented relative to academic prose that says "we don't know."</p>
-<p>169|- <strong>Specificity.</strong> The model may replace your precise but awkward phrasing with smoother but vaguer alternatives. "The coefficient on the interaction term between trust and network size was negative and significant at p < 0.01" becomes "trust and network size interact negatively" — smoother, less specific, and no longer capable of being evaluated against your results.</p>
-<p>170|- <strong>Argument structure.</strong> The model may restructure your paragraphs into a more "standard" flow that does not match the logic of your argument. Some arguments need to start with the counterclaim, or build tension before resolving it. The model's idea of good structure is the average of published papers, not your rhetorical strategy.</p>
-<p>171|- <strong>Citations and attribution.</strong> The model may drop citations, move them, or — if you are not careful — fabricate them. Every citation in AI-assisted text must be verified against the source.</p>
-<p>172|</p>
-<p>173|### 4. What must remain visible or human?</p>
-<p>174|</p>
-<p>175|For writing, the non-negotiable human elements are:</p>
-<p>176|</p>
-<p>177|- <strong>The argument itself.</strong> You decide what claim your paper makes. The model can help you express it; it cannot decide it.</p>
-<p>178|- <strong>The relationship between evidence and claims.</strong> You decide what your evidence supports and what it does not. The model cannot weigh your data.</p>
-<p>179|- <strong>Every citation.</strong> You must personally verify that every reference exists, says what you claim it says, and is appropriate to cite.</p>
-<p>180|- <strong>The disclosure.</strong> You must record what tool you used, for what purpose, where in the work, what you verified, and what you decided. This is visible to readers, reviewers, and — eventually — to yourself when you return to the work months later.</p>
-<p>181|</p>
-<p>182|---</p>
-<p>183|</p>
-<p>184|## 5. The Disclosure Paragraph</p>
-<p>185|</p>
-<p>186|Every portfolio component and every exercise that produces AI-assisted output requires a disclosure statement. The template — introduced here and used throughout the course — follows the format expected by the <em>American Journal of Political Science</em> and <em>American Political Science Review</em>, adapted for course use.</p>
-<p>187|</p>
-<p>188|A complete disclosure states:</p>
-<p>189|</p>
-<p>190|1. <strong>What tool(s) were used</strong> — Model, interface, date(s)</p>
-<p>191|2. <strong>For what purpose</strong> — Be specific: "to suggest restructuring of the literature review" not "for writing"</p>
-<p>192|3. <strong>Where in the work</strong> — Point to the specific section or passage</p>
-<p>193|4. <strong>What was verified and how</strong> — What checks did you perform? With what evidence?</p>
-<p>194|5. <strong>What the human decided</strong> — What judgments did you retain?</p>
-<p>195|</p>
-<p>196|<strong>The disclosure must include itself.</strong> If you used AI to help write the disclosure, say so.</p>
-<p>197|</p>
-<p>198|> <strong>Full template and examples:</strong> <code>modules/shared/disclosure_template.md</code>. Keep it open as a reference.</p>
-<p>199|</p>
-<p>200|A disclosure is not a confession and not a liability disclaimer. It is a record of what happened, written so that a reviewer — or your future self — can understand what the model contributed and what you decided. Good disclosure is a research practice, not a bureaucratic requirement.</p>
-<p>201|</p>
-<p>202|---</p>
-<p>203|</p>
-<p>204|## 6. Demonstration: Before and After</p>
-<p>205|</p>
-<p>206|Let's work through a complete example. I will show you a paragraph, run an editing task without and with an author brief, and evaluate both outputs against criteria defined in advance.</p>
-<p>207|</p>
-<p>208|### The paragraph</p>
-<p>209|</p>
-<p>210|> Content moderation is often presented as either censorship or protection, but research shows that it can have contradictory effects. It reduces abusive speech, which should increase participation, but automated systems can also disadvantage speakers whose language differs from dominant forms. Stronger moderation is therefore the best way to protect political participation, especially during elections.</p>
-<p>211|</p>
-<p>212|<strong>Teaching status:</strong> This paragraph is constructed for demonstration. It is not a verified summary of published research. (The same paragraph appears in Exercise 2.2 so you can work through it yourself.)</p>
-<p>213|</p>
-<p>214|### Step 1: Define the task</p>
-<p>215|</p>
-<p>216|> Revise this paragraph for clarity and argumentative coherence. Briefly explain your changes. Do not invent citations.</p>
-<p>217|</p>
-<p>218|### Step 2: Write evaluation criteria (before seeing output)</p>
-<p>219|</p>
-<p>220|| Criterion | Check |</p>
-<p>221||---|---|</p>
-<p>222|| The core empirical tension is preserved (contradictory effects) | The opening sentence must state that moderation can have competing effects, not that one effect dominates |</p>
-<p>223|| No policy recommendation appears without evidence | The final sentence must not assert that stronger moderation is "best" or "most effective" |</p>
-<p>224|| Evidentiary gaps are marked, not filled | Where the paragraph makes claims without cited support, the revision should note the gap, not supply plausibly-sounding evidence |</p>
-<p>225|| The structure flows from puzzle → mechanisms → open question | The paragraph should not resolve into a single clear recommendation |</p>
-<p>226|| No fabricated citations | Any reference appearing in the output must be traceable to a real source |</p>
-<p>227|</p>
-<p>228|### Step 3: Write the author brief</p>
-<p>229|</p>
-<p>230|- <strong>Purpose:</strong> Introduce an empirical puzzle about heterogeneous effects of content moderation on political participation.</p>
-<p>231|- <strong>Intended claim:</strong> Moderation may protect some forms of participation while disadvantaging others.</p>
-<p>232|- <strong>Not intended:</strong> This paragraph does not establish that stronger moderation is preferable overall.</p>
-<p>233|- <strong>Evidence boundary:</strong> No sources have been supplied. Do not add empirical claims or citations; mark claims needing evidence.</p>
-<p>234|- <strong>Voice:</strong> Analytic and cautious. Preserve uncertainty.</p>
-<p>235|- <strong>Permitted assistance:</strong> Improve organisation and clarity; flag any substantive decision rather than making it silently.</p>
-<p>236|</p>
-<p>237|### Step 4: Run A — without author brief</p>
-<p>238|</p>
-<p>239|<em>The model receives only the paragraph and the editing request.</em></p>
-<p>240|</p>
-<p>241|<strong>Typical output (Run A):</strong></p>
-<p>242|</p>
-<p>243|> Content moderation is commonly framed as a tension between censorship and protection, yet evidence suggests it can produce competing effects. By reducing abusive speech, moderation may encourage political participation; however, automated systems can disproportionately disadvantage speakers whose language differs from dominant forms. On balance, stronger moderation offers the most effective way to protect participation, particularly during elections.</p>
-<p>244|</p>
-<p>245|### Step 5: Apply criteria to Run A</p>
-<p>246|</p>
-<p>247|| Criterion | Pass? | Evidence |</p>
-<p>248||---|---|---|</p>
-<p>249|| Core tension preserved | ⚠️ Partial | "Competing effects" is preserved, but the opening frames it as a resolved tension |</p>
-<p>250|| No unsupported policy recommendation | ❌ Fail | "Stronger moderation offers the most effective way to protect participation" — this is stronger than the original and has no evidence |</p>
-<p>251|| Evidentiary gaps marked | ❌ Fail | "Evidence suggests," "disproportionately disadvantage" — no gaps marked, confidence added |</p>
-<p>252|| Structure flows puzzle → open question | ❌ Fail | Paragraph resolves to a single recommendation |</p>
-<p>253|| No fabricated citations | ✅ Pass | No citations invented |</p>
-<p>254|</p>
-<p>255|<strong>Verdict:</strong> The prose improved. The argument got worse — it became more confident and less accurate.</p>
-<p>256|</p>
-<p>257|### Step 6: Run B — with author brief</p>
-<p>258|</p>
-<p>259|<em>The model receives the paragraph, the editing request, and the author brief.</em></p>
-<p>260|</p>
-<p>261|<strong>Typical output (Run B):</strong></p>
-<p>262|</p>
-<p>263|> Content moderation may affect political participation in competing ways. Reducing abusive speech could make participation safer for some users [EVIDENCE NEEDED], while automated moderation systems may disadvantage speakers whose language differs from dominant forms [EVIDENCE NEEDED]. These possibilities create an empirical puzzle about whose participation is protected or constrained. This paragraph does not establish whether stronger moderation is preferable overall.</p>
-<p>264|</p>
-<p>265|### Step 7: Apply criteria to Run B</p>
-<p>266|</p>
-<p>267|| Criterion | Pass? | Evidence |</p>
-<p>268||---|---|---|</p>
-<p>269|| Core tension preserved | ✅ Pass | "Competing ways" preserved; puzzle framed explicitly |</p>
-<p>270|| No unsupported policy recommendation | ✅ Pass | Final sentence explicitly states the paragraph does not establish the recommendation |</p>
-<p>271|| Evidentiary gaps marked | ✅ Pass | [EVIDENCE NEEDED] markers at unsupported claims |</p>
-<p>272|| Structure flows puzzle → open question | ✅ Pass | Opens with tension, closes with open question |</p>
-<p>273|| No fabricated citations | ✅ Pass | No citations added |</p>
-<p>274|</p>
-<p>275|<strong>Verdict:</strong> Run B is less smooth than Run A. It has bracketed interruptions. It does not resolve neatly. It is also <em>more accurate to the author's actual position</em>, more honest about what the evidence supports, and more useful as a piece of academic writing.</p>
-<p>276|</p>
-<p>277|### What this demonstrates</p>
-<p>278|</p>
-<p>279|1. <strong>The author brief is not a "better prompt" in the sense of being longer.</strong> It is a specification of what the author actually intends, which the model cannot guess. Without it, the model defaults to the statistical centre of its training data — which, for academic text, tends toward confident declarative claims.</p>
-<p>280|</p>
-<p>281|2. <strong>Better prose and better argument are different axes.</strong> Run A reads more smoothly. Run B is more accurate. In academic writing, accuracy is the binding constraint. Smoothness is secondary.</p>
-<p>282|</p>
-<p>283|3. <strong>You cannot evaluate output by reading the output.</strong> You need something outside the text — your criteria, your author brief, your evidence — to check it against.</p>
-<p>284|</p>
-<p>285|---</p>
-<p>286|</p>
-<p>287|## 7. A Failure Case: When Style Transfer Goes Wrong</p>
-<p>288|</p>
-<p>289|Style transfer is especially prone to silent argument change. Here is an example:</p>
-<p>290|</p>
-<p>291|<strong>Original (from a real working paper):</strong></p>
-<p>292|</p>
-<p>293|> We find that the treatment effect is heterogeneous across subgroups: positive and significant for respondents with high baseline trust (β = 0.34, p < 0.01), but indistinguishable from zero for respondents with low baseline trust (β = 0.07, p = 0.41). We caution that the low-trust subgroup is small (n = 47) and that the interaction term does not reach conventional significance thresholds (p = 0.08).</p>
-<p>294|</p>
-<p>295|<strong>Request:</strong> "Rewrite this for a general audience."</p>
-<p>296|</p>
-<p>297|<strong>Model output (failure case):</strong></p>
-<p>298|</p>
-<p>299|> The program worked well for people who started out trusting, but it didn't help people who were more skeptical.</p>
-<p>300|</p>
-<p>301|<strong>What was lost:</strong></p>
-<p>302|</p>
-<p>303|- The effect sizes disappeared (0.34 and 0.07).</p>
-<p>304|- The significance levels disappeared.</p>
-<p>305|- The small-n caution disappeared.</p>
-<p>306|- The interaction term — the actual test of whether the subgroups differ — disappeared.</p>
-<p>307|- "Indistinguishable from zero" became "didn't help" — which is a different claim (no evidence of effect ≠ evidence of no effect).</p>
-<p>308|- The entire statistical apparatus that lets a reader evaluate the claim was replaced by a story.</p>
-<p>309|</p>
-<p>310|<strong>Better plain-language version:</strong></p>
-<p>311|</p>
-<p>312|> The program's effect depended on how much trust people started with. For people with high initial trust, the program produced a meaningful improvement. For people with low initial trust, we couldn't detect an effect — but this group was small (47 people), so we can't be confident either way. The statistical test that directly compares the two groups didn't quite clear the standard threshold, so we're cautious about claiming the groups truly differ.</p>
-<p>313|</p>
-<p>314|The second version is accessible but preserves the evidence structure. The difference is not in the prompt wording — it is in whether you, the author, check the output against your criteria and refuse to accept a version that drops the evidence.</p>
-<p>315|</p>
-<p>316|---</p>
-<p>317|</p>
-<p>318|## 8. Exercise Instructions</p>
-<p>319|</p>
-<p>320|Complete all five exercises in <code>exercises.md</code>. Each takes approximately 20–30 minutes. Work through them in order — they build on each other.</p>
-<p>321|</p>
-<p>322|<strong>You will need:</strong> A chat interface (any LLM), this workbook, and a piece of your own academic writing you are authorised to use (a paragraph from a seminar paper, a thesis draft, or a working document — do not use co-authored work without permission, and do not upload confidential or unpublished data).</p>
-<p>323|</p>
-<p>324|| Exercise | What you'll do | Key skill |</p>
-<p>325||---|---|---|</p>
-<p>326|| 2.1 | Define criteria for "good" writing before seeing any AI output | Criteria-first evaluation |</p>
-<p>327|| 2.2 | Draft with AI, evaluate against criteria, revise | The human-first editing loop |</p>
-<p>328|| 2.3 | Derive a style guide from three examples, test it on new text | Style specification from evidence |</p>
-<p>329|| 2.4 | Write a disclosure for an AI-assisted writing task | Transparent record-keeping |</p>
-<p>330|| 2.5 | Apply the four questions to a writing workflow | Systematic delegation analysis |</p>
-<p>331|</p>
-<p>332|Before starting the exercises, re-read Sections 2 (criteria-based evaluation) and 4 (four questions applied to writing) of this workbook. Keep the disclosure template (<code>modules/shared/disclosure_template.md</code>) and the four questions (<code>modules/shared/four_questions.md</code>) open.</p>
-<p>333|</p>
-<p>334|<strong>Save everything you produce.</strong> The style guide from Exercise 2.3, the disclosure from Exercise 2.4, and the four-questions analysis from Exercise 2.5 will feed into your portfolio.</p>
-<p>335|</p>
-<p>336|---</p>
-<p>337|</p>
-<p>338|## 9. Summary</p>
-<p>339|</p>
-<p>340|- AI is a capable writing assistant for drafting, editing, restructuring, and style transfer — but it cannot supply your argument, your evidence, or your voice.</p>
-<p>341|- <strong>Define evaluation criteria before seeing AI output.</strong> This is the baseline rule of AI-assisted writing. Fluency is not accuracy.</p>
-<p>342|- <strong>An author brief</strong> — purpose, intended claim, evidence boundary, voice, permitted assistance — prevents the model from filling missing specifications with its own defaults.</p>
-<p>343|- <strong>Style transfer requires specification.</strong> Show the model examples; do not assume it knows what "academic style" or "plain language" means for your purpose.</p>
-<p>344|- <strong>The four questions apply to writing as they apply to every AI use:</strong> what is being delegated (task vs. decision), what would make it believable, what could be lost or flattened, what must remain human.</p>
-<p>345|- <strong>Disclosure is not optional.</strong> Every AI-assisted output must record what tool was used, for what purpose, where, what was verified, and what the human decided.</p>
-<p>346|</p>
-<p>347|---</p>
-<p>348|</p>
-<p>349|## What's Next</p>
-<p>350|</p>
-<p>351|<strong>Module 3</strong> moves from writing to literature: searching, screening, and synthesising with AI assistance. You will use the criteria-first approach from this module to evaluate search results and the style-transfer skills to write source-bounded syntheses. The four questions remain your lens; the disclosure template remains your record.</p>
-<p>352|</p>
-<p>353|---</p>
-<p>354|</p>
-<p>355|<em>Module 2 of 8 · AI as a Research Tool: Workflow Design for the Social Sciences · University of Zurich</em></p>
+<p># Module 2: Writing with AI — Drafting, Editing, and Style</p>
+<p><strong>Estimated time:</strong> 2.5–3.5 hours</p>
+<p><strong>Type:</strong> Conceptual + practical (markdown workbook + exercises)</p>
+<p><strong>Prerequisites:</strong> Module 1 (How LLMs Work)</p>
+<p><strong>What you'll produce:</strong> A style guide, a worked editing example with disclosure, and a documented writing workflow</p>
+</section>
+<section id="1-ai-as-a-writing-assistant-what-it-does">
+<h3>1. AI as a Writing Assistant: What It Does Well and Poorly</h3>
+<h3>The promise</h3>
+<p>Writing is one of the most immediately appealing use cases for LLMs. Paste in a rough paragraph, ask for a revision, and the model returns something smoother, clearer, and better-structured — often in seconds. For social scientists who write constantly — seminar papers, thesis chapters, grant applications, journal articles — this feels like a breakthrough.</p>
+<p>The model can:</p>
+<ul>
+<li><strong>Restructure</strong> a paragraph or section to improve logical flow</li>
+<li><strong>Condense</strong> a long passage into a concise abstract or summary</li>
+<li><strong>Rephrase</strong> awkward or unclear sentences while preserving meaning</li>
+<li><strong>Translate</strong> between registers: turn notes into prose, jargon into plain language, or a dense paragraph into bullet points</li>
+<li><strong>Flag</strong> gaps, contradictions, or unsupported claims in a draft</li>
+<li><strong>Generate alternatives</strong> — five ways to open a paragraph, three possible conclusions — that you can select from</li>
+</ul>
+<h3>The risk</h3>
+<p>Everything you learned in Module 1 applies with full force to writing. The model does not know what your paper is trying to argue. It does not know which claims your evidence supports and which it does not. It does not know your voice, your disciplinary conventions, or your audience's expectations — unless you tell it.</p>
+<p>When those things are absent from your prompt, the model supplies defaults. The defaults are statistically plausible given the model's training data. They are not your argument. They are not your evidence. They are not your voice.</p>
+<p>The most common failure pattern in AI-assisted writing is not grammatical error or nonsense. It is <strong>plausible rewriting that silently changes the claim</strong>. A cautious "may be associated with" becomes a confident "is associated with." An empirical puzzle becomes a recommendation. A limitation disappears. The prose improves; the argument drifts.</p>
+<div class="callout"><strong>Key insight:</strong> Better prose is not better argument. Smoothness is not accuracy. When an LLM revises your writing, it is predicting what your text <em>would</em> look like if it were more like the texts in its training data. That can make it clearer — or it can make it wrong in a more polished way.</div>
+<hr class="rule">
+</section>
+<section id="2-criteria-based-evaluation-the-baseline">
+<h3>2. Criteria-Based Evaluation: The Baseline Rule</h3>
+<h3>Define "good" before you see the output</h3>
+<p>The single most important rule in this module — and one you will return to throughout the course — is:</p>
+<div class="callout"><strong>Write your evaluation criteria before the model produces anything.</strong></div>
+<p>If you read the model's output first and then ask "is this good?", you are judging the output against an impression formed <em>after</em> seeing it. You will be influenced by fluency, by the specific choices the model made, by whether it "feels right." That is the opposite of evaluation.</p>
+<p>Instead, define concretely what "good" means for this specific piece of writing:</p>
+<p>| Criterion | How would you check it? |</p>
+<p>|---|---|</p>
+<p>| The argument is the one I intended | Compare the claim sentence against the claim sentence in my outline or author brief |</p>
+<p>| Every factual statement is supported | Trace each claim to a source I have open; mark any that lack support |</p>
+<p>| Uncertainty is preserved where appropriate | Count hedging language (may, suggests, possibly) — has any been removed? |</p>
+<p>| The voice is mine, not generic academic | Read aloud; does it sound like something I would say? |</p>
+<p>| The structure follows my outline | Check section-by-section against the outline I wrote beforehand |</p>
+<p>| No claim is stronger than my evidence permits | Underline every causal or comparative claim; check scope against what the evidence actually shows |</p>
+<p>These are not universal criteria. They are criteria for a specific task, written by a specific researcher, before the model runs. A different task — say, condensing a methods section for a lay summary — would have different criteria: clarity for a non-specialist, removal of jargon, preservation of the core finding.</p>
+<h3>The human-first workflow</h3>
+<p>Every writing exercise in this module follows the same pattern:</p>
+<ol>
+<li><strong>Define the task</strong> — What exactly do you want the model to do? Draft? Revise? Summarise? Restructure?</li>
+<li><strong>Write the criteria</strong> — What would make the result good for your purpose? Be specific.</li>
+<li><strong>Write an author brief</strong> (if relevant) — What is your purpose, intended claim, evidence boundary, and voice?</li>
+<li><strong>Run the model</strong></li>
+<li><strong>Evaluate against your criteria</strong> — Not against your impression. Against the list you wrote at step 2.</li>
+<li><strong>Revise or discard</strong> — If it fails a criterion, either fix it or throw it out. Never accept output that fails your criteria just because it reads well.</li>
+</ol>
+<p>Steps 1–3 happen before the model sees anything. This is the "human first" principle from Module 1, applied to writing.</p>
+<hr class="rule">
+</section>
+<section id="3-style-transfer-academic-plain-language">
+<h3>3. Style Transfer: Academic, Plain-Language, and Personal Voice</h3>
+<h3>What style transfer is</h3>
+<p>Style transfer means asking the model to rewrite text in a different register while preserving the content: turn a journal abstract into a blog post, or meeting notes into a formal paragraph, or a dense methodology section into a plain-language summary for participants.</p>
+<p>The model can do this because it has seen millions of examples of each register in its training data. It has absorbed the statistical patterns of academic prose, journalistic prose, legal prose, and everyday speech.</p>
+<h3>What style transfer is not</h3>
+<p>Style transfer is not neutral. The model's idea of "academic style" is the average of the academic prose in its training data — which skews toward certain disciplines, certain decades, and certain rhetorical conventions. Its idea of "plain language" may flatten nuance or remove hedging that you need. Its idea of your "personal voice" — unless you supply examples — is a guess.</p>
+<h3>Deriving a style guide from examples</h3>
+<p>The most reliable way to get the model to write in a specific style is to <strong>show it examples</strong> and ask it to extract the patterns. This is what Exercise 2.3 asks you to do.</p>
+<p>A style guide derived from examples might include:</p>
+<ul>
+<li><strong>Sentence length and structure:</strong> Short declarative sentences? Complex nesting? Varied?</li>
+<li><strong>Vocabulary register:</strong> Technical terminology defined on first use? Jargon avoided? Specific verbs over general ones?</li>
+<li><strong>Voice and stance:</strong> First person ("I argue") or third person ("this paper argues")? Active or passive? Cautious ("suggests") or declarative ("demonstrates")?</li>
+<li><strong>Paragraph structure:</strong> Topic sentence → evidence → implication? Or narrative flow?</li>
+<li><strong>Citation conventions:</strong> Integrated into prose or parenthetical? How are authors introduced?</li>
+<li><strong>Treatment of uncertainty:</strong> Explicitly flagged? Confined to a limitations section? Absent?</li>
+</ul>
+<p>The model can extract these patterns from examples far more reliably than it can guess them from a one-line instruction like "write in my style."</p>
+<h3>Demonstration: Three styles from the same content</h3>
+<p>Here is a single claim, rendered three ways:</p>
+<p><strong>Original (rough notes):</strong></p>
+<div class="callout">social media use → polarisation. but only for people already politically interested. algorithmic curation seems to be the mechanism. not clear if this generalises outside the 4 countries studied.</div>
+<p><strong>Style 1: Academic prose (journal article)</strong></p>
+<div class="callout">Social media use is associated with modest increases in affective polarisation, concentrated among respondents reporting high levels of political interest. The effect appears to be driven by platforms employing algorithmic content curation. However, the present findings are drawn from a four-country panel design, and their generalisability beyond these contexts remains an open empirical question.</div>
+<p><strong>Style 2: Plain-language summary (for study participants)</strong></p>
+<div class="callout">We found that people who use social media a lot tend to feel slightly more negative toward people who support a different political party. This was mainly true for people who are already very interested in politics, and for people using platforms that choose what to show them with algorithms. We don't yet know whether the same pattern holds in countries beyond the four we studied.</div>
+<p><strong>Style 3: Policy brief</strong></p>
+<div class="callout"><strong>Finding:</strong> Social media use modestly increases affective political polarisation. The effect is strongest among politically engaged users on algorithmically curated platforms. <strong>Limitation:</strong> Evidence is from four countries. Generalisability to other contexts is untested. <strong>Implication:</strong> Platform design choices — specifically, algorithmic curation — may contribute to polarisation dynamics. Policy interventions targeting curation mechanisms may be more effective than interventions targeting overall usage.</div>
+<p>The same content; three different audiences, three different sets of conventions. The model can do all three — but you must tell it which one you want, and preferably show it examples.</p>
+<hr class="rule">
+</section>
+<section id="4-the-four-questions-applied-to-writing-">
+<h3>4. The Four Questions Applied to Writing Tasks</h3>
+<p>Apply the course lens to any AI-assisted writing task <em>before</em> you run the model. Here is what the questions look like for writing specifically:</p>
+<h3>1. What is being delegated?</h3>
+<p>Writing tasks and writing decisions are different things:</p>
+<p>| Task (low-risk delegation) | Decision (high-risk delegation) |</p>
+<p>|---|---|</p>
+<p>| "Reorganise these paragraphs into a logical sequence" | "Decide what the logical sequence should be" |</p>
+<p>| "Suggest five alternative openings for this section" | "Choose the best opening" |</p>
+<p>| "Flag claims that lack supporting evidence" | "Decide which claims to keep" |</p>
+<p>| "Convert this paragraph from passive to active voice" | "Decide whether active voice is appropriate here" |</p>
+<p>| "Summarise Section 3 in three sentences" | "Decide which findings from Section 3 are worth including in the abstract" |</p>
+<p>The task/decision distinction from Module 1 is especially sharp in writing. The model can execute a writing task — restructure, rephrase, condense. But deciding what the argument is, what evidence supports it, and what voice is appropriate: those are methodological judgments. They belong to you.</p>
+<h3>2. What would make the result believable?</h3>
+<p>For writing tasks, "believable" usually means "preserves my argument, evidence, and voice." Evidence comes from comparison:</p>
+<ul>
+<li>Compare the model's output against your outline, author brief, or criteria document</li>
+<li>Compare the original paragraph and the revised paragraph side by side; mark every change to the claim</li>
+<li>Have a colleague read both versions without knowing which is which and ask which argument is clearer</li>
+<li>Check every factual claim that appears in the output against its source (if the model added anything, it must be verified or removed)</li>
+</ul>
+<h3>3. What could be lost or flattened?</h3>
+<p>Writing with AI risks losing:</p>
+<ul>
+<li><strong>Your voice.</strong> The model's default academic register is an average. It sounds like everyone. If you do not supply a voice specification, you get the generic.</li>
+<li><strong>Uncertainty.</strong> Models tend to strengthen claims — hedging becomes declarative, "may suggest" becomes "shows." This is a direct consequence of the training data: academic prose that reaches strong conclusions is overrepresented relative to academic prose that says "we don't know."</li>
+<li><strong>Specificity.</strong> The model may replace your precise but awkward phrasing with smoother but vaguer alternatives. "The coefficient on the interaction term between trust and network size was negative and significant at p < 0.01" becomes "trust and network size interact negatively" — smoother, less specific, and no longer capable of being evaluated against your results.</li>
+<li><strong>Argument structure.</strong> The model may restructure your paragraphs into a more "standard" flow that does not match the logic of your argument. Some arguments need to start with the counterclaim, or build tension before resolving it. The model's idea of good structure is the average of published papers, not your rhetorical strategy.</li>
+<li><strong>Citations and attribution.</strong> The model may drop citations, move them, or — if you are not careful — fabricate them. Every citation in AI-assisted text must be verified against the source.</li>
+</ul>
+<h3>4. What must remain visible or human?</h3>
+<p>For writing, the non-negotiable human elements are:</p>
+<ul>
+<li><strong>The argument itself.</strong> You decide what claim your paper makes. The model can help you express it; it cannot decide it.</li>
+<li><strong>The relationship between evidence and claims.</strong> You decide what your evidence supports and what it does not. The model cannot weigh your data.</li>
+<li><strong>Every citation.</strong> You must personally verify that every reference exists, says what you claim it says, and is appropriate to cite.</li>
+<li><strong>The disclosure.</strong> You must record what tool you used, for what purpose, where in the work, what you verified, and what you decided. This is visible to readers, reviewers, and — eventually — to yourself when you return to the work months later.</li>
+</ul>
+<hr class="rule">
+</section>
+<section id="5-the-disclosure-paragraph">
+<h3>5. The Disclosure Paragraph</h3>
+<p>Every portfolio component and every exercise that produces AI-assisted output requires a disclosure statement. The template — introduced here and used throughout the course — follows the format expected by the <em>American Journal of Political Science</em> and <em>American Political Science Review</em>, adapted for course use.</p>
+<p>A complete disclosure states:</p>
+<ol>
+<li><strong>What tool(s) were used</strong> — Model, interface, date(s)</li>
+<li><strong>For what purpose</strong> — Be specific: "to suggest restructuring of the literature review" not "for writing"</li>
+<li><strong>Where in the work</strong> — Point to the specific section or passage</li>
+<li><strong>What was verified and how</strong> — What checks did you perform? With what evidence?</li>
+<li><strong>What the human decided</strong> — What judgments did you retain?</li>
+</ol>
+<p><strong>The disclosure must include itself.</strong> If you used AI to help write the disclosure, say so.</p>
+<div class="callout"><strong>Full template and examples:</strong> <code>modules/shared/disclosure_template.md</code>. Keep it open as a reference.</div>
+<p>A disclosure is not a confession and not a liability disclaimer. It is a record of what happened, written so that a reviewer — or your future self — can understand what the model contributed and what you decided. Good disclosure is a research practice, not a bureaucratic requirement.</p>
+<hr class="rule">
+</section>
+<section id="6-demonstration-before-and-after">
+<h3>6. Demonstration: Before and After</h3>
+<p>Let's work through a complete example. I will show you a paragraph, run an editing task without and with an author brief, and evaluate both outputs against criteria defined in advance.</p>
+<h3>The paragraph</h3>
+<div class="callout">Content moderation is often presented as either censorship or protection, but research shows that it can have contradictory effects. It reduces abusive speech, which should increase participation, but automated systems can also disadvantage speakers whose language differs from dominant forms. Stronger moderation is therefore the best way to protect political participation, especially during elections.</div>
+<p><strong>Teaching status:</strong> This paragraph is constructed for demonstration. It is not a verified summary of published research. (The same paragraph appears in Exercise 2.2 so you can work through it yourself.)</p>
+<h3>Step 1: Define the task</h3>
+<div class="callout">Revise this paragraph for clarity and argumentative coherence. Briefly explain your changes. Do not invent citations.</div>
+<h3>Step 2: Write evaluation criteria (before seeing output)</h3>
+<p>| Criterion | Check |</p>
+<p>|---|---|</p>
+<p>| The core empirical tension is preserved (contradictory effects) | The opening sentence must state that moderation can have competing effects, not that one effect dominates |</p>
+<p>| No policy recommendation appears without evidence | The final sentence must not assert that stronger moderation is "best" or "most effective" |</p>
+<p>| Evidentiary gaps are marked, not filled | Where the paragraph makes claims without cited support, the revision should note the gap, not supply plausibly-sounding evidence |</p>
+<p>| The structure flows from puzzle → mechanisms → open question | The paragraph should not resolve into a single clear recommendation |</p>
+<p>| No fabricated citations | Any reference appearing in the output must be traceable to a real source |</p>
+<h3>Step 3: Write the author brief</h3>
+<ul>
+<li><strong>Purpose:</strong> Introduce an empirical puzzle about heterogeneous effects of content moderation on political participation.</li>
+<li><strong>Intended claim:</strong> Moderation may protect some forms of participation while disadvantaging others.</li>
+<li><strong>Not intended:</strong> This paragraph does not establish that stronger moderation is preferable overall.</li>
+<li><strong>Evidence boundary:</strong> No sources have been supplied. Do not add empirical claims or citations; mark claims needing evidence.</li>
+<li><strong>Voice:</strong> Analytic and cautious. Preserve uncertainty.</li>
+<li><strong>Permitted assistance:</strong> Improve organisation and clarity; flag any substantive decision rather than making it silently.</li>
+</ul>
+<h3>Step 4: Run A — without author brief</h3>
+<p><em>The model receives only the paragraph and the editing request.</em></p>
+<p><strong>Typical output (Run A):</strong></p>
+<div class="callout">Content moderation is commonly framed as a tension between censorship and protection, yet evidence suggests it can produce competing effects. By reducing abusive speech, moderation may encourage political participation; however, automated systems can disproportionately disadvantage speakers whose language differs from dominant forms. On balance, stronger moderation offers the most effective way to protect participation, particularly during elections.</div>
+<h3>Step 5: Apply criteria to Run A</h3>
+<p>| Criterion | Pass? | Evidence |</p>
+<p>|---|---|---|</p>
+<p>| Core tension preserved | ⚠️ Partial | "Competing effects" is preserved, but the opening frames it as a resolved tension |</p>
+<p>| No unsupported policy recommendation | ❌ Fail | "Stronger moderation offers the most effective way to protect participation" — this is stronger than the original and has no evidence |</p>
+<p>| Evidentiary gaps marked | ❌ Fail | "Evidence suggests," "disproportionately disadvantage" — no gaps marked, confidence added |</p>
+<p>| Structure flows puzzle → open question | ❌ Fail | Paragraph resolves to a single recommendation |</p>
+<p>| No fabricated citations | ✅ Pass | No citations invented |</p>
+<p><strong>Verdict:</strong> The prose improved. The argument got worse — it became more confident and less accurate.</p>
+<h3>Step 6: Run B — with author brief</h3>
+<p><em>The model receives the paragraph, the editing request, and the author brief.</em></p>
+<p><strong>Typical output (Run B):</strong></p>
+<div class="callout">Content moderation may affect political participation in competing ways. Reducing abusive speech could make participation safer for some users [EVIDENCE NEEDED], while automated moderation systems may disadvantage speakers whose language differs from dominant forms [EVIDENCE NEEDED]. These possibilities create an empirical puzzle about whose participation is protected or constrained. This paragraph does not establish whether stronger moderation is preferable overall.</div>
+<h3>Step 7: Apply criteria to Run B</h3>
+<p>| Criterion | Pass? | Evidence |</p>
+<p>|---|---|---|</p>
+<p>| Core tension preserved | ✅ Pass | "Competing ways" preserved; puzzle framed explicitly |</p>
+<p>| No unsupported policy recommendation | ✅ Pass | Final sentence explicitly states the paragraph does not establish the recommendation |</p>
+<p>| Evidentiary gaps marked | ✅ Pass | [EVIDENCE NEEDED] markers at unsupported claims |</p>
+<p>| Structure flows puzzle → open question | ✅ Pass | Opens with tension, closes with open question |</p>
+<p>| No fabricated citations | ✅ Pass | No citations added |</p>
+<p><strong>Verdict:</strong> Run B is less smooth than Run A. It has bracketed interruptions. It does not resolve neatly. It is also <em>more accurate to the author's actual position</em>, more honest about what the evidence supports, and more useful as a piece of academic writing.</p>
+<h3>What this demonstrates</h3>
+<ol>
+<li><strong>The author brief is not a "better prompt" in the sense of being longer.</strong> It is a specification of what the author actually intends, which the model cannot guess. Without it, the model defaults to the statistical centre of its training data — which, for academic text, tends toward confident declarative claims.</li>
+</ol>
+<ol>
+<li><strong>Better prose and better argument are different axes.</strong> Run A reads more smoothly. Run B is more accurate. In academic writing, accuracy is the binding constraint. Smoothness is secondary.</li>
+</ol>
+<ol>
+<li><strong>You cannot evaluate output by reading the output.</strong> You need something outside the text — your criteria, your author brief, your evidence — to check it against.</li>
+</ol>
+<hr class="rule">
+</section>
+<section id="7-a-failure-case-when-style-transfer-goe">
+<h3>7. A Failure Case: When Style Transfer Goes Wrong</h3>
+<p>Style transfer is especially prone to silent argument change. Here is an example:</p>
+<p><strong>Original (from a real working paper):</strong></p>
+<div class="callout">We find that the treatment effect is heterogeneous across subgroups: positive and significant for respondents with high baseline trust (β = 0.34, p < 0.01), but indistinguishable from zero for respondents with low baseline trust (β = 0.07, p = 0.41). We caution that the low-trust subgroup is small (n = 47) and that the interaction term does not reach conventional significance thresholds (p = 0.08).</div>
+<p><strong>Request:</strong> "Rewrite this for a general audience."</p>
+<p><strong>Model output (failure case):</strong></p>
+<div class="callout">The program worked well for people who started out trusting, but it didn't help people who were more skeptical.</div>
+<p><strong>What was lost:</strong></p>
+<ul>
+<li>The effect sizes disappeared (0.34 and 0.07).</li>
+<li>The significance levels disappeared.</li>
+<li>The small-n caution disappeared.</li>
+<li>The interaction term — the actual test of whether the subgroups differ — disappeared.</li>
+<li>"Indistinguishable from zero" became "didn't help" — which is a different claim (no evidence of effect ≠ evidence of no effect).</li>
+<li>The entire statistical apparatus that lets a reader evaluate the claim was replaced by a story.</li>
+</ul>
+<p><strong>Better plain-language version:</strong></p>
+<div class="callout">The program's effect depended on how much trust people started with. For people with high initial trust, the program produced a meaningful improvement. For people with low initial trust, we couldn't detect an effect — but this group was small (47 people), so we can't be confident either way. The statistical test that directly compares the two groups didn't quite clear the standard threshold, so we're cautious about claiming the groups truly differ.</div>
+<p>The second version is accessible but preserves the evidence structure. The difference is not in the prompt wording — it is in whether you, the author, check the output against your criteria and refuse to accept a version that drops the evidence.</p>
+<hr class="rule">
+</section>
+<section id="8-exercise-instructions">
+<h3>8. Exercise Instructions</h3>
+<p>Complete all five exercises in <code>exercises.md</code>. Each takes approximately 20–30 minutes. Work through them in order — they build on each other.</p>
+<p><strong>You will need:</strong> A chat interface (any LLM), this workbook, and a piece of your own academic writing you are authorised to use (a paragraph from a seminar paper, a thesis draft, or a working document — do not use co-authored work without permission, and do not upload confidential or unpublished data).</p>
+<p>| Exercise | What you'll do | Key skill |</p>
+<p>|---|---|---|</p>
+<p>| 2.1 | Define criteria for "good" writing before seeing any AI output | Criteria-first evaluation |</p>
+<p>| 2.2 | Draft with AI, evaluate against criteria, revise | The human-first editing loop |</p>
+<p>| 2.3 | Derive a style guide from three examples, test it on new text | Style specification from evidence |</p>
+<p>| 2.4 | Write a disclosure for an AI-assisted writing task | Transparent record-keeping |</p>
+<p>| 2.5 | Apply the four questions to a writing workflow | Systematic delegation analysis |</p>
+<p>Before starting the exercises, re-read Sections 2 (criteria-based evaluation) and 4 (four questions applied to writing) of this workbook. Keep the disclosure template (<code>modules/shared/disclosure_template.md</code>) and the four questions (<code>modules/shared/four_questions.md</code>) open.</p>
+<p><strong>Save everything you produce.</strong> The style guide from Exercise 2.3, the disclosure from Exercise 2.4, and the four-questions analysis from Exercise 2.5 will feed into your portfolio.</p>
+<hr class="rule">
+</section>
+<section id="9-summary">
+<h3>9. Summary</h3>
+<ul>
+<li>AI is a capable writing assistant for drafting, editing, restructuring, and style transfer — but it cannot supply your argument, your evidence, or your voice.</li>
+<li><strong>Define evaluation criteria before seeing AI output.</strong> This is the baseline rule of AI-assisted writing. Fluency is not accuracy.</li>
+<li><strong>An author brief</strong> — purpose, intended claim, evidence boundary, voice, permitted assistance — prevents the model from filling missing specifications with its own defaults.</li>
+<li><strong>Style transfer requires specification.</strong> Show the model examples; do not assume it knows what "academic style" or "plain language" means for your purpose.</li>
+<li><strong>The four questions apply to writing as they apply to every AI use:</strong> what is being delegated (task vs. decision), what would make it believable, what could be lost or flattened, what must remain human.</li>
+<li><strong>Disclosure is not optional.</strong> Every AI-assisted output must record what tool was used, for what purpose, where, what was verified, and what the human decided.</li>
+</ul>
+<hr class="rule">
+</section>
+<section id="what-s-next">
+<h3>What's Next</h3>
+<p><strong>Module 3</strong> moves from writing to literature: searching, screening, and synthesising with AI assistance. You will use the criteria-first approach from this module to evaluate search results and the style-transfer skills to write source-bounded syntheses. The four questions remain your lens; the disclosure template remains your record.</p>
 </section>
 </section>
 
@@ -566,509 +333,392 @@
 <section id="exercises">
 <h2 class="section__title"><span class="section__mark">§</span> exercises</h2>
 <div class="exercise">
-<h3>1|# Module 2: Exercises</h3>
-<p>2|</p>
-<p>3|Each exercise includes an answer key. <strong>Work through the exercise before reading the key.</strong> The point is to form a judgment before seeing a model's output or a prepared answer — this is the "human first" principle.</p>
-<p>4|</p>
-<p>5|<strong>You will need:</strong></p>
-<p>6|</p>
-<p>7|- A chat interface (any LLM — ChatGPT, Claude, Gemini, or another you have access to)</p>
-<p>8|- This workbook open for reference (especially Sections 2 and 4)</p>
-<p>9|- The disclosure template: <code>modules/shared/disclosure_template.md</code></p>
-<p>10|- The four questions: <code>modules/shared/four_questions.md</code></p>
-<p>11|- A piece of your own academic writing (a paragraph from a seminar paper, thesis draft, or working document — no co-authored work without permission, no confidential data)</p>
-<p>12|</p>
-<p>13|---</p>
-<p>14|</p>
-<p>15|## Exercise 2.1: Define Criteria Before You See Output</p>
-<p>16|</p>
-<p>17|<strong>Goal:</strong> Practice writing evaluation criteria for a writing task <em>before</em> the model produces anything. This is the baseline rule of AI-assisted writing.</p>
-<p>18|</p>
-<p>19|### Part A: Write criteria for a given task</p>
-<p>20|</p>
-<p>21|Below is a task description and an abstract. <strong>Do not run the model yet.</strong> Read the task and the abstract, then write your evaluation criteria.</p>
-<p>22|</p>
-<p>23|<strong>Task:</strong> Ask a model to summarise the following abstract in no more than three sentences, suitable for inclusion in a literature review.</p>
-<p>24|</p>
-<p>25|<strong>Abstract:</strong></p>
-<p>26|</p>
-<p>27|> This study investigates the relationship between exposure to online political misinformation and trust in democratic institutions using a three-wave panel survey of 3,000 respondents in six European countries. We estimate cross-lagged panel models and find that misinformation exposure is associated with small but statistically significant declines in institutional trust over time. However, the effect is concentrated among respondents who report low levels of political knowledge, while respondents with high political knowledge show no significant effect. We also find that the effect is mediated by declining trust in traditional media rather than by belief in the misinformation itself. These findings suggest that misinformation's primary mechanism may be the erosion of trust in information intermediaries rather than direct persuasion.</p>
-<p>28|</p>
-<p>29|<strong>Your criteria</strong> (write 4–6 specific, verifiable criteria):</p>
-<p>30|</p>
-<p>31|1. _______________________________________________</p>
-<p>32|2. _______________________________________________</p>
-<p>33|3. _______________________________________________</p>
-<p>34|4. _______________________________________________</p>
-<p>35|5. _______________________________________________</p>
-<p>36|6. _______________________________________________</p>
-<p>37|</p>
-<p>38|### Part B: Run the model and evaluate</p>
-<p>39|</p>
-<p>40|Now run the model. Give it the task and the abstract. Then evaluate its output against your criteria.</p>
-<p>41|</p>
-<p>42|<strong>Model's summary:</strong></p>
-<p>43|</p>
-<p>44|> _______________________________________________</p>
-<p>45|> _______________________________________________</p>
-<p>46|> _______________________________________________</p>
-<p>47|</p>
-<p>48|<strong>Evaluation</strong> (for each criterion: pass / fail / partial, with brief evidence):</p>
-<p>49|</p>
-<p>50|| Criterion | Verdict | Evidence from output |</p>
-<p>51||---|---|---|</p>
-<p>52|| 1 | | |</p>
-<p>53|| 2 | | |</p>
-<p>54|| 3 | | |</p>
-<p>55|| 4 | | |</p>
-<p>56|| 5 | | |</p>
-<p>57|| 6 | | |</p>
-<p>58|</p>
-<p>59|---</p>
-<p>60|</p>
-<p>61|<details></p>
-<p>62|<summary><strong>Answer Key</strong> (click to expand)</summary></p>
-<p>63|</p>
-<p>64|<strong>What good criteria look like</strong></p>
-<p>65|</p>
-<p>66|Strong criteria are specific, verifiable, and tied to the task. They are not general impressions ("it should be good", "it should be clear"). Here are example criteria for this task:</p>
-<p>67|</p>
-<p>68|1. <strong>The summary includes the core finding</strong> (misinformation reduces institutional trust, effect is small but significant) — check by locating the finding sentence in the output.</p>
-<p>69|2. <strong>The summary includes the key moderator</strong> (effect concentrated among low-political-knowledge respondents) — check by locating the subgroup finding.</p>
-<p>70|3. <strong>The summary includes the mechanism finding</strong> (effect mediated by declining trust in media, not by belief in misinformation) — check by locating the mediation claim.</p>
-<p>71|4. <strong>No claim is stronger than the abstract supports</strong> — e.g., "misinformation erodes democracy" would be an overstatement; the abstract says "small but significant declines in institutional trust."</p>
-<p>72|5. <strong>The summary stays within three sentences</strong> — count them.</p>
-<p>73|6. <strong>No fabricated content appears</strong> — every factual claim in the summary must be traceable to a claim in the original abstract. Nothing added.</p>
-<p>74|</p>
-<p>75|<strong>Common mistakes in this exercise:</strong></p>
-<p>76|</p>
-<p>77|- Writing criteria <em>after</em> seeing the output and tailoring them to what the model produced. That is evaluation in reverse — it makes every output look good by adjusting the standard.</p>
-<p>78|- Criteria that are too vague to verify ("should be accurate", "should sound academic"). If you cannot point to a specific place in the output and say "this passes because X" or "this fails because Y", the criterion is not operational.</p>
-<p>79|- Judging the summary by whether it "feels right" rather than by the pre-written checklist. The feeling is influenced by fluency; the checklist is not.</p>
-<p>80|</p>
-<p>81|<strong>If the model failed your criteria:</strong> Good. That is the point. You now have evidence about where the model fell short, and you can decide whether to revise the prompt, edit the output, or discard it. You are not stuck with whatever the model produces. You are evaluating it.</p>
-<p>82|</p>
-<p>83|<strong>If the model passed your criteria:</strong> Also good. But check: were your criteria demanding enough? Did you include a criterion about fabricated content? About strength of claims? About whether any hedging was removed? It is easier to pass weak criteria than strong ones.</p>
-<p>84|</p>
-<p>85|</details></p>
-<p>86|</p>
-<p>87|---</p>
-<p>88|</p>
-<p>89|## Exercise 2.2: Draft, Evaluate, Revise — The Full Loop</p>
-<p>90|</p>
-<p>91|<strong>Goal:</strong> Work through a complete human-first editing loop: define criteria, supply an author brief, run the model, evaluate, and revise.</p>
-<p>92|</p>
-<p>93|### The paragraph</p>
-<p>94|</p>
-<p>95|> Content moderation is often presented as either censorship or protection, but research shows that it can have contradictory effects. It reduces abusive speech, which should increase participation, but automated systems can also disadvantage speakers whose language differs from dominant forms. Stronger moderation is therefore the best way to protect political participation, especially during elections.</p>
-<p>96|</p>
-<p>97|<strong>Teaching status:</strong> This paragraph is constructed. It is not a verified summary of published research.</p>
-<p>98|</p>
-<p>99|### Part A: Write criteria (before running anything)</p>
-<p>100|</p>
-<p>101|You have read Section 6 of the workbook, which works through this exact paragraph. Do not copy the criteria from the workbook — write your own, in your own words, based on what you think matters for a paragraph that:</p>
-<p>102|</p>
-<p>103|- Presents an empirical puzzle about moderation's effects</p>
-<p>104|- Has no sources attached</p>
-<p>105|- Currently draws a policy conclusion that may not be supported</p>
-<p>106|</p>
-<p>107|<strong>Your criteria:</strong></p>
-<p>108|</p>
-<p>109|1. _______________________________________________</p>
-<p>110|2. _______________________________________________</p>
-<p>111|3. _______________________________________________</p>
-<p>112|4. _______________________________________________</p>
-<p>113|5. _______________________________________________</p>
-<p>114|</p>
-<p>115|### Part B: Write an author brief</p>
-<p>116|</p>
-<p>117|Using the format from Section 6 of the workbook, write an author brief for this paragraph. The paragraph's problem is that it asserts "stronger moderation is therefore the best way" without evidence and without acknowledging the tension it introduces. What should the author brief specify?</p>
-<p>118|</p>
-<p>119|<strong>Your author brief:</strong></p>
-<p>120|</p>
-<p>121|- Purpose: _______________________________________________</p>
-<p>122|- Intended claim: _______________________________________________</p>
-<p>123|- Not intended: _______________________________________________</p>
-<p>124|- Evidence boundary: _______________________________________________</p>
-<p>125|- Voice: _______________________________________________</p>
-<p>126|- Permitted assistance: _______________________________________________</p>
-<p>127|</p>
-<p>128|### Part C: Run without and with the brief</p>
-<p>129|</p>
-<p>130|<strong>Run A:</strong> Give the model only the paragraph and this request:</p>
-<p>131|</p>
-<p>132|> Revise this paragraph for clarity and argumentative coherence. Briefly explain your changes. Do not invent citations.</p>
-<p>133|</p>
-<p>134|Record the output.</p>
-<p>135|</p>
-<p>136|<strong>Run B:</strong> Give the model the paragraph, the same request, AND your author brief. Record the output.</p>
-<p>137|</p>
-<p>138|### Part D: Evaluate both runs against your criteria</p>
-<p>139|</p>
-<p>140|| Criterion | Run A verdict | Run B verdict | Evidence for the difference |</p>
-<p>141||---|---|---|---|</p>
-<p>142|| 1 | | | |</p>
-<p>143|| 2 | | | |</p>
-<p>144|| 3 | | | |</p>
-<p>145|| 4 | | | |</p>
-<p>146|| 5 | | | |</p>
-<p>147|</p>
-<p>148|### Part E: Reflect</p>
-<p>149|</p>
-<p>150|1. What did the model decide in Run A that the author brief prevented in Run B?</p>
-<p>151|2. Did the author brief make the output <em>less</em> fluent? If so, was that a loss or a gain?</p>
-<p>152|3. What would you need to add to your author brief to get an even better result?</p>
-<p>153|</p>
-<p>154|---</p>
-<p>155|</p>
-<p>156|<details></p>
-<p>157|<summary><strong>Answer Key</strong> (click to expand)</summary></p>
-<p>158|</p>
-<p>159|<strong>What good criteria look like (example):</strong></p>
-<p>160|</p>
-<p>161|1. The paragraph does not conclude that stronger moderation is "best" or "most effective" without evidence.</p>
-<p>162|2. The contradiction/competing effects are preserved, not resolved.</p>
-<p>163|3. Claims lacking evidence are marked as such — the model should not fill gaps with plausible-sounding support.</p>
-<p>164|4. No fabricated citations or study references appear.</p>
-<p>165|5. The revision does not strengthen claims beyond what the original paragraph contains.</p>
-<p>166|</p>
-<p>167|<strong>What a good author brief looks like (example):</strong></p>
-<p>168|</p>
-<p>169|- <strong>Purpose:</strong> Introduce an empirical puzzle about the heterogeneous effects of content moderation.</p>
-<p>170|- <strong>Intended claim:</strong> Moderation may protect some forms of participation while disadvantaging others; the net effect is an open empirical question.</p>
-<p>171|- <strong>Not intended:</strong> The paragraph does not establish that stronger moderation is preferable overall.</p>
-<p>172|- <strong>Evidence boundary:</strong> No sources are supplied. Do not add empirical claims or citations. Mark unsupported claims.</p>
-<p>173|- <strong>Voice:</strong> Analytic and cautious. Preserve uncertainty with hedging language (may, suggests, could).</p>
-<p>174|- <strong>Permitted assistance:</strong> Improve organisation and clarity. Flag any substantive decision rather than making it silently.</p>
-<p>175|</p>
-<p>176|<strong>What typically happens:</strong></p>
-<p>177|</p>
-<p>178|<strong>Run A (without brief):</strong> The model typically smooths the prose, keeps or strengthens the policy conclusion, and adds confidence markers like "evidence suggests" or "research demonstrates." The argument becomes cleaner and less accurate. The unsupported conclusion survives, now wrapped in better prose.</p>
-<p>179|</p>
-<p>180|<strong>Run B (with brief):</strong> The model typically preserves the tension, marks evidence gaps, and either removes or qualifies the policy conclusion. The output may be less smooth — it has bracketed markers like [EVIDENCE NEEDED] or hedging phrases — but it is more honest about what the paragraph actually supports.</p>
-<p>181|</p>
-<p>182|<strong>Why Run A is a failure and Run B is a success:</strong> In academic writing, accuracy is the binding constraint. Run A improves style at the cost of accuracy. Run B preserves accuracy while improving style within the boundaries you set. That is the right trade-off.</p>
-<p>183|</p>
-<p>184|<strong>The most important reflection:</strong> If you did not write your criteria <em>before</em> running the model, the fluency of Run A might have convinced you it was good. The criteria protect you from being persuaded by smooth prose.</p>
-<p>185|</p>
-<p>186|</details></p>
-<p>187|</p>
-<p>188|---</p>
-<p>189|</p>
-<p>190|## Exercise 2.3: Derive a Style Guide from Examples</p>
-<p>191|</p>
-<p>192|<strong>Goal:</strong> Learn to specify style by showing the model examples rather than describing what you want in abstract terms.</p>
-<p>193|</p>
-<p>194|### Part A: Collect three examples</p>
-<p>195|</p>
-<p>196|Find three paragraphs of academic writing that you consider well-written. They can be from the same paper or different papers, same author or different authors, as long as they share a style you want to reproduce. Paste them here:</p>
-<p>197|</p>
-<p>198|<strong>Example 1:</strong></p>
-<p>199|</p>
-<p>200|> _______________________________________________</p>
-<p>201|> _______________________________________________</p>
-<p>202|</p>
-<p>203|<strong>Example 2:</strong></p>
-<p>204|</p>
-<p>205|> _______________________________________________</p>
-<p>206|> _______________________________________________</p>
-<p>207|</p>
-<p>208|<strong>Example 3:</strong></p>
-<p>209|</p>
-<p>210|> _______________________________________________</p>
-<p>211|> _______________________________________________</p>
-<p>212|</p>
-<p>213|### Part B: Derive the style guide yourself first</p>
-<p>214|</p>
-<p>215|Before asking the model, analyse your three examples and write down the patterns you observe:</p>
-<p>216|</p>
-<p>217|| Style element | Your observation |</p>
-<p>218||---|---|</p>
-<p>219|| Sentence length and complexity | |</p>
-<p>220|| Vocabulary register | |</p>
-<p>221|| Voice (first/third person, active/passive) | |</p>
-<p>222|| Treatment of uncertainty/hedging | |</p>
-<p>223|| Paragraph structure (topic sentence pattern) | |</p>
-<p>224|| Citation style (integrated or parenthetical) | |</p>
-<p>225|| Any other patterns | |</p>
-<p>226|</p>
-<p>227|### Part C: Ask the model to derive the guide</p>
-<p>228|</p>
-<p>229|Paste your three examples into the model with this prompt:</p>
-<p>230|</p>
-<p>231|> Here are three paragraphs of academic writing. Analyse them and produce a style guide — a set of specific rules about sentence structure, vocabulary, voice, treatment of uncertainty, paragraph organisation, and any other consistent patterns you observe. The guide should be specific enough that someone could follow it to produce new text in the same style.</p>
-<p>232|</p>
-<p>233|Compare the model's style guide to yours. Did it catch patterns you missed? Did you catch patterns it missed? Combine them into a single style guide.</p>
-<p>234|</p>
-<p>235|### Part D: Test the style guide</p>
-<p>236|</p>
-<p>237|Take a paragraph from your own writing — or use the constructed paragraph from Exercise 2.2 — and ask the model to rewrite it following your combined style guide:</p>
-<p>238|</p>
-<p>239|> Rewrite the following paragraph according to the style guide above. Preserve all factual claims and their relationship to the evidence. Do not strengthen or weaken any claim.</p>
-<p>240|</p>
-<p>241|<strong>Original paragraph:</strong></p>
-<p>242|</p>
-<p>243|> _______________________________________________</p>
-<p>244|</p>
-<p>245|<strong>Rewritten paragraph:</strong></p>
-<p>246|</p>
-<p>247|> _______________________________________________</p>
-<p>248|</p>
-<p>249|### Part E: Evaluate the result</p>
-<p>250|</p>
-<p>251|Does the rewritten paragraph follow your style guide? Check each element:</p>
-<p>252|</p>
-<p>253|| Style element | Does it match? | Evidence |</p>
-<p>254||---|---|---|</p>
-<p>255|| Sentence length/complexity | | |</p>
-<p>256|| Vocabulary register | | |</p>
-<p>257|| Voice | | |</p>
-<p>258|| Treatment of uncertainty | | |</p>
-<p>259|| Paragraph structure | | |</p>
-<p>260|| Citation style | | |</p>
-<p>261|</p>
-<p>262|<strong>Reflection:</strong> Was specifying style through examples more effective than giving the model an abstract instruction like "write in an academic style"? Why or why not?</p>
-<p>263|</p>
-<p>264|---</p>
-<p>265|</p>
-<p>266|<details></p>
-<p>267|<summary><strong>Answer Key</strong> (click to expand)</summary></p>
-<p>268|</p>
-<p>269|<strong>Why example-based style specification works better than abstract description</strong></p>
-<p>270|</p>
-<p>271|When you write "use academic style," the model draws on its training-data average of what academic prose looks like. That average is weighted toward the most common patterns in its corpus — which may not match your discipline, your methodological tradition, or your personal voice.</p>
-<p>272|</p>
-<p>273|When you provide three examples, you replace the model's default with a specific target. The model can extract patterns — sentence length distributions, hedging frequency, paragraph structure — that it cannot infer from "academic style" alone.</p>
-<p>274|</p>
-<p>275|<strong>Common patterns the model may catch that a human might miss:</strong></p>
-<p>276|</p>
-<p>277|- Consistent use of signposting words ("however," "moreover," "in contrast") at specific positions in paragraphs</p>
-<p>278|- A preference for nominalisations ("the estimation of" rather than "we estimated")</p>
-<p>279|- Consistent paragraph length or structural template</p>
-<p>280|- Specific verb choices for introducing findings ("reveal" vs. "indicate" vs. "are consistent with")</p>
-<p>281|</p>
-<p>282|<strong>Common patterns a human may catch that the model might miss:</strong></p>
-<p>283|</p>
-<p>284|- The rhetorical function of hedging in a specific disciplinary context (e.g., in some fields hedging is a genuine expression of uncertainty; in others it is a politeness convention)</p>
-<p>285|- The strategic use of first person — when "I argue" signals a stronger claim than "it is argued"</p>
-<p>286|- Citations that carry argumentative weight (e.g., "following Smith (2020)" vs. "(see Smith 2020)" — the model may not distinguish these, but they signal different relationships to the cited work)</p>
-<p>287|</p>
-<p>288|<strong>The best style guide combines both:</strong> Your knowledge of what the style conventions <em>mean</em> in your discipline, plus the model's ability to extract consistent surface patterns from examples.</p>
-<p>289|</p>
-<p>290|<strong>If the rewritten paragraph didn't match your style guide:</strong> The prompt may need refinement. Try adding "Before rewriting, list the rules from the style guide you will apply" — this forces the model to attend to the guide rather than defaulting to its training distribution.</p>
-<p>291|</p>
-<p>292|</details></p>
-<p>293|</p>
-<p>294|---</p>
-<p>295|</p>
-<p>296|## Exercise 2.4: Write a Disclosure</p>
-<p>297|</p>
-<p>298|<strong>Goal:</strong> Practice writing a complete AI-use disclosure for an assisted writing task.</p>
-<p>299|</p>
-<p>300|### Part A: Complete a writing task with AI</p>
-<p>301|</p>
-<p>302|Use any AI writing task from this module (Exercise 2.2 or 2.3), or perform a new one: take a paragraph from your own work and ask the model to revise, restructure, or summarise it. Record:</p>
-<p>303|</p>
-<p>304|- <strong>Model and interface used:</strong> _______________________________________________</p>
-<p>305|- <strong>Date:</strong> _______________________________________________</p>
-<p>306|- <strong>Task:</strong> _______________________________________________</p>
-<p>307|- <strong>What section of your work this applies to:</strong> _______________________________________________</p>
-<p>308|</p>
-<p>309|### Part B: Write the disclosure</p>
-<p>310|</p>
-<p>311|Using the template from <code>modules/shared/disclosure_template.md</code>, write a complete disclosure for this task:</p>
-<p>312|</p>
-<p>313|```</p>
-<p>314|AI Use Disclosure</p>
-<p>315|</p>
-<p>316|Tool(s):</p>
-<p>317|Purpose:</p>
-<p>318|Location:</p>
-<p>319|Verification:</p>
-<p>320|Human decisions:</p>
-<p>321|</p>
-<p>322|The author takes full responsibility for all content in this document.</p>
-<p>323|No AI tool was used as a source of fact, and no AI-generated reference</p>
-<p>324|was included without personal verification.</p>
-<p>325|```</p>
-<p>326|</p>
-<p>327|### Part C: Self-check your disclosure</p>
-<p>328|</p>
-<p>329|Verify each required element:</p>
-<p>330|</p>
-<p>331|| Element | Present? | Specific enough? |</p>
-<p>332||---|---|---|</p>
-<p>333|| Tool name, interface, date | ✅ / ❌ | Would someone else know exactly what was used? |</p>
-<p>334|| Purpose | ✅ / ❌ | Is it specific ("to restructure the methods section") or vague ("for writing")? |</p>
-<p>335|| Location | ✅ / ❌ | Can a reader find the affected section? |</p>
-<p>336|| Verification | ✅ / ❌ | Are the checks described concretely? Could someone reproduce them? |</p>
-<p>337|| Human decisions | ✅ / ❌ | Does it name what the author decided, not just what the model did? |</p>
-<p>338|</p>
-<p>339|### Part D: The meta-disclosure</p>
-<p>340|</p>
-<p>341|If you used AI to help write this disclosure statement itself, add a sentence to the disclosure saying so. Yes, this is recursive. Yes, it matters.</p>
-<p>342|</p>
-<p>343|---</p>
-<p>344|</p>
-<p>345|<details></p>
-<p>346|<summary><strong>Answer Key</strong> (click to expand)</summary></p>
-<p>347|</p>
-<p>348|<strong>What a good disclosure looks like (example for Exercise 2.2 Run B):</strong></p>
-<p>349|</p>
-<p>350|```</p>
-<p>351|AI Use Disclosure</p>
-<p>352|</p>
-<p>353|Tool(s): Claude 4 (Anthropic), via claude.ai, 4 October 2026</p>
-<p>354|Purpose: To revise a constructed paragraph on content moderation for clarity</p>
-<p>355|  and argumentative coherence, following an author-supplied brief specifying</p>
-<p>356|  the intended claim, evidence boundary, and voice.</p>
-<p>357|Location: Exercise 2.2 Run B — the revised paragraph on content moderation</p>
-<p>358|  effects in this exercises document.</p>
-<p>359|Verification: The output was compared against pre-written evaluation criteria</p>
-<p>360|  (5 criteria, written before running the model). Every factual claim in the</p>
-<p>361|  output was checked against the original paragraph. No sources were supplied;</p>
-<p>362|  no citations were generated. The [EVIDENCE NEEDED] markers added by the model</p>
-<p>363|  were reviewed and confirmed to flag unsupported claims appropriately.</p>
-<p>364|Human decisions: The author brief (purpose, intended claim, evidence boundary,</p>
-<p>365|  voice, permitted assistance) was written by the author before model use.</p>
-<p>366|  The final selection of which revision to use and all interpretive judgments</p>
-<p>367|  about the paragraph's argument are the author's.</p>
-<p>368|```</p>
-<p>369|</p>
-<p>370|<strong>Common disclosure failures:</strong></p>
-<p>371|</p>
-<p>372|1. <strong>"I used ChatGPT for writing."</strong> — Too vague. What model? When? For what specific task? Where in the work? What did you verify?</p>
-<p>373|2. <strong>"The model helped with editing."</strong> — "Helped" is not a purpose. What did it do? Restructure? Rephrase? Summarise? Generate alternatives?</p>
-<p>374|3. <strong>"I verified the output."</strong> — Verified <em>how</em>? "I read it and it looked fine" is not verification. "I checked every citation against its source publication" is.</p>
-<p>375|4. <strong>Omitting verification entirely.</strong> If you cannot describe what you checked, you did not check it — and the disclosure should reflect that honestly. "Output was not independently verified" is a legitimate (if uncomfortable) disclosure. Claiming verification that did not happen is not.</p>
-<p>376|5. <strong>No human decisions listed.</strong> The disclosure should name at least one thing you decided that the model did not. If you cannot name one, you may have delegated more than you intended.</p>
-<p>377|</p>
-<p>378|<strong>The meta-disclosure point:</strong> If you used AI to draft this disclosure, say so. "Tool(s) also used to draft this disclosure statement." This is not a trap — it is consistency. The disclosure rule applies to the disclosure itself.</p>
-<p>379|</p>
-<p>380|</details></p>
-<p>381|</p>
-<p>382|---</p>
-<p>383|</p>
-<p>384|## Exercise 2.5: The Four Questions on a Writing Workflow</p>
-<p>385|</p>
-<p>386|<strong>Goal:</strong> Apply the four-question lens to your own writing workflow to identify delegation boundaries, verification requirements, loss risks, and non-negotiable human elements.</p>
-<p>387|</p>
-<p>388|### Part A: Describe your writing workflow</p>
-<p>389|</p>
-<p>390|Choose a real writing task you do — drafting a section of a paper, revising a paragraph, writing an abstract, preparing a literature review section. Describe your current workflow without AI:</p>
-<p>391|</p>
-<p>392|<strong>Task:</strong> _______________________________________________</p>
-<p>393|</p>
-<p>394|<strong>Current workflow (step by step):</strong></p>
-<p>395|</p>
-<p>396|1. _______________________________________________</p>
-<p>397|2. _______________________________________________</p>
-<p>398|3. _______________________________________________</p>
-<p>399|4. _______________________________________________</p>
-<p>400|5. _______________________________________________</p>
-<p>401|</p>
-<p>402|### Part B: Answer the four questions</p>
-<p>403|</p>
-<p>404|Now imagine integrating AI into this workflow — not replacing it, but adding AI at specific points. For each question, be specific and concrete. "The model helps with writing" is not an answer to any of them.</p>
-<p>405|</p>
-<p>406|<strong>1. What is being delegated?</strong></p>
-<p>407|</p>
-<p>408|- Task (the specific action the AI performs): _______________________________________________</p>
-<p>409|- Decision (the methodological judgment being handed over): _______________________________________________</p>
-<p>410|</p>
-<p>411|<strong>2. What would make the result believable?</strong></p>
-<p>412|</p>
-<p>413|List specific verification steps. For each, name the evidence outside the model:</p>
-<p>414|</p>
-<p>415|- _______________________________________________</p>
-<p>416|- _______________________________________________</p>
-<p>417|- _______________________________________________</p>
-<p>418|</p>
-<p>419|<strong>3. What could be lost or flattened?</strong></p>
-<p>420|</p>
-<p>421|Name specific risks for your task:</p>
-<p>422|</p>
-<p>423|- Variation or nuance at risk: _______________________________________________</p>
-<p>424|- Tacit knowledge the prompt might not capture: _______________________________________________</p>
-<p>425|- Voice or argument elements that might be averaged away: _______________________________________________</p>
-<p>426|</p>
-<p>427|<strong>4. What must remain visible or human?</strong></p>
-<p>428|</p>
-<p>429|Name the non-negotiable:</p>
-<p>430|</p>
-<p>431|- Decision only you can make: _______________________________________________</p>
-<p>432|- Check only you can perform: _______________________________________________</p>
-<p>433|- Record that must survive for a reviewer: _______________________________________________</p>
-<p>434|- Condition under which you would override the model's output: _______________________________________________</p>
-<p>435|</p>
-<p>436|### Part C: Write your working agreement</p>
-<p>437|</p>
-<p>438|Based on your four-questions analysis, write a short "working agreement" for AI-assisted writing in your research. This is not a disclosure for a specific task — it is a set of rules you commit to following whenever you use AI for writing. Keep it short (5–8 rules).</p>
-<p>439|</p>
-<p>440|<strong>My AI writing agreement:</strong></p>
-<p>441|</p>
-<p>442|1. _______________________________________________</p>
-<p>443|2. _______________________________________________</p>
-<p>444|3. _______________________________________________</p>
-<p>445|4. _______________________________________________</p>
-<p>446|5. _______________________________________________</p>
-<p>447|6. _______________________________________________</p>
-<p>448|7. _______________________________________________</p>
-<p>449|8. _______________________________________________</p>
-<p>450|</p>
-<p>451|---</p>
-<p>452|</p>
-<p>453|<details></p>
-<p>454|<summary><strong>Answer Key</strong> (click to expand)</summary></p>
-<p>455|</p>
-<p>456|<strong>What a good four-questions analysis looks like (example for literature review drafting):</strong></p>
-<p>457|</p>
-<p>458|<strong>Task:</strong> Drafting the first pass of a literature review section covering 8–10 papers.</p>
-<p>459|</p>
-<p>460|<strong>1. What is being delegated?</strong></p>
-<p>461|- <strong>Task:</strong> Producing an initial structured draft that groups papers thematically, summarises each paper's contribution, and identifies points of agreement and disagreement.</p>
-<p>462|- <strong>Decision:</strong> The model is NOT deciding which papers belong in the review, which contributions are most important, or what the review's argument is. Those decisions are made by the researcher before the model runs.</p>
-<p>463|</p>
-<p>464|<strong>2. What would make the result believable?</strong></p>
-<p>465|- Every paper mentioned is in my Zotero library and I have read it.</p>
-<p>466|- Every factual claim attributed to a paper is checked against the paper itself (not against the model's summary of the paper).</p>
-<p>467|- The thematic grouping matches a structure I would have chosen — checked by comparing the model's structure against an outline I wrote independently.</p>
-<p>468|- No fabricated papers appear — verified by checking every reference against my library.</p>
-<p>469|</p>
-<p>470|<strong>3. What could be lost or flattened?</strong></p>
-<p>471|- The model may overemphasise papers that fit a clean narrative and underrepresent contradictory findings.</p>
-<p>472|- It may present disagreements as more resolved than they are — "the literature shows" rather than "Smith finds X while Jones finds Y."</p>
-<p>473|- My own relationship to the literature — which papers I see as central and which I see as peripheral — may be replaced by the model's statistical sense of what is important.</p>
-<p>474|- Citations may be dropped, and attribution may become vague ("some studies suggest").</p>
-<p>475|</p>
-<p>476|<strong>4. What must remain visible or human?</strong></p>
-<p>477|- The selection of which papers to include. The model does not choose my literature.</p>
-<p>478|- The argument about how the papers relate to each other. The model can describe relationships; it cannot decide what the relationships mean for my research question.</p>
-<p>479|- Every citation. I must personally verify that each reference exists and says what I claim.</p>
-<p>480|- The decision about what the review concludes — what gap it identifies, what contribution it sets up.</p>
-<p>481|</p>
-<p>482|<strong>What a good working agreement looks like (example):</strong></p>
-<p>483|</p>
-<p>484|1. I will write a one-paragraph author brief before every AI-assisted writing session.</p>
-<p>485|2. I will define my evaluation criteria on paper before the model produces output.</p>
-<p>486|3. Every citation in AI-assisted text will be personally verified against its source.</p>
-<p>487|4. I will not accept output that strengthens or weakens a claim without my explicit instruction.</p>
-<p>488|5. I will run the same prompt twice and compare outputs before accepting either.</p>
-<p>489|6. Every piece of writing I submit will include a disclosure following the course template.</p>
-<p>490|7. I will keep the original, pre-AI version of any text I revise with AI assistance.</p>
-<p>491|8. I will review the working agreement every three months and update it based on what I learn.</p>
-<p>492|</p>
-<p>493|<strong>Why a working agreement matters:</strong></p>
-<p>494|</p>
-<p>495|Without explicit rules, the temptation to cut corners is strong. The model produces fluent text quickly; it is easy to accept the output because it reads well, without checking whether it is accurate. A working agreement — written when you are thinking clearly, not when you are tired and facing a deadline — is your own protection against that temptation.</p>
-<p>496|</p>
-<p>497|The agreement should be specific to your research. A historian and a quantitative political scientist will have different risks and different non-negotiables. The four questions surface what those are.</p>
-<p>498|</p>
-<p>499|</details></p>
-<p>500|</p>
-<p>501|---</p>
-<p>502|</p>
-<p>503|<em>Module 2 Exercises · AI as a Research Tool</em></p>
+<h3># Module 2: Exercises</h3>
+<p>Each exercise includes an answer key. <strong>Work through the exercise before reading the key.</strong> The point is to form a judgment before seeing a model's output or a prepared answer — this is the "human first" principle.</p>
+<p><strong>You will need:</strong></p>
+<ul>
+<li>A chat interface (any LLM — ChatGPT, Claude, Gemini, or another you have access to)</li>
+<li>This workbook open for reference (especially Sections 2 and 4)</li>
+<li>The disclosure template: <code>modules/shared/disclosure_template.md</code></li>
+<li>The four questions: <code>modules/shared/four_questions.md</code></li>
+<li>A piece of your own academic writing (a paragraph from a seminar paper, thesis draft, or working document — no co-authored work without permission, no confidential data)</li>
+</ul>
+<hr class="rule">
+</div>
+<div class="exercise">
+<h3>Exercise 2.1: Define Criteria Before You See Output</h3>
+<p><strong>Goal:</strong> Practice writing evaluation criteria for a writing task <em>before</em> the model produces anything. This is the baseline rule of AI-assisted writing.</p>
+<h3>Part A: Write criteria for a given task</h3>
+<p>Below is a task description and an abstract. <strong>Do not run the model yet.</strong> Read the task and the abstract, then write your evaluation criteria.</p>
+<p><strong>Task:</strong> Ask a model to summarise the following abstract in no more than three sentences, suitable for inclusion in a literature review.</p>
+<p><strong>Abstract:</strong></p>
+<div class="callout">This study investigates the relationship between exposure to online political misinformation and trust in democratic institutions using a three-wave panel survey of 3,000 respondents in six European countries. We estimate cross-lagged panel models and find that misinformation exposure is associated with small but statistically significant declines in institutional trust over time. However, the effect is concentrated among respondents who report low levels of political knowledge, while respondents with high political knowledge show no significant effect. We also find that the effect is mediated by declining trust in traditional media rather than by belief in the misinformation itself. These findings suggest that misinformation's primary mechanism may be the erosion of trust in information intermediaries rather than direct persuasion.</div>
+<p><strong>Your criteria</strong> (write 4–6 specific, verifiable criteria):</p>
+<ol>
+<li>_______________________________________________</li>
+<li>_______________________________________________</li>
+<li>_______________________________________________</li>
+<li>_______________________________________________</li>
+<li>_______________________________________________</li>
+<li>_______________________________________________</li>
+</ol>
+<h3>Part B: Run the model and evaluate</h3>
+<p>Now run the model. Give it the task and the abstract. Then evaluate its output against your criteria.</p>
+<p><strong>Model's summary:</strong></p>
+<div class="callout">_______________________________________________ _______________________________________________ _______________________________________________</div>
+<p><strong>Evaluation</strong> (for each criterion: pass / fail / partial, with brief evidence):</p>
+<p>| Criterion | Verdict | Evidence from output |</p>
+<p>|---|---|---|</p>
+<p>| 1 | | |</p>
+<p>| 2 | | |</p>
+<p>| 3 | | |</p>
+<p>| 4 | | |</p>
+<p>| 5 | | |</p>
+<p>| 6 | | |</p>
+<hr class="rule">
+<p><details></p>
+<p><summary><strong>Answer Key</strong> (click to expand)</summary></p>
+<p><strong>What good criteria look like</strong></p>
+<p>Strong criteria are specific, verifiable, and tied to the task. They are not general impressions ("it should be good", "it should be clear"). Here are example criteria for this task:</p>
+<ol>
+<li><strong>The summary includes the core finding</strong> (misinformation reduces institutional trust, effect is small but significant) — check by locating the finding sentence in the output.</li>
+<li><strong>The summary includes the key moderator</strong> (effect concentrated among low-political-knowledge respondents) — check by locating the subgroup finding.</li>
+<li><strong>The summary includes the mechanism finding</strong> (effect mediated by declining trust in media, not by belief in misinformation) — check by locating the mediation claim.</li>
+<li><strong>No claim is stronger than the abstract supports</strong> — e.g., "misinformation erodes democracy" would be an overstatement; the abstract says "small but significant declines in institutional trust."</li>
+<li><strong>The summary stays within three sentences</strong> — count them.</li>
+<li><strong>No fabricated content appears</strong> — every factual claim in the summary must be traceable to a claim in the original abstract. Nothing added.</li>
+</ol>
+<p><strong>Common mistakes in this exercise:</strong></p>
+<ul>
+<li>Writing criteria <em>after</em> seeing the output and tailoring them to what the model produced. That is evaluation in reverse — it makes every output look good by adjusting the standard.</li>
+<li>Criteria that are too vague to verify ("should be accurate", "should sound academic"). If you cannot point to a specific place in the output and say "this passes because X" or "this fails because Y", the criterion is not operational.</li>
+<li>Judging the summary by whether it "feels right" rather than by the pre-written checklist. The feeling is influenced by fluency; the checklist is not.</li>
+</ul>
+<p><strong>If the model failed your criteria:</strong> Good. That is the point. You now have evidence about where the model fell short, and you can decide whether to revise the prompt, edit the output, or discard it. You are not stuck with whatever the model produces. You are evaluating it.</p>
+<p><strong>If the model passed your criteria:</strong> Also good. But check: were your criteria demanding enough? Did you include a criterion about fabricated content? About strength of claims? About whether any hedging was removed? It is easier to pass weak criteria than strong ones.</p>
+<p></details></p>
+<hr class="rule">
+</div>
+<div class="exercise">
+<h3>Exercise 2.2: Draft, Evaluate, Revise — The Full Loop</h3>
+<p><strong>Goal:</strong> Work through a complete human-first editing loop: define criteria, supply an author brief, run the model, evaluate, and revise.</p>
+<h3>The paragraph</h3>
+<div class="callout">Content moderation is often presented as either censorship or protection, but research shows that it can have contradictory effects. It reduces abusive speech, which should increase participation, but automated systems can also disadvantage speakers whose language differs from dominant forms. Stronger moderation is therefore the best way to protect political participation, especially during elections.</div>
+<p><strong>Teaching status:</strong> This paragraph is constructed. It is not a verified summary of published research.</p>
+<h3>Part A: Write criteria (before running anything)</h3>
+<p>You have read Section 6 of the workbook, which works through this exact paragraph. Do not copy the criteria from the workbook — write your own, in your own words, based on what you think matters for a paragraph that:</p>
+<ul>
+<li>Presents an empirical puzzle about moderation's effects</li>
+<li>Has no sources attached</li>
+<li>Currently draws a policy conclusion that may not be supported</li>
+</ul>
+<p><strong>Your criteria:</strong></p>
+<ol>
+<li>_______________________________________________</li>
+<li>_______________________________________________</li>
+<li>_______________________________________________</li>
+<li>_______________________________________________</li>
+<li>_______________________________________________</li>
+</ol>
+<h3>Part B: Write an author brief</h3>
+<p>Using the format from Section 6 of the workbook, write an author brief for this paragraph. The paragraph's problem is that it asserts "stronger moderation is therefore the best way" without evidence and without acknowledging the tension it introduces. What should the author brief specify?</p>
+<p><strong>Your author brief:</strong></p>
+<ul>
+<li>Purpose: _______________________________________________</li>
+<li>Intended claim: _______________________________________________</li>
+<li>Not intended: _______________________________________________</li>
+<li>Evidence boundary: _______________________________________________</li>
+<li>Voice: _______________________________________________</li>
+<li>Permitted assistance: _______________________________________________</li>
+</ul>
+<h3>Part C: Run without and with the brief</h3>
+<p><strong>Run A:</strong> Give the model only the paragraph and this request:</p>
+<div class="callout">Revise this paragraph for clarity and argumentative coherence. Briefly explain your changes. Do not invent citations.</div>
+<p>Record the output.</p>
+<p><strong>Run B:</strong> Give the model the paragraph, the same request, AND your author brief. Record the output.</p>
+<h3>Part D: Evaluate both runs against your criteria</h3>
+<p>| Criterion | Run A verdict | Run B verdict | Evidence for the difference |</p>
+<p>|---|---|---|---|</p>
+<p>| 1 | | | |</p>
+<p>| 2 | | | |</p>
+<p>| 3 | | | |</p>
+<p>| 4 | | | |</p>
+<p>| 5 | | | |</p>
+<h3>Part E: Reflect</h3>
+<ol>
+<li>What did the model decide in Run A that the author brief prevented in Run B?</li>
+<li>Did the author brief make the output <em>less</em> fluent? If so, was that a loss or a gain?</li>
+<li>What would you need to add to your author brief to get an even better result?</li>
+</ol>
+<hr class="rule">
+<p><details></p>
+<p><summary><strong>Answer Key</strong> (click to expand)</summary></p>
+<p><strong>What good criteria look like (example):</strong></p>
+<ol>
+<li>The paragraph does not conclude that stronger moderation is "best" or "most effective" without evidence.</li>
+<li>The contradiction/competing effects are preserved, not resolved.</li>
+<li>Claims lacking evidence are marked as such — the model should not fill gaps with plausible-sounding support.</li>
+<li>No fabricated citations or study references appear.</li>
+<li>The revision does not strengthen claims beyond what the original paragraph contains.</li>
+</ol>
+<p><strong>What a good author brief looks like (example):</strong></p>
+<ul>
+<li><strong>Purpose:</strong> Introduce an empirical puzzle about the heterogeneous effects of content moderation.</li>
+<li><strong>Intended claim:</strong> Moderation may protect some forms of participation while disadvantaging others; the net effect is an open empirical question.</li>
+<li><strong>Not intended:</strong> The paragraph does not establish that stronger moderation is preferable overall.</li>
+<li><strong>Evidence boundary:</strong> No sources are supplied. Do not add empirical claims or citations. Mark unsupported claims.</li>
+<li><strong>Voice:</strong> Analytic and cautious. Preserve uncertainty with hedging language (may, suggests, could).</li>
+<li><strong>Permitted assistance:</strong> Improve organisation and clarity. Flag any substantive decision rather than making it silently.</li>
+</ul>
+<p><strong>What typically happens:</strong></p>
+<p><strong>Run A (without brief):</strong> The model typically smooths the prose, keeps or strengthens the policy conclusion, and adds confidence markers like "evidence suggests" or "research demonstrates." The argument becomes cleaner and less accurate. The unsupported conclusion survives, now wrapped in better prose.</p>
+<p><strong>Run B (with brief):</strong> The model typically preserves the tension, marks evidence gaps, and either removes or qualifies the policy conclusion. The output may be less smooth — it has bracketed markers like [EVIDENCE NEEDED] or hedging phrases — but it is more honest about what the paragraph actually supports.</p>
+<p><strong>Why Run A is a failure and Run B is a success:</strong> In academic writing, accuracy is the binding constraint. Run A improves style at the cost of accuracy. Run B preserves accuracy while improving style within the boundaries you set. That is the right trade-off.</p>
+<p><strong>The most important reflection:</strong> If you did not write your criteria <em>before</em> running the model, the fluency of Run A might have convinced you it was good. The criteria protect you from being persuaded by smooth prose.</p>
+<p></details></p>
+<hr class="rule">
+</div>
+<div class="exercise">
+<h3>Exercise 2.3: Derive a Style Guide from Examples</h3>
+<p><strong>Goal:</strong> Learn to specify style by showing the model examples rather than describing what you want in abstract terms.</p>
+<h3>Part A: Collect three examples</h3>
+<p>Find three paragraphs of academic writing that you consider well-written. They can be from the same paper or different papers, same author or different authors, as long as they share a style you want to reproduce. Paste them here:</p>
+<p><strong>Example 1:</strong></p>
+<div class="callout">_______________________________________________ _______________________________________________</div>
+<p><strong>Example 2:</strong></p>
+<div class="callout">_______________________________________________ _______________________________________________</div>
+<p><strong>Example 3:</strong></p>
+<div class="callout">_______________________________________________ _______________________________________________</div>
+<h3>Part B: Derive the style guide yourself first</h3>
+<p>Before asking the model, analyse your three examples and write down the patterns you observe:</p>
+<p>| Style element | Your observation |</p>
+<p>|---|---|</p>
+<p>| Sentence length and complexity | |</p>
+<p>| Vocabulary register | |</p>
+<p>| Voice (first/third person, active/passive) | |</p>
+<p>| Treatment of uncertainty/hedging | |</p>
+<p>| Paragraph structure (topic sentence pattern) | |</p>
+<p>| Citation style (integrated or parenthetical) | |</p>
+<p>| Any other patterns | |</p>
+<h3>Part C: Ask the model to derive the guide</h3>
+<p>Paste your three examples into the model with this prompt:</p>
+<div class="callout">Here are three paragraphs of academic writing. Analyse them and produce a style guide — a set of specific rules about sentence structure, vocabulary, voice, treatment of uncertainty, paragraph organisation, and any other consistent patterns you observe. The guide should be specific enough that someone could follow it to produce new text in the same style.</div>
+<p>Compare the model's style guide to yours. Did it catch patterns you missed? Did you catch patterns it missed? Combine them into a single style guide.</p>
+<h3>Part D: Test the style guide</h3>
+<p>Take a paragraph from your own writing — or use the constructed paragraph from Exercise 2.2 — and ask the model to rewrite it following your combined style guide:</p>
+<div class="callout">Rewrite the following paragraph according to the style guide above. Preserve all factual claims and their relationship to the evidence. Do not strengthen or weaken any claim.</div>
+<p><strong>Original paragraph:</strong></p>
+<div class="callout">_______________________________________________</div>
+<p><strong>Rewritten paragraph:</strong></p>
+<div class="callout">_______________________________________________</div>
+<h3>Part E: Evaluate the result</h3>
+<p>Does the rewritten paragraph follow your style guide? Check each element:</p>
+<p>| Style element | Does it match? | Evidence |</p>
+<p>|---|---|---|</p>
+<p>| Sentence length/complexity | | |</p>
+<p>| Vocabulary register | | |</p>
+<p>| Voice | | |</p>
+<p>| Treatment of uncertainty | | |</p>
+<p>| Paragraph structure | | |</p>
+<p>| Citation style | | |</p>
+<p><strong>Reflection:</strong> Was specifying style through examples more effective than giving the model an abstract instruction like "write in an academic style"? Why or why not?</p>
+<hr class="rule">
+<p><details></p>
+<p><summary><strong>Answer Key</strong> (click to expand)</summary></p>
+<p><strong>Why example-based style specification works better than abstract description</strong></p>
+<p>When you write "use academic style," the model draws on its training-data average of what academic prose looks like. That average is weighted toward the most common patterns in its corpus — which may not match your discipline, your methodological tradition, or your personal voice.</p>
+<p>When you provide three examples, you replace the model's default with a specific target. The model can extract patterns — sentence length distributions, hedging frequency, paragraph structure — that it cannot infer from "academic style" alone.</p>
+<p><strong>Common patterns the model may catch that a human might miss:</strong></p>
+<ul>
+<li>Consistent use of signposting words ("however," "moreover," "in contrast") at specific positions in paragraphs</li>
+<li>A preference for nominalisations ("the estimation of" rather than "we estimated")</li>
+<li>Consistent paragraph length or structural template</li>
+<li>Specific verb choices for introducing findings ("reveal" vs. "indicate" vs. "are consistent with")</li>
+</ul>
+<p><strong>Common patterns a human may catch that the model might miss:</strong></p>
+<ul>
+<li>The rhetorical function of hedging in a specific disciplinary context (e.g., in some fields hedging is a genuine expression of uncertainty; in others it is a politeness convention)</li>
+<li>The strategic use of first person — when "I argue" signals a stronger claim than "it is argued"</li>
+<li>Citations that carry argumentative weight (e.g., "following Smith (2020)" vs. "(see Smith 2020)" — the model may not distinguish these, but they signal different relationships to the cited work)</li>
+</ul>
+<p><strong>The best style guide combines both:</strong> Your knowledge of what the style conventions <em>mean</em> in your discipline, plus the model's ability to extract consistent surface patterns from examples.</p>
+<p><strong>If the rewritten paragraph didn't match your style guide:</strong> The prompt may need refinement. Try adding "Before rewriting, list the rules from the style guide you will apply" — this forces the model to attend to the guide rather than defaulting to its training distribution.</p>
+<p></details></p>
+<hr class="rule">
+</div>
+<div class="exercise">
+<h3>Exercise 2.4: Write a Disclosure</h3>
+<p><strong>Goal:</strong> Practice writing a complete AI-use disclosure for an assisted writing task.</p>
+<h3>Part A: Complete a writing task with AI</h3>
+<p>Use any AI writing task from this module (Exercise 2.2 or 2.3), or perform a new one: take a paragraph from your own work and ask the model to revise, restructure, or summarise it. Record:</p>
+<ul>
+<li><strong>Model and interface used:</strong> _______________________________________________</li>
+<li><strong>Date:</strong> _______________________________________________</li>
+<li><strong>Task:</strong> _______________________________________________</li>
+<li><strong>What section of your work this applies to:</strong> _______________________________________________</li>
+</ul>
+<h3>Part B: Write the disclosure</h3>
+<p>Using the template from <code>modules/shared/disclosure_template.md</code>, write a complete disclosure for this task:</p>
+<p>```</p>
+<p>AI Use Disclosure</p>
+<p>Tool(s):</p>
+<p>Purpose:</p>
+<p>Location:</p>
+<p>Verification:</p>
+<p>Human decisions:</p>
+<p>The author takes full responsibility for all content in this document.</p>
+<p>No AI tool was used as a source of fact, and no AI-generated reference</p>
+<p>was included without personal verification.</p>
+<p>```</p>
+<h3>Part C: Self-check your disclosure</h3>
+<p>Verify each required element:</p>
+<p>| Element | Present? | Specific enough? |</p>
+<p>|---|---|---|</p>
+<p>| Tool name, interface, date | ✅ / ❌ | Would someone else know exactly what was used? |</p>
+<p>| Purpose | ✅ / ❌ | Is it specific ("to restructure the methods section") or vague ("for writing")? |</p>
+<p>| Location | ✅ / ❌ | Can a reader find the affected section? |</p>
+<p>| Verification | ✅ / ❌ | Are the checks described concretely? Could someone reproduce them? |</p>
+<p>| Human decisions | ✅ / ❌ | Does it name what the author decided, not just what the model did? |</p>
+<h3>Part D: The meta-disclosure</h3>
+<p>If you used AI to help write this disclosure statement itself, add a sentence to the disclosure saying so. Yes, this is recursive. Yes, it matters.</p>
+<hr class="rule">
+<p><details></p>
+<p><summary><strong>Answer Key</strong> (click to expand)</summary></p>
+<p><strong>What a good disclosure looks like (example for Exercise 2.2 Run B):</strong></p>
+<p>```</p>
+<p>AI Use Disclosure</p>
+<p>Tool(s): Claude 4 (Anthropic), via claude.ai, 4 October 2026</p>
+<p>Purpose: To revise a constructed paragraph on content moderation for clarity</p>
+<p>and argumentative coherence, following an author-supplied brief specifying</p>
+<p>the intended claim, evidence boundary, and voice.</p>
+<p>Location: Exercise 2.2 Run B — the revised paragraph on content moderation</p>
+<p>effects in this exercises document.</p>
+<p>Verification: The output was compared against pre-written evaluation criteria</p>
+<p>(5 criteria, written before running the model). Every factual claim in the</p>
+<p>output was checked against the original paragraph. No sources were supplied;</p>
+<p>no citations were generated. The [EVIDENCE NEEDED] markers added by the model</p>
+<p>were reviewed and confirmed to flag unsupported claims appropriately.</p>
+<p>Human decisions: The author brief (purpose, intended claim, evidence boundary,</p>
+<p>voice, permitted assistance) was written by the author before model use.</p>
+<p>The final selection of which revision to use and all interpretive judgments</p>
+<p>about the paragraph's argument are the author's.</p>
+<p>```</p>
+<p><strong>Common disclosure failures:</strong></p>
+<ol>
+<li><strong>"I used ChatGPT for writing."</strong> — Too vague. What model? When? For what specific task? Where in the work? What did you verify?</li>
+<li><strong>"The model helped with editing."</strong> — "Helped" is not a purpose. What did it do? Restructure? Rephrase? Summarise? Generate alternatives?</li>
+<li><strong>"I verified the output."</strong> — Verified <em>how</em>? "I read it and it looked fine" is not verification. "I checked every citation against its source publication" is.</li>
+<li><strong>Omitting verification entirely.</strong> If you cannot describe what you checked, you did not check it — and the disclosure should reflect that honestly. "Output was not independently verified" is a legitimate (if uncomfortable) disclosure. Claiming verification that did not happen is not.</li>
+<li><strong>No human decisions listed.</strong> The disclosure should name at least one thing you decided that the model did not. If you cannot name one, you may have delegated more than you intended.</li>
+</ol>
+<p><strong>The meta-disclosure point:</strong> If you used AI to draft this disclosure, say so. "Tool(s) also used to draft this disclosure statement." This is not a trap — it is consistency. The disclosure rule applies to the disclosure itself.</p>
+<p></details></p>
+<hr class="rule">
+</div>
+<div class="exercise">
+<h3>Exercise 2.5: The Four Questions on a Writing Workflow</h3>
+<p><strong>Goal:</strong> Apply the four-question lens to your own writing workflow to identify delegation boundaries, verification requirements, loss risks, and non-negotiable human elements.</p>
+<h3>Part A: Describe your writing workflow</h3>
+<p>Choose a real writing task you do — drafting a section of a paper, revising a paragraph, writing an abstract, preparing a literature review section. Describe your current workflow without AI:</p>
+<p><strong>Task:</strong> _______________________________________________</p>
+<p><strong>Current workflow (step by step):</strong></p>
+<ol>
+<li>_______________________________________________</li>
+<li>_______________________________________________</li>
+<li>_______________________________________________</li>
+<li>_______________________________________________</li>
+<li>_______________________________________________</li>
+</ol>
+<h3>Part B: Answer the four questions</h3>
+<p>Now imagine integrating AI into this workflow — not replacing it, but adding AI at specific points. For each question, be specific and concrete. "The model helps with writing" is not an answer to any of them.</p>
+<p><strong>1. What is being delegated?</strong></p>
+<ul>
+<li>Task (the specific action the AI performs): _______________________________________________</li>
+<li>Decision (the methodological judgment being handed over): _______________________________________________</li>
+</ul>
+<p><strong>2. What would make the result believable?</strong></p>
+<p>List specific verification steps. For each, name the evidence outside the model:</p>
+<ul>
+<li>_______________________________________________</li>
+<li>_______________________________________________</li>
+<li>_______________________________________________</li>
+</ul>
+<p><strong>3. What could be lost or flattened?</strong></p>
+<p>Name specific risks for your task:</p>
+<ul>
+<li>Variation or nuance at risk: _______________________________________________</li>
+<li>Tacit knowledge the prompt might not capture: _______________________________________________</li>
+<li>Voice or argument elements that might be averaged away: _______________________________________________</li>
+</ul>
+<p><strong>4. What must remain visible or human?</strong></p>
+<p>Name the non-negotiable:</p>
+<ul>
+<li>Decision only you can make: _______________________________________________</li>
+<li>Check only you can perform: _______________________________________________</li>
+<li>Record that must survive for a reviewer: _______________________________________________</li>
+<li>Condition under which you would override the model's output: _______________________________________________</li>
+</ul>
+<h3>Part C: Write your working agreement</h3>
+<p>Based on your four-questions analysis, write a short "working agreement" for AI-assisted writing in your research. This is not a disclosure for a specific task — it is a set of rules you commit to following whenever you use AI for writing. Keep it short (5–8 rules).</p>
+<p><strong>My AI writing agreement:</strong></p>
+<ol>
+<li>_______________________________________________</li>
+<li>_______________________________________________</li>
+<li>_______________________________________________</li>
+<li>_______________________________________________</li>
+<li>_______________________________________________</li>
+<li>_______________________________________________</li>
+<li>_______________________________________________</li>
+<li>_______________________________________________</li>
+</ol>
+<hr class="rule">
+<p><details></p>
+<p><summary><strong>Answer Key</strong> (click to expand)</summary></p>
+<p><strong>What a good four-questions analysis looks like (example for literature review drafting):</strong></p>
+<p><strong>Task:</strong> Drafting the first pass of a literature review section covering 8–10 papers.</p>
+<p><strong>1. What is being delegated?</strong></p>
+<ul>
+<li><strong>Task:</strong> Producing an initial structured draft that groups papers thematically, summarises each paper's contribution, and identifies points of agreement and disagreement.</li>
+<li><strong>Decision:</strong> The model is NOT deciding which papers belong in the review, which contributions are most important, or what the review's argument is. Those decisions are made by the researcher before the model runs.</li>
+</ul>
+<p><strong>2. What would make the result believable?</strong></p>
+<ul>
+<li>Every paper mentioned is in my Zotero library and I have read it.</li>
+<li>Every factual claim attributed to a paper is checked against the paper itself (not against the model's summary of the paper).</li>
+<li>The thematic grouping matches a structure I would have chosen — checked by comparing the model's structure against an outline I wrote independently.</li>
+<li>No fabricated papers appear — verified by checking every reference against my library.</li>
+</ul>
+<p><strong>3. What could be lost or flattened?</strong></p>
+<ul>
+<li>The model may overemphasise papers that fit a clean narrative and underrepresent contradictory findings.</li>
+<li>It may present disagreements as more resolved than they are — "the literature shows" rather than "Smith finds X while Jones finds Y."</li>
+<li>My own relationship to the literature — which papers I see as central and which I see as peripheral — may be replaced by the model's statistical sense of what is important.</li>
+<li>Citations may be dropped, and attribution may become vague ("some studies suggest").</li>
+</ul>
+<p><strong>4. What must remain visible or human?</strong></p>
+<ul>
+<li>The selection of which papers to include. The model does not choose my literature.</li>
+<li>The argument about how the papers relate to each other. The model can describe relationships; it cannot decide what the relationships mean for my research question.</li>
+<li>Every citation. I must personally verify that each reference exists and says what I claim.</li>
+<li>The decision about what the review concludes — what gap it identifies, what contribution it sets up.</li>
+</ul>
+<p><strong>What a good working agreement looks like (example):</strong></p>
+<ol>
+<li>I will write a one-paragraph author brief before every AI-assisted writing session.</li>
+<li>I will define my evaluation criteria on paper before the model produces output.</li>
+<li>Every citation in AI-assisted text will be personally verified against its source.</li>
+<li>I will not accept output that strengthens or weakens a claim without my explicit instruction.</li>
+<li>I will run the same prompt twice and compare outputs before accepting either.</li>
+<li>Every piece of writing I submit will include a disclosure following the course template.</li>
+<li>I will keep the original, pre-AI version of any text I revise with AI assistance.</li>
+<li>I will review the working agreement every three months and update it based on what I learn.</li>
+</ol>
+<p><strong>Why a working agreement matters:</strong></p>
+<p>Without explicit rules, the temptation to cut corners is strong. The model produces fluent text quickly; it is easy to accept the output because it reads well, without checking whether it is accurate. A working agreement — written when you are thinking clearly, not when you are tired and facing a deadline — is your own protection against that temptation.</p>
+<p>The agreement should be specific to your research. A historian and a quantitative political scientist will have different risks and different non-negotiables. The four questions surface what those are.</p>
+<p></details></p>
+<hr class="rule">
+<p><em>Module 2 Exercises · AI as a Research Tool</em></p>
 </div>
 </section>
 
@@ -1077,138 +727,124 @@
 <section id="readings">
 <h2 class="section__title"><span class="section__mark">§</span> readings</h2>
 <div class="reading-entry">
-<h4>2|</h4>
-<p class="reading-note">3|Nothing on this list is required before starting the module. Read in any order — before, during, or after. Each entry explains <em>why</em> it is useful and what to take from it.
-4|
-5|---
-6|
-7|## Core Readings
-8|
-9|### Doshi, A. R., & Hauser, O. P. (2024). "Generative AI Enhances Individual Creativity but Reduces the Collective Diversity of Novel Content." <em>Science Advances</em>, 10(28).
-10|
-11|<strong>Why read it:</strong> This paper reports a finding that applies directly to the central tension in AI-assisted writing. In an experimental study of short-story writing, AI assistance improved the quality of individual outputs — each writer's story was rated more highly. But across the population of writers, the stories became more similar to one another. The mechanism: AI-assisted writers converged on a narrower set of themes, structures, and stylistic choices.
-12|
-13|<strong>What to take:</strong> The finding is about creative writing, but the pattern is relevant to academic writing. If every social scientist uses the same models with the same default style, outputs may converge — not toward a shared conclusion (that would be replication) but toward a shared <em>voice</em> that erases disciplinary, methodological, and individual variation. Better individual prose can coexist with worse collective diversity. When you define a style guide and an author brief, you are pushing against this convergence. You are telling the model: <em>this</em> is what I sound like, not the average.
-14|
-15|<strong>Connection to the course:</strong> This is a concrete example of Question 3 (What could be lost or flattened?). The loss is not within one paper — it is across the field. We return to this theme in Module 7 when we discuss sensitivity analysis across prompts and models.
-16|
-17|---
-18|
-19|### Strunk, W., & White, E. B. (2000). <em>The Elements of Style</em>. 4th ed. Longman. (Original work published 1918.)
-20|
-21|<strong>Why read it:</strong> The most influential English-language style guide of the twentieth century — short, opinionated, and still widely assigned. Its rules ("Omit needless words," "Use the active voice," "Do not overwrite") have shaped generations of writers and editors. For our purposes, the value is not in following every rule but in understanding what a style guide <em>is</em>: a set of explicit, contestable norms about what makes writing good.
-22|
-23|<strong>What to take:</strong> Read it alongside your AI experiments. When the model "improves" your prose, what rules is it applying? Strunk & White's? Something else? The model's sense of good writing is a statistical composite, not a reasoned position. If you do not supply a style guide, you are implicitly accepting the model's composite — which may include rules you disagree with. (Example: Strunk & White's injunction against the passive voice is widely taught; it is also widely ignored in scientific writing, where the passive serves a genuine function. Which does your model default to?)
-24|
-25|<strong>Connection to Exercise 2.3:</strong> Deriving your own style guide from examples — rather than accepting Strunk & White or the model's defaults — is how you build conscious control over the norms that shape your writing.
-26|
-27|---
-28|
-29|### Orwell, G. (1946). "Politics and the English Language." <em>Horizon</em>, 13(76), 252–265.
-30|
-31|<strong>Why read it:</strong> Orwell's essay is not a research paper — it is a polemic against vague, evasive prose and its political consequences. But it contains one of the most practical writing guides ever written: six rules (e.g., "Never use a long word where a short one will do," "If it is possible to cut a word out, always cut it out," "Break any of these rules sooner than say anything outright barbarous"). The essay also makes an argument that matters for our purposes: <strong>bad writing is not just unclear — it hides what the writer does not want to examine.</strong>
-32|
-33|<strong>What to take:</strong> The connection to AI-assisted writing is this: the model will not challenge your evasions. If your draft buries an uncomfortable finding in jargon and passive constructions, the model may polish the prose without surfacing the evasion. Clarity is your responsibility — the model can help you achieve it, but only if you want it and check for it. Orwell's rules are one set of criteria you might include in your evaluation checklist: are there shorter alternatives? can anything be cut? does the prose confront or evade?
-34|
-35|---
-36|
-37|### ASD-STE100 (2021). <em>Simplified Technical English, Issue 8</em>. ASD Simplified Technical English Maintenance Group.
-38|
-39|<strong>Why read it:</strong> ASD-STE100 is a controlled language standard developed for aerospace maintenance documentation. It is not about literary style — it is about safety. The standard specifies a restricted vocabulary (~900 approved words in the core dictionary, plus approved technical terms), grammar rules (one sentence = one instruction; maximum 20 words per sentence for procedures; no -ing forms used as nouns), and a writing process. The goal is to make text unambiguous enough that a technician in any country, working in a second language, can maintain an aircraft without error.
-40|
-41|<strong>What to take:</strong> ASD-STE100 is interesting for two reasons. First, it demonstrates that a style guide can be <em>testable</em>: you can check whether a sentence follows the rules, and you can measure whether the resulting text reduces errors. This is the approach we want you to take with your own style guide — make it specific enough that you can check whether the output follows it. Second, it is a reminder that writing conventions are not just about elegance. They are about what can go wrong if the reader misunderstands. In academic writing, a misunderstood methods section or a misattributed finding can be consequential. Your style guide should address the risks that matter for your work, not just surface polish.
-42|
-43|---
-44|
-45|### Sword, H. (2012). <em>Stylish Academic Writing</em>. Harvard University Press.
-46|
-47|<strong>Why read it:</strong> Sword analysed 1,000 academic articles across disciplines to identify what distinguishes engaging academic prose from the unreadable kind. Her findings challenge several myths: that academic writing must be impersonal (first-person is common in well-cited papers), that it must use jargon to be precise (the most cited papers in many fields are also the most accessible), and that style is a matter of innate talent rather than deliberate craft.
-48|
-49|<strong>What to take:</strong> Sword's evidence-based approach to style — analysing a corpus of real papers rather than asserting rules — is the approach we recommend in Exercise 2.3. Instead of telling the model "use academic style" (which defaults to the average), give it examples of the specific kind of academic style you want and ask it to extract the patterns. Sword's book provides a vocabulary for describing those patterns: sentence length variation, verb choice, use of concrete nouns, discipline-specific conventions. Use that vocabulary in your style guide.
-50|
-51|---
-52|
-53|## On Writing with AI
-54|
-55|### Eloundou, T., Manning, S., Mishkin, P., & Rock, D. (2023). "GPTs are GPTs: An Early Look at the Labor Market Impact Potential of Large Language Models." arXiv:2303.10130.
-56|
-57|<strong>Why read it:</strong> The paper that introduced the language of "exposure" — the idea that LLMs will affect some tasks more than others. Writing and editing are among the most-exposed tasks across occupations. The paper is not about whether jobs will be automated; it is about which <em>tasks</em> within jobs can be assisted.
-58|
-59|<strong>What to take:</strong> The relevant section for this module is the framework: exposure is not substitution. A task can be "exposed" to AI assistance without being fully automatable. Writing is highly exposed — and this module argues that the researcher must remain in the loop for the decisions (argument, evidence, voice, citations) even as the tasks (drafting, restructuring, rephrasing) are delegated.
-60|
-61|---
-62|
-63|### Mollick, E. (2024). <em>Co-Intelligence: Living and Working with AI</em>. Portfolio.
-64|
-65|<strong>Why read it:</strong> A practical, accessible book about working with AI — not replacing human judgment but augmenting it. Mollick's central metaphor is "co-intelligence": the human and the AI working together, each contributing what the other cannot. The chapters on writing and creativity are directly relevant to this module.
-66|
-67|<strong>What to take:</strong> Mollick's four rules for working with AI: (1) Always invite AI to the table, (2) Be the human in the loop, (3) Treat AI like a person (but remember it isn't one), and (4) Assume this is the worst AI you will ever use. The second rule is the one this module reinforces: the human must define what good looks like, evaluate the output, and make the final decisions. The fourth is a reminder that the tools are improving rapidly — a limitation you encounter today may be gone in six months. The principles (criteria-first, author brief, verified disclosure) outlast any specific model version.
-68|
-69|---
-70|
-71|## On Style Guides and Controlled Language (Optional Deep Dive)
-72|
-73|### Kohl, J. R. (2008). <em>The Global English Style Guide: Writing Clear, Translatable Documentation for a Global Market</em>. SAS Institute.
-74|
-75|<strong>Why read it:</strong> A practical guide to writing English that is clear, unambiguous, and translatable — principles developed for technical documentation but applicable to any writing where precision matters. Kohl's rules about sentence structure, terminology management, and ambiguity avoidance are directly relevant to writing that must survive peer review.
-76|
-77|<strong>What to take:</strong> Kohl's approach to writing rules as testable and revisable — "does this sentence contain a dangling modifier?" rather than "does this sentence feel awkward?" — is the approach we recommend for evaluating AI-assisted writing. If your criteria cannot be verified by someone else reading the output, they are not operational.
-78|
-79|---
-80|
-81|### Pinker, S. (2014). <em>The Sense of Style: The Thinking Person's Guide to Writing in the 21st Century</em>. Viking.
-82|
-83|<strong>Why read it:</strong> A cognitive psychologist's take on why some prose is clear and some is not. Pinker replaces Strunk & White's prescriptive rules with a model of how readers process language: good writing reduces the reader's cognitive load by making the relationship between ideas visible in the sentence structure. Bad writing — including much academic prose — hides those relationships.
-84|
-85|<strong>What to take:</strong> Pinker's advice is useful for evaluating AI output: does the revision make the relationship between ideas more visible, or does it smooth the prose while obscuring the logical structure? "Clarity" is not an aesthetic judgment; it is a testable claim about how easily a reader can reconstruct the writer's intended meaning.
-86|
-87|---
-88|
-89|## Read Later (Across Modules)
-90|
-91|These readings are listed here because they span multiple modules or gain relevance as you build your portfolio:
-92|
-93|- *<em>Bail, C. A. (2024). "Can Generative AI Improve Social Science?" </em>PNAS<em>, 121(21).<strong> — A broad argument for AI's potential. Read the sections on writing and literature review. Revisit in Modules 7 and 8.
-94|
-95|- </strong>Grossmann, I., et al. (2023). "AI and the Transformation of Social Science Research." </em>Science<em>, 380(6650).<strong> — The cautious counterpoint. Pay attention to the discussion of homogenisation risk. Revisit alongside Doshi & Hauser (2024) in Module 7.
-96|
-97|- </strong>Grimmer, J., Roberts, M. E., & Stewart, B. M. (2022).</em><em> </em>Text as Data<em>. Princeton University Press. Chapters 1–2. — The conceptual framework for automated text analysis. Introduced in Module 1; the distinction between discovery, measurement, and inference applies to writing tasks too.
-98|
-99|- <strong>Becker, J., Rush, N., Barnes, E., & Rein, D. (2025).</strong> "Measuring the Impact of Early-2025 AI on Experienced Open-Source Developer Productivity." arXiv:2507.09089. — Introduced in Module 1. The self-assessment gap (feeling more productive ≠ being more productive) applies to writing: your feeling that the model improved your paragraph is not evidence that it did. The evidence is the criteria checklist.
-100|
-101|- <strong>Kapoor, S., & Narayanan, A. (2023).</strong> "Leakage and the Reproducibility Crisis in Machine-Learning-Based Science." </em>Patterns<em>, 4(9). — Introduced in Module 1. Relevant to writing when the model "knows" your literature better than expected: it may have been trained on it.
-102|
-103|---
-104|
-105|## How to Use This Reading List
-106|
-107|1. <strong>If you only read one thing:</strong> Doshi & Hauser (2024). It is short, directly relevant, and the finding — better individuals, less diverse collectives — is the single most important pattern to watch for in your own AI-assisted writing.
-108|
-109|2. <strong>If you read two:</strong> Add Strunk & White or Orwell. Both give you a concrete style vocabulary you can use in evaluation criteria.
-110|
-111|3. <strong>If you are building a style guide (Exercise 2.3):</strong> Sword (2012) + ASD-STE100. Sword for the evidence-based approach to academic style; ASD-STE100 for the model of a testable, verifiable style guide.
-112|
-113|4. <strong>If you are thinking about the broader implications:</strong> Mollick (2024) for the practical philosophy of working with AI; Doshi & Hauser (2024) revisited alongside Grossmann et al. (2023) for the homogenisation risk.
-114|
-115|---
-116|
-117|</em>Module 2 Reading List · AI as a Research Tool*</p>
+<h4>Nothing on this list is required before starting the module. Read in any order — before, during, or after. Each entry explains <em>why</em> it is useful and what to take from it.</h4>
+<p class="reading-note">---</p>
+</div>
+<h3 style="font-family:var(--mono);font-size:0.78rem;text-transform:uppercase;letter-spacing:0.1em;margin:1.5rem 0 0.75rem;">Core Readings</h3>
+<div class="reading-entry">
+<h4>Doshi, A. R., & Hauser, O. P. (2024). "Generative AI Enhances Individual Creativity but Reduces the Collective Diversity of Novel Content." <em>Science Advances</em>, 10(28).</h4>
+<p class="reading-note"><strong>Why read it:</strong> This paper reports a finding that applies directly to the central tension in AI-assisted writing. In an experimental study of short-story writing, AI assistance improved the quality of individual outputs — each writer's story was rated more highly. But across the population of writers, the stories became more similar to one another. The mechanism: AI-assisted writers converged on a narrower set of themes, structures, and stylistic choices.
+
+<strong>What to take:</strong> The finding is about creative writing, but the pattern is relevant to academic writing. If every social scientist uses the same models with the same default style, outputs may converge — not toward a shared conclusion (that would be replication) but toward a shared <em>voice</em> that erases disciplinary, methodological, and individual variation. Better individual prose can coexist with worse collective diversity. When you define a style guide and an author brief, you are pushing against this convergence. You are telling the model: <em>this</em> is what I sound like, not the average.
+
+<strong>Connection to the course:</strong> This is a concrete example of Question 3 (What could be lost or flattened?). The loss is not within one paper — it is across the field. We return to this theme in Module 7 when we discuss sensitivity analysis across prompts and models.
+
+---</p>
+</div>
+<div class="reading-entry">
+<h4>Strunk, W., & White, E. B. (2000). <em>The Elements of Style</em>. 4th ed. Longman. (Original work published 1918.)</h4>
+<p class="reading-note"><strong>Why read it:</strong> The most influential English-language style guide of the twentieth century — short, opinionated, and still widely assigned. Its rules ("Omit needless words," "Use the active voice," "Do not overwrite") have shaped generations of writers and editors. For our purposes, the value is not in following every rule but in understanding what a style guide <em>is</em>: a set of explicit, contestable norms about what makes writing good.
+
+<strong>What to take:</strong> Read it alongside your AI experiments. When the model "improves" your prose, what rules is it applying? Strunk & White's? Something else? The model's sense of good writing is a statistical composite, not a reasoned position. If you do not supply a style guide, you are implicitly accepting the model's composite — which may include rules you disagree with. (Example: Strunk & White's injunction against the passive voice is widely taught; it is also widely ignored in scientific writing, where the passive serves a genuine function. Which does your model default to?)
+
+<strong>Connection to Exercise 2.3:</strong> Deriving your own style guide from examples — rather than accepting Strunk & White or the model's defaults — is how you build conscious control over the norms that shape your writing.
+
+---</p>
+</div>
+<div class="reading-entry">
+<h4>Orwell, G. (1946). "Politics and the English Language." <em>Horizon</em>, 13(76), 252–265.</h4>
+<p class="reading-note"><strong>Why read it:</strong> Orwell's essay is not a research paper — it is a polemic against vague, evasive prose and its political consequences. But it contains one of the most practical writing guides ever written: six rules (e.g., "Never use a long word where a short one will do," "If it is possible to cut a word out, always cut it out," "Break any of these rules sooner than say anything outright barbarous"). The essay also makes an argument that matters for our purposes: <strong>bad writing is not just unclear — it hides what the writer does not want to examine.</strong>
+
+<strong>What to take:</strong> The connection to AI-assisted writing is this: the model will not challenge your evasions. If your draft buries an uncomfortable finding in jargon and passive constructions, the model may polish the prose without surfacing the evasion. Clarity is your responsibility — the model can help you achieve it, but only if you want it and check for it. Orwell's rules are one set of criteria you might include in your evaluation checklist: are there shorter alternatives? can anything be cut? does the prose confront or evade?
+
+---</p>
+</div>
+<div class="reading-entry">
+<h4>ASD-STE100 (2021). <em>Simplified Technical English, Issue 8</em>. ASD Simplified Technical English Maintenance Group.</h4>
+<p class="reading-note"><strong>Why read it:</strong> ASD-STE100 is a controlled language standard developed for aerospace maintenance documentation. It is not about literary style — it is about safety. The standard specifies a restricted vocabulary (~900 approved words in the core dictionary, plus approved technical terms), grammar rules (one sentence = one instruction; maximum 20 words per sentence for procedures; no -ing forms used as nouns), and a writing process. The goal is to make text unambiguous enough that a technician in any country, working in a second language, can maintain an aircraft without error.
+
+<strong>What to take:</strong> ASD-STE100 is interesting for two reasons. First, it demonstrates that a style guide can be <em>testable</em>: you can check whether a sentence follows the rules, and you can measure whether the resulting text reduces errors. This is the approach we want you to take with your own style guide — make it specific enough that you can check whether the output follows it. Second, it is a reminder that writing conventions are not just about elegance. They are about what can go wrong if the reader misunderstands. In academic writing, a misunderstood methods section or a misattributed finding can be consequential. Your style guide should address the risks that matter for your work, not just surface polish.
+
+---</p>
+</div>
+<div class="reading-entry">
+<h4>Sword, H. (2012). <em>Stylish Academic Writing</em>. Harvard University Press.</h4>
+<p class="reading-note"><strong>Why read it:</strong> Sword analysed 1,000 academic articles across disciplines to identify what distinguishes engaging academic prose from the unreadable kind. Her findings challenge several myths: that academic writing must be impersonal (first-person is common in well-cited papers), that it must use jargon to be precise (the most cited papers in many fields are also the most accessible), and that style is a matter of innate talent rather than deliberate craft.
+
+<strong>What to take:</strong> Sword's evidence-based approach to style — analysing a corpus of real papers rather than asserting rules — is the approach we recommend in Exercise 2.3. Instead of telling the model "use academic style" (which defaults to the average), give it examples of the specific kind of academic style you want and ask it to extract the patterns. Sword's book provides a vocabulary for describing those patterns: sentence length variation, verb choice, use of concrete nouns, discipline-specific conventions. Use that vocabulary in your style guide.
+
+---</p>
+</div>
+<h3 style="font-family:var(--mono);font-size:0.78rem;text-transform:uppercase;letter-spacing:0.1em;margin:1.5rem 0 0.75rem;">On Writing with AI</h3>
+<div class="reading-entry">
+<h4>Eloundou, T., Manning, S., Mishkin, P., & Rock, D. (2023). "GPTs are GPTs: An Early Look at the Labor Market Impact Potential of Large Language Models." arXiv:2303.10130.</h4>
+<p class="reading-note"><strong>Why read it:</strong> The paper that introduced the language of "exposure" — the idea that LLMs will affect some tasks more than others. Writing and editing are among the most-exposed tasks across occupations. The paper is not about whether jobs will be automated; it is about which <em>tasks</em> within jobs can be assisted.
+
+<strong>What to take:</strong> The relevant section for this module is the framework: exposure is not substitution. A task can be "exposed" to AI assistance without being fully automatable. Writing is highly exposed — and this module argues that the researcher must remain in the loop for the decisions (argument, evidence, voice, citations) even as the tasks (drafting, restructuring, rephrasing) are delegated.
+
+---</p>
+</div>
+<div class="reading-entry">
+<h4>Mollick, E. (2024). <em>Co-Intelligence: Living and Working with AI</em>. Portfolio.</h4>
+<p class="reading-note"><strong>Why read it:</strong> A practical, accessible book about working with AI — not replacing human judgment but augmenting it. Mollick's central metaphor is "co-intelligence": the human and the AI working together, each contributing what the other cannot. The chapters on writing and creativity are directly relevant to this module.
+
+<strong>What to take:</strong> Mollick's four rules for working with AI: (1) Always invite AI to the table, (2) Be the human in the loop, (3) Treat AI like a person (but remember it isn't one), and (4) Assume this is the worst AI you will ever use. The second rule is the one this module reinforces: the human must define what good looks like, evaluate the output, and make the final decisions. The fourth is a reminder that the tools are improving rapidly — a limitation you encounter today may be gone in six months. The principles (criteria-first, author brief, verified disclosure) outlast any specific model version.
+
+---</p>
+</div>
+<h3 style="font-family:var(--mono);font-size:0.78rem;text-transform:uppercase;letter-spacing:0.1em;margin:1.5rem 0 0.75rem;">On Style Guides and Controlled Language (Optional Deep Dive)</h3>
+<div class="reading-entry">
+<h4>Kohl, J. R. (2008). <em>The Global English Style Guide: Writing Clear, Translatable Documentation for a Global Market</em>. SAS Institute.</h4>
+<p class="reading-note"><strong>Why read it:</strong> A practical guide to writing English that is clear, unambiguous, and translatable — principles developed for technical documentation but applicable to any writing where precision matters. Kohl's rules about sentence structure, terminology management, and ambiguity avoidance are directly relevant to writing that must survive peer review.
+
+<strong>What to take:</strong> Kohl's approach to writing rules as testable and revisable — "does this sentence contain a dangling modifier?" rather than "does this sentence feel awkward?" — is the approach we recommend for evaluating AI-assisted writing. If your criteria cannot be verified by someone else reading the output, they are not operational.
+
+---</p>
+</div>
+<div class="reading-entry">
+<h4>Pinker, S. (2014). <em>The Sense of Style: The Thinking Person's Guide to Writing in the 21st Century</em>. Viking.</h4>
+<p class="reading-note"><strong>Why read it:</strong> A cognitive psychologist's take on why some prose is clear and some is not. Pinker replaces Strunk & White's prescriptive rules with a model of how readers process language: good writing reduces the reader's cognitive load by making the relationship between ideas visible in the sentence structure. Bad writing — including much academic prose — hides those relationships.
+
+<strong>What to take:</strong> Pinker's advice is useful for evaluating AI output: does the revision make the relationship between ideas more visible, or does it smooth the prose while obscuring the logical structure? "Clarity" is not an aesthetic judgment; it is a testable claim about how easily a reader can reconstruct the writer's intended meaning.
+
+---</p>
+</div>
+<h3 style="font-family:var(--mono);font-size:0.78rem;text-transform:uppercase;letter-spacing:0.1em;margin:1.5rem 0 0.75rem;">Read Later (Across Modules)</h3>
+<div class="reading-entry">
+<h4>These readings are listed here because they span multiple modules or gain relevance as you build your portfolio:</h4>
+<p class="reading-note">- *<em>Bail, C. A. (2024). "Can Generative AI Improve Social Science?" </em>PNAS<em>, 121(21).<strong> — A broad argument for AI's potential. Read the sections on writing and literature review. Revisit in Modules 7 and 8.
+
+- </strong>Grossmann, I., et al. (2023). "AI and the Transformation of Social Science Research." </em>Science<em>, 380(6650).<strong> — The cautious counterpoint. Pay attention to the discussion of homogenisation risk. Revisit alongside Doshi & Hauser (2024) in Module 7.
+
+- </strong>Grimmer, J., Roberts, M. E., & Stewart, B. M. (2022).</em><em> </em>Text as Data<em>. Princeton University Press. Chapters 1–2. — The conceptual framework for automated text analysis. Introduced in Module 1; the distinction between discovery, measurement, and inference applies to writing tasks too.
+
+- <strong>Becker, J., Rush, N., Barnes, E., & Rein, D. (2025).</strong> "Measuring the Impact of Early-2025 AI on Experienced Open-Source Developer Productivity." arXiv:2507.09089. — Introduced in Module 1. The self-assessment gap (feeling more productive ≠ being more productive) applies to writing: your feeling that the model improved your paragraph is not evidence that it did. The evidence is the criteria checklist.
+
+- <strong>Kapoor, S., & Narayanan, A. (2023).</strong> "Leakage and the Reproducibility Crisis in Machine-Learning-Based Science." </em>Patterns*, 4(9). — Introduced in Module 1. Relevant to writing when the model "knows" your literature better than expected: it may have been trained on it.
+
+---</p>
+</div>
+<h3 style="font-family:var(--mono);font-size:0.78rem;text-transform:uppercase;letter-spacing:0.1em;margin:1.5rem 0 0.75rem;">How to Use This Reading List</h3>
+<div class="reading-entry">
+<h4>1. <strong>If you only read one thing:</strong> Doshi & Hauser (2024). It is short, directly relevant, and the finding — better individuals, less diverse collectives — is the single most important pattern to watch for in your own AI-assisted writing.</h4>
+<p class="reading-note">2. <strong>If you read two:</strong> Add Strunk & White or Orwell. Both give you a concrete style vocabulary you can use in evaluation criteria.
+
+3. <strong>If you are building a style guide (Exercise 2.3):</strong> Sword (2012) + ASD-STE100. Sword for the evidence-based approach to academic style; ASD-STE100 for the model of a testable, verifiable style guide.
+
+4. <strong>If you are thinking about the broader implications:</strong> Mollick (2024) for the practical philosophy of working with AI; Doshi & Hauser (2024) revisited alongside Grossmann et al. (2023) for the homogenisation risk.
+
+---
+
+<em>Module 2 Reading List · AI as a Research Tool</em></p>
 </div>
 </section>
 
   </div>
-
   <hr class="rule rule--thick">
-
   <footer class="colophon">
-    <p>
-      <span>set in charter &amp; jetbrains mono.</span>
-      <span>html + css.</span>
-      <span>no trackers.</span>
-    </p>
+    <p><span>set in charter &amp; jetbrains mono.</span><span>html + css.</span><span>no trackers.</span></p>
     <p><a href="index.html" style="color: var(--ink-soft);">← ai as a research tool</a> · <a href="../../index.html" style="color: var(--ink-soft);">colin henry</a></p>
   </footer>
-
 </main>
 </body>
 </html>

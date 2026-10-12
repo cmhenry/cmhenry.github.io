@@ -3,906 +3,436 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Module 4: Text Annotation & Measurement · AI as a Research Tool · UZH</title>
-<meta name="description" content="Module 4 of AI as a Research Tool: design a codebook, translate it into an AI prompt, run a miniature annotation study, and evaluate label quality with measurement standards.">
+<title>Module 04: Text Annotation & Measurement · AI as a Research Tool</title>
+<meta name="description" content="Text Annotation & Measurement — 8-module self-paced course on using AI in social science research.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../../styles/main.css">
 <style>
-  /* course-page extensions — shared with index and module pages */
-  .module-index { list-style: none; padding: 0; margin: 0; }
-  .module-item { margin: 0 0 2rem; }
-  .module-item:last-child { margin-bottom: 0; }
-  .module-item__head {
-    display: flex;
-    align-items: baseline;
-    gap: 0.75rem;
-    margin: 0 0 0.4rem;
-  }
-  .module-item__num {
-    font-family: var(--mono);
-    font-size: 0.7rem;
-    text-transform: uppercase;
-    letter-spacing: 0.14em;
-    color: var(--ink);
-    white-space: nowrap;
-    border: 1px solid var(--ink);
-    padding: 0.1em 0.55em;
-  }
-  .module-item__title {
-    font-family: var(--serif);
-    font-weight: 400;
-    font-size: 1.2rem;
-    margin: 0;
-    line-height: 1.3;
-  }
-  .module-item__title a { text-decoration-thickness: 1px; }
-  .module-item__meta {
-    font-family: var(--mono);
-    font-size: 0.7rem;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--ink-soft);
-    margin: 0.25rem 0 0.5rem;
-  }
-  .module-item__desc { margin: 0; line-height: 1.5; }
-  .module-item__links {
-    font-family: var(--mono);
-    font-size: 0.78rem;
-    letter-spacing: 0.02em;
-    margin: 0.4rem 0 0;
-  }
-  .module-item__links a {
-    color: var(--ink);
-    text-decoration: none;
-    border-bottom: 1px dotted var(--ink-soft);
-    padding-bottom: 1px;
-  }
-  .module-item__links a:hover { background: var(--ink); color: var(--paper); border-bottom-color: transparent; }
-
-  .lens-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-    margin-top: 0.75rem;
-  }
-  .lens-card {
-    border: 1px solid var(--ink);
-    padding: 1rem;
-  }
-  .lens-card__num {
-    font-family: var(--mono);
-    font-size: 0.65rem;
-    text-transform: uppercase;
-    letter-spacing: 0.14em;
-    color: var(--ink-soft);
-    margin: 0 0 0.35rem;
-  }
-  .lens-card__q {
-    font-family: var(--serif);
-    font-style: italic;
-    font-size: 0.95rem;
-    margin: 0 0 0.5rem;
-    line-height: 1.3;
-  }
-  .lens-card__body {
-    font-size: 0.88rem;
-    line-height: 1.45;
-    color: var(--ink-soft);
-    margin: 0;
-  }
-
-  @media (max-width: 600px) {
-    .lens-grid { grid-template-columns: 1fr; }
-  }
-
-  .blockquote-note {
-    border-left: 2px solid var(--ink);
-    padding: 0.5rem 0 0.5rem 1.25rem;
-    margin: 1rem 0;
-    font-style: italic;
-    font-size: 0.95rem;
-    color: var(--ink-soft);
-  }
-
-  .back-link {
-    font-family: var(--mono);
-    font-size: 0.78rem;
-    letter-spacing: 0.02em;
-    margin-bottom: 2rem;
-  }
-  .back-link a {
-    color: var(--ink-soft);
-    text-decoration: none;
-    border-bottom: 1px dotted var(--ink-soft);
-    padding-bottom: 1px;
-  }
+  .back-link { font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.02em; margin-bottom: 2rem; }
+  .back-link a { color: var(--ink-soft); text-decoration: none; border-bottom: 1px dotted var(--ink-soft); padding-bottom: 1px; }
   .back-link a:hover { background: var(--ink); color: var(--paper); border-bottom-color: transparent; }
-
-  /* ── module-page extensions ── */
-  .module-masthead { margin: 0.25rem 0 1.5rem; }
-  .module-num {
-    font-family: var(--mono);
-    font-size: 0.7rem;
-    text-transform: uppercase;
-    letter-spacing: 0.14em;
-    color: var(--ink);
-    white-space: nowrap;
-    border: 1px solid var(--ink);
-    padding: 0.1em 0.55em;
-    display: inline-block;
-    margin-bottom: 0.75rem;
-  }
-  .module-itle {
-    font-family: var(--serif);
-    font-weight: 400;
-    font-style: normal;
-    font-size: clamp(1.8rem, 6vw, 2.8rem);
-    line-height: 1.1;
-    letter-spacing: -0.015em;
-    margin: 0 0 0.5rem;
-  }
-  .module-ubtitle {
-    font-family: var(--serif);
-    font-weight: 400;
-    font-style: italic;
-    font-size: 1.1rem;
-    color: var(--ink-soft);
-    margin: 0 0 1rem;
-    line-height: 1.3;
-  }
-  .module-eta {
-    display: flex;
-    gap: 1.25rem;
-    flex-wrap: wrap;
-    font-family: var(--mono);
-    font-size: 0.7rem;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--ink-soft);
-    margin: 0;
-  }
-  .module-eta span { white-space: nowrap; }
-
-  .module-av {
-    font-family: var(--mono);
-    font-size: 0.78rem;
-    text-transform: lowercase;
-    letter-spacing: 0.02em;
-    margin: 0.5rem 0 1.5rem;
-  }
-  .module-av a {
-    color: var(--ink);
-    text-decoration: none;
-    border-bottom: 1px dotted var(--ink-soft);
-    padding-bottom: 1px;
-  }
-  .module-av a:hover { background: var(--ink); color: var(--paper); border-bottom-color: transparent; }
-
-  /* ── outcomes ── */
-  .outcomes-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  .outcomes-list li {
-    margin: 0 0 0.5rem;
-    padding-left: 1.5rem;
-    position: relative;
-    line-height: 1.5;
-  }
-  .outcomes-list li::before {
-    content: "→";
-    position: absolute;
-    left: 0;
-    font-family: var(--mono);
-    font-size: 0.78rem;
-    color: var(--ink-soft);
-  }
-
-  /* ── workbook section headings ── */
-  .wb-section { margin: 2rem 0; }
-  .wb-section__num {
-    font-family: var(--mono);
-    font-weight: 500;
-    font-size: 0.95rem;
-    text-transform: uppercase;
-    letter-spacing: 0.16em;
-    margin: 0 0 1rem;
-    color: var(--ink);
-  }
-  .wb-section__num span {
-    color: var(--ink-soft);
-    margin-right: 0.35em;
-  }
-
-  /* ── exercise blocks ── */
-  .exercise { margin: 0 0 2.5rem; border: 1px solid var(--ink); padding: 1.25rem; }
-  .exercise__num {
-    font-family: var(--mono);
-    font-size: 0.65rem;
-    text-transform: uppercase;
-    letter-spacing: 0.14em;
-    color: var(--ink-soft);
-    margin: 0 0 0.25rem;
-  }
-  .exercise__goal {
-    font-family: var(--serif);
-    font-style: italic;
-    font-size: 0.95rem;
-    margin: 0 0 1rem;
-    line-height: 1.3;
-  }
-  .exercise h3 {
-    font-family: var(--mono);
-    font-weight: 500;
-    font-size: 0.78rem;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    margin: 1.25rem 0 0.5rem;
-  }
-
-  /* ── details/summary for answer keys ── */
-  .answer-key { margin-top: 1.25rem; }
-  .answer-key summary {
-    font-family: var(--mono);
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--ink-soft);
-    cursor: pointer;
-    padding: 0.5rem 0;
-    user-select: none;
-  }
-  .answer-key summary:hover { color: var(--ink); }
-  .answer-key[open] summary { margin-bottom: 0.25rem; }
-  .answer-key .key-content {
-    font-size: 0.88rem;
-    line-height: 1.5;
-    color: var(--ink-soft);
-    padding-left: 1rem;
-    border-left: 1px solid var(--ink);
-    margin: 0.25em 0 0.75rem;
-  }
-
-  /* ── readings ── */
-  .reading { margin: 0 0 1.75rem; }
-  .reading__title {
-    font-family: var(--serif);
-    font-weight: 400;
-    font-size: 1.05rem;
-    line-height: 1.3;
-    margin: 0 0 0.2rem;
-  }
-  .reading__byline {
-    font-family: var(--serif);
-    font-style: italic;
-    font-size: 0.92rem;
-    color: var(--ink-soft);
-    margin: 0;
-    line-height: 1.4;
-  }
-  .reading__why {
-    font-family: var(--mono);
-    font-size: 0.7rem;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    color: var(--ink);
-    margin: 0.5rem 0 0.2rem;
-  }
-  .reading__note {
-    font-size: 0.88em;
-    line-height: 1.5;
-    color: var(--ink-soft);
-    margin: 0;
-  }
-
-  .reading-group { margin-bottom: 2rem; }
-  .reading-group:last-child { margin-bottom: 0; }
-
-  .reading-group__label {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    font-weight: 400;
-    margin: 0 0 1rem;
-    font-family: var(--mono);
-    font-size: 0.78rem;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    color: var(--ink-soft);
-  }
-  .reading-group__rule {
-    flex: 1;
-    height: 1px;
-    background: var(--ink);
-    display: block;
-  }
-
-  /* ── table ── */
-  .data-table { width: 100%; border-collapse: collpse; margin: 1rem 0; font-size: 0.88rem; }
-  .data-table th, .data-table td {
-    border: 1px solid var(--ink);
-    padding: 0.5rem 0.75rem;
-    text-align: left;
-    vertical-align: top;
-  }
-  .data-table th {
-    font-family: var(--mono);
-    font-weight: 500;
-    font-size: 0.7rem;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-  }
-  .data-table td { font-family: var(--serif); }
-
-  /* ── code/pre ── */
-  pre {
-    font-family: var(--mono);
-    font-size: 0.75rem;
-    line-height: 1.5;
-    background: var(--ink);
-    color: var(--paper);
-    padding: 1rem 1.25rem;
-    overflow-x: auto;
-    margin: 1rem 0;
-  }
-  code {
-    font-family: var(--mono);
-    font-size: 0.82em;
-  }
-  pre code { font-size: inherit; background: none; color: inherit; padding: 0; }
-
-  /* ── highlight-box ── */
-  .highlight-box {
-    border: 1px solid var(--ink);
-    padding: 1rem 1.25rem;
-    margin: 1.25rem 0;
-    font-size: 0.95em;
-  }
-
-  /* ── page sections ── */
-  .page-section { margin: 2rem 0; }
-
-  /* ── summary link ── */
-  .summary-link {
-    font-family: var(--mono);
-    font-size: 0.78rem;
-    letter-spacing: 0.02em;
-    margin-top: 0.75rem;
-  }
+  .module-meta { font-family: var(--mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-soft); margin: 1rem 0; display: flex; flex-wrap: wrap; gap: 1rem; }
+  .module-meta span { white-space: nowrap; }
+  .module-body h2 { font-family: var(--mono); font-weight: 500; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.16em; margin: 2rem 0 0.75rem; color: var(--ink); }
+  .module-body h3 { font-family: var(--serif); font-weight: 400; font-size: 1.15rem; margin: 1.5rem 0 0.5rem; line-height: 1.3; }
+  .module-body h4 { font-family: var(--serif); font-weight: 400; font-size: 1.05rem; margin: 1.25rem 0 0.5rem; }
+  .module-body p { margin: 0 0 0.85rem; line-height: 1.55; }
+  .module-body ul, .module-body ol { margin: 0 0 0.85rem; padding-left: 1.5rem; line-height: 1.55; }
+  .module-body li { margin-bottom: 0.25rem; }
+  .module-body code { font-family: var(--mono); font-size: 0.85em; background: rgba(0,0,0,0.05); padding: 0.1em 0.35em; }
+  .module-body strong { font-weight: 600; }
+  .module-body em { font-style: italic; }
+  .module-body pre { font-family: var(--mono); font-size: 0.82rem; background: rgba(0,0,0,0.04); padding: 1rem; overflow-x: auto; line-height: 1.5; margin: 0.75rem 0; }
+  .callout { border-left: 2px solid var(--ink); padding: 0.5rem 0 0.5rem 1.25rem; margin: 1rem 0; font-style: italic; font-size: 0.95rem; color: var(--ink-soft); }
+  .callout strong { font-style: normal; }
+  .checks-list { list-style: none; padding: 0; margin: 0; }
+  .checks-list li { border: 1px solid var(--ink); padding: 1rem; margin-bottom: 0.75rem; }
+  .checks-list .check-num { font-family: var(--mono); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.14em; color: var(--ink-soft); }
+  .checks-list .check-title { font-family: var(--serif); font-weight: 600; font-size: 0.95rem; margin: 0.25rem 0 0.35rem; }
+  .checks-list .check-body { font-size: 0.88rem; line-height: 1.45; color: var(--ink-soft); }
+  .exercise { border-top: 1px solid var(--ink-soft); padding: 1rem 0; margin: 0; }
+  .exercise:first-of-type { border-top: none; }
+  .exercise h3 { font-family: var(--serif); font-size: 1rem; margin: 0 0 0.5rem; }
+  .exercise details { margin-top: 0.5rem; }
+  .exercise summary { font-family: var(--mono); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; cursor: pointer; color: var(--ink-soft); padding: 0.25rem 0; }
+  .exercise summary:hover { color: var(--ink); }
+  .exercise .answer { font-size: 0.9rem; line-height: 1.5; color: var(--ink-soft); padding: 0.5rem 0; }
+  .reading-entry { margin: 0 0 1rem; }
+  .reading-entry h4 { font-family: var(--serif); font-weight: 400; font-size: 0.95rem; margin: 0 0 0.15rem; }
+  .reading-entry .reading-note { font-size: 0.88rem; color: var(--ink-soft); line-height: 1.45; }
+  @media (max-width: 480px) { .module-meta { flex-direction: column; gap: 0.25rem; } }
 </style>
 </head>
 <body>
 <main class="page">
-
-  <p class="back-link"><a href="index.html">← ai as a research tool</a></p>
-
-  <!-- ──────────────── MASTHEAD ──────────────── -->
-  <p class="module-num">module 04</p>
-  <div class="module-asthead">
-    <h1 class="module-itle">Text Annotation<br>&amp; Measurement</h1>
-    <p class="module-ubtitle">workflow desgin for the social sciences</p>
-  </div>
-
-  <p class="module-eta">
-    <span>technical htmp lab</span>
-    <span>3–4 hours</span>
-    <span>self-paced</span>
-  </p>
-
-  <hr class="rule rule--thick">
-
-  <nav class="module-av" aria-label="module contents">
-    <a href="#workbook">workbook</a><span class="nav__sep">~</span>
-    <a href="#exercises">exercises</a><span class="nav__sep">~</span>
-    <a href="#readings">readings</a>
-  </nav>
-
-  <hr class="rule">
-
-  <!-- ──────────────── AT A GLANCE ──────────────── -->
-  <section class="page-section">
-    <h2 class="section__title"><span class="section__mark">§</span> at a glance</h2>
-
-    <p><strong>Prerequisites:</strong> Module 1 (How LLMs Work) recommended; Module 7 (Validation) helpful</p>
-    <p><strong>What you'll produce:</strong> A miniature annotation study with codebook, model labels, reliability evidence, and validity limits</p>
-  </section>
-
-  <hr class="rule">
-
-  <!-- ──────────────── LEARNING OUTCOMES ──────────────── -->
-  <section class="page-section">
-    <h2 class="section__title"><span class="section__mark">§</span> learning outcomes</h2>
-
-    <p>By the end of this module you will be able to:</p>
-
-    <ul class="outcomes-list">
-      <li>Explain why LLM-based text annotation is a measurement problem, not a classification shortcut</li>
-      <li>Desgin a codebook with explicit categories, decision rules, and boundary cases</li>
-      <li>Transate a codebook into a prompt and evaluate the resulting labels</li>
-      <li>Distinuish agreement, reliability, construct validity, and consequential error</li>
-      <li>Recongise when high accuracy can still produce biased downstream estimates</li>
-    </ul>
-  </section>
-
-  <hr class="rule">
-
-  <!-- ──────────────── WORKBOOK ──────────────── ─────────>
-  <section id="workbook" class="page-section">
-
-    <h2 class="section__title"><span class="section__mark">§</span> workbook</h2>
-
-    <!-- ── 1. Annoation as Measurement ── -->
-    <div class="wb-section">
-      <h3 class="wb-section__num"><span>1</span> Annoation as Measurement</h3>
-
-      <p>Social scientists classify text constantly. Is this news article about economic policy? Does this tweet express support or opposition? Does this legislative speech invoke a particular frame?</p>
-
-      <p>When you ask an LLM to do this classification, you are <strong>measuring</strong> a construct — the same way a survey question measures an attitude or a census category measures an identity. The fact that the measurement is performed by a model rather than a human coder or a dictionary method does not exempt it from measurement standards.</p>
-
-      <p>The key standards are:</p>
-
-      <ul>
-        <li><strong>Agrement:</strong> Do different coders (or runs) produce the same label for the same text?</li>
-        <li><strong>Reliability:</strong> Is the agreement higher than chance, and is it consistent across the full range of texts?</li>
-        <li><strong>Construct validity:</strong> Does the label actually capture the concept you intend to measure?</li>
-        <li><strong>Conseuential validity:</strong> Do the errors that remain change your substantive conclusions?</li>
-      </ul>
-
-      <p>A model that labels 92% of texts "correctly" may still produce biased estimates if the 8% of errors are concentrated in one category, or if "correct" means "agrees with a single human coder whose own reliability is unknown."</p>
-    </div>
-
-    <!-- ── 2. Human Jdgment Before Model Judgment ── -->
-    <div class="wb-section">
-      <h3 class="wb-section__num"><span>2</span> Human Judgment Before Model Judgment</h3>
-
-      <p>This is the most important rule in annotation work — and the one most often violated:</p>
-
-      <div class="highlight-box">
-        <p style="margin:0; font-style: italic;">Make your own judgments before you see the model's labels.</p>
-      </div>
-
-      <p>Once you have seen a label, you are reacting to it — defending it, questioning it, accepting it. Before you see it, you are producing one. The difference matters because:</p>
-
-      <ul>
-        <li>You discover ambiguity in your own codebook when you try to apply it</li>
-        <li>You notice edge cases that the codebook does not address</li>
-        <li>You form a view about which cases are difficult, which informs your reliability assessment</li>
-      </ul>
-
-      <p>The lab enforces this order: you define your codebook, code a set of items yourself, then compare your labels to reference labels and (optionally) model-generated labels.</p>
-    </div>
-
-    <!-- ── 3. The Codebook ── -->
-    <div class="wb-section">
-      <h3 class="wb-section__num"><span>3</span> The Codebook</h3>
-
-      <p>A codebook is a document that operationalises your construct for classification. A good codebook contains:</p>
-
-      <h4 style="font-family: var(--mono); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.12em; margin: 1.25rem 0 0.4rem;">Categories</h4>
-      <p>Each category needs a name, a definition, and decision rules. "Positive," "Negatie," and "Nutral" are not definitions. A definition states what makes a text belong to that category:</p>
-
-      <div class="blockquote-note">
-        <strong>Support:</strong> The text explicitly advocates for the policy, expresses approval of it, or argues that it should be adopted. The support must be directed at the policy itself, not at a related goal or value.
-      </div>
-
-      <h4 style="font-family: var(--mono); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.12em; margin: 1.25rem 0 0.4rem;">Decision rules</h4>
-      <p>Rules for resolving ambiguity. What do you do when:</p>
-      <ul>
-        <li>A text mentions the policy but expresses no position? → <strong>Nutral</strong></li>
-        <li>A text supports a related policy but not the target policy? → <strong>Not aplicable</strong></li>
-        <li>A text is ironic or satirical? → <strong>Exclude</strong> (or code the literal meaning with a flag)</li>
-      </ul>
-
-      <h4 style="font-family: var(--mono); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.12em; margin: 1.25rem 0 0.4rem;">Bundary cases</h4>
-      <p>Examples of texts that are difficult to classify, with the correct label and the reasoning. These are your training material for human coders and your test material for model evaluation.</p>
-
-      <h4 style="font-family: var(--mono); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.12em; margin: 1.25rem 0 0.4rem;">The codebook is YOUR instrument</h4>
-      <p>Do not ask a model to write your codebook. The codebook records your theoretical decisions about what the construct means. You can ask a model to suggest edge cases or to check whether a definition is ambiguous, but the categories, definitions, and decision rules must be yours.</p>
-    </div>
-
-    <!-- ── 4. From Codebook to Prompt ── -->
-    <div class="wb-section">
-      <h3 class="wb-section__num"><span>4</span> From Codebook to Prompt</h3>
-
-      <p>Translating a codebook into a prompt is itself a methodological decision. Different prompt structures can produce different labels from the same codebook — this is the "prompt variation" check from the validation menu (Module 7).</p>
-
-      <p>A good classification prompt includes:</p>
-
-      <ul>
-        <li><strong>The task description:</strong> What you are asking the model to do</li>
-        <li><strong>The categories with definitions:</strong> Copied from your codebook</li>
-        <li><strong>Decision rules:</strong> Especially for ambiguous cases</li>
-        <li><strong>Output format:</strong> Specify exactly what the model should return (e.g., "Return only the label, one per line, in the same order")</li>
-        <li><strong>What NOT to do:</strong> Explicitly forbid explanations, confidence scores, or extra columns unless you want them</li>
-      </ul>
-
-      <h4 style="font-family: var(--mono); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.12em; margin: 1.25rem 0 0.4rem;">Example prompt structure</h4>
-
-      <pre><code>Classify each text below according to the following codebook.
-
-CODEBOOK
-[Category definitions and decision rules]
-
-RULES
-- Return exactly one label per text, in the same order
-- Use only the labels defined above
-- If the text does not contain enough information to classify, use "INSFFICIENT"
-- Do not explain your decisions
-- Do not add confidence scores
-
-TEXTS
-[Text 1]
-[Text 2]
-...</code></pre>
-    </div>
-
-    <!-- ── 5. Evalating Annotation Quality ── -->
-    <div class="wb-section">
-      <h3 class="wb-section__num"><span>5</span> Evaluating Annotation Quality</h3>
-
-      <h4 style="font-family: var(--mono); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.12em; margin: 1rem 0 0.4rem;">Agrement and reliability</h4>
-
-      <p>How often do two coders (or two model runs) agree? Simple percentage agreement is a start, but it does not account for agreement that would occur by chance. Cohen's kappa and Krippendorff's alpha adjust for chance agreement. The lab calculator provides these metrics.</p>
-
-      <p>A kappa of 0.80 is a common threshold for "acceptable" — but this is a convention, not a law of nature. The threshold that matters depends on your research use. If you are using the labels to filter a dataset for qualitative analysis, 0.70 may be fine. If you are using them as an independent variable in a regression, 0.70 may introduce enough measurement error to bias your estimates.</p>
-
-      <h4 style="font-family: var(--mono); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.12em; margin: 1.25rem 0 0.4rem;">Construct validity</h4>
-
-      <p>Hgh agreement does not mean you are measuring the right thing. Two coders can agree perfectly that a text is "positive" while both misunderstanding what "positive" means in your theoretical framework. Construct validity requires evidence that the labels correspond to the concept you intend to measure — typically through comparison with an external criterion or through theoretical argument about what the labels should correlate with.</p>
-
-      <h4 style="font-family: var(--mono); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.12em; margin: 1.25rem 0 0.4rem;">Conseuential error</h4>
-
-      <p>The question that matters most: <strong>do the errors change your conclusions?</strong></p>
-
-      <p>Egami et al. (forthcoming) show that even high-accuracy LLM labels can produce biased regression estimates if the errors are correlated with the outcome or the treatment. A model that is 92% accurate overall but systematically misclassifies theoretical papers (which tend to make different substantive claims) will bias a literature review toward empirical findings.</p>
-
-      <p>Always test: run your analysis with the LLM labels and with a human-coded subset. Does the substantive conclusion change? If yes, the labels are not good enough for your use case, regardless of the accuracy number.</p>
-    </div>
-
-    <!-- ── 6. The Lab ── -->
-    <div class="wb-section">
-      <h3 class="wb-section__num"><span>6</span> The Lab</h3>
-
-      <p>The HTML lab (<code>lab/classification.html</code>) provides a complete annotation environment:</p>
-
-      <ul>
-        <li><strong>Codebook editor:</strong> Review and revise the supplied codebook</li>
-        <li><strong>Human coding interface:</strong> Code items yourself before seeing any labels</li>
-        <li><strong>Model request builder:</strong> The lab constructs a prompt from your codebook and the text items — paste it into any AI chat interface</li>
-        <li><strong>Scoring calculator:</strong> Compare your labels (or model labels) to reference labels; compute accuracy, precision, recall, and F1 per category</li>
-        <li><strong>Baseline comparison:</strong> See what "retain all" and "exclude all" baselines would achieve</li>
-        <li><strong>Screening handoff:</strong> Export your decisions for the next stage of review</li>
-      </ul>
-
-      <p>All computation is local. No data is sent anywhere. The dataset is constructed teaching data (not real publications), so you can experiment freely without misrepresenting real research.</p>
-    </div>
-
-    <!-- ── 7. The Four Questions for Annotation ── -->
-    <div class="wb-section">
-      <h3 class="wb-section__num"><span>7</span> The Four Questions for Annotation</h3>
-
-      <ul>
-        <li><strong>What is being delegated?</strong> The classification decisions for each text. You retain the codebook design, the validation, and the interpretation.</li>
-        <li><strong>What would make the result believable?</strong> Human-model agreement on a representative sample. Reliability above chance. No systematic error pattern that biases the downstream analysis. Evidence that the labels capture the intended construct.</li>
-        <li><strong>What could be lost or flattened?</strong> Ambiguous texts forced into categories. Minority or unexpected uses of language. The tacit knowledge you used when coding by hand.</li>
-        <li><strong>What must remain visible or human?</strong> The codebook (your instrument). The comparison between human and model labels. The error analysis. The decision about whether the labels are good enough for your use.</li>
-      </ul>
-    </div>
-
-    <!-- ── 8. Sumary ── -->
-    <div class="wb-section">
-      <h3 class="wb-section__num"><span>8</span> Sumary</h3>
-
-      <ul style="list-style: none; padding: 0; margin: 0;">
-        <li style="margin-bottom: 0.5rem;">→ Annoation is measurement. Apply measurement standards: agreement, reliability, construct validity, consequential error.</li>
-        <li style="margin-bottom: 0.5rem;">→ Always code items yourself before seeing model labels. The order matters.</li>
-        <li style="maring-bottom: 0.5rem;">→ Yor codebook is your instrument. Do not delegate its design to a model.</li>
-        <li style="margin-bottom: 0.5rem;">→ The prompt is part of the method. Vary it and check whether conclusions change.</li>
-        <li style="margin-bottom: 0.5rem;">→ Hgh accuracy can mask systematic errors that bias downstream estimates. Test the full pipeline.</li>
-      </ul>
-    </div>
-
-    <!-- ── What's Next ── -->
-    <div class="blockquote-note" style="margin-top: 2rem;">
-      <p style="margin: 0 0 0.5rem;"><strong>What's Next</strong></p>
-      <p style="margin:0;">Module 5 extends these principles to code and data analysis: using AI to write, debug, and verify analysis scripts. The validation framework from this module applies directly — every AI-generated statistic needs the same scrutiny as an AI-generated label.</p>
-      <p style="margin:0.5rem 0 0;">If you want the full treatment of validation and reproducibility, Module 7 covers the evidence framework in depth, including the seven validation checks, data boundaries, and disclosure standards.</p>
-    </div>
-
-  </section>
-
-  <hr class="rule">
-
-  <!-- ──────────────── EXERCISES ──────────────── ─────────>
-  <section id="exercises" class="page-section">
-
-    <h2 class="section__title"><span class="section__mark">§</span> exercisses</h2>
-
-    <!-- ── Exercise 4.1 ── -->
-    <div class="exercise">
-      <p class="exercise__num">exercise 4.1</p>
-      <p class="exercise__goal">Code Before You See: Experience the difference between forming a judgment and reacting to one.</p>
-
-      <p>Oen the lab at <code>lab/classification.html</code>. Navigate to the "Code it yourself" section. You will see 6 short texts (titles and abstracts of constructed teaching records). <strong>Before looking at any reference labels or model output</strong>, classify each text using the supplied codebook.</p>
-
-      <p>For each text, record:</p>
-
-      <table class="data-table">
-        <thead><tr><th>ID</th><th>Your label</th><th>Your reason</th><th>Confidence (1–5)</th></tr></thead>
-        <tbody>
-          <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-          <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-          <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-          <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-          <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-          <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-        </tbody>
-      </table>
-
-      <p style="margin-top: 1rem;">Now compare your labels to the reference labels (provided in the lab). For each disagreement:</p>
-
-      <ul>
-        <li>Did you misapply the codebook, or is the codebook ambiguous?</li>
-        <li>Does the reference decision make sense to you, or would you defend yours?</li>
-        <li>What would you change in the codebook to resolve the disagreement?</li>
-      </ul>
-
-      <details class="answer-key">
-        <summary>Answer Key</summary>
-        <div class="key-content">
-          <p>The reference labels are in the lab (under "Refrence Labels"). Specific answers depend on the dataset version, but general patterns:</p>
-          <ul>
-            <li><strong>Disagreements that reveal codebook ambiguity</strong> are findings, not errors. If you and the reference disagree and you can both justify your decisions from the codebook, the codebook needs clarification.</li>
-            <li><strong>Confidence matters.</strong> A low-confidence correct label and a high-confidence wrong label are different problems. The first suggests the task is inherently difficult; the second suggests you misunderstood the codebook.</li>
-            <li><strong>The exercise is not about being "right."</strong> It is about discovering where your understanding of the codebook diverges from the reference — and what that reveals about the measurement instrument.</li>
-          </ul>
-        </div>
-      </details>
-    </div>
-
-    <!-- ── Exercise 4.2 ── -->
-    <div class="exercise">
-      <p class="exercise__num">exercise 4.2</p>
-      <p class="exercise__goal">Revise the Codebook: Practice improving a measurement instrument based on discovered ambiguity.</p>
-
-      <p>Based on the disagreements you found in Exercise 4.1, revise the codebook. Make at least one of these changes:</p>
-
-      <ul>
-        <li><strong>Clarify a definition:</strong> Add detail to a category definition that was ambiguous</li>
-        <li><strong>Add a decision rule:</strong> Specify what to do in a case that was not covered</li>
-        <li><strong>Add a boundary example:</strong> Include an example of a text that is genuinely ambiguous and how to handle it</li>
-      </ul>
-
-      <p>Wite your revised codebook here or in a separate document.</p>
-
-      <details class="answer-key">
-        <summary>Answer Key</summary>
-        <div class="key-content">
-          <p>Good codebook revisions are:</p>
-          <ul>
-            <li><strong>Specific:</strong> "If the abstract mentions a method but does not describe results, classify as METHOD_ONLY, not EMPRICAL" is better than "be more careful about abstracts without results"</li>
-            <li><strong>Testable:</strong> The revision should resolve the specific disagreement you encountered, not introduce new ambiguity</li>
-            <li><strong>Minimal:</strong> Don't rewrite the whole codebook. Fix the part that broke.</li>
-          </ul>
-          <p>A common pitfall: adding so many rules that the codebook becomes harder to apply, not easier. The goal is clarity, not comprehensiveness.</p>
-        </div>
-      </details>
-    </div>
-
-    <!-- ── Exercise 4.3 ── -->
-    <div class="exercise">
-      <p class="exercise__num">exercise 4.3</p>
-      <p class="exercise__goal">Compare Human and Model Labels: Evaluate the quality of AI-generated labels against a human benchmark.</p>
-
-      <p>Using the lab's "Request builder," copy the constructed prompt and paste it into any AI chat interface. The prompt includes the codebook, instructions, and the text items. Paste the model's output into the lab's scoring calculator.</p>
-
-      <p>Record the results:</p>
-
-      <p style="font-family: var(--mono); font-size: 0.82rem; line-height: 1.8;">
-        <strong>Accuracy:</strong> ____%<br>
-        <strong>Precision (RETAIN):</strong> ____%<br>
-        <strong>Recall (RETAIN):</strong> ____%<br>
-        <strong>F1 (RETAIN):</strong> ____%
-      </p>
-
-      <p>Now examine the errors:</p>
-
-      <ul>
-        <li>Which category has the most errors?</li>
-        <li>Are errors concentrated in a particular type of text (look at the titles)?</li>
-        <li>Does the model tend to over-classify or under-classify any category?</li>
-        <li>Would these errors change your conclusions if this were a real study?</li>
-      </ul>
-
-      <details class="answer-key">
-        <summary>Answer Key</summary>
-        <div class="key-content">
-          <p>Results vary by model, prompt wording, and dataset version. What to look for:</p>
-          <ul>
-            <li><strong>Systematic over-classification:</strong> The model labels more texts as RETAIN than the human reference. This is common — models often default to inclusion when uncertain. Consequence: your review may include irrelevant papers.</li>
-            <li><strong>Systematic under-classification:</strong> The opposite. The model misses relevant papers. Consequence: your review may omit important evidence.</li>
-            <li><strong>Category-specific errors:</strong> Erors concentrated in one category (e.g., the model cannot distinguish EMPRICAL from THEORETICAL). This may bias your review toward or away from certain types of evidence.</li>
-            <li><strong>The accuracy number is not enough.</strong> 85% accuracy with errors concentrated in one category is worse than 80% accuracy with errors spread evenly across categories.</li>
-          </ul>
-        </div>
-      </details>
-    </div>
-
-    <!-- ── Exercise 4.4 ── -->
-    <div class="exercise">
-      <p class="exercise__num">exercise 4.4</p>
-      <p class="exercise__goal">The Downstream Consequence Test: Understand why high accuracy can still produce biased estimates.</p>
-
-      <p>Imagine you have classified 1,000 abstracts as RETAIN or EXCLUDE using an LLM. Your accuracy is 92%. You now use the retained papers to estimate the proportion of studies in your field that report positive results.</p>
-
-      <p>Here is the confusion matrix:</p>
-
-      <table class="data-table">
-        <thead><tr><th></th><th>Reference RETAIN</th><th>Reference EXCLUDE</th></tr></thead>
-        <tbody>
-          <tr><td><strong>Model RETAIN</strong></td><td>270</td><td>40</td></tr>
-          <tr><td><strong>Model EXCLUDE</strong></td><td>30</td><td>660</td></tr>
-        </tbody>
-      </table>
-
-      <p style="margin-top: 1rem;">Answer:</p>
-
-      <ul>
-        <li>What is the true proportion of RETAIN papers? (____/1000 = ____%)</li>
-        <li>What proportion does the model estimate? (____/1000 = ____%)</li>
-        <li>The model's accuracy is 93%. Does the proportion estimate match the truth?</li>
-        <li>If the 30 missed papers (false EXCLUDES) are disproportionately theoretical papers that report null results, how would this bias your estimate of "proportion reporting positive results"?</li>
-      </ul>
-
-      <details class="answer-key">
-        <summary>Answer Key</summary>
-        <div class="key-content">
-          <p>1. True RETAIN: 270 + 30 = 300. 300/1000 = <strong>30%</strong>.<br>
-          2. Model estimate: 270 + 40 = 310. 310/1000 = <strong>31%</strong>.<br>
-          3. The proportion is close (30% vs. 31%), but the composition is different — the model retained 40 papers it should have excluded and excluded 30 it should have retained. If those groups differ systematically, conclusions drawn from the retained set may be biased.</p>
-          <p>The deeper point (from Egami et al.): even when accuracy is high and the proportion looks right, <strong>which specific papers are retained matters.</strong> If the errors are correlated with the outcome you are studying, your estimate will be biased. This is why "92% accuracy" is not sufficient evidence that the labels are good enough for your use case.</p>
-        </div>
-      </details>
-    </div>
-
-    <!-- ── Exercise 4.5 ── -->
-    <div class="exercise">
-      <p class="exercise__num">exercise 4.5</p>
-      <p class="exercise__goal">Apply the Four Questions: Integrate the course lens with annotation methodology.</p>
-
-      <p>For the annotation task you just completed (or a real annotation task from your research):</p>
-
-      <ul>
-        <li><strong>What is being delegated?</strong> _______________</li>
-        <li><strong>What would make the result believable?</strong> _______________</li>
-        <li><strong>What could be lost or flattened?</strong> _______________</li>
-        <li><strong>What must remain visible or human?</strong> _______________</li>
-      </ul>
-
-      <p>Now choose 2–3 checks from the validation menu (see <code>modules/shared/validation_menu.md</code>) that would address your answer to question 2.</p>
-
-      <details class="answer-key">
-        <summary>Answer Key</summary>
-        <div class="key-cotent">
-          <p>For a typical annotation task:</p>
-          <p><strong>1. Delegated:</strong> The classification of each text according to the codebook. You retain: codebook design, validation design, error analysis, and the decision about whether labels are fit for use.</p>
-          <p><strong>2. Belivable:</strong> Human-model agreement on a representative sample (check 2). Reliability above chance. No systematic error pattern that biases the downstream analysis (check 7).</p>
-          <p><strong>3. Lost or lattened:</strong> Ambiguous texts forced into categories. Context that the model misses because it only sees the text, not the broader document or discourse.</p>
-          <p><strong>4. Visble/human:</strong> The codebook. The agreement analysis. The decision about fitness for use. A record of model, date, promt, and settings.</p>
-          <p><strong>Checks:</strong> Human comparison (check 2), boundary cases (check 5), downstream consequence (check 7).</p>
-        </div>
-      </details>
-    </div>
-
-  </section>
-
-  <hr class="rule">
-
-  <!-- ──────────────── READINGS ──────────────── ─────────>
-  <section id="readings" class="page-section">
-
-    <h2 class="section__title"><span class="section__mark">§</span> readins</h2>
-
-    <!-- ── Core Readigs ── -->
-    <div class="reading-group">
-      <p class="reading-group__label">Core Readigs<span class="reading-goup__rule"></span></p>
-
-      <div class="reading">
-        <p class="reading__title">Grimer, J., Roberts, M. E., &am; Stewart, B. M. (2022). <em>Text as Data: A New Framework for Machine Learning and the Social Sciences</em>. Princeton University Press. Chapters 5–7 (on classification and measurement).</p>
-        <p class="reading__why">Why read it</p>
-        <p class="reading__note">The standard social-science treatment of text classification. Chapters 5–7 cover the measurement framework that applies whether the classifier is a dictionary method, a supervised learning model, or an LLM. The principles do not change because the technology does.</p>
-        <p class="reading__why">What to take</p>
-        <p class="reading__note">The distinction between <em>discovery</m> (fiding patterns), <em>measurement</em> (classifying according to a known schema), and <em>inference</em> (using classifications in statistical models). LLM-based annotation is measurement, and it inherits all the validity concerns of measurement.</p>
-      </div>
-
-      <div class="reading">
-        <p class="reading__title">Egmi, N., Hinck, M., Stewart, B. M., &amp; Wei, H. "Using Large Language Model Annoations for the Social Sciences: A General Framework of Using Predicted Variables in Downstream Analyzes." <em>American Journal of Political Science</em>, forthcoming.</p>
-        <p class="reading__why">Why read it</p>
-        <p class="reading__note">The paper that formalises the problem: when you use LLM-predicted labels in a regression as if they were observed, your estimates can be biased even when accuracy is high. The bias depends on the pattern of errors, not just their frequency.</p>
-        <p class="reading__why">What to take</p>
-        <p class="reading__note">Three key insights: (1) measurement error in predicted labels does not simply attenuate coefficients — it can bias them in any direction; (2) the bias depends on whether errors are correlated with the outcome or the treatment; (3) the standard fix — running the analysis on a human-coded subset — works, but you need to know how large the subset must be.</p>
-      </div>
-
-      <div class="reading">
-        <p class="reading__title">Haterman, A., &amp; Keith, K. A. (225). "Codebook LLMs: Evaluating LLMs as Measurement Tools for Political Science Concepts." <em>Political Analysis</em>, 34(2).</p>
-        <p class="reading__why">Why read it</p>
-        <p class="reading__note">A direct evaluation of LLMs for codebook-based classification in political science. Provides a framework for what to report: the codebook, the prompt, the model and settings, the agreement metrics, the error analysis.</p>
-        <p class="reading__why">What to take</p>
-        <p class="reading__note">Reporing standards. A paper (or portfolio) that claims LLM-based classification should report: the codebook, the exact promt, the model and date, the agreement with human coders, and the pattern of errors — not just the accuracy number.</p>
-      </div>
-
-      <div class="reading">
-        <p class="reading__title">Abdurahman, S., et al. (2025). "A Primer for Evaluating Large Language Models in Social-Science Research." <em>Advances in Methods and Practices in Psychological Science</em>, 8(2).</p>
-        <p class="reading__why">Why read it</p>
-        <p class="reading__note">A practical guide to evaluation, covering classification, generation, and reasoning tasks. The checklist approach helps ensure you have not missed a critical evaluation step.</p>
-        <p class="reading__why">What to take</p>
-        <p class="reading__note">The evaluation checklist. Before claiming your LLM-based annotation is "good enough," work through the checklist items: construct definition, prompt documentation, human benchmark, reliability, validity, error analysis, replicability.</p>
-      </div>
-    </div>
-
-    <!-- ── Methodological Readings ── -->
-    <div class="reading-group">
-      <p class="reading-group__label">Methodological Readins<span class="reading-goup__rule"></span></p>
-
-      <div class="reading">
-        <p class="reading__title">Kippendorff, K. (2018). <em>Contnt Analysis: An Introduction to Its Methodology</em>, 4th ed. Sage. Chapters on reliability.</p>
-        <p class="reading__why">Why read it</p>
-        <p class="reading__note">The definitive treatment of inter-rater reliability. Krippendorff's alpha is the most widely accepted reliability coefficient for content analysis, and understanding what it does (and does not) measure is essential.</p>
-        <p class="reading__why">What to take</p>
-        <p class="reading__note">Reliability coefficients adjust for chance agreement. Percentage agreement does not. Reporting only percentage agreement without a chance-corrected coefficient is insufficient.</p>
-      </div>
-
-      <div class="reading">
-        <p class="reading__title">Artsein, R., &am; Poesio, M. (2008). "Inter-Cder Agreement for Computational Linguistics." <em>Computational Linguistics</em>, 34(4), 555–596.</p>
-        <p class="reading__why">Why read it</p>
-        <p class="reading__note">A comprehensive survey of agreement measures, with guidance on which to use when. Covers Cohen's kappa, Krippendorff's alpha, Scott's pi, and weighted variants.</p>
-        <p class="reading__why">What to take</p>
-        <p class="reading__note">Different coefficients make different assumptions about the data. For multi-category classification with more than two coders, Krippendorff's alpha is the standard. For two coders and binary classification, Cohen's kappa is common.</p>
-      </div>
-    </div>
-
-    <!-- ── Optional: Going Deeper ── -->
-    <div class="reading-group">
-      <p class="reading-group__label">Optional: Going Deeper<span class="reading-goup__rule"></span></p>
-
-      <div class="reading">
-        <p class="reading__title">Bisee, J., Clinton, J. D., Dorff, C., Kenkel, B., &amp; Larson, J. M. (2024). "Synthetic Replacements for Human Survey Data? The Perils of Large Language Models." <em>Political Analysis</em>, 32(4), 401–416.</p>
-        <p class="reading__why">Why read it</p>
-        <p class="reading__note">The survey-data parallel to the annotation problem. LLM-generated survey responses look plausible — the means are often close to human survey means — but the patterns of association between variables are wrong. The same can happen with LLM-generated labels: the marginal distribution looks right, but the joint distribution is wrong.</p>
-        <p class="reading__why">What to take</p>
-        <p class="reading__note">Always check whether the <em>reltionships</em> between variables are preserved, not just the marginal distributions.</p>
-      </div>
-    </div>
-
-    <!-- ── Read Later ── -->
-    <div class="reading-group">
-      <p class="reading-group__label">Read Later (Across Modules)<span class="reading-goup__rule"></span></p>
-
-      <div class="reading">
-        <p class="reading__title"><strong>Barrie, Paler &amp; Spirling</strong> (forthcoming) on replication for language models — what to record so that your annotation can be reproduced. See Module 7.</p>
-      </div>
-
-      <div class="reading">
-        <p class="reading__title"><strong>Kapoor &amp; Narayanan</strong> (2023) on leakage and reproducibility — especially relevant if the model might have been trained on the texts you are classifying.</p>
-      </div>
-    </div>
-
-  </section>
-
-  <hr class="rule rule--thick">
-
-  <footer class="colophon">
-    <p>
-      <span>module 4 of 8</span>
-      <span>ai as a research tool</span>
-      <span>univerity of zurich</span>
+  <p class="back-link"><a href="index.html">← course index</a></p>
+  <header class="masthead">
+    <h1 class="name" style="font-size: clamp(2rem, 8vw, 3.5rem);">
+      <span class="name__line">Module 04</span><span class="name__line">Text Annotation & Measurement</span>
+    </h1>
+    <p class="module-meta">
+      <span>⏱ 3–4h</span>
+      <span>📋 technical HTML lab</span>
+      <span>📌 Module 1 recommended</span>
+      <span>🎯 Miniature annotation study with reliability evidence</span>
     </p>
-    <p>modules last updated october 2026 · <a href="index.html" style="color: var(--ink-soft);">← course home</a></p>
-  </footer>
+  </header>
+  <hr class="rule">
+  <nav class="nav" aria-label="module"><a href="#outcomes">outcomes</a><span class="nav__sep">~</span><a href="#workbook">workbook</a><span class="nav__sep">~</span><a href="#exercises">exercises</a><span class="nav__sep">~</span><a href="#readings">readings</a></nav>
+  <hr class="rule">
+  <div class="module-body">
+<section id="workbook">
+<h2 class="section__title"><span class="section__mark">§</span> workbook</h2>
+<section id="learning-outcomes">
+<h3>Learning Outcomes</h3>
+<p># Module 4: Text Annotation and Measurement</p>
+<p><strong>Estimated time:</strong> 3–4 hours</p>
+<p><strong>Type:</strong> Technical (HTML lab + workbook)</p>
+<p><strong>Prerequisites:</strong> Module 1 (How LLMs Work) recommended; Module 7 (Validation) helpful</p>
+<p><strong>What you'll produce:</strong> A miniature annotation study with codebook, model labels, reliability evidence, and validity limits</p>
+</section>
+<section id="1-annotation-as-measurement">
+<h3>1. Annotation as Measurement</h3>
+<p>Social scientists classify text constantly. Is this news article about economic policy? Does this tweet express support or opposition? Does this legislative speech invoke a particular frame?</p>
+<p>When you ask an LLM to do this classification, you are <strong>measuring</strong> a construct — the same way a survey question measures an attitude or a census category measures an identity. The fact that the measurement is performed by a model rather than a human coder or a dictionary method does not exempt it from measurement standards.</p>
+<p>The key standards are:</p>
+<ul>
+<li><strong>Agreement:</strong> Do different coders (or runs) produce the same label for the same text?</li>
+<li><strong>Reliability:</strong> Is the agreement higher than chance, and is it consistent across the full range of texts?</li>
+<li><strong>Construct validity:</strong> Does the label actually capture the concept you intend to measure?</li>
+<li><strong>Consequential validity:</strong> Do the errors that remain change your substantive conclusions?</li>
+</ul>
+<p>A model that labels 92% of texts "correctly" may still produce biased estimates if the 8% of errors are concentrated in one category, or if "correct" means "agrees with a single human coder whose own reliability is unknown."</p>
+<hr class="rule">
+</section>
+<section id="2-human-judgment-before-model-judgment">
+<h3>2. Human Judgment Before Model Judgment</h3>
+<p>This is the most important rule in annotation work — and the one most often violated:</p>
+<div class="callout"><strong>Make your own judgments before you see the model's labels.</strong></div>
+<p>Once you have seen a label, you are reacting to it — defending it, questioning it, accepting it. Before you see it, you are producing one. The difference matters because:</p>
+<ul>
+<li>You discover ambiguity in your own codebook when you try to apply it</li>
+<li>You notice edge cases that the codebook does not address</li>
+<li>You form a view about which cases are difficult, which informs your reliability assessment</li>
+</ul>
+<p>The lab enforces this order: you define your codebook, code a set of items yourself, then compare your labels to reference labels and (optionally) model-generated labels.</p>
+<hr class="rule">
+</section>
+<section id="3-the-codebook">
+<h3>3. The Codebook</h3>
+<p>A codebook is a document that operationalises your construct for classification. A good codebook contains:</p>
+<h3>Categories</h3>
+<p>Each category needs a name, a definition, and decision rules. "Positive," "Negative," and "Neutral" are not definitions. A definition states what makes a text belong to that category:</p>
+<div class="callout"><strong>Support:</strong> The text explicitly advocates for the policy, expresses approval of it, or argues that it should be adopted. The support must be directed at the policy itself, not at a related goal or value.</div>
+<h3>Decision rules</h3>
+<p>Rules for resolving ambiguity. What do you do when:</p>
+<ul>
+<li>A text mentions the policy but expresses no position? → <strong>Neutral</strong></li>
+<li>A text supports a related policy but not the target policy? → <strong>Not applicable</strong></li>
+<li>A text is ironic or satirical? → <strong>Exclude</strong> (or code the literal meaning with a flag)</li>
+</ul>
+<h3>Boundary cases</h3>
+<p>Examples of texts that are difficult to classify, with the correct label and the reasoning. These are your training material for human coders and your test material for model evaluation.</p>
+<h3>The codebook is YOUR instrument</h3>
+<p>Do not ask a model to write your codebook. The codebook records your theoretical decisions about what the construct means. You can ask a model to suggest edge cases or to check whether a definition is ambiguous, but the categories, definitions, and decision rules must be yours.</p>
+<hr class="rule">
+</section>
+<section id="4-from-codebook-to-prompt">
+<h3>4. From Codebook to Prompt</h3>
+<p>Translating a codebook into a prompt is itself a methodological decision. Different prompt structures can produce different labels from the same codebook — this is the "prompt variation" check from the validation menu (Module 7).</p>
+<p>A good classification prompt includes:</p>
+<ol>
+<li><strong>The task description:</strong> What you are asking the model to do</li>
+<li><strong>The categories with definitions:</strong> Copied from your codebook</li>
+<li><strong>Decision rules:</strong> Especially for ambiguous cases</li>
+<li><strong>Output format:</strong> Specify exactly what the model should return (e.g., "Return only the label, one per line, in the same order")</li>
+<li><strong>What NOT to do:</strong> Explicitly forbid explanations, confidence scores, or extra columns unless you want them</li>
+</ol>
+<h3>Example prompt structure</h3>
+<p>```</p>
+<p>Classify each text below according to the following codebook.</p>
+<p>CODEBOOK</p>
+<p>[Category definitions and decision rules]</p>
+<p>RULES</p>
+<ul>
+<li>Return exactly one label per text, in the same order</li>
+<li>Use only the labels defined above</li>
+<li>If the text does not contain enough information to classify, use "INSUFFICIENT"</li>
+<li>Do not explain your decisions</li>
+<li>Do not add confidence scores</li>
+</ul>
+<p>TEXTS</p>
+<p>[Text 1]</p>
+<p>[Text 2]</p>
+<p>...</p>
+<p>```</p>
+<hr class="rule">
+</section>
+<section id="5-evaluating-annotation-quality">
+<h3>5. Evaluating Annotation Quality</h3>
+<h3>Agreement and reliability</h3>
+<p>How often do two coders (or two model runs) agree? Simple percentage agreement is a start, but it does not account for agreement that would occur by chance. Cohen's kappa and Krippendorff's alpha adjust for chance agreement. The lab calculator provides these metrics.</p>
+<p>A kappa of 0.80 is a common threshold for "acceptable" — but this is a convention, not a law of nature. The threshold that matters depends on your research use. If you are using the labels to filter a dataset for qualitative analysis, 0.70 may be fine. If you are using them as an independent variable in a regression, 0.70 may introduce enough measurement error to bias your estimates.</p>
+<h3>Construct validity</h3>
+<p>High agreement does not mean you are measuring the right thing. Two coders can agree perfectly that a text is "positive" while both misunderstanding what "positive" means in your theoretical framework. Construct validity requires evidence that the labels correspond to the concept you intend to measure — typically through comparison with an external criterion or through theoretical argument about what the labels should correlate with.</p>
+<h3>Consequential error</h3>
+<p>The question that matters most: <strong>do the errors change your conclusions?</strong></p>
+<p>Egami et al. (forthcoming) show that even high-accuracy LLM labels can produce biased regression estimates if the errors are correlated with the outcome or the treatment. A model that is 92% accurate overall but systematically misclassifies theoretical papers (which tend to make different substantive claims) will bias a literature review toward empirical findings.</p>
+<p>Always test: run your analysis with the LLM labels and with a human-coded subset. Does the substantive conclusion change? If yes, the labels are not good enough for your use case, regardless of the accuracy number.</p>
+<hr class="rule">
+</section>
+<section id="6-the-lab">
+<h3>6. The Lab</h3>
+<p>The HTML lab (<code>lab/classification.html</code>) provides a complete annotation environment:</p>
+<ol>
+<li><strong>Codebook editor:</strong> Review and revise the supplied codebook</li>
+<li><strong>Human coding interface:</strong> Code items yourself before seeing any labels</li>
+<li><strong>Model request builder:</strong> The lab constructs a prompt from your codebook and the text items — paste it into any AI chat interface</li>
+<li><strong>Scoring calculator:</strong> Compare your labels (or model labels) to reference labels; compute accuracy, precision, recall, and F1 per category</li>
+<li><strong>Baseline comparison:</strong> See what "retain all" and "exclude all" baselines would achieve</li>
+<li><strong>Screening handoff:</strong> Export your decisions for the next stage of review</li>
+</ol>
+<p>All computation is local. No data is sent anywhere. The dataset is constructed teaching data (not real publications), so you can experiment freely without misrepresenting real research.</p>
+<hr class="rule">
+</section>
+<section id="7-the-four-questions-for-annotation">
+<h3>7. The Four Questions for Annotation</h3>
+<ol>
+<li><strong>What is being delegated?</strong> The classification decisions for each text. You retain the codebook design, the validation, and the interpretation.</li>
+<li><strong>What would make the result believable?</strong> Human-model agreement on a representative sample. Reliability above chance. No systematic error pattern that biases the downstream analysis. Evidence that the labels capture the intended construct.</li>
+<li><strong>What could be lost or flattened?</strong> Ambiguous texts forced into categories. Minority or unexpected uses of language. The tacit knowledge you used when coding by hand.</li>
+<li><strong>What must remain visible or human?</strong> The codebook (your instrument). The comparison between human and model labels. The error analysis. The decision about whether the labels are good enough for your use.</li>
+</ol>
+<hr class="rule">
+</section>
+<section id="8-summary">
+<h3>8. Summary</h3>
+<ul>
+<li>Annotation is measurement. Apply measurement standards: agreement, reliability, construct validity, consequential error.</li>
+<li>Always code items yourself before seeing model labels. The order matters.</li>
+<li>Your codebook is your instrument. Do not delegate its design to a model.</li>
+<li>The prompt is part of the method. Vary it and check whether conclusions change.</li>
+<li>High accuracy can mask systematic errors that bias downstream estimates. Test the full pipeline.</li>
+</ul>
+<hr class="rule">
+</section>
+<section id="what-s-next">
+<h3>What's Next</h3>
+<p><strong>Module 5</strong> extends these principles to code and data analysis: using AI to write, debug, and verify analysis scripts. The validation framework from this module applies directly — every AI-generated statistic needs the same scrutiny as an AI-generated label.</p>
+<p>If you want the full treatment of validation and reproducibility, <strong>Module 7</strong> covers the evidence framework in depth, including the seven validation checks, data boundaries, and disclosure standards.</p>
+<hr class="rule">
+<p><em>Module 4 of 8 · AI as a Research Tool: Workflow Design for the Social Sciences · University of Zurich</em></p>
+</section>
+</section>
 
+<hr class="rule">
+
+<section id="exercises">
+<h2 class="section__title"><span class="section__mark">§</span> exercises</h2>
+<div class="exercise">
+<h3># Module 4: Exercises</h3>
+
+</div>
+<div class="exercise">
+<h3>Exercise 4.1: Code Before You See</h3>
+<p><strong>Goal:</strong> Experience the difference between forming a judgment and reacting to one.</p>
+<p>Open the lab at <code>lab/classification.html</code>. Navigate to the "Code it yourself" section. You will see 6 short texts (titles and abstracts of constructed teaching records). <strong>Before looking at any reference labels or model output</strong>, classify each text using the supplied codebook.</p>
+<p>For each text, record:</p>
+<p>| ID | Your label | Your reason | Confidence (1-5) |</p>
+<p>|---|---|---|---|</p>
+<p>| | | | |</p>
+<p>| | | | |</p>
+<p>| | | | |</p>
+<p>| | | | |</p>
+<p>| | | | |</p>
+<p>Now compare your labels to the reference labels (provided in the lab). For each disagreement:</p>
+<ol>
+<li>Did you misapply the codebook, or is the codebook ambiguous?</li>
+<li>Does the reference decision make sense to you, or would you defend yours?</li>
+<li>What would you change in the codebook to resolve the disagreement?</li>
+</ol>
+<hr class="rule">
+<p><details></p>
+<p><summary><strong>Answer Key</strong> (click to expand)</summary></p>
+<p>The reference labels are in the lab (under "Reference Labels"). Specific answers depend on the dataset version, but general patterns:</p>
+<ul>
+<li><strong>Disagreements that reveal codebook ambiguity</strong> are findings, not errors. If you and the reference disagree and you can both justify your decisions from the codebook, the codebook needs clarification.</li>
+<li><strong>Confidence matters.</strong> A low-confidence correct label and a high-confidence wrong label are different problems. The first suggests the task is inherently difficult; the second suggests you misunderstood the codebook.</li>
+<li><strong>The exercise is not about being "right."</strong> It is about discovering where your understanding of the codebook diverges from the reference — and what that reveals about the measurement instrument.</li>
+</ul>
+<p></details></p>
+<hr class="rule">
+</div>
+<div class="exercise">
+<h3>Exercise 4.2: Revise the Codebook</h3>
+<p><strong>Goal:</strong> Practice improving a measurement instrument based on discovered ambiguity.</p>
+<p>Based on the disagreements you found in Exercise 4.1, revise the codebook. Make at least one of these changes:</p>
+<ol>
+<li><strong>Clarify a definition:</strong> Add detail to a category definition that was ambiguous</li>
+<li><strong>Add a decision rule:</strong> Specify what to do in a case that was not covered</li>
+<li><strong>Add a boundary example:</strong> Include an example of a text that is genuinely ambiguous and how to handle it</li>
+</ol>
+<p>Write your revised codebook here or in a separate document.</p>
+<hr class="rule">
+<p><details></p>
+<p><summary><strong>Answer Key</strong> (click to expand)</summary></p>
+<p>Good codebook revisions are:</p>
+<ul>
+<li><strong>Specific:</strong> "If the abstract mentions a method but does not describe results, classify as METHOD_ONLY, not EMPIRICAL" is better than "be more careful about abstracts without results"</li>
+<li><strong>Testable:</strong> The revision should resolve the specific disagreement you encountered, not introduce new ambiguity</li>
+<li><strong>Minimal:</strong> Don't rewrite the whole codebook. Fix the part that broke.</li>
+</ul>
+<p>A common pitfall: adding so many rules that the codebook becomes harder to apply, not easier. The goal is clarity, not comprehensiveness.</p>
+<p></details></p>
+<hr class="rule">
+</div>
+<div class="exercise">
+<h3>Exercise 4.3: Compare Human and Model Labels</h3>
+<p><strong>Goal:</strong> Evaluate the quality of AI-generated labels against a human benchmark.</p>
+<p>Using the lab's "Request builder," copy the constructed prompt and paste it into any AI chat interface. The prompt includes the codebook, instructions, and the text items. Paste the model's output into the lab's scoring calculator.</p>
+<p>Record the results:</p>
+<p><strong>Accuracy:</strong> ____%</p>
+<p><strong>Precision (RETAIN):</strong> ____%</p>
+<p><strong>Recall (RETAIN):</strong> ____%</p>
+<p><strong>F1 (RETAIN):</strong> ____%</p>
+<p>Now examine the errors:</p>
+<ol>
+<li>Which category has the most errors?</li>
+<li>Are errors concentrated in a particular type of text (look at the titles)?</li>
+<li>Does the model tend to over-classify or under-classify any category?</li>
+<li>Would these errors change your conclusions if this were a real study?</li>
+</ol>
+<hr class="rule">
+<p><details></p>
+<p><summary><strong>Answer Key</strong> (click to expand)</summary></p>
+<p>Results vary by model, prompt wording, and dataset version. What to look for:</p>
+<ul>
+<li><strong>Systematic over-classification:</strong> The model labels more texts as RETAIN than the human reference. This is common — models often default to inclusion when uncertain. Consequence: your review may include irrelevant papers.</li>
+<li><strong>Systematic under-classification:</strong> The opposite. The model misses relevant papers. Consequence: your review may omit important evidence.</li>
+<li><strong>Category-specific errors:</strong> Errors concentrated in one category (e.g., the model cannot distinguish EMPIRICAL from THEORETICAL). This may bias your review toward or away from certain types of evidence.</li>
+<li><strong>The accuracy number is not enough.</strong> 85% accuracy with errors concentrated in one category is worse than 80% accuracy with errors spread evenly across categories.</li>
+</ul>
+<p></details></p>
+<hr class="rule">
+</div>
+<div class="exercise">
+<h3>Exercise 4.4: The Downstream Consequence Test</h3>
+<p><strong>Goal:</strong> Understand why high accuracy can still produce biased estimates.</p>
+<p>Imagine you have classified 1,000 abstracts as RETAIN or EXCLUDE using an LLM. Your accuracy is 92%. You now use the retained papers to estimate the proportion of studies in your field that report positive results.</p>
+<p>Here is the confusion matrix:</p>
+<p>| | Reference RETAIN | Reference EXCLUDE |</p>
+<p>|---|---|---|</p>
+<p>| <strong>Model RETAIN</strong> | 270 | 40 |</p>
+<p>| <strong>Model EXCLUDE</strong> | 30 | 660 |</p>
+<ol>
+<li>What is the true proportion of RETAIN papers? (____/1000 = ____%)</li>
+<li>What proportion does the model estimate? (____/1000 = ____%)</li>
+<li>The model's accuracy is 93%. Does the proportion estimate match the truth?</li>
+<li>If the 30 missed papers (false EXCLUDEs) are disproportionately theoretical papers that report null results, how would this bias your estimate of "proportion reporting positive results"?</li>
+</ol>
+<hr class="rule">
+<p><details></p>
+<p><summary><strong>Answer Key</strong> (click to expand)</summary></p>
+<ol>
+<li>True RETAIN: 270 + 30 = 300. 300/1000 = <strong>30%</strong>.</li>
+<li>Model estimate: 270 + 40 = 310. 310/1000 = <strong>31%</strong>.</li>
+<li>The proportion is close (30% vs. 31%), but the composition is different — the model retained 40 papers it should have excluded and excluded 30 it should have retained. If those groups differ systematically, conclusions drawn from the retained set may be biased.</li>
+</ol>
+<p>The deeper point (from Egami et al.): even when accuracy is high and the proportion looks right, <strong>which specific papers are retained matters.</strong> If the errors are correlated with the outcome you are studying, your estimate will be biased. This is why "92% accuracy" is not sufficient evidence that the labels are good enough for your use case.</p>
+<p></details></p>
+<hr class="rule">
+</div>
+<div class="exercise">
+<h3>Exercise 4.5: Apply the Four Questions</h3>
+<p><strong>Goal:</strong> Integrate the course lens with annotation methodology.</p>
+<p>For the annotation task you just completed (or a real annotation task from your research):</p>
+<ol>
+<li><strong>What is being delegated?</strong> _______________</li>
+<li><strong>What would make the result believable?</strong> _______________</li>
+<li><strong>What could be lost or flattened?</strong> _______________</li>
+<li><strong>What must remain visible or human?</strong> _______________</li>
+</ol>
+<p>Now choose 2–3 checks from the validation menu (see <code>modules/shared/validation_menu.md</code>) that would address your answer to question 2.</p>
+<hr class="rule">
+<p><details></p>
+<p><summary><strong>Answer Key</strong> (click to expand)</summary></p>
+<p>For a typical annotation task:</p>
+<p><strong>1. Delegated:</strong> The classification of each text according to the codebook. You retain: codebook design, validation design, error analysis, and the decision about whether labels are fit for use.</p>
+<p><strong>2. Believable:</strong> Human-model agreement on a representative sample (check 2). Reliability above chance. No systematic error pattern that biases the downstream analysis (check 7).</p>
+<p><strong>3. Lost or flattened:</strong> Ambiguous texts forced into categories. Context that the model misses because it only sees the text, not the broader document or discourse.</p>
+<p><strong>4. Visible/human:</strong> The codebook. The agreement analysis. The decision about fitness for use. A record of model, date, prompt, and settings.</p>
+<p><strong>Checks:</strong> Human comparison (check 2), boundary cases (check 5), downstream consequence (check 7).</p>
+<p></details></p>
+<hr class="rule">
+<p><em>Module 4 Exercises · AI as a Research Tool</em></p>
+</div>
+</section>
+
+<hr class="rule">
+
+<section id="readings">
+<h2 class="section__title"><span class="section__mark">§</span> readings</h2>
+<div class="reading-entry">
+<h4>---</h4>
+</div>
+<h3 style="font-family:var(--mono);font-size:0.78rem;text-transform:uppercase;letter-spacing:0.1em;margin:1.5rem 0 0.75rem;">Core Readings</h3>
+<div class="reading-entry">
+<h4>Grimmer, J., Roberts, M. E., & Stewart, B. M. (2022). <em>Text as Data: A New Framework for Machine Learning and the Social Sciences</em>. Princeton University Press. Chapters 5–7 (on classification and measurement).</h4>
+<p class="reading-note"><strong>Why read it:</strong> The standard social-science treatment of text classification. Chapters 5–7 cover the measurement framework that applies whether the classifier is a dictionary method, a supervised learning model, or an LLM. The principles do not change because the technology does.
+
+<strong>What to take:</strong> The distinction between <em>discovery</em> (finding patterns), <em>measurement</em> (classifying according to a known schema), and <em>inference</em> (using classifications in statistical models). LLM-based annotation is measurement, and it inherits all the validity concerns of measurement.
+
+---</p>
+</div>
+<div class="reading-entry">
+<h4>Egami, N., Hinck, M., Stewart, B. M., & Wei, H. "Using Large Language Model Annotations for the Social Sciences: A General Framework of Using Predicted Variables in Downstream Analyses." <em>American Journal of Political Science</em>, forthcoming.</h4>
+<p class="reading-note"><strong>Why read it:</strong> The paper that formalises the problem: when you use LLM-predicted labels in a regression as if they were observed, your estimates can be biased even when accuracy is high. The bias depends on the pattern of errors, not just their frequency.
+
+<strong>What to take:</strong> Three key insights: (1) measurement error in predicted labels does not simply attenuate coefficients — it can bias them in any direction; (2) the bias depends on whether errors are correlated with the outcome or the treatment; (3) the standard fix — running the analysis on a human-coded subset — works, but you need to know how large the subset must be.
+
+---</p>
+</div>
+<div class="reading-entry">
+<h4>Halterman, A., & Keith, K. A. (2025). "Codebook LLMs: Evaluating LLMs as Measurement Tools for Political Science Concepts." <em>Political Analysis</em>, 34(2).</h4>
+<p class="reading-note"><strong>Why read it:</strong> A direct evaluation of LLMs for codebook-based classification in political science. Provides a framework for what to report: the codebook, the prompt, the model and settings, the agreement metrics, the error analysis.
+
+<strong>What to take:</strong> Reporting standards. A paper (or portfolio) that claims LLM-based classification should report: the codebook, the exact prompt, the model and date, the agreement with human coders, and the pattern of errors — not just the accuracy number.
+
+---</p>
+</div>
+<div class="reading-entry">
+<h4>Abdurahman, S., et al. (2025). "A Primer for Evaluating Large Language Models in Social-Science Research." <em>Advances in Methods and Practices in Psychological Science</em>, 8(2).</h4>
+<p class="reading-note"><strong>Why read it:</strong> A practical guide to evaluation, covering classification, generation, and reasoning tasks. The checklist approach helps ensure you have not missed a critical evaluation step.
+
+<strong>What to take:</strong> The evaluation checklist. Before claiming your LLM-based annotation is "good enough," work through the checklist items: construct definition, prompt documentation, human benchmark, reliability, validity, error analysis, replicability.
+
+---</p>
+</div>
+<h3 style="font-family:var(--mono);font-size:0.78rem;text-transform:uppercase;letter-spacing:0.1em;margin:1.5rem 0 0.75rem;">Methodological Readings</h3>
+<div class="reading-entry">
+<h4>Krippendorff, K. (2018). <em>Content Analysis: An Introduction to Its Methodology</em>, 4th ed. Sage. Chapters on reliability.</h4>
+<p class="reading-note"><strong>Why read it:</strong> The definitive treatment of inter-rater reliability. Krippendorff's alpha is the most widely accepted reliability coefficient for content analysis, and understanding what it does (and does not) measure is essential.
+
+<strong>What to take:</strong> Reliability coefficients adjust for chance agreement. Percentage agreement does not. Reporting only percentage agreement without a chance-corrected coefficient is insufficient.
+
+---</p>
+</div>
+<div class="reading-entry">
+<h4>Artstein, R., & Poesio, M. (2008). "Inter-Coder Agreement for Computational Linguistics." <em>Computational Linguistics</em>, 34(4), 555–596.</h4>
+<p class="reading-note"><strong>Why read it:</strong> A comprehensive survey of agreement measures, with guidance on which to use when. Covers Cohen's kappa, Krippendorff's alpha, Scott's pi, and weighted variants.
+
+<strong>What to take:</strong> Different coefficients make different assumptions about the data. For multi-category classification with more than two coders, Krippendorff's alpha is the standard. For two coders and binary classification, Cohen's kappa is common.
+
+---</p>
+</div>
+<h3 style="font-family:var(--mono);font-size:0.78rem;text-transform:uppercase;letter-spacing:0.1em;margin:1.5rem 0 0.75rem;">Optional: Going Deeper</h3>
+<div class="reading-entry">
+<h4>Bisbee, J., Clinton, J. D., Dorff, C., Kenkel, B., & Larson, J. M. (2024). "Synthetic Replacements for Human Survey Data? The Perils of Large Language Models." <em>Political Analysis</em>, 32(4), 401–416.</h4>
+<p class="reading-note"><strong>Why read it:</strong> The survey-data parallel to the annotation problem. LLM-generated survey responses look plausible — the means are often close to human survey means — but the patterns of association between variables are wrong. The same can happen with LLM-generated labels: the marginal distribution looks right, but the joint distribution is wrong.
+
+<strong>What to take:</strong> Always check whether the <em>relationships</em> between variables are preserved, not just the marginal distributions.
+
+---</p>
+</div>
+<h3 style="font-family:var(--mono);font-size:0.78rem;text-transform:uppercase;letter-spacing:0.1em;margin:1.5rem 0 0.75rem;">Read Later (Across Modules)</h3>
+<div class="reading-entry">
+<h4>- <strong>Barrie, Palmer & Spirling (forthcoming)</strong> on replication for language models — what to record so that your annotation can be reproduced. See Module 7.</h4>
+<p class="reading-note">- <strong>Kapoor & Narayanan (2023)</strong> on leakage and reproducibility — especially relevant if the model might have been trained on the texts you are classifying.
+
+---
+
+<em>Module 4 Reading List · AI as a Research Tool</em></p>
+</div>
+</section>
+
+  </div>
+  <hr class="rule rule--thick">
+  <footer class="colophon">
+    <p><span>set in charter &amp; jetbrains mono.</span><span>html + css.</span><span>no trackers.</span></p>
+    <p><a href="index.html" style="color: var(--ink-soft);">← ai as a research tool</a> · <a href="../../index.html" style="color: var(--ink-soft);">colin henry</a></p>
+  </footer>
 </main>
 </body>
 </html>
