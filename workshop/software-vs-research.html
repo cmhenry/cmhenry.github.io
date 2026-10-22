@@ -400,7 +400,7 @@
         <div class="body title-body">
           <div class="pretitle">MODULE 03</div>
           <h1 class="big-title">Software vs.<br>Research</h1>
-          <div class="subtitle">The paradigm your tools were built in is not the one you publish in.</div>
+          <div class="subtitle">Successful execution and defensible inference require different checks.</div>
           <div class="meta-line">AI as a Research Tool · University of Zürich · 2026</div>
           <div class="hint">Press → to begin</div>
         </div>
@@ -418,7 +418,7 @@
           <ul>
             <li>Built by software teams, shipped on software timelines.</li>
             <li>They inherit a set of assumptions about what "good" means.</li>
-            <li>Those assumptions are not neutral. They were chosen to solve a different problem than ours.</li>
+            <li>Product success does not establish that an output answers a research question.</li>
             <!-- <li>If we don't surface them, we adopt them.</li> -->
           </ul>
         </div>
@@ -432,7 +432,7 @@
           <span class="title-text">Where it came from</span>
         </div>
         <div class="body text-body">
-          <h1>25 years of converging practice</h1>
+          <h1>Common product practices</h1>
           <ul>
             <li>The organizational problem: <em>coordinate teams to ship products under uncertainty</em>.</li>
             <li><strong>Agile / Scrum</strong> — short cycles, rapid iteration, ship early.</li>
@@ -448,12 +448,12 @@
     <section class="text-slide">
       <div class="window">
         <div class="titlebar">
-          <span class="title-text">Software says…</span>
+          <span class="title-text">Product criteria</span>
         </div>
         <div class="body text-body">
-          <h1>Four maxims, learned by heart</h1>
+          <h1>Examples of product priorities</h1>
           <ul>
-            <li>Move fast, iterate later.</li>
+            <li>Short development cycles.</li>
             <li>Abstraction is a feature.</li>
             <li>"Done" = ships and works.</li>
             <li>Optimize for the user's convenience.</li>
@@ -467,15 +467,15 @@
     <section class="text-slide">
       <div class="window">
         <div class="titlebar">
-          <span class="title-text">Research says…</span>
+          <span class="title-text">Research criteria</span>
         </div>
         <div class="body text-body">
-          <h1>A different four maxims</h1>
+          <h1>Additional research requirements</h1>
           <ul>
-            <li>Get it right, then publish.</li>
+            <li>Check the claim before publication.</li>
             <li>Transparency is an obligation.</li>
             <li>"Done" = withstands scrutiny.</li>
-            <li>Optimize for epistemic accountability.</li>
+            <li>Document and justify the inference.</li>
           </ul>
           <!-- <p><em>Different question, different answers.</em></p> -->
         </div>
@@ -486,20 +486,20 @@
     <section class="text-slide">
       <div class="window">
         <div class="titlebar">
-          <span class="title-text">The paradigm mismatch</span>
+          <span class="title-text">Different questions to ask</span>
         </div>
         <div class="body text-body">
           <table class="compare-table">
             <thead>
               <tr>
-                <th>Software says…</th>
-                <th>Research says…</th>
+                <th>Product criteria</th>
+                <th>Research criteria</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td>Move fast, iterate later</td>
-                <td>Get it right, then publish</td>
+                <td>Short development cycles</td>
+                <td>Check the claim before publication</td>
               </tr>
               <tr>
                 <td>Abstraction is a feature</td>
@@ -515,7 +515,7 @@
               </tr>
               <tr>
                 <td>Optimize for user convenience</td>
-                <td>Optimize for epistemic accountability</td>
+                <td>Document and justify the inference</td>
               </tr>
             </tbody>
           </table>
@@ -530,12 +530,12 @@
           <span class="title-text">Where it bites</span>
         </div>
         <div class="body text-body">
-          <h1>The defaults are not yours</h1>
+          <h1>Check the default behavior</h1>
           <ul>
-            <li><strong>Confident prose</strong> is a UX choice. RLHF rewards it. Research punishes it.</li>
-            <li><strong>Abstraction hides provenance.</strong> "It just works" means you can't show <em>how</em>.</li>
-            <li><strong>"Done"</strong> in chat means an answer arrived, not that it survives peer review.</li>
-            <li><strong>Convenience</strong> moves friction off the user and onto the record.</li>
+            <li>Fluent prose can conceal an unsupported claim.</li>
+            <li>A simplified interface may omit provenance that the research record needs.</li>
+            <li>Receiving an answer does not mean its evidence has been checked.</li>
+            <li>Useful automation should reduce work without obscuring consequential choices.</li>
           </ul>
         </div>
       </div>
@@ -548,12 +548,12 @@
           <span class="title-text">The trap</span>
         </div>
         <div class="body text-body">
-          <h1>It "feels" productive</h1>
+          <h1>Execution is not validation</h1>
           <ul>
-            <li>The tool is optimized to feel finished.</li>
-            <li>Your discipline is optimized to <em>be</em> finished.</li>
-            <li>Adopting the tool's defaults imports its standards quietly.</li>
-            <li>The mismatch shows up at review, not at the prompt.</li>
+            <li>A script can run correctly while implementing an invalid measure.</li>
+            <li>A retrieved article can be real without supporting the attributed claim.</li>
+            <li>Software engineering and research both value testing and transparency.</li>
+            <li>The relevant question is which test supports the intended inference.</li>
           </ul>
         </div>
       </div>
@@ -570,7 +570,7 @@
           <ul>
             <li><strong>Traceability</strong> — every claim back to a source.</li>
             <li><strong>Auditability</strong> — someone else can inspect the chain.</li>
-            <li><strong>Reproducibility</strong> — re-run and get a defensible result.</li>
+            <li><strong>Reproducibility</strong> — preserve inputs and procedures; examine variation across reruns.</li>
             <li><strong>Transparency</strong> — the prompt, the tool, the model, the version, on the record.</li>
           </ul>
         </div>
@@ -586,9 +586,9 @@
         <div class="body text-body">
           <h1>These are the criteria we'll apply</h1>
           <ul>
-            <li>Every tool in the next two hours will be judged on these four.</li>
-            <li>Some pass. Some don't. Most pass <em>only with effort</em>.</li>
-            <li>That effort is the work. It is not overhead.</li>
+            <li>Apply these criteria to each practical.</li>
+            <li>Inspect the observed output before deciding whether the procedure helped.</li>
+            <li>These checks support evaluation; none alone establishes construct or causal validity.</li>
             <!-- <li>The skill we're building today is naming when convenience costs you accountability.</li> -->
           </ul>
         </div>

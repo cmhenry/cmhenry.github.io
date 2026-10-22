@@ -83,7 +83,7 @@
     transform: translate(-50%, -50%);
     display: grid;
     grid-template-columns: repeat(3, 130px);
-    grid-template-rows: repeat(2, 130px);
+    grid-template-rows: repeat(3, 130px);
     column-gap: 56px;
     row-gap: 40px;
   }
@@ -301,9 +301,18 @@
 
   /* ===== MOBILE FALLBACK ===== */
   @media (max-width: 560px) {
+    .menubar .menu-item { padding: 1px 6px; }
+    .menubar .clock { white-space: nowrap; font-size: 16px; }
     .folder-grid {
       grid-template-columns: repeat(2, 130px);
-      grid-template-rows: repeat(3, 130px);
+      grid-template-rows: repeat(4, 130px);
+      position: relative;
+      top: auto;
+      left: auto;
+      transform: none;
+      width: max-content;
+      margin: 36px auto;
+      column-gap: 24px;
     }
     .hard-drive, .trash { display: none; }
   }
@@ -391,13 +400,13 @@
       <div class="label">Task: Synthetic peer review</div>
     </a>
 
-    <!-- <a href="#" class="folder" data-folder="exercise-2">
+    <a href="#" class="folder" data-folder="survey">
       <svg class="folder-ico" viewBox="0 0 64 56" fill="white" stroke="black" stroke-width="1.5">
         <path d="M2 10 L24 10 L30 16 L62 16 L62 52 L2 52 Z"/>
         <path d="M2 22 L62 22" fill="none"/>
       </svg>
-      <div class="label">Task: Project management</div>
-    </a> -->
+      <div class="label">Task: Survey research</div>
+    </a>
 
   </div>
 
@@ -446,7 +455,7 @@
   setInterval(updateClock, 5000);
 
   // ===== MODULE CONTENT =====
-  // All copy below is placeholder — easy to edit in one place.
+  // Module summaries and links; presentation content lives in the linked pages.
   const modules = {
     agenda: {
       title: 'Agenda',
@@ -459,10 +468,11 @@
         ]},
         { h: 'Schedule', items: [
           'Framing — ML concepts, vocabulary, applications',
-          'Epistemes — software development vs. research values',
+          'Research standards — execution versus evidence',
           'Tour — models, chatbots, agents, harnesses, tools, skills, MCP',
           'Task — literature review (OpenAlex retrieval, citation veracity, synthesis)',
-          'Task — synthetic peer review of a draft'
+          'Task — synthetic peer review of a draft',
+          'Task — survey wording, open-response coding, and synthetic respondents'
         ]},
         { h: 'Resources', items: [
           '<a href="https://www.anthropic.com/research/coding-agents-social-sciences" target="_blank" rel="noopener">Anthropic — Coding agents in the social sciences (2026)</a>',
@@ -477,12 +487,12 @@
     },
     framing: {
       title: 'Framing: What is "AI"?',
-      subhead: 'A quick and dirty vocabulary for the next three hours.',
+      subhead: 'Terms for discussing models, tools, and research use.',
       sections: [
         { h: 'What we\'ll cover', items: [
           'Tokens, transformers, and where they fit in the ML family',
           'Three stages of training: pre-train, mid-train, post-train',
-          'RLHF — and why instruction-tuned models always optimize toward a local maximum',
+          'Training objectives, preference learning, and what they do not validate',
           'Knowledge cutoff, in-context learning, prompts and roles',
           'Reasoning and chain of thought'
         ]},
@@ -497,13 +507,13 @@
     },
     ethics: {
       title: 'Software vs. Research',
-      subhead: 'The paradigm your tools were built in is not the one you publish in.',
+      subhead: 'Successful execution and defensible inference require different checks.',
       sections: [
         { h: 'What we\'ll cover', items: [
-          'LLM tools are software products — they inherit a worldview',
-          '25 years of software practice: Agile, MVP, abstraction, "ships and works"',
-          'The mismatch: convenience vs. epistemic accountability',
-          'Where it bites: confident prose, hidden provenance, premature "done"',
+          'LLM applications have product objectives as well as research uses',
+          'Common product practices: iteration, abstraction, and release criteria',
+          'Why reliable software does not by itself establish a valid measure',
+          'Check provenance, claims, and completion against the research task',
           'Four criteria for research-grade use: traceability, auditability, reproducibility, transparency'
         ]},
         { h: 'Further reading', items: [
@@ -519,7 +529,7 @@
       subhead: 'A short field guide to the AI tool landscape.',
       sections: [
         { h: 'What we\'ll cover', items: [
-          'Three shapes of tool: desktop apps, harnesses, agentic systems',
+          'Overlapping capabilities: chat, APIs, harnesses, and agent workflows',
           'Three axes that distinguish them: autonomy, access, latency',
           'When each one is the right shape — and when it isn\'t'
         ]},
@@ -527,36 +537,36 @@
           'Chat + Projects — the familiar chat window',
           'Cowork — chat bound to a folder on your disk',
           'Scheduled tasks — cron for prompts',
-          'Dispatch — fire-and-forget background jobs'
+          'Background tasks with explicit limits and review'
         ]},
         { h: 'Harnesses', items: [
           '<a href="https://www.anthropic.com/claude-code" target="_blank" rel="noopener">Claude Code</a> — Anthropic\'s CLI agentic loop',
           '<a href="https://github.com/openai/codex" target="_blank" rel="noopener">Codex</a> — OpenAI\'s equivalent',
-          'Open source: <a href="https://aider.chat" target="_blank" rel="noopener">aider</a>, <a href="https://github.com/cline/cline" target="_blank" rel="noopener">Cline</a>, opencode — bring-your-own-model'
+          'Open source: <a href="https://aider.chat" target="_blank" rel="noopener">aider</a>, <a href="https://github.com/cline/cline" target="_blank" rel="noopener">Cline</a>, opencode — configurable model backends'
         ]},
         { h: 'Agentic systems', items: [
-          'OpenClaw — Anthropic\'s autonomous agent',
-          'Hermes — independent agentic system (not affiliated with the big labs)',
-          'Gemini Spark — Google\'s, integrated with Workspace'
+          'Inspect one prepared workflow rather than assuming capabilities from a product label',
+          'Check permitted actions, stopping conditions, output, and run history',
+          'Local and remote execution can both include human approval checkpoints'
         ]}
       ],
       slides: 'tools-landscape.html'
     },
     tools: {
       title: 'Task: Literature Review',
-      subhead: 'From a naive prompt to a reproducible workflow.',
+      subhead: 'Compare an ordinary request with an explicit search procedure.',
       sections: [
         { h: 'What we\'ll do', items: [
-          'Pass 0 — fail naively with a chatbot prompt',
+          'Pass 0 — run an ordinary request and inspect the actual result',
           'Pass 1 — add a custom OpenAlex skill',
           'Pass 2 — scope to canonical journals',
           'Pass 3 — add a canonical author watch-list',
-          'Take home — repeat for your own subfield'
+          'Take home — repeat for your subfield'
         ]},
         { h: 'Materials', items: [
           '<a href="https://openalex.org" target="_blank" rel="noopener">OpenAlex — open scholarly index</a>',
           '<a href="https://openalex.org/settings/api" target="_blank" rel="noopener">Get a free OpenAlex API key</a>',
-          '<a href="https://developers.openalex.org/guides/authentication" target="_blank" rel="noopener">OpenAlex auth & pricing docs</a>',
+          '<a href="https://help.openalex.org/api/authentication" target="_blank" rel="noopener">OpenAlex auth & pricing docs</a>',
           '<a href="openalex-lit-review.md" target="_blank" rel="noopener">Sample skill — <code>openalex-lit-review.md</code></a>',
           '<a href="content-moderation-sources.md" target="_blank" rel="noopener">Sample canonical doc — <code>content-moderation-sources.md</code></a>'
         ]},
@@ -570,45 +580,63 @@
     },
     exercise: {
       title: 'Task: Synthetic Peer Review',
-      subhead: 'Writing a complex skill that critiques your draft.',
+      subhead: 'Compare review instructions against evidence in a draft.',
       sections: [
         { h: 'What we\'ll do', items: [
-          'Pass 0 — naive prompt, get a praise sandwich',
+          'Pass 0 — record an ordinary response, including useful findings',
           'Pass 1 — write a reviewer skill (role + rubric)',
           'Pass 2 — split into methodology + writing specialists',
-          'Pass 3 — orchestrator that dispatches both in parallel',
-          'Build a Red/Yellow/Green quality gate that can say <em>revise</em>',
-          'Validate: run on a paper you know to spot false/missed Reds'
+          'Pass 3 — compare the reports manually or use supported subagents',
+          'Require a passage and explanation for each severity judgment',
+          'Check supported criticisms, false alarms, and missed issues'
         ]},
         { h: 'Materials', items: [
-          'A draft of your own (or a working paper you\'ve read closely)',
-          'Sample skill: <code>peer-review/SKILL.md</code> (orchestrator)',
-          'Sample agents: <code>review-methodology.md</code> + <code>review-writing.md</code>'
+          '<a href="peer-review-practical.md">Shared excerpt, complete requests, and manual fallback</a>',
+          'Use a permitted draft; do not upload confidential referee material',
+          'Specialist reviews can run in separate chats; subagents are optional'
         ]},
         { h: 'Further reading', items: [
           '<a href="https://github.com/chrisblattman/claudeblattman/tree/main/skills" target="_blank" rel="noopener">Chris Blattman — claudeblattman skills repo</a>',
-          '<a href="https://github.com/chrisblattman/claudeblattman/blob/main/skills/review-plan.md" target="_blank" rel="noopener">review-plan.md — the orchestrator we crib from</a>',
+          '<a href="https://github.com/chrisblattman/claudeblattman/blob/main/skills/review-plan.md" target="_blank" rel="noopener">review-plan.md — an external coordination example</a>',
           '<a href="https://github.com/chrisblattman/claudeblattman/blob/main/agents/review-methodology.md" target="_blank" rel="noopener">review-methodology.md — the methods critic</a>',
           '<a href="https://github.com/chrisblattman/claudeblattman/blob/main/agents/review-writing.md" target="_blank" rel="noopener">review-writing.md — the writing critic</a>',
-          '<a href="https://claude.com/docs/skills/how-to" target="_blank" rel="noopener">Claude Docs — how to install skills (write, upload, browse)</a>',
+          'Check current installation guidance for the particular interface; chat instructions also work',
           '<a href="https://docs.claude.com/en/docs/agents-and-tools/agent-skills/overview" target="_blank" rel="noopener">Anthropic — Agent Skills overview</a>',
           '<a href="https://www.anthropic.com/news/skills" target="_blank" rel="noopener">Anthropic — Equipping agents with Skills</a>'
         ]},
         { h: 'Async take-home (~45 min)', items: [
           'Pick a draft. Run Pass 0 in chat. Save the output.',
-          'Write <code>peer-review/SKILL.md</code> — start from Blattman\'s <code>review-plan.md</code>.',
-          'Split into methodology + writing specialists. Run the orchestrator.',
-          'Compare passes: which Red did the skill catch that you\'d missed?'
+          'Use the complete criteria in <a href="peer-review-practical.md">the shared practical</a>; save them as instructions if useful.',
+          'Optionally compare separate methodology and writing reviews, then check their evidence.',
+          'Compare useful findings, unsupported criticisms, and missed issues'
         ]}
       ],
       slides: 'synthetic-peer-review.html'
+    },
+    survey: {
+      title: 'Task: Survey Research',
+      subhead: 'Question wording, coding open responses, and limits of synthetic respondents.',
+      sections: [
+        { h: 'Practical · 25 minutes', items: [
+          'Assess a question against its intended construct before asking a model',
+          'Code three constructed open responses using a fixed codebook',
+          'Distinguish testing survey software from making population claims',
+          'Specify one use, one comparison, and one inferential limit'
+        ]},
+        { h: 'Materials', items: [
+          '<a href="survey-practical.md">Complete inputs and copyable requests</a>',
+          'Constructed examples only; no respondent data, installation, or paid model account required',
+          '<a href="https://www.pewresearch.org/writing-survey-questions/" target="_blank" rel="noopener">Pew Research Center — Writing Survey Questions</a>'
+        ]}
+      ],
+      slides: 'survey-research.html'
     },
     meta: {
       title: 'Workshop HD',
       subhead: 'About this site.',
       sections: [
         { h: 'About', items: [
-          'AI as a Research Tool — a two-hour workshop for political scientists.',
+          'AI as a Research Tool — workshop materials for social science researchers.',
           'Built for the University of Zurich.',
           'Presenter and audience navigate from this page in parallel.'
         ]}
