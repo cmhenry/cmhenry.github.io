@@ -399,7 +399,7 @@
         <div class="body title-body">
           <div class="pretitle">TASK 01</div>
           <h1 class="big-title">Literature<br>Review</h1>
-          <div class="subtitle">From a naive prompt to a reproducible workflow.</div>
+          <div class="subtitle">Compare an ordinary request with an explicit search procedure.</div>
           <!-- <div class="meta-line">Running example: content moderation, past 6 months</div> -->
           <div class="hint">Press → to begin</div>
         </div>
@@ -428,7 +428,7 @@
     <section class="text-slide">
       <div class="window">
         <div class="titlebar">
-          <span class="title-text">Pass 0 — Fail naively</span>
+          <span class="title-text">Pass 0 — Ordinary request</span>
         </div>
         <div class="body text-body">
           <h1>Just ask the chatbot</h1>
@@ -436,7 +436,7 @@
           <pre>Give me a literature review of recent political science
 work on content moderation from the past 6 months.
 Include citations.</pre>
-          <!-- <p><em>Don't pre-edit. Don't add context. We need to feel the failure.</em></p> -->
+          <p>Keep the same model and tool access across passes. Save successful as well as unsuccessful results.</p>
         </div>
       </div>
     </section>
@@ -445,15 +445,15 @@ Include citations.</pre>
     <section class="text-slide">
       <div class="window">
         <div class="titlebar">
-          <span class="title-text">What the chatbot can't do</span>
+          <span class="title-text">Inspect the returned sources</span>
         </div>
         <div class="body text-body">
-          <h1>Likely failure modes</h1>
+          <h1>Questions for every pass</h1>
           <ul>
-            <li><strong>Stale.</strong> Training cutoff predates "recent."</li>
-            <li><strong>Fabricated.</strong> Plausible authors and titles that don't exist.</li>
-            <li><strong>Unscoped.</strong> No preference for venues you read.</li>
-            <li><strong>Unverifiable.</strong> No audit trail behind any citation.</li>
+            <li>Did the system retrieve sources, or generate references from model knowledge?</li>
+            <li>Do the title, authors, date, and identifier match the original?</li>
+            <li>What search scope and omissions are visible?</li>
+            <li>Does the source support the sentence attributed to it?</li>
           </ul>
         </div>
       </div>
@@ -486,11 +486,11 @@ Include citations.</pre>
         <div class="body text-body">
           <h1>An open index of scholarship</h1>
           <ul>
-            <li>250M+ works. DOIs, authors, venues, citations.</li>
+            <li>Scholarly metadata: identifiers, authors, venues, dates, and citations.</li>
             <li>Open data. Freemium API.</li>
             <li>Sign up at <a href="https://openalex.org/settings/api" target="_blank" rel="noopener">openalex.org/settings/api</a> → free key.</li>
-            <li><strong>$1/day free tier.</strong> ~1,000 searches/day.</li>
-            <li>Pass as <code>api_key=YOUR_KEY</code>.</li>
+            <li>Check current access terms before the session; do not rely on a fixed quota.</li>
+            <li>Use an approved credential route. Never paste keys into prompts or shared files.</li>
           </ul>
         </div>
       </div>
@@ -508,40 +508,32 @@ Include citations.</pre>
             <ul>
               <li>Markdown file. Loaded on demand.</li>
               <li>Encodes <em>how</em>: endpoint, filters, response shape.</li>
-              <li>Triggers on phrases like "literature review."</li>
-              <li>Write once. Reuse.</li>
+              <li>Requires an interface with the necessary retrieval tools.</li>
+              <li>Reuse the instructions; check that they were followed.</li>
             </ul>
           </div>
           <div class="col-image">
             <pre>---
 name: openalex-lit-review
-description: Search OpenAlex
-  for recent scholarly work
-  on a topic, with optional
-  journal and author scope.
+description: Retrieve a
+  bounded set of records.
 ---
 
-# OpenAlex Literature Review
+# Search procedure
+Use the agreed topic, dates,
+ordering, and page limit.
+Use configured credentials;
+never display keys.
 
-## Endpoint
-https://api.openalex.org/works
+Apply the requested scope.
+Preserve returned records,
+query, time, and counts.
+Keep missing fields missing.
 
-## Required filters
-- from_publication_date
-- search OR concept
-
-## Optional filters
-- primary_location.source.id
-- authorships.author.id
-
-## Always include
-api_key=YOUR_KEY
-
-## Output
-Title, authors, venue, year,
-DOI, abstract, OA link.
-Never invent fields.</pre>
-            <div class="caption">~/.claude/skills/openalex-lit-review/SKILL.md</div>
+Report truncation or failure.
+Check identity and claim
+support separately.</pre>
+            <div class="caption">Excerpt; <a href="openalex-lit-review.md">complete retrieval instructions</a></div>
           </div>
         </div>
       </div>
@@ -555,7 +547,7 @@ Never invent fields.</pre>
         </div>
         <div class="body two-col-body">
           <div class="col-text">
-            <h2>Your reading list, as code</h2>
+            <h2>Make search scope explicit</h2>
             <ul>
               <li>Plain markdown. Project-local.</li>
               <li>Journals and authors you trust here.</li>
@@ -568,23 +560,23 @@ Never invent fields.</pre>
 
 ## Journals
 - Journal of Politics
-  S4210204868
+  S95650557
 - Nature Communications
-  S125754415
+  S64187185
 - Political Communication
-  S2764455111
+  S27211427
 
 ## Authors
 - Karsten Donnay
-  A5043469610
+  A5057940546
 - Fabrizio Gilardi
-  A5008582293
+  A5046475081
 
 ## Keywords
 content moderation,
 platform governance,
 online speech</pre>
-            <div class="caption">content-moderation-sources.md</div>
+            <div class="caption"><a href="content-moderation-sources.md">Source list and verified identifiers</a></div>
           </div>
         </div>
       </div>
@@ -602,9 +594,9 @@ online speech</pre>
 on content moderation published in the last 6 months.</pre>
           <h2>What changes</h2>
           <ul>
-            <li>Real DOIs, venues, dates. No hallucinations.</li>
-            <li>But every venue — predatory next to flagship.</li>
-            <li>Triage is still on you.</li>
+            <li>Inspect the actual response and query record, not just the summary.</li>
+            <li>Retrieved metadata can be incomplete or wrong; generated summaries still need checking.</li>
+            <li>A search result is a candidate for reading, not evidence for a claim.</li>
           </ul>
         </div>
       </div>
@@ -624,7 +616,7 @@ moderation work from the last 6 months.</pre>
           <h2>What changes</h2>
           <ul>
             <li>Limited to <strong>JOP, Nature Comms, Political Communication</strong>.</li>
-            <li>Triage solved — the doc encodes your standards.</li>
+            <li>Venue scope narrows retrieval; it does not establish relevance or quality.</li>
             <li>Trade-off: misses venues you forgot.</li>
           </ul>
         </div>
@@ -639,14 +631,15 @@ moderation work from the last 6 months.</pre>
         </div>
         <div class="body text-body">
           <h1>Follow the people</h1>
-          <pre>Using the openalex-lit-review skill and the journals
-AND authors listed in content-moderation-sources.md,
-find content moderation work from the last 6 months.</pre>
+          <pre>Keep the journal results. Run a separate author-scoped
+search with the same topic and dates, using the authors
+in content-moderation-sources.md. Take the UNION of
+both result sets and deduplicate by OpenAlex work ID.</pre>
           <h2>What changes</h2>
           <ul>
-            <li>Donnay & Gilardi surfaced in any venue.</li>
-            <li>Working papers, special issues, cross-disciplinary pieces.</li>
-            <li>The doc becomes a <strong>research-front sensor</strong>.</li>
+            <li>Author scope may add relevant work outside the selected venues.</li>
+            <li>Keep topic and dates fixed; report the actual overlap and new records.</li>
+            <li>An empty author search is a legitimate result. Do not manufacture an improvement.</li>
           </ul>
         </div>
       </div>
@@ -659,12 +652,12 @@ find content moderation work from the last 6 months.</pre>
           <span class="title-text">Reading the passes</span>
         </div>
         <div class="body text-body">
-          <h1>What each piece fixes</h1>
+          <h1>Compare the observed results</h1>
           <ul>
-            <li><strong>Pass 0</strong> — fabrication.</li>
-            <li><strong>+ skill</strong> — real citations, no scope.</li>
-            <li><strong>+ journals</strong> — venue scope.</li>
-            <li><strong>+ authors</strong> — venue scope plus watch-list.</li>
+            <li>Compare source identity, claim support, coverage, and time spent checking.</li>
+            <li>Document the ordinary request's successes and errors.</li>
+            <li>Explain what each scope restriction excludes.</li>
+            <li>One demonstration cannot establish which workflow performs better in general.</li>
           </ul>
         </div>
       </div>
@@ -680,8 +673,8 @@ find content moderation work from the last 6 months.</pre>
           <h1>What we actually built</h1>
           <ul>
             <li>A skill is a reusable recipe.</li>
-            <li>A canonical doc is taste, written down.</li>
-            <li>The chat box is the wrong tool for anything you'd cite.</li>
+            <li>A source list records a search boundary, including its omissions.</li>
+            <li>Verify source identity separately from whether it supports a claim.</li>
             <li>Pattern generalizes — archives, datasets, court filings.</li>
           </ul>
         </div>
@@ -701,7 +694,7 @@ find content moderation work from the last 6 months.</pre>
             <li>Write <code>sources.md</code>: 2 journals, 1 author you trust.</li>
             <li>Find OpenAlex IDs at <a href="https://openalex.org" target="_blank" rel="noopener">openalex.org</a>.</li>
             <li>Run all the passes. Save the outputs.</li>
-            <li>One paragraph back to Colin — what surprised you?</li>
+            <li>Write one paragraph about coverage, verification, and whether the extra steps helped.</li>
           </ul>
         </div>
       </div>

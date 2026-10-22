@@ -399,7 +399,7 @@
         <div class="body title-body">
           <div class="pretitle">TASK 02</div>
           <h1 class="big-title">Synthetic<br>Peer Review</h1>
-          <div class="subtitle">Writing a complex skill that critiques your draft.</div>
+          <div class="subtitle">Compare review instructions against evidence in a draft.</div>
           <div class="hint">Press → to begin</div>
         </div>
       </div>
@@ -412,7 +412,7 @@
           <span class="title-text">The task</span>
         </div>
         <div class="body text-body">
-          <h1>Reviewer Two, on demand</h1>
+          <h1>A structured pre-read</h1>
           <ul>
             <li>You have a draft. You want a structured critique before you present it or send it to a journal.</li>
             <li>We'll build a <strong>skill</strong> — a reusable file Claude loads on demand — to do exactly that.</li>
@@ -428,9 +428,9 @@
           <span class="title-text">Pass 0 — Just ask</span>
         </div>
         <div class="body text-body">
-          <h1>The naive prompt</h1>
-          <p>Open Claude Desktop, attach your draft, type:</p>
-          <pre>Review this paper and tell me what's wrong with it.</pre>
+          <h1>An ordinary request</h1>
+          <p>Use the shared <a href="peer-review-practical.md">constructed excerpt</a> or a draft you have permission to upload:</p>
+          <pre>Review this excerpt and tell me what is wrong with it.</pre>
         </div>
       </div>
     </section>
@@ -439,16 +439,16 @@
     <section class="text-slide">
       <div class="window">
         <div class="titlebar">
-          <span class="title-text">Likely response</span>
+          <span class="title-text">Inspect the response</span>
         </div>
         <div class="body text-body">
-          <h1>The praise sandwich</h1>
+          <h1>What did the review substantiate?</h1>
           <ul>
-            <li><strong>Sycophancy: </strong> "This is a thoughtful contribution to the literature."</li>
-            <li><strong>Vague critique:</strong> "Consider clarifying the framing."</li>
-            <li><strong>No teeth:</strong> No identification critique, no causal-language audit.</li>
+            <li>Which criticism points to a specific passage and explains its consequence?</li>
+            <li>Which concern is unsupported or irrelevant to the stated claim?</li>
+            <li>What did the review miss? A useful ordinary response is a valid outcome.</li>
           </ul>
-          <p><em>Remember, RLHF rewards sounding helpful. Helpful ≠ rigorous.</em></p>
+          <p>Record your assessment before reading the model response. Use the same excerpt, model, and tools in each pass.</p>
         </div>
       </div>
     </section>
@@ -466,7 +466,7 @@
               <li>A markdown file with YAML frontmatter.</li>
               <li><code>name</code> + <code>description</code> tell Claude when to load it.</li>
               <li>The body tells Claude <em>how</em> to do the job — role, steps, output format.</li>
-              <li>Lives in <code>~/.claude/skills/</code> (or your project folder).</li>
+              <li>Installation depends on the interface; the same instructions can be supplied in chat.</li>
             </ul>
           </div>
           <div class="col-image">
@@ -482,15 +482,16 @@ description: Critique an
 
 # Peer Review
 
-You are a meticulous
-referee for a top journal.
+Review only the supplied
+text and stated claims.
 
 ## Steps
 1. Identify the claim.
-2. Audit the design.
-3. Score Red/Yellow/Green.
-4. Verdict: ACCEPT,
-   REVISE, or REJECT.</pre>
+2. Quote each passage
+   supporting a concern.
+3. Explain its consequence.
+4. Separate errors from
+   questions needing data.</pre>
             <div class="caption">~/.claude/skills/peer-review/SKILL.md</div>
           </div>
         </div>
@@ -504,13 +505,13 @@ referee for a top journal.
           <span class="title-text">Installing a skill</span>
         </div>
         <div class="body text-body">
-          <h1>Three ways in Claude Desktop</h1>
+          <h1>Reuse the instructions</h1>
           <ul>
-            <li><strong>Write one with Claude:</strong> describe the job, let Claude scaffold the SKILL.md.</li>
-            <li><strong>Upload:</strong> drop a <code>SKILL.md</code> or <code>.skill</code> bundle into Settings → Capabilities → Skills.</li>
-            <li><strong>Browse:</strong> install from the built-in Skill Library.</li>
+            <li>Start with the complete request in the <a href="peer-review-practical.md">shared practical</a>.</li>
+            <li>Paste it into a fresh chat, or use the skill mechanism supported by your interface.</li>
+            <li>A saved instruction file does not grant file access or create subagents.</li>
           </ul>
-          <p>Reference: <a href="https://claude.com/docs/skills/how-to" target="_blank" rel="noopener">claude.com/docs/skills/how-to</a></p>
+          <p>For installation, consult the current documentation for the application being demonstrated.</p>
         </div>
       </div>
     </section>
@@ -523,7 +524,7 @@ referee for a top journal.
         </div>
         <div class="body text-body">
           <h1>Give it a role and a rubric</h1>
-          <pre>Using the peer-review skill, critique the attached draft.</pre>
+          <p>Use the same excerpt with the <a href="peer-review-practical.md">complete rubric request</a> in a fresh chat.</p>
           <h2>What changes</h2>
           <ul>
             <li><strong>Structure:</strong> sections, dimensions, severity scores.</li>
@@ -547,7 +548,7 @@ referee for a top journal.
               <li><strong>Methodology skill:</strong> identification, causal language, robustness.</li>
               <li><strong>Writing skill:</strong> argument structure, clarity, voice.</li>
               <li>Shorter files are easier to audit, edit, and version.</li>
-              <li>Two specialists tend to outperform one generalist prompt.</li>
+              <li>Compare supported findings and false alarms; do not assume specialization improves accuracy.</li>
             </ul>
           </div>
           <div class="col-image">
@@ -587,10 +588,10 @@ Green severity.</pre>
           <div class="col-text">
             <h2>One skill that dispatches both</h2>
             <ul>
-              <li>A top-level <code>peer-review</code> skill runs both critics in parallel.</li>
-              <li>Each runs in a fresh context, so judgments stay independent.</li>
+              <li>With subagent support, a coordinating instruction can dispatch both critics.</li>
+              <li>Separate contexts reduce direct anchoring, but shared models can make correlated errors.</li>
               <li>The orchestrator synthesizes agreements, disagreements, and unique findings.</li>
-              <li>Adding a third critic later (theory, policy) is cheap.</li>
+              <li>Without subagents, use two fresh chats and compare their reports manually.</li>
             </ul>
           </div>
           <div class="col-image">
@@ -604,18 +605,18 @@ Read the file user shared.
 - Task: review-writing
 
 ## Step 3: Synthesize
-- Agreements (highest
-  confidence findings)
+- Agreements (check their
+  supporting evidence)
 - Disagreements (surface,
   don't pick a winner)
 - Unique per-critic
   insight
 
-## Step 4: Verdict
-ACCEPT / REVISE / REJECT
-with Red/Yellow/Green
-breakdown.</pre>
-            <div class="caption">peer-review/SKILL.md — the conductor</div>
+## Step 4: Human review
+Check each cited passage.
+Retain, reject, or mark
+the concern unresolved.</pre>
+            <div class="caption">Illustrative coordination instructions</div>
           </div>
         </div>
       </div>
@@ -625,14 +626,15 @@ breakdown.</pre>
     <section class="text-slide">
       <div class="window">
         <div class="titlebar">
-          <span class="title-text">Build a quality gate</span>
+          <span class="title-text">Prioritize findings</span>
         </div>
         <div class="body text-body">
-          <h1>A verdict the skill can refuse</h1>
+          <h1>Severity needs evidence</h1>
           <ul>
-            <li><strong>Severity:</strong> each finding gets 🔴 Red, 🟡 Yellow, or 🟢 Green.</li>
-            <li><strong>Rule:</strong> any Red → REVISE. Hard-coded in the skill text.</li>
-            <li><strong>Effect:</strong> removes the praise-sandwich escape hatch.</li>
+            <li>Distinguish a claim-changing error, an important uncertainty, and a presentation issue.</li>
+            <li>Require a passage and a reason for each severity judgment.</li>
+            <li>A rule written in a prompt is an instruction, not enforced program logic.</li>
+            <li>The researcher decides which criticisms warrant revision.</li>
           </ul>
         </div>
       </div>
@@ -647,10 +649,10 @@ breakdown.</pre>
         <div class="body text-body">
           <h1>Validate it like an instrument</h1>
           <ul>
-            <li>Run it on a paper you know well: your own work, or a famously flawed paper.</li>
-            <li>Compare its findings to what a human referee caught.</li>
-            <li>Two failure modes: <strong>false Reds</strong> (paranoia), <strong>missed Reds</strong> (sycophancy).</li>
-            <li>Edit the skill until the rate of both drops.</li>
+            <li>Start with the constructed excerpt and a human assessment written in advance.</li>
+            <li>Record supported criticisms, unsupported criticisms, and missed issues.</li>
+            <li>Test revised instructions on a fresh excerpt, not only the example used to tune them.</li>
+            <li>Famous flawed papers may be remembered from training. A few examples are not a performance estimate.</li>
           </ul>
         </div>
       </div>
@@ -665,10 +667,10 @@ breakdown.</pre>
         <div class="body text-body">
           <h1>What each pass adds</h1>
           <ul>
-            <li><strong>Pass 0:</strong> flattery, no rigor.</li>
+            <li><strong>Pass 0:</strong> an observed baseline, including useful findings.</li>
             <li><strong>Pass 1 (skill):</strong> role and rubric. One generalist.</li>
             <li><strong>Pass 2 (+ specialists):</strong> methods and prose reviewed separately.</li>
-            <li><strong>Pass 3 (+ orchestrator + gate):</strong> synthesis and a verdict.</li>
+            <li><strong>Pass 3 (coordination):</strong> compare reports, then check the evidence.</li>
           </ul>
         </div>
       </div>
@@ -683,9 +685,9 @@ breakdown.</pre>
         <div class="body text-body">
           <h1>What we built</h1>
           <ul>
-            <li>A skill is a reusable, editable markdown file: role, steps, output, gate.</li>
+            <li>A skill records reusable instructions: task, criteria, steps, and requested output.</li>
             <li>Smaller composed skills are easier to maintain than one large prompt.</li>
-            <li>A verdict gate is what prevents drift back to flattery.</li>
+            <li>An explicit rubric makes the requested assessment inspectable; it does not guarantee validity.</li>
             <li>Same pattern applies to grant pre-reads, response-to-reviewers, conference abstracts.</li>
           </ul>
         </div>
@@ -701,9 +703,9 @@ breakdown.</pre>
         <div class="body text-body">
           <h1>Async exercise · ~45 min</h1>
           <ul>
-            <li>Pick a draft of your own, or a working paper you've read closely.</li>
-            <li>In Claude Desktop or Cowork, attach it and run <strong>Pass 0</strong>. Save the output.</li>
-            <li>Write <code>peer-review/SKILL.md</code>, starting from Blattman's <a href="https://github.com/chrisblattman/claudeblattman/blob/main/skills/review-plan.md" target="_blank" rel="noopener">review-plan</a>.</li>
+            <li>Use a permitted draft or the supplied constructed excerpt.</li>
+            <li>Record a human assessment, then run <strong>Pass 0</strong> in an available interface and save the output.</li>
+            <li>Use the complete request in the <a href="peer-review-practical.md">shared practical</a>; save it as reusable instructions if useful.</li>
             <li>Split into <a href="https://github.com/chrisblattman/claudeblattman/blob/main/agents/review-methodology.md" target="_blank" rel="noopener">methodology</a> + <a href="https://github.com/chrisblattman/claudeblattman/blob/main/agents/review-writing.md" target="_blank" rel="noopener">writing</a>. Compare to Pass 0.</li>
           </ul>
         </div>

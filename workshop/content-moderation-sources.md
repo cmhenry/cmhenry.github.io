@@ -8,7 +8,7 @@ It is short on purpose. A canonical reference doc is a personal canon, not an ex
 
 ## Journals
 
-The journals to prioritize. The codes are OpenAlex **source IDs**.
+The journals to prioritize. The codes are OpenAlex **source IDs**. The three source IDs and two author IDs below were checked against OpenAlex on 22 October 2026; the author records identified the University of Zurich. This list defines scope, not a quality or relevance guarantee.
 
 - **Journal of Politics** — `S95650557`
 - **Nature Communications** — `S64187185`

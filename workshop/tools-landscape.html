@@ -384,12 +384,12 @@
           <span class="title-text">The landscape</span>
         </div>
         <div class="body text-body">
-          <h1>Three shapes of tool</h1>
+          <h1>Overlapping ways to use a model</h1>
           <ul>
-            <li><strong>Desktop apps</strong> — chat windows, with extras bolted on.</li>
+            <li><strong>Chat applications</strong> — conversation, sometimes with files and tools.</li>
             <li><strong>Harnesses</strong> — a terminal where the model can read and write your files.</li>
-            <li><strong>Agentic systems</strong> — you give a goal, walk away, come back later.</li>
-            <li>Same underlying models. Very different workflows.</li>
+            <li><strong>Agent workflows</strong> — repeated tool use, sometimes scheduled or delegated.</li>
+            <li>An API connects software to a model or service. It does not supply a workflow by itself.</li>
           </ul>
         </div>
       </div>
@@ -407,7 +407,7 @@
             <li><strong>Autonomy</strong> — how many steps it takes without you.</li>
             <li><strong>Access</strong> — what it can read, write, and run.</li>
             <li><strong>Latency</strong> — seconds, minutes, or hours to a result.</li>
-            <li>Pick the tool by which axis your task lives on.</li>
+            <li>Choose the access and supervision the task requires.</li>
           </ul>
         </div>
       </div>
@@ -426,7 +426,7 @@
         <div class="body title-body">
           <div class="pretitle">PART 1 OF 3</div>
           <h1 class="big-title">Desktop apps</h1>
-          <div class="subtitle">The chat window — and what's been bolted onto it.</div>
+          <div class="subtitle">Conversations, uploaded files, and connected tools.</div>
         </div>
       </div>
     </section>
@@ -440,10 +440,10 @@
         <div class="body text-body">
           <h1>The familiar one</h1>
           <ul>
-            <li>One conversation. You type, it answers. No file access.</li>
+            <li>Conversation is the main interface; file and tool access depend on the product.</li>
             <li><strong>Projects</strong> add persistent instructions and a small file store.</li>
             <li>Good for: drafting, brainstorming, one-off questions, reading a PDF you pasted in.</li>
-            <li>Limit: every session starts cold. The model doesn't touch your machine.</li>
+            <li>Check memory, connectors, and permissions rather than assuming the chat is isolated.</li>
           </ul>
         </div>
       </div>
@@ -460,9 +460,9 @@
           <ul>
             <li>Same chat interface — but pointed at a folder on your disk.</li>
             <li>The model can <strong>read, write, and edit files</strong> there. It runs code in a sandbox.</li>
-            <li>Connectors plug in: Gmail, Slack, Drive, Obsidian, whatever has an MCP server.</li>
+            <li>Connectors can add service access; availability and permissions vary.</li>
             <li>Good for: anything where the answer is a <em>file</em>, not a message.</li>
-            <li>This is what we're running right now.</li>
+            <li>The presenter shows the permissions in the prepared demonstration environment.</li>
           </ul>
         </div>
       </div>
@@ -475,12 +475,12 @@
           <span class="title-text">Scheduled · Dispatch</span>
         </div>
         <div class="body text-body">
-          <h1>Chat without you in the chair</h1>
+          <h1>Scheduled and background work</h1>
           <ul>
             <li><strong>Scheduled tasks</strong> — run a prompt on a cron. "Every Monday, summarize my inbox."</li>
             <li><strong>Dispatch</strong> — fire off a long job in the background, come back to the result.</li>
-            <li>Same desktop app. The conversation just doesn't need you in it.</li>
-            <li>Useful when the work is recurring or slow, not when you're iterating.</li>
+            <li>Availability depends on the application, account, and execution environment.</li>
+            <li>Specify scope, output, failure reporting, and how to pause the job.</li>
           </ul>
         </div>
       </div>
@@ -534,7 +534,7 @@
             <li>Terminal app. Lives in a directory. Reads and writes its files.</li>
             <li>Tools: bash, file edits, web fetch, subagents, MCP connectors, skills.</li>
             <li>You can stop it, branch it, run several in parallel on different worktrees.</li>
-            <li>Same engine as Cowork — different surface. The CLI gives you more control and visibility into the loop.</li>
+            <li>Inspect the actual file changes, tool calls, and approval settings.</li>
           </ul>
         </div>
       </div>
@@ -552,7 +552,7 @@
             <li>Same shape as Claude Code: terminal, files, agentic loop.</li>
             <li>Powered by OpenAI's models. Different defaults, different feel.</li>
             <li>Useful when you want a second opinion from a different model family.</li>
-            <li>The interfaces are converging — skills transfer between them.</li>
+            <li>Reusable instructions may transfer; tool names and permissions need checking.</li>
           </ul>
         </div>
       </div>
@@ -565,12 +565,12 @@
           <span class="title-text">Open source harnesses</span>
         </div>
         <div class="body text-body">
-          <h1>aider, opencode, Cline, and friends</h1>
+          <h1>aider, opencode, and Cline</h1>
           <ul>
-            <li>Community-built CLIs you point at any model API.</li>
-            <li>Bring-your-own-key: Claude, GPT, Gemini, or a local open-weight model.</li>
-            <li>Less polish, more control. Audit the loop. Swap the model.</li>
-            <li>Right choice if you need to run on local weights — privacy, cost, reproducibility.</li>
+            <li>Open-source command-line or editor interfaces with different supported backends.</li>
+            <li>Some can use hosted APIs or locally served open-weight models.</li>
+            <li>Local inference can change cost and data handling; inspect the complete setup.</li>
+            <li>Local operation alone does not establish confidentiality or reproducibility.</li>
           </ul>
         </div>
       </div>
@@ -589,7 +589,7 @@
         <div class="body title-body">
           <div class="pretitle">PART 3 OF 3</div>
           <h1 class="big-title">Agentic systems</h1>
-          <div class="subtitle">Hand off a goal. Come back to a result.</div>
+          <div class="subtitle">Delegated tasks with explicit limits and review.</div>
         </div>
       </div>
     </section>
@@ -601,12 +601,12 @@
           <span class="title-text">What's an agentic system?</span>
         </div>
         <div class="body text-body">
-          <h1>Long horizon. No human in the loop.</h1>
+          <h1>Repeated actions toward a goal</h1>
           <ul>
-            <li>Same agentic loop as a harness — but runs in the cloud, for hours.</li>
-            <li>You set the goal, it plans, executes, recovers, and reports back.</li>
-            <li>Often has a browser, a virtual machine, and broad tool access.</li>
-            <li>You're not watching it work. You're reviewing what it did.</li>
+            <li>A harness can also run agent workflows, locally or on a remote host.</li>
+            <li>The system selects tools and uses their results to choose subsequent actions.</li>
+            <li>Supervision can include approval checkpoints, budgets, and stopping rules.</li>
+            <li>Review the execution record as well as the final answer.</li>
           </ul>
         </div>
       </div>
@@ -616,14 +616,15 @@
     <section class="text-slide">
       <div class="window">
         <div class="titlebar">
-          <span class="title-text">The players</span>
+          <span class="title-text">Inspect a prepared workflow</span>
         </div>
         <div class="body text-body">
-          <h1>Three to know</h1>
+          <h1>What was actually delegated?</h1>
           <ul>
-            <li><strong>OpenClaw</strong> — Anthropic's autonomous agent. Browser + VM + long-running tasks.</li>
-            <li><strong>Hermes</strong> — independent agentic system. Same shape, different stack.</li>
-            <li><strong>Gemini Spark</strong> — Google's. Tight integration with Workspace and Search.</li>
+            <li>Show one bounded task in the presenter's configured agent environment.</li>
+            <li>Identify permitted inputs, tools, output location, and stopping condition.</li>
+            <li>Open its run history and show how the task can be stopped.</li>
+            <li>A saved run is an inspection exercise, not a live execution.</li>
           </ul>
         </div>
       </div>
@@ -639,7 +640,7 @@
           <h1>The task fits the shape</h1>
           <ul>
             <li>Multi-hour work you've fully scoped (not exploration).</li>
-            <li>Steps you could write down, but don't want to babysit.</li>
+            <li>Steps with clear permissions, stopping conditions, and failure reporting.</li>
             <li>You can verify the output afterwards without re-doing the work.</li>
             <li>Bad fit: anything where the right answer requires your judgement mid-flight.</li>
           </ul>
@@ -661,7 +662,7 @@
           <h1>Match the tool to the task</h1>
           <ul>
             <li><strong>Thinking with words?</strong> Chat window.</li>
-            <li><strong>Producing a file?</strong> Cowork.</li>
+            <li><strong>Producing a file?</strong> An interface with appropriate file access.</li>
             <li><strong>Editing a codebase or running scripts?</strong> A harness.</li>
             <li><strong>Recurring or scheduled?</strong> Scheduled tasks.</li>
             <li><strong>Long-horizon, fully delegated?</strong> An agentic system.</li>
@@ -677,10 +678,11 @@
           <span class="title-text">What we'll use today</span>
         </div>
         <div class="body text-body">
-          <h1>From here on, mostly one of them</h1>
+          <h1>Use the access you have</h1>
           <ul>
-            <li><strong>Cowork</strong>: for the literature review and synthetic peer review.</li>
-            <li>Everything else on this map: in your back pocket for the next time you need it.</li>
+            <li>The presenter demonstrates retrieval and file access in a prepared environment.</li>
+            <li>Participants can use an available chatbot or inspect the supplied teaching cases.</li>
+            <li>No installation or paid model account is required for the inspection route.</li>
           </ul>
         </div>
       </div>

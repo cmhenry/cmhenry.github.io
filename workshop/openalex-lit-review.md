@@ -1,88 +1,50 @@
 ---
 name: openalex-lit-review
-description: Search OpenAlex for recent scholarly works on a topic, with optional filtering by journal and author. Use when the user asks for a literature review, recent papers, or to find work on a topic.
+description: Retrieve bounded OpenAlex records for a topic and explicit dates, optionally scoped to journals or authors.
 ---
 
-# OpenAlex Literature Review
+# OpenAlex literature search
 
-This skill helps Claude search [OpenAlex](https://openalex.org) — an open catalog of ~250M scholarly works — and return clean, citable results.
-
-It is deliberately small. It does one thing: take a topic, an optional date range, and optional journal and author scopes, and return a markdown table of real, verifiable works.
-
----
+This teaching recipe retrieves candidate records. It is not a systematic-review protocol or evidence that a paper supports a claim.
 
 ## Before searching
 
-1. Read the OpenAlex API key from a `.env` file in the project folder. Look for a line like `OPENALEX_API_KEY=...`. If `.env` is missing or the key is empty, stop and ask the user to add it.
-2. If the user references a canonical sources doc (typically a file like `*-sources.md`), read it. It contains OpenAlex journal IDs (start with `S`) and author IDs (start with `A`).
+1. Confirm the interface can make the request. Otherwise say retrieval is unavailable; do not simulate records or a successful call.
+2. Use an already configured, approved credential route. The execution environment should supply credentials without displaying them to the model or including them in prompts, screenshots, shared URLs, or receipts. Prefer header authentication when supported. Never ask for a key in chat.
+3. Fix `search=content moderation`, explicit start/end dates for the agreed six-month window, `sort=publication_date:desc`, `page=1`, and `per_page=25`. Report these teaching limits and keep them constant across passes.
+4. Check that source and author IDs identify the intended entities. Do not guess IDs or correct them silently.
 
----
+## Requests
 
-## How to build the query
+Endpoint: `https://api.openalex.org/works`
 
-OpenAlex endpoint: `https://api.openalex.org/works`
+Common parameters:
 
-Always include these parameters:
+- `search=content moderation`
+- `filter=from_publication_date:START,to_publication_date:END`
+- `sort=publication_date:desc`
+- `page=1`
+- `per_page=25`
+- `select=id,title,authorships,primary_location,publication_date,doi,open_access`
 
-- `api_key=<KEY>` — the value from `.env`
-- `per-page=25` — keep results focused
-- `select=id,title,authorships,primary_location,publication_date,doi,abstract_inverted_index,open_access`
+`START` and `END` stand for dates agreed before the run. Do not send them literally. The client must URL-encode the parameters.
 
-### For a topic + date range
+**Journal pass:** append `primary_location.source.id:S95650557|S64187185|S27211427` to the filter. Pipe means OR within a field; commas mean AND across fields.
 
-- `search=<topic phrase>` — URL-encoded
-- `filter=from_publication_date:YYYY-MM-DD` — typically six months before today
+**Author pass:** make a separate request with the same topic and dates and `authorships.author.id:A5057940546|A5046475081`, without the journal filter. Retain journal results and take the union of the returned sets. Adding an author filter to the journal request would instead produce an intersection.
 
-### To scope by journal
+Deduplicate by OpenAlex work ID, including records without a DOI. Preserve query membership. Flag conflicting metadata rather than silently choosing a value. Report actual overlap and additions; do not predict counts.
 
-Add to the `filter` parameter, comma-separated:
+## Save and report
 
-- `primary_location.source.id:S123|S456|S789`
+Retain the sanitized query, filters, sort, page/limit, retrieval time, service matching total, actual returned count, and raw returned records. The matching total is not the number downloaded. State when only a first-page slice was retrieved. Stop at the agreed page; further retrieval requires a new decision.
 
-Pipe (`|`) is OR. Comma between filter keys is AND.
+Return ID, title, authors, venue, publication date, DOI, and supplied landing-page or open-access link. Keep missing values missing. Do not turn metadata into an invented abstract or summary.
 
-### To include specific authors regardless of venue
+An empty response is not an API failure; a failed request is not evidence of zero matches. Do not fall back to model memory as though it were retrieval.
 
-Run a **second** query with author IDs:
+## Verification beyond retrieval
 
-- `filter=from_publication_date:YYYY-MM-DD,authorships.author.id:A123|A456`
+Open a candidate's original source to check identity. Separately inspect relevant text to check claim support. Metadata alone is insufficient. Record inaccessible text as unverified. Index coverage, metadata errors, scope restrictions, and first-page truncation remain limitations.
 
-Then merge with the first query's results. Deduplicate by DOI.
-
----
-
-## How to return results
-
-Return a single markdown table with these columns: **Author(s)**, **Title**, **Venue**, **Date**, **DOI**.
-
-If `abstract_inverted_index` is present in the response, reconstruct the abstract (it's a dictionary of `word → [positions]`; sort by position and join) and include a two-sentence plain-language summary under each row.
-
-Sort results by `publication_date` descending.
-
----
-
-## What not to do
-
-- Never invent fields. If a paper has no DOI in the response, write "no DOI" — do not guess one.
-- Never silently fall back to model knowledge if the API returns zero results. Tell the user the query was empty and suggest a broader filter.
-- Never include the API key in any output shown to the user.
-- Never paginate past page 4 without asking. If there are more results, summarize the count and ask whether to continue.
-
----
-
-## Minimal example
-
-If the user says: *"Find content moderation work from the last 6 months in the journals listed in `content-moderation-sources.md`"* —
-
-1. Read `content-moderation-sources.md`, extract source IDs.
-2. Compute the date six months ago.
-3. Build:
-   ```
-   https://api.openalex.org/works
-     ?api_key=KEY
-     &per-page=25
-     &select=id,title,authorships,primary_location,publication_date,doi,abstract_inverted_index,open_access
-     &search=content%20moderation
-     &filter=from_publication_date:2025-12-01,primary_location.source.id:S4210204868|S125754415|S2764455111
-   ```
-4. Render the table.
+Authentication reference: <https://help.openalex.org/api/authentication>

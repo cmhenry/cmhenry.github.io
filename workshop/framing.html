@@ -372,7 +372,7 @@
         <div class="body title-body">
           <div class="pretitle">MODULE 02</div>
           <h1 class="big-title">What is AI?</h1>
-          <div class="subtitle">A quick and dirty vocabulary for the next three hours.</div>
+          <div class="subtitle">Terms for discussing models, tools, and research use.</div>
           <div class="meta-line">AI as a Research Tool · University of Zürich · 2026</div>
           <div class="hint">Press → to begin</div>
         </div>
@@ -422,9 +422,9 @@
           <div class="col-text">
             <h2>What's a token?</h2>
             <ul>
-              <li>Sub-word units, not words.</li>
+              <li>Text units: word fragments, whole words, or punctuation.</li>
               <li>Text in → tokens → numbers → model.</li>
-              <li>Every cost, limit, and "context window" is measured in tokens.</li>
+              <li>Context limits and many usage charges are measured in tokens.</li>
               <li>"Researcher" might be one token; "Zürich" might be three.</li>
             </ul>
           </div>
@@ -445,12 +445,12 @@
           <span class="title-text">The transformer, in one minute</span>
         </div>
         <div class="body text-body">
-          <h1>The whole game</h1>
+          <h1>Generating text</h1>
           <ul>
             <li>Receives a sequence of tokens.</li>
             <li>Computes <strong>attention</strong> — which earlier tokens matter for what comes next.</li>
             <li>Outputs a probability over the next token.</li>
-            <li>Everything else — essays, code, reasoning — is this one step, repeated.</li>
+            <li>Text generation repeats this step. Applications can also retrieve sources and execute code.</li>
           </ul>
         </div>
       </div>
@@ -467,8 +467,8 @@
           <ul>
             <li><strong>Pre-train.</strong> Web-scale data. Predict the next token. Output: a foundation model.</li>
             <li><strong>Mid-train.</strong> Curated data — code, math, long documents. Sharpens capability.</li>
-            <li><strong>Post-train.</strong> Instruction tuning + RLHF. Turns it into a chatbot.</li>
-            <li>Three stages, three datasets, three objectives.</li>
+            <li><strong>Post-train.</strong> Instruction examples, preference learning, and task-specific rewards.</li>
+            <li>A simplified sequence; stage names and objectives vary across developers.</li>
           </ul>
         </div>
       </div>
@@ -483,10 +483,10 @@
         <div class="body text-body">
           <h1>Predict the next token</h1>
           <ul>
-            <li>Trained on most of the open web, books, code.</li>
+            <li>Training mixtures can include web text, books, code, and other data.</li>
             <li>One objective: given context, guess the next token.</li>
-            <li>Output: a <strong>foundation model</strong> — fluent, unfocused, no instructions to follow.</li>
-            <li>This is where most of the compute and most of the "knowledge" lives.</li>
+            <li>A <strong>foundation model</strong> is trained broadly and can be adapted to many tasks.</li>
+            <li>Its training data are not a searchable or complete record of its sources.</li>
           </ul>
         </div>
       </div>
@@ -499,12 +499,12 @@
           <span class="title-text">Mid-training</span>
         </div>
         <div class="body text-body">
-          <h1>Steering the foundation</h1>
+          <h1>Continued pre-training</h1>
           <ul>
             <li>Continued training on curated data: code, math, longer documents, higher-quality text.</li>
-            <li>Stretches capabilities the next stage will rely on.</li>
-            <li>Often where domain coverage (e.g., science, multilingual) is shored up.</li>
-            <li>Still no "follow instructions" behavior yet.</li>
+            <li>Can improve domain coverage or handling of long documents.</li>
+            <li>Developers differ in what they call mid-training.</li>
+            <li>Training stages may overlap; this is not a universal recipe.</li>
           </ul>
         </div>
       </div>
@@ -521,8 +521,8 @@
           <ul>
             <li><strong>Instruction tuning</strong>: examples of "good" question/answer pairs.</li>
             <li><strong>RLHF</strong> — reinforcement learning from human feedback. Humans rank outputs; the model learns to climb that ranking.</li>
-            <li>This is where the model learns to be helpful, polite, refuse, hedge.</li>
-            <li>The behaviors you experience as "personality" all live here.</li>
+            <li>Other methods use AI feedback or verifiable rewards, such as passing code tests.</li>
+            <li>Behavior also depends on pre-training, system instructions, and the application.</li>
           </ul>
         </div>
       </div>
@@ -535,12 +535,12 @@
           <span class="title-text">What RLHF actually does</span>
         </div>
         <div class="body text-body">
-          <h1>Optimization, not understanding</h1>
+          <h1>Reward is not a validity test</h1>
           <ul>
-            <li>An instruction-tuned model is <strong>always</strong> optimizing a loss function.</li>
-            <li>It converges toward a <em>local</em> maximum of "what humans rated as good".</li>
-            <li>Confident-sounding, agreeable, well-formatted — because those win rankings.</li>
-            <li>You are not talking to a knower. You are talking to an optimizer.</li>
+            <li>Training changes model weights to improve an objective.</li>
+            <li>Ordinary use generates output with fixed weights; it is not another training run.</li>
+            <li>Preference training can improve usefulness without guaranteeing accuracy.</li>
+            <li>Check claims against evidence, not the confidence or style of the answer.</li>
           </ul>
         </div>
       </div>
@@ -553,12 +553,12 @@
           <span class="title-text">Knowledge cutoff</span>
         </div>
         <div class="body text-body">
-          <h1>The model only knows the past</h1>
+          <h1>Check where information came from</h1>
           <ul>
-            <li>Training data has a hard cutoff date.</li>
-            <li>Anything after — elections, papers, deaths, retractions — is invisible to the base model.</li>
-            <li>"Current" outputs come from <strong>tools</strong> (search, retrieval), not the model itself.</li>
-            <li>If you don't know which one produced an answer, you can't trust it.</li>
+            <li>A stated cutoff describes training coverage, not complete knowledge before that date.</li>
+            <li>Recent information may enter through your prompt, attached files, or retrieval tools.</li>
+            <li>A current-sounding answer may also be a guess.</li>
+            <li>Open the cited source and check its date and support for the claim.</li>
           </ul>
         </div>
       </div>
@@ -571,12 +571,12 @@
           <span class="title-text">In-context learning</span>
         </div>
         <div class="body text-body">
-          <h1>Prompting is programming</h1>
+          <h1>Learning from the current context</h1>
           <ul>
             <li><strong>Context window</strong>: everything the model can see right now — your prompt, prior turns, attached files.</li>
             <li><strong>Roles</strong>: <em>system</em> (instructions), <em>user</em> (you), <em>assistant</em> (the model).</li>
-            <li>No weights are updated. The model learns from what's in the window, then forgets.</li>
-            <li>Every new session starts cold.</li>
+            <li>Examples in context can change the response without updating model weights.</li>
+            <li>Applications may restore saved memory or project instructions in a new session.</li>
           </ul>
         </div>
       </div>
@@ -590,20 +590,20 @@
         </div>
         <div class="body two-col-body">
           <div class="col-text">
-            <h2>Thinking out loud — sort of</h2>
+            <h2>Intermediate reasoning steps</h2>
             <ul>
               <li>Model generates intermediate steps before its answer.</li>
               <li>More steps = more tokens = more compute on the problem.</li>
               <li>"Reasoning models" do this by default, often hidden.</li>
-              <li>Looks like thinking — still next-token prediction.</li>
+              <li>A displayed explanation is not necessarily a faithful account of how an answer arose.</li>
             </ul>
           </div>
           <div class="col-image">
             <div class="image-slot">
-              <!-- TODO: confirm filename — using reasoning.png as a placeholder name -->
+
               <img src="images/chain_of_thought.png" alt="Chain of thought trace">
             </div>
-            <div class="caption">Chain of thought, made visible.</div>
+            <div class="caption">An example of displayed reasoning, not an audit of internal computation.</div>
           </div>
         </div>
       </div>
@@ -616,13 +616,13 @@
           <span class="title-text">Recap</span>
         </div>
         <div class="body text-body">
-          <h1>Vocabulary you now own</h1>
+          <h1>Terms to remember</h1>
           <ul>
             <li><strong>Token · context window · foundation model</strong></li>
             <li><strong>Pre-train · mid-train · post-train · RLHF</strong></li>
             <li><strong>Knowledge cutoff · in-context learning · roles</strong></li>
             <li><strong>Chain of thought</strong></li>
-            <li>If a vendor uses one of these loosely — that's a signal.</li>
+            <li>Ask what a term means in the particular system you are using.</li>
           </ul>
         </div>
       </div>
