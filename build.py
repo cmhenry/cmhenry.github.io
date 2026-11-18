@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Build index.html from data/*.yaml + templates/index.html.jinja."""
+"""Build the static academic pages from data/*.yaml and Jinja templates."""
 
 from pathlib import Path
 import yaml
-from jinja2 import Environment, FileSystemLoader
+from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 ROOT = Path(__file__).parent
 DATA = ROOT / "data"
@@ -61,19 +61,29 @@ def main():
 
     env = Environment(
         loader=FileSystemLoader(TEMPLATES),
+        autoescape=select_autoescape(["html", "jinja"]),
         trim_blocks=True,
         lstrip_blocks=True,
     )
-    template = env.get_template("index.html.jinja")
-    rendered = template.render(
-        meta=meta,
-        paper_groups=group_papers(papers),
-        projects=sort_projects(projects),
-        links=links,
-    )
-    out = ROOT / "index.html"
-    out.write_text(rendered)
-    print(f"wrote {out.relative_to(ROOT)}  ({len(rendered):,} bytes)")
+    context = {
+        "meta": meta,
+        "paper_groups": group_papers(papers),
+        "projects": sort_projects(projects),
+        "links": links,
+    }
+    pages = [
+        ("index", "home", ""),
+        ("publications", "publications", "Publications"),
+        ("projects", "projects", "Projects"),
+        ("teaching", "teaching", "Teaching"),
+        ("contact", "contact", "Contact"),
+    ]
+    for filename, page, title in pages:
+        template = env.get_template(f"{filename}.html.jinja")
+        rendered = template.render(page=page, page_title=title, **context)
+        out = ROOT / f"{filename}.html"
+        out.write_text(rendered, encoding="utf-8")
+        print(f"wrote {out.relative_to(ROOT)}  ({len(rendered):,} characters)")
 
 
 if __name__ == "__main__":

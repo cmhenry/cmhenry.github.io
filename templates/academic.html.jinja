@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ meta.name | title }}{% if page_title %} — {{ page_title }}{% endif %}</title>
+  <meta name="description" content="Colin Henry, postdoctoral researcher at the University of Zürich. Political behavior, digital platforms, extremism, and hate speech.">
+  <link rel="icon" href="img/icons/favicon.ico">
+  <link rel="stylesheet" href="styles/academic.css">
+</head>
+<body>
+  <a class="skip-link" href="#content">Skip to content</a>
+  <div class="layout">
+    <aside class="sidebar">
+      <a class="site-name" href="index.html">{{ meta.name | title }}</a>
+      <div class="affiliation">
+        <span>postdoctoral researcher</span>
+        <a href="https://www.ipz.uzh.ch/en.html">political science</a>
+        <a href="https://www.uzh.ch/en.html">university of zürich</a>
+      </div>
+      <nav aria-label="Primary">
+        {% for slug, label, url in [('home', 'bio', 'index.html'), ('publications', 'publications', 'publications.html'), ('projects', 'projects', 'projects.html'), ('teaching', 'teaching', 'teaching.html'), ('contact', 'contact', 'contact.html')] %}
+        <a href="{{ url }}"{% if page == slug %} aria-current="page"{% endif %}>{{ label }}</a>
+        {% endfor %}
+        <a href="pdfs/Henry_academic_CV_CURRENT.pdf">curriculum vitae</a>
+      </nav>
+      <nav class="elsewhere" aria-label="Elsewhere">
+        <a href="https://scholar.google.com/citations?hl=en&amp;user=EmxlJzsAAAAJ">google scholar</a>
+        <a href="https://github.com/cmhenry">github</a>
+        <a href="mailto:{{ meta.email }}">email</a>
+      </nav>
+    </aside>
+    <main id="content" tabindex="-1">
+      {% block content %}{% endblock %}
+    </main>
+  </div>
+</body>
+</html>

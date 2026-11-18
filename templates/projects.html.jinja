@@ -1,0 +1,15 @@
+{% extends "academic.html.jinja" %}
+{% block content %}
+      <h1>Projects</h1>
+      {% for proj in projects %}
+      <article class="entry" id="proj-{{ proj.slug }}">
+        <h2>{{ proj.name }}</h2>
+        {% if proj.role %}<p class="byline">{{ proj.role }}</p>{% endif %}
+        <p>{{ proj.summary | safe }}</p>
+        {% if proj.collaborators %}<p class="byline">With {{ proj.collaborators }}.</p>{% endif %}
+        {% if proj.links %}
+        <p>{% for link in proj.links %}<a href="{{ link.url }}">{{ link.label }}</a>{% if not loop.last %} · {% endif %}{% endfor %}</p>
+        {% endif %}
+      </article>
+      {% endfor %}
+{% endblock %}
