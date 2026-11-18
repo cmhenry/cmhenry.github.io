@@ -1,71 +1,62 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Module 08: Frontiers & Integration · AI as a Research Tool</title>
-<meta name="description" content="Frontiers & Integration — 8-module self-paced course on using AI in social science research.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../../styles/main.css">
-<style>
-  .back-link { font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.02em; margin-bottom: 2rem; }
-  .back-link a { color: var(--ink-soft); text-decoration: none; border-bottom: 1px dotted var(--ink-soft); padding-bottom: 1px; }
-  .back-link a:hover { background: var(--ink); color: var(--paper); border-bottom-color: transparent; }
-  .module-meta { font-family: var(--mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-soft); margin: 1rem 0; display: flex; flex-wrap: wrap; gap: 1rem; }
-  .module-meta span { white-space: nowrap; }
-  .module-body h2 { font-family: var(--mono); font-weight: 500; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.16em; margin: 2rem 0 0.75rem; color: var(--ink); }
-  .module-body h3 { font-family: var(--serif); font-weight: 400; font-size: 1.15rem; margin: 1.5rem 0 0.5rem; line-height: 1.3; }
-  .module-body h4 { font-family: var(--serif); font-weight: 400; font-size: 1.05rem; margin: 1.25rem 0 0.5rem; }
-  .module-body p { margin: 0 0 0.85rem; line-height: 1.55; }
-  .module-body ul, .module-body ol { margin: 0 0 0.85rem; padding-left: 1.5rem; line-height: 1.55; }
-  .module-body li { margin-bottom: 0.25rem; }
-  .module-body code { font-family: var(--mono); font-size: 0.85em; background: rgba(0,0,0,0.05); padding: 0.1em 0.35em; }
-  .module-body strong { font-weight: 600; }
-  .module-body em { font-style: italic; }
-  .module-body pre { font-family: var(--mono); font-size: 0.82rem; background: rgba(0,0,0,0.04); padding: 1rem; overflow-x: auto; line-height: 1.5; margin: 0.75rem 0; }
-  .callout { border-left: 2px solid var(--ink); padding: 0.5rem 0 0.5rem 1.25rem; margin: 1rem 0; font-style: italic; font-size: 0.95rem; color: var(--ink-soft); }
-  .callout strong { font-style: normal; }
-  .checks-list { list-style: none; padding: 0; margin: 0; }
-  .checks-list li { border: 1px solid var(--ink); padding: 1rem; margin-bottom: 0.75rem; }
-  .checks-list .check-num { font-family: var(--mono); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.14em; color: var(--ink-soft); }
-  .checks-list .check-title { font-family: var(--serif); font-weight: 600; font-size: 0.95rem; margin: 0.25rem 0 0.35rem; }
-  .checks-list .check-body { font-size: 0.88rem; line-height: 1.45; color: var(--ink-soft); }
-  .exercise { border-top: 1px solid var(--ink-soft); padding: 1rem 0; margin: 0; }
-  .exercise:first-of-type { border-top: none; }
-  .exercise h3 { font-family: var(--serif); font-size: 1rem; margin: 0 0 0.5rem; }
-  .exercise details { margin-top: 0.5rem; }
-  .exercise summary { font-family: var(--mono); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; cursor: pointer; color: var(--ink-soft); padding: 0.25rem 0; }
-  .exercise summary:hover { color: var(--ink); }
-  .exercise .answer { font-size: 0.9rem; line-height: 1.5; color: var(--ink-soft); padding: 0.5rem 0; }
-  .reading-entry { margin: 0 0 1rem; }
-  .reading-entry h4 { font-family: var(--serif); font-weight: 400; font-size: 0.95rem; margin: 0 0 0.15rem; }
-  .reading-entry .reading-note { font-size: 0.88rem; color: var(--ink-soft); line-height: 1.45; }
-  @media (max-width: 480px) { .module-meta { flex-direction: column; gap: 0.25rem; } }
-</style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Module 08: Frontiers &amp; Integration · AI as a Research Tool</title>
+<meta content="Frontiers &amp; Integration — 8-module self-paced course on using AI in social science research." name="description"/>
+<link href="../../img/icons/favicon.ico" rel="icon"/>
+<link href="../../styles/academic.css" rel="stylesheet"/>
+<link href="../../styles/course.css" rel="stylesheet"/>
 </head>
 <body>
-<main class="page">
-  <p class="back-link"><a href="index.html">← course index</a></p>
-  <header class="masthead">
-    <h1 class="name" style="font-size: clamp(2rem, 8vw, 3.5rem);">
-      <span class="name__line">Module 08</span><span class="name__line">Frontiers & Integration</span>
-    </h1>
-    <p class="module-meta">
-      <span>⏱ 3–4h</span>
-      <span>📋 conceptual + synthesis</span>
-      <span>📌 Modules 1–7</span>
-      <span>🎯 Complete portfolio prototype</span>
-    </p>
-  </header>
-  <hr class="rule">
-  <nav class="nav" aria-label="module"><a href="#outcomes">outcomes</a><span class="nav__sep">~</span><a href="#workbook">workbook</a><span class="nav__sep">~</span><a href="#exercises">exercises</a><span class="nav__sep">~</span><a href="#readings">readings</a></nav>
-  <hr class="rule">
-  <div class="module-body">
+<a class="skip-link" href="#content">Skip to content</a>
+<div class="layout course-layout">
+<aside class="sidebar">
+<a class="site-name" href="index.html">AI as a<br/>Research Tool</a>
+<div class="affiliation"><a href="https://www.uzh.ch/en.html">university of zürich</a><span>political science</span></div>
+<div class="course-desktop"><nav aria-label="Course" class="course-navigation">
+<a href="index.html">course overview</a>
+<a href="module-01.html">01. How LLMs Work</a>
+<a href="module-02.html">02. Writing with AI</a>
+<a href="module-03.html">03. Literature Search &amp; Synthesis</a>
+<a href="module-04.html">04. Text Annotation &amp; Measurement</a>
+<a href="module-05.html">05. Code &amp; Data Analysis</a>
+<a href="module-06.html">06. Agents &amp; Workflow Automation</a>
+<a href="module-07.html">07. Validation &amp; Research Integrity</a>
+<a aria-current="page" href="module-08.html">08. Frontiers &amp; Integration</a>
+<a href="module-09.html">09. Research Tools</a>
+<a href="shared.html">shared resources</a>
+</nav></div>
+<details class="course-mobile"><summary>Course contents</summary><nav aria-label="Course" class="course-navigation">
+<a href="index.html">course overview</a>
+<a href="module-01.html">01. How LLMs Work</a>
+<a href="module-02.html">02. Writing with AI</a>
+<a href="module-03.html">03. Literature Search &amp; Synthesis</a>
+<a href="module-04.html">04. Text Annotation &amp; Measurement</a>
+<a href="module-05.html">05. Code &amp; Data Analysis</a>
+<a href="module-06.html">06. Agents &amp; Workflow Automation</a>
+<a href="module-07.html">07. Validation &amp; Research Integrity</a>
+<a aria-current="page" href="module-08.html">08. Frontiers &amp; Integration</a>
+<a href="module-09.html">09. Research Tools</a>
+<a href="shared.html">shared resources</a>
+</nav></details>
+<nav aria-label="Personal website" class="elsewhere"><a href="../../index.html">colin henry</a><a href="../../teaching.html">teaching</a></nav>
+</aside>
+<main class="course-main" id="content" tabindex="-1">
+<header><h1>Module 08 Frontiers &amp; Integration</h1><p class="course-meta">
+<span>⏱ 3–4h</span>
+<span>📋 conceptual + synthesis</span>
+<span>📌 Modules 1–7</span>
+<span>🎯 Complete portfolio prototype</span>
+</p></header>
+<nav aria-label="On this page" class="page-nav"><a href="#outcomes">outcomes</a><a href="#workbook">workbook</a><a href="#exercises">exercises</a><a href="#readings">readings</a></nav>
+<div class="course-content">
+<div class="module-body">
 <section id="workbook">
-<h2 class="section__title"><span class="section__mark">§</span> workbook</h2>
-<section id="learning-outcomes">
+<h2 class="section__title"> workbook</h2>
+<section id="learning-outcomes"><span id="outcomes"></span>
 <h3>Learning Outcomes</h3>
 <p># Module 8: Frontiers and Integration</p>
 <p><strong>Estimated time:</strong> 3–4 hours</p>
@@ -124,7 +115,6 @@
 <li>You lack the hardware or technical comfort to run models locally</li>
 </ul>
 <p><strong>The course position:</strong> Neither choice is "better." The choice should be justified in your disclosure, with the trade-offs stated. "Convenience" is not a methodological justification — but "the task required multilingual capability that available open-weight models do not provide at sufficient quality" is.</p>
-<hr class="rule">
 </section>
 <section id="2-multimodal-ai">
 <h3>2. Multimodal AI</h3>
@@ -152,7 +142,6 @@
 <li><strong>Copyright:</strong> Generated images may reproduce elements of copyrighted training data. Using AI-generated images in publication may raise rights issues.</li>
 <li><strong>Deepfake concern:</strong> The same technology that analyses media can synthesise it. Researchers using multimodal AI should be aware of how their work could be mischaracterised or misused.</li>
 </ul>
-<hr class="rule">
 </section>
 <section id="3-ethics-governance-and-institutional-bo">
 <h3>3. Ethics, Governance, and Institutional Boundaries</h3>
@@ -170,7 +159,6 @@
 <li><strong>Verify.</strong> AI-generated references, claims, and analyses must be checked by a human before submission.</li>
 <li><strong>Preserve human judgment.</strong> Peer review, grading, and final editorial decisions must be made by people.</li>
 </ol>
-<hr class="rule">
 </section>
 <section id="4-building-your-workflow-integration">
 <h3>4. Building Your Workflow: Integration</h3>
@@ -194,7 +182,6 @@
 <li>[ ] Data boundaries are respected — nothing uploaded that you lack authority to share</li>
 <li>[ ] The workflow can be described in a methods section a reviewer could evaluate</li>
 </ul>
-<hr class="rule">
 </section>
 <section id="5-the-portfolio-your-final-integration">
 <h3>5. The Portfolio: Your Final Integration</h3>
@@ -244,7 +231,6 @@
 <li>The fact of adoption (integrate is not better than do not integrate)</li>
 <li>Claiming a human was "in the loop" without showing what the human could reject or change</li>
 </ul>
-<hr class="rule">
 </section>
 <section id="6-the-four-questions-one-last-time">
 <h3>6. The Four Questions, One Last Time</h3>
@@ -255,7 +241,6 @@
 <li><strong>What could be lost or flattened?</strong> What variation, minority perspective, ambiguity, or tacit knowledge does your AI-assisted workflow handle differently — or not at all — compared to your baseline?</li>
 <li><strong>What must remain visible or human?</strong> What decisions, checks, and records survive outside the model's context window? If a reviewer cannot inspect them from your disclosure, they do not survive.</li>
 </ol>
-<hr class="rule">
 </section>
 <section id="7-summary">
 <h3>7. Summary</h3>
@@ -266,21 +251,16 @@
 <li>Integration means combining modules into a coherent workflow where every AI-assisted step has a named human check and every claim traces to verifiable evidence.</li>
 <li>The portfolio is your answer to the course's governing question. The quality of your evidence and reasoning determines the answer's strength — not whether you adopted AI.</li>
 </ul>
-<hr class="rule">
 </section>
 <section id="8-the-course-in-one-paragraph">
 <h3>8. The Course, In One Paragraph</h3>
 <p>AI can make research faster, larger, and more ambitious. It can also make it sloppier, less transparent, and harder to reproduce — and the same tool can do both, depending on how it is used. The difference is not the model, the interface, or the prompt. It is the researcher's willingness to ask what is being delegated, to demand evidence from outside the system, to watch for what is lost or flattened, and to keep visible what must remain human. That is the method. The tool is just the tool.</p>
 </section>
 </section>
-
-<hr class="rule">
-
 <section id="exercises">
-<h2 class="section__title"><span class="section__mark">§</span> exercises</h2>
+<h2 class="section__title"> exercises</h2>
 <div class="exercise">
 <h3># Module 8: Exercises</h3>
-
 </div>
 <div class="exercise">
 <h3>Exercise 8.1: Model Choice Justification</h3>
@@ -292,15 +272,13 @@
 <li><strong>What trade-offs did you accept?</strong> (capability, privacy, cost, reproducibility)</li>
 </ul>
 <p><strong>Your justification:</strong> _______________</p>
-<hr class="rule">
-<p><details></p>
-<p><summary><strong>Answer Key</strong> (click to expand)</summary></p>
+<details><summary><strong>Answer Key</strong> (click to expand)</summary>
 <p>A good justification is specific and honest about trade-offs:</p>
 <p><strong>Strong:</strong> "I used Claude 4 (Anthropic, via API, 15 October 2026) because the classification task required handling 50,000 abstracts with consistent output formatting, and Claude provides structured output capabilities that available open-weight models at similar parameter counts do not reliably produce. The trade-off is that the data was transmitted to Anthropic's servers; the abstracts are publicly available and contain no sensitive information. For a replication, the prompt and sampling parameters are preserved; the specific model version may not be available indefinitely."</p>
 <p><strong>Weak:</strong> "I used ChatGPT because it's free and easy." (No justification of capability, no alternatives considered, no trade-offs acknowledged.)</p>
 <p>The point is not to defend a particular choice. It is to show that you made a choice — rather than using whatever was at hand — and that you understand what you gained and lost.</p>
-<p></details></p>
-<hr class="rule">
+<p></p>
+</details>
 </div>
 <div class="exercise">
 <h3>Exercise 8.2: Data Boundary Classification</h3>
@@ -317,9 +295,7 @@
 <p>| Tweets collected via the X API (public accounts) | |</p>
 <p>| Your thesis draft before submission | |</p>
 <p><strong>Classifications:</strong> Safe / Safe after transformation / Not safe / Uncertain (ask supervisor)</p>
-<hr class="rule">
-<p><details></p>
-<p><summary><strong>Answer Key</strong> (click to expand)</summary></p>
+<details><summary><strong>Answer Key</strong> (click to expand)</summary>
 <p>| Data type | Classification | Reasoning |</p>
 <p>|---|---|---|</p>
 <p>| Published abstracts | <strong>Safe</strong> | Already public; no privacy concern. |</p>
@@ -331,8 +307,8 @@
 <p>| Public tweets | <strong>Safe after transformation</strong> | X API terms may restrict redistribution. Check the terms; if in doubt, do not upload raw data — process locally. |</p>
 <p>| Thesis draft | <strong>Uncertain</strong> | Your own work, but if it contains unpublished data, co-authored material, or sensitive findings, treat as not safe. Many universities have specific policies on thesis drafts and AI. |</p>
 <p>The key principle: <strong>"Public" does not mean "I can upload it anywhere."</strong> Platform terms of service, ethics approvals, co-author consent, and institutional policies all apply. When in doubt, ask your supervisor — not the AI.</p>
-<p></details></p>
-<hr class="rule">
+<p></p>
+</details>
 </div>
 <div class="exercise">
 <h3>Exercise 8.3: Write Your "I Would Change This Decision If…"</h3>
@@ -343,9 +319,7 @@
 <p><strong>Strong:</strong> "I would change this decision if a human-model reliability study on my specific codebook showed kappa ≥ 0.80 on a sample of at least 200 items, with no category having recall below 0.85."</p>
 <p>Write your change condition:</p>
 <p><strong>"I would change this decision if…"</strong> _______________</p>
-<hr class="rule">
-<p><details></p>
-<p><summary><strong>Answer Key</strong> (click to expand)</summary></p>
+<details><summary><strong>Answer Key</strong> (click to expand)</summary>
 <p>A good change condition is:</p>
 <ul>
 <li><strong>Specific:</strong> Names the evidence that would change your mind</li>
@@ -363,8 +337,8 @@
 <ul>
 <li><strong>Integrate → Integrate with limits:</strong> "I would add a human verification step if the model's accuracy on boundary cases (ambiguous abstracts) fell below 80% in a quarterly audit of 100 randomly selected cases."</li>
 </ul>
-<p></details></p>
-<hr class="rule">
+<p></p>
+</details>
 </div>
 <div class="exercise">
 <h3>Exercise 8.4: Build Your Portfolio Prototype</h3>
@@ -379,9 +353,7 @@
 <p>| 5. Decision | Exercise 8.3 above |</p>
 <p>| 6. Revised workflow and disclosure | Disclosure exercises (Module 2, Module 7) + workflow design (Module 6) |</p>
 <p>Write a complete first draft. It does not need to be final — but it should be complete enough that a peer could read it and identify the strongest and weakest pieces of evidence.</p>
-<hr class="rule">
-<p><details></p>
-<p><summary><strong>Answer Key</strong> (click to expand)</summary></p>
+<details><summary><strong>Answer Key</strong> (click to expand)</summary>
 <p>The portfolio is your work — there is no correct answer beyond the rubric. But check your draft against these quality criteria:</p>
 <ul>
 <li><strong>Section 1:</strong> The task is specific and bounded. The baseline is real — what you actually do now, not a straw man. Success and failure are defined in terms that matter for research, not for the tool.</li>
@@ -391,8 +363,8 @@
 <li><strong>Section 5:</strong> The decision matches the evidence — not stronger, not weaker. The change condition is specific and observable.</li>
 <li><strong>Section 6:</strong> The workflow is readable. Every step has a named actor (human or model). Checks are specified. A reviewer could evaluate the disclosure.</li>
 </ul>
-<p></details></p>
-<hr class="rule">
+<p></p>
+</details>
 </div>
 <div class="exercise">
 <h3>Exercise 8.5: The Course Reflection</h3>
@@ -405,9 +377,7 @@
 <li><strong>What one AI capability do you think is overhyped for social science research?</strong> _______________</li>
 <li><strong>What will you do differently in your next research project because of this course?</strong> _______________</li>
 </ol>
-<hr class="rule">
-<p><details></p>
-<p><summary><strong>Answer Key</strong> (click to expand)</summary></p>
+<details><summary><strong>Answer Key</strong> (click to expand)</summary>
 <p>There is no correct answer — this is a reflection, not a test. But strong reflections tend to:</p>
 <ul>
 <li>Reference specific experiences (a particular exercise, a surprising model output, a failed experiment)</li>
@@ -416,20 +386,17 @@
 <li>Show awareness of both capability and limitation — neither uncritical enthusiasm nor blanket rejection</li>
 </ul>
 <p>The reflection is for you. It is not submitted or graded.</p>
-<p></details></p>
-<hr class="rule">
+<p></p>
 <p><em>Module 8 Exercises · AI as a Research Tool</em></p>
+</details>
 </div>
 </section>
-
-<hr class="rule">
-
 <section id="readings">
-<h2 class="section__title"><span class="section__mark">§</span> readings</h2>
+<h2 class="section__title"> readings</h2>
 <div class="reading-entry">
 <h4>---</h4>
 </div>
-<h3 style="font-family:var(--mono);font-size:0.78rem;text-transform:uppercase;letter-spacing:0.1em;margin:1.5rem 0 0.75rem;">Core Readings</h3>
+<h3>Core Readings</h3>
 <div class="reading-entry">
 <h4>European Research Area. <em>Living Guidelines on the Responsible Use of Generative AI in Research</em> (updated 8 May 2026).</h4>
 <p class="reading-note"><strong>Why read it:</strong> The most current European-level guidance on AI in research. Covers accountability, transparency, data protection, and peer review. The factsheet version is short and directly applicable to your portfolio.
@@ -462,7 +429,7 @@
 
 ---</p>
 </div>
-<h3 style="font-family:var(--mono);font-size:0.78rem;text-transform:uppercase;letter-spacing:0.1em;margin:1.5rem 0 0.75rem;">Frontier Readings</h3>
+<h3>Frontier Readings</h3>
 <div class="reading-entry">
 <h4>Touvron, H., et al. (2023). "Llama 2: Open Foundation and Fine-Tuned Chat Models." <em>arXiv:2307.09288</em>.</h4>
 <p class="reading-note"><strong>Why read it:</strong> The paper that accompanied the release of Llama 2, one of the most widely used open-weight models. Read the introduction and the safety/limitations sections — not the technical architecture.
@@ -479,7 +446,7 @@
 
 ---</p>
 </div>
-<h3 style="font-family:var(--mono);font-size:0.78rem;text-transform:uppercase;letter-spacing:0.1em;margin:1.5rem 0 0.75rem;">Integration and Portfolio Readings</h3>
+<h3>Integration and Portfolio Readings</h3>
 <div class="reading-entry">
 <h4>Bail, C. A. (2024). "Can Generative AI Improve Social Science?" <em>PNAS</em>, 121(21).</h4>
 <p class="reading-note"><strong>Why read it:</strong> The optimistic case. Read together with Grossmann et al. (2023) for the debate. Both papers were listed in Module 1; now, with all eight modules behind you, you can evaluate their arguments against your own experimental evidence.
@@ -497,7 +464,7 @@
 ---</p>
 </div>
 <div class="reading-entry">
-<h4>Doshi, A. R., & Hauser, O. P. (2024). "Generative AI Enhances Individual Creativity but Reduces the Collective Diversity of Novel Content." <em>Science Advances</em>, 10(28).</h4>
+<h4>Doshi, A. R., &amp; Hauser, O. P. (2024). "Generative AI Enhances Individual Creativity but Reduces the Collective Diversity of Novel Content." <em>Science Advances</em>, 10(28).</h4>
 <p class="reading-note"><strong>Why read it:</strong> The diversity finding. AI helps individuals produce more creative output, but when everyone uses similar AI tools, the collective output becomes more homogeneous. This is the "everyone sounds the same" problem.
 
 <strong>What to take:</strong> Your workflow should preserve what is distinctive about your research — your theoretical framework, your methodological choices, your voice. If AI makes your work more like everyone else's, you have lost something consequential.
@@ -512,15 +479,15 @@
 
 ---</p>
 </div>
-<h3 style="font-family:var(--mono);font-size:0.78rem;text-transform:uppercase;letter-spacing:0.1em;margin:1.5rem 0 0.75rem;">Optional: Going Further</h3>
+<h3>Optional: Going Further</h3>
 <div class="reading-entry">
-<h4>Bender, E. M., Gebru, T., McMillan-Major, A., & Shmitchell, S. (2021). "On the Dangers of Stochastic Parrots." Revisit from Module 1.</h4>
+<h4>Bender, E. M., Gebru, T., McMillan-Major, A., &amp; Shmitchell, S. (2021). "On the Dangers of Stochastic Parrots." Revisit from Module 1.</h4>
 <p class="reading-note"><strong>Why read it again:</strong> After eight modules of working with LLMs, return to the foundational critique. Do you agree more, less, or differently than when you first read it?
 
 ---</p>
 </div>
 <div class="reading-entry">
-<h4>Kapoor, S., & Narayanan, A. (2023). "Leakage and the Reproducibility Crisis." Revisit from Modules 1 and 6.</h4>
+<h4>Kapoor, S., &amp; Narayanan, A. (2023). "Leakage and the Reproducibility Crisis." Revisit from Modules 1 and 6.</h4>
 <p class="reading-note"><strong>Why read it again:</strong> The reproducibility argument applies to every module. After building your own workflow, evaluate: would it survive the leakage and reproducibility critiques Kapoor and Narayanan raise?
 
 ---
@@ -528,13 +495,9 @@
 <em>Module 8 Reading List · AI as a Research Tool</em></p>
 </div>
 </section>
-
-  </div>
-  <hr class="rule rule--thick">
-  <footer class="colophon">
-    <p><span>set in charter &amp; jetbrains mono.</span><span>html + css.</span><span>no trackers.</span></p>
-    <p><a href="index.html" style="color: var(--ink-soft);">← ai as a research tool</a> · <a href="../../index.html" style="color: var(--ink-soft);">colin henry</a></p>
-  </footer>
+</div>
+</div>
 </main>
+</div>
 </body>
 </html>

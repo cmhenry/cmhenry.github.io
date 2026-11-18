@@ -1,71 +1,62 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Module 06: Agents & Workflow Automation · AI as a Research Tool</title>
-<meta name="description" content="Agents & Workflow Automation — 8-module self-paced course on using AI in social science research.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../../styles/main.css">
-<style>
-  .back-link { font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.02em; margin-bottom: 2rem; }
-  .back-link a { color: var(--ink-soft); text-decoration: none; border-bottom: 1px dotted var(--ink-soft); padding-bottom: 1px; }
-  .back-link a:hover { background: var(--ink); color: var(--paper); border-bottom-color: transparent; }
-  .module-meta { font-family: var(--mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-soft); margin: 1rem 0; display: flex; flex-wrap: wrap; gap: 1rem; }
-  .module-meta span { white-space: nowrap; }
-  .module-body h2 { font-family: var(--mono); font-weight: 500; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.16em; margin: 2rem 0 0.75rem; color: var(--ink); }
-  .module-body h3 { font-family: var(--serif); font-weight: 400; font-size: 1.15rem; margin: 1.5rem 0 0.5rem; line-height: 1.3; }
-  .module-body h4 { font-family: var(--serif); font-weight: 400; font-size: 1.05rem; margin: 1.25rem 0 0.5rem; }
-  .module-body p { margin: 0 0 0.85rem; line-height: 1.55; }
-  .module-body ul, .module-body ol { margin: 0 0 0.85rem; padding-left: 1.5rem; line-height: 1.55; }
-  .module-body li { margin-bottom: 0.25rem; }
-  .module-body code { font-family: var(--mono); font-size: 0.85em; background: rgba(0,0,0,0.05); padding: 0.1em 0.35em; }
-  .module-body strong { font-weight: 600; }
-  .module-body em { font-style: italic; }
-  .module-body pre { font-family: var(--mono); font-size: 0.82rem; background: rgba(0,0,0,0.04); padding: 1rem; overflow-x: auto; line-height: 1.5; margin: 0.75rem 0; }
-  .callout { border-left: 2px solid var(--ink); padding: 0.5rem 0 0.5rem 1.25rem; margin: 1rem 0; font-style: italic; font-size: 0.95rem; color: var(--ink-soft); }
-  .callout strong { font-style: normal; }
-  .checks-list { list-style: none; padding: 0; margin: 0; }
-  .checks-list li { border: 1px solid var(--ink); padding: 1rem; margin-bottom: 0.75rem; }
-  .checks-list .check-num { font-family: var(--mono); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.14em; color: var(--ink-soft); }
-  .checks-list .check-title { font-family: var(--serif); font-weight: 600; font-size: 0.95rem; margin: 0.25rem 0 0.35rem; }
-  .checks-list .check-body { font-size: 0.88rem; line-height: 1.45; color: var(--ink-soft); }
-  .exercise { border-top: 1px solid var(--ink-soft); padding: 1rem 0; margin: 0; }
-  .exercise:first-of-type { border-top: none; }
-  .exercise h3 { font-family: var(--serif); font-size: 1rem; margin: 0 0 0.5rem; }
-  .exercise details { margin-top: 0.5rem; }
-  .exercise summary { font-family: var(--mono); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; cursor: pointer; color: var(--ink-soft); padding: 0.25rem 0; }
-  .exercise summary:hover { color: var(--ink); }
-  .exercise .answer { font-size: 0.9rem; line-height: 1.5; color: var(--ink-soft); padding: 0.5rem 0; }
-  .reading-entry { margin: 0 0 1rem; }
-  .reading-entry h4 { font-family: var(--serif); font-weight: 400; font-size: 0.95rem; margin: 0 0 0.15rem; }
-  .reading-entry .reading-note { font-size: 0.88rem; color: var(--ink-soft); line-height: 1.45; }
-  @media (max-width: 480px) { .module-meta { flex-direction: column; gap: 0.25rem; } }
-</style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Module 06: Agents &amp; Workflow Automation · AI as a Research Tool</title>
+<meta content="Agents &amp; Workflow Automation — 8-module self-paced course on using AI in social science research." name="description"/>
+<link href="../../img/icons/favicon.ico" rel="icon"/>
+<link href="../../styles/academic.css" rel="stylesheet"/>
+<link href="../../styles/course.css" rel="stylesheet"/>
 </head>
 <body>
-<main class="page">
-  <p class="back-link"><a href="index.html">← course index</a></p>
-  <header class="masthead">
-    <h1 class="name" style="font-size: clamp(2rem, 8vw, 3.5rem);">
-      <span class="name__line">Module 06</span><span class="name__line">Agents & Workflow Automation</span>
-    </h1>
-    <p class="module-meta">
-      <span>⏱ 3–4h</span>
-      <span>📋 conceptual + demo</span>
-      <span>📌 Module 1; Modules 2–5 helpful</span>
-      <span>🎯 Documented agent workflow with audit trail</span>
-    </p>
-  </header>
-  <hr class="rule">
-  <nav class="nav" aria-label="module"><a href="#outcomes">outcomes</a><span class="nav__sep">~</span><a href="#workbook">workbook</a><span class="nav__sep">~</span><a href="#exercises">exercises</a><span class="nav__sep">~</span><a href="#readings">readings</a></nav>
-  <hr class="rule">
-  <div class="module-body">
+<a class="skip-link" href="#content">Skip to content</a>
+<div class="layout course-layout">
+<aside class="sidebar">
+<a class="site-name" href="index.html">AI as a<br/>Research Tool</a>
+<div class="affiliation"><a href="https://www.uzh.ch/en.html">university of zürich</a><span>political science</span></div>
+<div class="course-desktop"><nav aria-label="Course" class="course-navigation">
+<a href="index.html">course overview</a>
+<a href="module-01.html">01. How LLMs Work</a>
+<a href="module-02.html">02. Writing with AI</a>
+<a href="module-03.html">03. Literature Search &amp; Synthesis</a>
+<a href="module-04.html">04. Text Annotation &amp; Measurement</a>
+<a href="module-05.html">05. Code &amp; Data Analysis</a>
+<a aria-current="page" href="module-06.html">06. Agents &amp; Workflow Automation</a>
+<a href="module-07.html">07. Validation &amp; Research Integrity</a>
+<a href="module-08.html">08. Frontiers &amp; Integration</a>
+<a href="module-09.html">09. Research Tools</a>
+<a href="shared.html">shared resources</a>
+</nav></div>
+<details class="course-mobile"><summary>Course contents</summary><nav aria-label="Course" class="course-navigation">
+<a href="index.html">course overview</a>
+<a href="module-01.html">01. How LLMs Work</a>
+<a href="module-02.html">02. Writing with AI</a>
+<a href="module-03.html">03. Literature Search &amp; Synthesis</a>
+<a href="module-04.html">04. Text Annotation &amp; Measurement</a>
+<a href="module-05.html">05. Code &amp; Data Analysis</a>
+<a aria-current="page" href="module-06.html">06. Agents &amp; Workflow Automation</a>
+<a href="module-07.html">07. Validation &amp; Research Integrity</a>
+<a href="module-08.html">08. Frontiers &amp; Integration</a>
+<a href="module-09.html">09. Research Tools</a>
+<a href="shared.html">shared resources</a>
+</nav></details>
+<nav aria-label="Personal website" class="elsewhere"><a href="../../index.html">colin henry</a><a href="../../teaching.html">teaching</a></nav>
+</aside>
+<main class="course-main" id="content" tabindex="-1">
+<header><h1>Module 06 Agents &amp; Workflow Automation</h1><p class="course-meta">
+<span>⏱ 3–4h</span>
+<span>📋 conceptual + demo</span>
+<span>📌 Module 1; Modules 2–5 helpful</span>
+<span>🎯 Documented agent workflow with audit trail</span>
+</p></header>
+<nav aria-label="On this page" class="page-nav"><a href="#outcomes">outcomes</a><a href="#workbook">workbook</a><a href="#exercises">exercises</a><a href="#readings">readings</a></nav>
+<div class="course-content">
+<div class="module-body">
 <section id="workbook">
-<h2 class="section__title"><span class="section__mark">§</span> workbook</h2>
-<section id="learning-outcomes">
+<h2 class="section__title"> workbook</h2>
+<section id="learning-outcomes"><span id="outcomes"></span>
 <h3>Learning Outcomes</h3>
 <p># Module 6: Agents and Workflow Automation</p>
 <p><strong>Estimated time:</strong> 3–4 hours</p>
@@ -94,7 +85,6 @@
 <p>| 4 | <strong>Agent</strong> | Acts on its own within defined boundaries; reports what it did | Human defines the boundaries and reviews the report |</p>
 <p>| 5 | <strong>Unattended agent</strong> | Runs without a human in the loop | Human checks the output later — or never |</p>
 <p>For research, levels 2–4 are where most useful work happens. Level 5 is rarely appropriate: if you are not checking the output, you are not doing research — you are publishing model output.</p>
-<hr class="rule">
 </section>
 <section id="2-bounded-delegation">
 <h3>2. Bounded Delegation</h3>
@@ -117,7 +107,6 @@
 <li><strong>How does it fail safely?</strong> What happens if the agent misunderstands the task, encounters an error, or produces output that does not meet your criteria? Does it stop and ask? Does it continue with wrong assumptions? Does it overwrite good data with bad?</li>
 </ol>
 <p>Answer all five questions in writing before the run. After the run, answer them again — what was different from what you predicted?</p>
-<hr class="rule">
 </section>
 <section id="3-persistent-instructions">
 <h3>3. Persistent Instructions</h3>
@@ -155,7 +144,6 @@
 <li><strong>Output and record:</strong> What should the agent produce, and what record of its actions should it keep?</li>
 <li><strong>How checked:</strong> How will you verify the agent's output?</li>
 </ol>
-<hr class="rule">
 </section>
 <section id="4-the-agent-demonstration">
 <h3>4. The Agent Demonstration</h3>
@@ -169,7 +157,6 @@
 <li><strong>The audit:</strong> What the agent got right, what it got wrong, and what the human had to override.</li>
 </ol>
 <p>Your job is to inspect the run and answer: <strong>would you accept this output for your own research?</strong> If not, what would you change in the instruction artifact?</p>
-<hr class="rule">
 </section>
 <section id="5-peer-stress-testing">
 <h3>5. Peer Stress Testing</h3>
@@ -182,7 +169,6 @@
 <li><strong>Record the changes.</strong> What did you add, clarify, or remove because the reviewer could not follow it?</li>
 </ol>
 <p>A good instruction artifact survives the silent first attempt: someone who has never seen it before can produce substantially the same output you would produce, given the same input.</p>
-<hr class="rule">
 </section>
 <section id="6-the-four-questions-for-agents">
 <h3>6. The Four Questions for Agents</h3>
@@ -192,7 +178,6 @@
 <li><strong>What could be lost or flattened?</strong> The moment-by-moment decisions that a human researcher makes implicitly. The agent makes them explicitly or not at all — and what is not in the instruction artifact does not happen.</li>
 <li><strong>What must remain visible or human?</strong> The five-box answers. The decision points. The record. The verification step that is outside the agent's control.</li>
 </ol>
-<hr class="rule">
 </section>
 <section id="7-summary">
 <h3>7. Summary</h3>
@@ -203,24 +188,18 @@
 <li>Stress-test instruction artifacts with a peer. If someone else cannot follow it silently, it is not ready.</li>
 <li>The audit trail is the evidence. If you cannot reconstruct what the agent did and why, you cannot publish the result.</li>
 </ul>
-<hr class="rule">
 </section>
 <section id="what-s-next">
 <h3>What's Next</h3>
 <p><strong>Module 7</strong> provides the evidence framework for evaluating everything you have built: the seven validation checks, reproducibility standards, data boundaries, and disclosure requirements. Every module so far has pointed toward this — now you get the full treatment.</p>
 <p><strong>Module 8</strong> integrates everything into a coherent research workflow and helps you build the final portfolio: task, baseline, experiment, evidence, decision, disclosure.</p>
-<hr class="rule">
 <p><em>Module 6 of 8 · AI as a Research Tool: Workflow Design for the Social Sciences · University of Zurich</em></p>
 </section>
 </section>
-
-<hr class="rule">
-
 <section id="exercises">
-<h2 class="section__title"><span class="section__mark">§</span> exercises</h2>
+<h2 class="section__title"> exercises</h2>
 <div class="exercise">
 <h3># Module 6: Exercises</h3>
-
 </div>
 <div class="exercise">
 <h3>Exercise 6.1: Classify by Autonomy Level</h3>
@@ -233,9 +212,7 @@
 <li>You schedule a script to run every morning: search for new papers, screen them, and email you the ones that pass. <strong>Level:</strong> ___</li>
 <li>You ask the system to draft a literature review. It searches for papers, reads them, writes the review, and saves it — all while you are at lunch. <strong>Level:</strong> ___</li>
 </ol>
-<hr class="rule">
-<p><details></p>
-<p><summary><strong>Answer Key</strong> (click to expand)</summary></p>
+<details><summary><strong>Answer Key</strong> (click to expand)</summary>
 <ol>
 <li><strong>Level 0 (Chat)</strong> — Pure text-in/text-out, no tools.</li>
 <li><strong>Level 1 (Chat + tools)</strong> — The system used a code interpreter tool once, at your request.</li>
@@ -244,8 +221,8 @@
 <li><strong>Level 5 (Unattended agent)</strong> — Multiple tool uses, no human in the loop, output delivered after the fact.</li>
 </ol>
 <p>Note: scenario 3 and scenario 5 are both agent runs, but scenario 5 delegates more (search strategy, paper selection, synthesis writing) and removes the human further. The difference between level 4 and level 5 is whether a human reviews before publication or use.</p>
-<p></details></p>
-<hr class="rule">
+<p></p>
+</details>
 </div>
 <div class="exercise">
 <h3>Exercise 6.2: The Five-Box Check</h3>
@@ -260,9 +237,7 @@
 <li><strong>How does it fail safely?</strong> _______________</li>
 </ol>
 <p>Now ask: if you handed these five boxes to a colleague, could they predict what the agent would do and what you would review? If any box is vague, make it specific.</p>
-<hr class="rule">
-<p><details></p>
-<p><summary><strong>Answer Key</strong> (click to expand)</summary></p>
+<details><summary><strong>Answer Key</strong> (click to expand)</summary>
 <p>A good five-box check is:</p>
 <ul>
 <li><strong>Specific about access:</strong> Names folders, databases, or APIs — not "my computer"</li>
@@ -278,8 +253,8 @@
 <li>Record is "the final output" (not the actions that produced it)</li>
 <li>Failure mode is "try again" (which may compound errors)</li>
 </ul>
-<p></details></p>
-<hr class="rule">
+<p></p>
+</details>
 </div>
 <div class="exercise">
 <h3>Exercise 6.3: Write an Instruction Artifact</h3>
@@ -294,9 +269,7 @@
 <li><strong>How checked:</strong> _______________</li>
 </ol>
 <p>Keep it short — a good instruction artifact is precise, not long.</p>
-<hr class="rule">
-<p><details></p>
-<p><summary><strong>Answer Key</strong> (click to expand)</summary></p>
+<details><summary><strong>Answer Key</strong> (click to expand)</summary>
 <p>Here is an example for a literature screening task:</p>
 <p>```markdown</p>
 <p># Literature Screening Agent</p>
@@ -343,8 +316,8 @@
 <li>The screening_output.csv will be compared to a human-coded sample.</li>
 </ul>
 <p>```</p>
-<p></details></p>
-<hr class="rule">
+<p></p>
+</details>
 </div>
 <div class="exercise">
 <h3>Exercise 6.4: Stress-Test an Artifact</h3>
@@ -355,9 +328,7 @@
 <li>List what the artifact did NOT specify that you needed to know.</li>
 </ol>
 <p>Now discuss with the author. What did they assume you would know? What did you interpret differently than they intended?</p>
-<hr class="rule">
-<p><details></p>
-<p><summary><strong>Answer Key</strong> (click to expand)</summary></p>
+<details><summary><strong>Answer Key</strong> (click to expand)</summary>
 <p>Common gaps that stress testing reveals:</p>
 <ul>
 <li><strong>Assumed knowledge:</strong> "Screen using the codebook" — but how? One abstract at a time? All at once? In what format?</li>
@@ -366,8 +337,8 @@
 <li><strong>Implicit workflow:</strong> The author knows the steps; the artifact does not state them. "Screen the abstracts" assumes the reader knows whether to do it in one prompt or many, in what order, with what checks between steps.</li>
 </ul>
 <p>The stress test is not a test of the reader. It is a test of the artifact. Every guess the reader had to make is a gap in the artifact.</p>
-<p></details></p>
-<hr class="rule">
+<p></p>
+</details>
 </div>
 <div class="exercise">
 <h3>Exercise 6.5: Audit the Agent Run</h3>
@@ -380,9 +351,7 @@
 <li><strong>What would you change in the instruction artifact to prevent the errors?</strong> _______________</li>
 <li><strong>Would you accept this output for a publication?</strong> Why or why not?</li>
 </ol>
-<hr class="rule">
-<p><details></p>
-<p><summary><strong>Answer Key</strong> (click to expand)</summary></p>
+<details><summary><strong>Answer Key</strong> (click to expand)</summary>
 <p>The specific errors depend on the demonstration version, but common patterns:</p>
 <ul>
 <li><strong>Errors invisible from output alone:</strong> The agent classified a paper incorrectly, but the output CSV looks correct — only the transcript reveals the misclassification. This is why the transcript matters.</li>
@@ -390,22 +359,19 @@
 <li><strong>Instruction gaps:</strong> The agent made a reasonable decision that violated the researcher's intent because the instruction artifact did not specify the constraint. The fix is a clearer artifact, not a smarter model.</li>
 </ul>
 <p>The core lesson: <strong>an agent run without an auditable transcript is a black box.</strong> If you cannot inspect what the agent did, you cannot verify its output — and you cannot publish it.</p>
-<p></details></p>
-<hr class="rule">
+<p></p>
 <p><em>Module 6 Exercises · AI as a Research Tool</em></p>
+</details>
 </div>
 </section>
-
-<hr class="rule">
-
 <section id="readings">
-<h2 class="section__title"><span class="section__mark">§</span> readings</h2>
+<h2 class="section__title"> readings</h2>
 <div class="reading-entry">
 <h4>---</h4>
 </div>
-<h3 style="font-family:var(--mono);font-size:0.78rem;text-transform:uppercase;letter-spacing:0.1em;margin:1.5rem 0 0.75rem;">Core Readings</h3>
+<h3>Core Readings</h3>
 <div class="reading-entry">
-<h4>Spirling, A., Smith, N. A., & Palmer, A. (2023). "Using Proprietary Language Models in Academic Research Requires Explicit Justification." <em>Nature Computational Science</em>.</h4>
+<h4>Spirling, A., Smith, N. A., &amp; Palmer, A. (2023). "Using Proprietary Language Models in Academic Research Requires Explicit Justification." <em>Nature Computational Science</em>.</h4>
 <p class="reading-note"><strong>Why read it:</strong> The case for justifying <em>which model</em> you use, not just <em>that</em> you used one. Proprietary models can be deprecated, modified, or withdrawn without notice. Open-weight models can be preserved and re-run. The choice affects reproducibility.
 
 <strong>What to take:</strong> Your disclosure should name the model and justify the choice. "Convenience" is not a methodological justification. If you use a proprietary model, explain why an open-weight alternative was not suitable.
@@ -413,7 +379,7 @@
 ---</p>
 </div>
 <div class="reading-entry">
-<h4>Kapoor, S., & Narayanan, A. (2023). "Leakage and the Reproducibility Crisis in Machine-Learning-Based Science." <em>Patterns</em>, 4(9).</h4>
+<h4>Kapoor, S., &amp; Narayanan, A. (2023). "Leakage and the Reproducibility Crisis in Machine-Learning-Based Science." <em>Patterns</em>, 4(9).</h4>
 <p class="reading-note"><strong>Why read it:</strong> A clear explanation of data leakage and its consequences. Relevant to agents because an agent that searches the web or accesses a database may retrieve information that contaminates what should be a held-out test.
 
 <strong>What to take:</strong> Know what your agent can access. If it can search the web, it can find the papers you are asking it to classify — and its "classification" may be retrieval, not judgment.
@@ -428,9 +394,9 @@
 
 ---</p>
 </div>
-<h3 style="font-family:var(--mono);font-size:0.78rem;text-transform:uppercase;letter-spacing:0.1em;margin:1.5rem 0 0.75rem;">Methodological Readings</h3>
+<h3>Methodological Readings</h3>
 <div class="reading-entry">
-<h4>Wu, T., Terry, M., & Cai, C. J. (2022). "AI Chains: Transparent and Controllable Human-AI Interaction by Chaining Large Language Model Prompts." <em>Proceedings of the 2022 CHI Conference</em>.</h4>
+<h4>Wu, T., Terry, M., &amp; Cai, C. J. (2022). "AI Chains: Transparent and Controllable Human-AI Interaction by Chaining Large Language Model Prompts." <em>Proceedings of the 2022 CHI Conference</em>.</h4>
 <p class="reading-note"><strong>Why read it:</strong> A framework for breaking complex AI tasks into chains of smaller, inspectable steps — each with a human check between them. This is the alternative to giving an agent a large task and hoping.
 
 <strong>What to take:</strong> Prefer chains to monoliths. A chain of small, verifiable steps (search → screen → extract → synthesise, with human review between each) is more auditable than one large agent run.
@@ -445,7 +411,7 @@
 
 ---</p>
 </div>
-<h3 style="font-family:var(--mono);font-size:0.78rem;text-transform:uppercase;letter-spacing:0.1em;margin:1.5rem 0 0.75rem;">Optional: Going Deeper</h3>
+<h3>Optional: Going Deeper</h3>
 <div class="reading-entry">
 <h4>Park, J. S., et al. (2023). "Generative Agents: Interactive Simulacra of Human Behavior." <em>Proceedings of the 36th Annual ACM Symposium on User Interface Software and Technology</em>.</h4>
 <p class="reading-note"><strong>Why read it:</strong> The paper that introduced generative agents — LLM-powered agents with memory, planning, and reflection. It is a research paper, not a how-to guide, but it illustrates what agents can do when given persistent memory and a planning loop.
@@ -454,23 +420,19 @@
 
 ---</p>
 </div>
-<h3 style="font-family:var(--mono);font-size:0.78rem;text-transform:uppercase;letter-spacing:0.1em;margin:1.5rem 0 0.75rem;">Read Later (Across Modules)</h3>
+<h3>Read Later (Across Modules)</h3>
 <div class="reading-entry">
 <h4>- <strong>ERA Living Guidelines (2026)</strong> and <strong>UZH Recommendations (2023)</strong> on responsible AI use — particularly relevant for unattended agent runs. See Module 7.</h4>
-<p class="reading-note">- <strong>Barrie, Palmer & Spirling (forthcoming)</strong> on replication — what to record so that an agent run can be reproduced. See Module 7.
+<p class="reading-note">- <strong>Barrie, Palmer &amp; Spirling (forthcoming)</strong> on replication — what to record so that an agent run can be reproduced. See Module 7.
 
 ---
 
 <em>Module 6 Reading List · AI as a Research Tool</em></p>
 </div>
 </section>
-
-  </div>
-  <hr class="rule rule--thick">
-  <footer class="colophon">
-    <p><span>set in charter &amp; jetbrains mono.</span><span>html + css.</span><span>no trackers.</span></p>
-    <p><a href="index.html" style="color: var(--ink-soft);">← ai as a research tool</a> · <a href="../../index.html" style="color: var(--ink-soft);">colin henry</a></p>
-  </footer>
+</div>
+</div>
 </main>
+</div>
 </body>
 </html>
