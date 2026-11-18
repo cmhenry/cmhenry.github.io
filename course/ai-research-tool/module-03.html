@@ -1,71 +1,62 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Module 03: Literature Search & Synthesis · AI as a Research Tool</title>
-<meta name="description" content="Literature Search & Synthesis — 8-module self-paced course on using AI in social science research.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../../styles/main.css">
-<style>
-  .back-link { font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.02em; margin-bottom: 2rem; }
-  .back-link a { color: var(--ink-soft); text-decoration: none; border-bottom: 1px dotted var(--ink-soft); padding-bottom: 1px; }
-  .back-link a:hover { background: var(--ink); color: var(--paper); border-bottom-color: transparent; }
-  .module-meta { font-family: var(--mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-soft); margin: 1rem 0; display: flex; flex-wrap: wrap; gap: 1rem; }
-  .module-meta span { white-space: nowrap; }
-  .module-body h2 { font-family: var(--mono); font-weight: 500; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.16em; margin: 2rem 0 0.75rem; color: var(--ink); }
-  .module-body h3 { font-family: var(--serif); font-weight: 400; font-size: 1.15rem; margin: 1.5rem 0 0.5rem; line-height: 1.3; }
-  .module-body h4 { font-family: var(--serif); font-weight: 400; font-size: 1.05rem; margin: 1.25rem 0 0.5rem; }
-  .module-body p { margin: 0 0 0.85rem; line-height: 1.55; }
-  .module-body ul, .module-body ol { margin: 0 0 0.85rem; padding-left: 1.5rem; line-height: 1.55; }
-  .module-body li { margin-bottom: 0.25rem; }
-  .module-body code { font-family: var(--mono); font-size: 0.85em; background: rgba(0,0,0,0.05); padding: 0.1em 0.35em; }
-  .module-body strong { font-weight: 600; }
-  .module-body em { font-style: italic; }
-  .module-body pre { font-family: var(--mono); font-size: 0.82rem; background: rgba(0,0,0,0.04); padding: 1rem; overflow-x: auto; line-height: 1.5; margin: 0.75rem 0; }
-  .callout { border-left: 2px solid var(--ink); padding: 0.5rem 0 0.5rem 1.25rem; margin: 1rem 0; font-style: italic; font-size: 0.95rem; color: var(--ink-soft); }
-  .callout strong { font-style: normal; }
-  .checks-list { list-style: none; padding: 0; margin: 0; }
-  .checks-list li { border: 1px solid var(--ink); padding: 1rem; margin-bottom: 0.75rem; }
-  .checks-list .check-num { font-family: var(--mono); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.14em; color: var(--ink-soft); }
-  .checks-list .check-title { font-family: var(--serif); font-weight: 600; font-size: 0.95rem; margin: 0.25rem 0 0.35rem; }
-  .checks-list .check-body { font-size: 0.88rem; line-height: 1.45; color: var(--ink-soft); }
-  .exercise { border-top: 1px solid var(--ink-soft); padding: 1rem 0; margin: 0; }
-  .exercise:first-of-type { border-top: none; }
-  .exercise h3 { font-family: var(--serif); font-size: 1rem; margin: 0 0 0.5rem; }
-  .exercise details { margin-top: 0.5rem; }
-  .exercise summary { font-family: var(--mono); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; cursor: pointer; color: var(--ink-soft); padding: 0.25rem 0; }
-  .exercise summary:hover { color: var(--ink); }
-  .exercise .answer { font-size: 0.9rem; line-height: 1.5; color: var(--ink-soft); padding: 0.5rem 0; }
-  .reading-entry { margin: 0 0 1rem; }
-  .reading-entry h4 { font-family: var(--serif); font-weight: 400; font-size: 0.95rem; margin: 0 0 0.15rem; }
-  .reading-entry .reading-note { font-size: 0.88rem; color: var(--ink-soft); line-height: 1.45; }
-  @media (max-width: 480px) { .module-meta { flex-direction: column; gap: 0.25rem; } }
-</style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Module 03: Literature Search &amp; Synthesis · AI as a Research Tool</title>
+<meta content="Literature Search &amp; Synthesis — 8-module self-paced course on using AI in social science research." name="description"/>
+<link href="../../img/icons/favicon.ico" rel="icon"/>
+<link href="../../styles/academic.css" rel="stylesheet"/>
+<link href="../../styles/course.css" rel="stylesheet"/>
 </head>
 <body>
-<main class="page">
-  <p class="back-link"><a href="index.html">← course index</a></p>
-  <header class="masthead">
-    <h1 class="name" style="font-size: clamp(2rem, 8vw, 3.5rem);">
-      <span class="name__line">Module 03</span><span class="name__line">Literature Search & Synthesis</span>
-    </h1>
-    <p class="module-meta">
-      <span>⏱ 3–4h</span>
-      <span>📋 technical HTML lab</span>
-      <span>📌 Module 1 recommended</span>
-      <span>🎯 Screened bibliography, evidence table, bounded synthesis</span>
-    </p>
-  </header>
-  <hr class="rule">
-  <nav class="nav" aria-label="module"><a href="#outcomes">outcomes</a><span class="nav__sep">~</span><a href="#workbook">workbook</a><span class="nav__sep">~</span><a href="#exercises">exercises</a><span class="nav__sep">~</span><a href="#readings">readings</a></nav>
-  <hr class="rule">
-  <div class="module-body">
+<a class="skip-link" href="#content">Skip to content</a>
+<div class="layout course-layout">
+<aside class="sidebar">
+<a class="site-name" href="index.html">AI as a<br/>Research Tool</a>
+<div class="affiliation"><a href="https://www.uzh.ch/en.html">university of zürich</a><span>political science</span></div>
+<div class="course-desktop"><nav aria-label="Course" class="course-navigation">
+<a href="index.html">course overview</a>
+<a href="module-01.html">01. How LLMs Work</a>
+<a href="module-02.html">02. Writing with AI</a>
+<a aria-current="page" href="module-03.html">03. Literature Search &amp; Synthesis</a>
+<a href="module-04.html">04. Text Annotation &amp; Measurement</a>
+<a href="module-05.html">05. Code &amp; Data Analysis</a>
+<a href="module-06.html">06. Agents &amp; Workflow Automation</a>
+<a href="module-07.html">07. Validation &amp; Research Integrity</a>
+<a href="module-08.html">08. Frontiers &amp; Integration</a>
+<a href="module-09.html">09. Research Tools</a>
+<a href="shared.html">shared resources</a>
+</nav></div>
+<details class="course-mobile"><summary>Course contents</summary><nav aria-label="Course" class="course-navigation">
+<a href="index.html">course overview</a>
+<a href="module-01.html">01. How LLMs Work</a>
+<a href="module-02.html">02. Writing with AI</a>
+<a aria-current="page" href="module-03.html">03. Literature Search &amp; Synthesis</a>
+<a href="module-04.html">04. Text Annotation &amp; Measurement</a>
+<a href="module-05.html">05. Code &amp; Data Analysis</a>
+<a href="module-06.html">06. Agents &amp; Workflow Automation</a>
+<a href="module-07.html">07. Validation &amp; Research Integrity</a>
+<a href="module-08.html">08. Frontiers &amp; Integration</a>
+<a href="module-09.html">09. Research Tools</a>
+<a href="shared.html">shared resources</a>
+</nav></details>
+<nav aria-label="Personal website" class="elsewhere"><a href="../../index.html">colin henry</a><a href="../../teaching.html">teaching</a></nav>
+</aside>
+<main class="course-main" id="content" tabindex="-1">
+<header><h1>Module 03 Literature Search &amp; Synthesis</h1><p class="course-meta">
+<span>⏱ 3–4h</span>
+<span>📋 technical HTML lab</span>
+<span>📌 Module 1 recommended</span>
+<span>🎯 Screened bibliography, evidence table, bounded synthesis</span>
+</p></header>
+<nav aria-label="On this page" class="page-nav"><a href="#outcomes">outcomes</a><a href="#workbook">workbook</a><a href="#exercises">exercises</a><a href="#readings">readings</a></nav>
+<div class="course-content">
+<div class="module-body">
 <section id="workbook">
-<h2 class="section__title"><span class="section__mark">§</span> workbook</h2>
-<section id="learning-outcomes">
+<h2 class="section__title"> workbook</h2>
+<section id="learning-outcomes"><span id="outcomes"></span>
 <h3>Learning Outcomes</h3>
 <p># Module 3: Literature Search and Synthesis</p>
 <p><strong>Estimated time:</strong> 3–4 hours</p>
@@ -85,7 +76,6 @@
 </ul>
 <p>These are not implementation problems that will be fixed in the next model version. They are consequences of the architecture: the model predicts statistically plausible text. A plausible-sounding literature review is not the same thing as an accurate one, and the model cannot tell the difference.</p>
 <p>This module teaches you to use AI for literature work while keeping the researcher — you — in control of scope, screening, evidence, and claims.</p>
-<hr class="rule">
 </section>
 <section id="2-bounded-search">
 <h3>2. Bounded Search</h3>
@@ -99,7 +89,6 @@
 <p>Record every search you run: the database, the query string, the date, the filters, and the number of results. If someone cannot reproduce your search from your record, your search is not reproducible. Save query snapshots, not just final results.</p>
 <h3>Inclusion and exclusion criteria</h3>
 <p>Write your screening criteria before you see any results. A good criterion answers: "What would make me include (or exclude) this paper, regardless of whether I find its conclusions congenial?" Test your criteria on a few papers you already know. Revise the criteria, not the screening decisions, if you discover ambiguity.</p>
-<hr class="rule">
 </section>
 <section id="3-screening-with-explicit-criteria">
 <h3>3. Screening with Explicit Criteria</h3>
@@ -128,7 +117,6 @@
 <li>Resolve disagreements yourself — do not default to the AI's label</li>
 <li>Treat the AI's screening as a first pass, not a final decision</li>
 </ul>
-<hr class="rule">
 </section>
 <section id="4-the-evidence-table">
 <h3>4. The Evidence Table</h3>
@@ -143,7 +131,6 @@
 <p>| <strong>Locator</strong> | Page, section, or figure where the evidence appears |</p>
 <p>| <strong>Notes</strong> | Any caveats: the evidence is partial, the claim is contested, the methods have known limitations |</p>
 <p>Build the table before you write. If a row has "No" in the Verified column, do not cite that source. If you cannot fill the "Claim supported" column for a source, it does not belong in your synthesis.</p>
-<hr class="rule">
 </section>
 <section id="5-source-bounded-synthesis">
 <h3>5. Source-Bounded Synthesis</h3>
@@ -165,7 +152,6 @@
 <li>Draw conclusions that go beyond what the retrieved sources support</li>
 <li>Use the model's summary of a paper as a substitute for reading it</li>
 </ul>
-<hr class="rule">
 </section>
 <section id="6-demonstration-a-bounded-literature-sea">
 <h3>6. Demonstration: A Bounded Literature Search</h3>
@@ -205,7 +191,6 @@
 <p>| Thomas et al. (2024). "The migration patterns of deplatformed influencers." <em>JCMC</em>. | Yes | Deplatformed users who migrated to alternative platforms maintained approximately 40% of their original audience | Empirical (mixed) | §2, Table 3 |</p>
 <h3>Step 5: Draft synthesis</h3>
 <div class="callout"><em>The six retained studies provide mixed evidence on deplatforming effectiveness. Ali et al. (2025) find that removing toxic subreddits reduced harmful content within those communities but produced spillover effects in adjacent communities. Thomas et al. (2024) show that deplatformed influencers retain a substantial portion of their audience on alternative platforms. These findings suggest deplatforming may displace rather than eliminate harmful content — though the evidence base is small (six studies, all on US/EU platforms, none pre-registered) and should not be treated as conclusive. The search was limited to English-language publications indexed in OpenAlex; non-English and grey-literature sources were not covered.</em></div>
-<hr class="rule">
 </section>
 <section id="7-the-lab">
 <h3>7. The Lab</h3>
@@ -217,7 +202,6 @@
 <li><strong>Synthesis workspace:</strong> Draft a source-bounded paragraph</li>
 </ol>
 <p>Open <code>lab/literature.html</code> in any browser. All computation is local; no data is sent anywhere. Read the instructor notes at <code>lab/instructor.md</code> for the full walkthrough.</p>
-<hr class="rule">
 </section>
 <section id="8-the-four-questions-for-literature-work">
 <h3>8. The Four Questions for Literature Work</h3>
@@ -228,7 +212,6 @@
 <li><strong>What could be lost or flattened?</strong> Non-English literature. Grey literature and working papers. Work from adjacent fields that uses different terminology. Minority or critical perspectives that are less cited.</li>
 <li><strong>What must remain visible or human?</strong> The search provenance. The screening criteria and decisions. The distinction between what the sources say and what you conclude. Every citation.</li>
 </ol>
-<hr class="rule">
 </section>
 <section id="9-summary">
 <h3>9. Summary</h3>
@@ -240,21 +223,16 @@
 <li>Write source-bounded synthesis: transparent about what the search covered and what it did not</li>
 <li>The lab provides a complete, self-contained environment — no API keys, no accounts</li>
 </ul>
-<hr class="rule">
 </section>
 <section id="what-s-next">
 <h3>What's Next</h3>
 <p><strong>Module 4</strong> applies the measurement principles from this module to text annotation: building codebooks, designing prompts, evaluating reliability, and understanding the difference between agreement and validity.</p>
 </section>
 </section>
-
-<hr class="rule">
-
 <section id="exercises">
-<h2 class="section__title"><span class="section__mark">§</span> exercises</h2>
+<h2 class="section__title"> exercises</h2>
 <div class="exercise">
 <h3># Module 3: Exercises</h3>
-
 </div>
 <div class="exercise">
 <h3>Exercise 3.1: Write Screening Criteria</h3>
@@ -275,9 +253,7 @@
 </ol>
 <p><strong>Stopping rule</strong> (when do you stop screening?): _______________</p>
 <p>Now test your criteria on two papers you already know — one that should be included and one that should be excluded. Do your criteria produce the right decisions? If not, revise the criteria, not the decisions.</p>
-<hr class="rule">
-<p><details></p>
-<p><summary><strong>Answer Key</strong> (click to expand)</summary></p>
+<details><summary><strong>Answer Key</strong> (click to expand)</summary>
 <p>There is no single correct answer — the criteria depend on your question. But good criteria share these properties:</p>
 <ul>
 <li><strong>Specific:</strong> "Reports original empirical results using survey experiments" is better than "empirical"</li>
@@ -291,8 +267,8 @@
 <li>Criteria that are impossible to apply from titles and abstracts alone ("uses rigorous methods" — you cannot assess rigour from an abstract)</li>
 <li>Criteria that change during screening to include a paper you want to include</li>
 </ul>
-<p></details></p>
-<hr class="rule">
+<p></p>
+</details>
 </div>
 <div class="exercise">
 <h3>Exercise 3.2: Screen a Result Set</h3>
@@ -309,9 +285,7 @@
 <li><strong>Rule:</strong> Which criterion drove the decision</li>
 <li><strong>Reason:</strong> One sentence explaining the decision</li>
 </ul>
-<hr class="rule">
-<p><details></p>
-<p><summary><strong>Answer Key</strong> (click to expand)</summary></p>
+<details><summary><strong>Answer Key</strong> (click to expand)</summary>
 <p>The correct decisions depend on the specific records in the pre-loaded set. The instructor key (<code>lab/instructor.md</code>) contains reference screening decisions for all 20 records. Compare your decisions to the reference.</p>
 <p>Where you disagree:</p>
 <ol>
@@ -325,8 +299,8 @@
 <li>Papers that study content moderation but use traditional ML, not LLMs → border case; decide whether your criterion specifies LLMs or AI broadly</li>
 <li>Papers where the abstract is ambiguous about methods → RETAIN for full-text assessment</li>
 </ul>
-<p></details></p>
-<hr class="rule">
+<p></p>
+</details>
 </div>
 <div class="exercise">
 <h3>Exercise 3.3: Build an Evidence Table</h3>
@@ -338,9 +312,7 @@
 <p>| | | | | | |</p>
 <p>| | | | | | |</p>
 <p><strong>Critical rule:</strong> If you cannot personally verify that the source exists and says what you claim, mark "No" in the Verified column. A model's summary does not count as verification.</p>
-<hr class="rule">
-<p><details></p>
-<p><summary><strong>Answer Key</strong> (click to expand)</summary></p>
+<details><summary><strong>Answer Key</strong> (click to expand)</summary>
 <p>The evidence table is a working document, not a test with right answers. But check your table against these quality criteria:</p>
 <ul>
 <li><strong>Every row has a specific claim</strong>, not "relevant to my topic"</li>
@@ -350,8 +322,8 @@
 <li><strong>No row relies on an AI-generated summary</strong> as its sole source</li>
 </ul>
 <p>If the sources are pre-loaded constructed records from the lab, the instructor key provides reference evidence for each.</p>
-<p></details></p>
-<hr class="rule">
+<p></p>
+</details>
 </div>
 <div class="exercise">
 <h3>Exercise 3.4: Draft a Source-Bounded Synthesis</h3>
@@ -364,9 +336,7 @@
 <li>Disclose at least one limitation of the search</li>
 <li>Distinguish the sources' claims from your interpretation</li>
 </ol>
-<hr class="rule">
-<p><details></p>
-<p><summary><strong>Answer Key</strong> (click to expand)</summary></p>
+<details><summary><strong>Answer Key</strong> (click to expand)</summary>
 <p>A good source-bounded synthesis has these properties:</p>
 <ul>
 <li><strong>It starts with a question</strong>, not a claim: "What does the retrieved literature say about..." rather than "The literature shows that..."</li>
@@ -383,8 +353,8 @@
 <li>Drawing conclusions that go beyond the retrieved evidence</li>
 <li>No disclosure of search limitations</li>
 </ul>
-<p></details></p>
-<hr class="rule">
+<p></p>
+</details>
 </div>
 <div class="exercise">
 <h3>Exercise 3.5: Verify a Reference</h3>
@@ -402,9 +372,7 @@
 <li><strong>Exists but the details are wrong:</strong> Note the corrections needed (wrong author, wrong year, wrong journal, etc.)</li>
 <li><strong>Cannot determine:</strong> Note what you would need to check</li>
 </ul>
-<hr class="rule">
-<p><details></p>
-<p><summary><strong>Answer Key</strong> (click to expand)</summary></p>
+<details><summary><strong>Answer Key</strong> (click to expand)</summary>
 <p>There is no fixed answer — the results depend on your topic and the model you used. But patterns to expect:</p>
 <ul>
 <li><strong>Real references are more common</strong> for high-profile papers in well-known journals. The model has seen these in its training data.</li>
@@ -413,22 +381,19 @@
 <li><strong>The model will sound confident either way.</strong> There is no correlation between the model's confidence and the reference's accuracy.</li>
 </ul>
 <p>The lesson: <strong>you cannot trust a reference until you have personally verified it.</strong> This is not a caution for the future. It is the rule for this course. Every citation in every exercise and every portfolio component must be verified.</p>
-<p></details></p>
-<hr class="rule">
+<p></p>
 <p><em>Module 3 Exercises · AI as a Research Tool</em></p>
+</details>
 </div>
 </section>
-
-<hr class="rule">
-
 <section id="readings">
-<h2 class="section__title"><span class="section__mark">§</span> readings</h2>
+<h2 class="section__title"> readings</h2>
 <div class="reading-entry">
 <h4>---</h4>
 </div>
-<h3 style="font-family:var(--mono);font-size:0.78rem;text-transform:uppercase;letter-spacing:0.1em;margin:1.5rem 0 0.75rem;">Core Readings</h3>
+<h3>Core Readings</h3>
 <div class="reading-entry">
-<h4>Booth, A., Sutton, A., & Papaioannou, D. (2016). <em>Systematic Approaches to a Successful Literature Review</em>, 2nd ed. Sage. Chapters 1–3.</h4>
+<h4>Booth, A., Sutton, A., &amp; Papaioannou, D. (2016). <em>Systematic Approaches to a Successful Literature Review</em>, 2nd ed. Sage. Chapters 1–3.</h4>
 <p class="reading-note"><strong>Why read it:</strong> The standard guide to literature reviewing methodology. Chapters 1–3 cover question formulation, search strategy design, and screening. You do not need to conduct a full systematic review — but understanding what one requires helps you know what your bounded search is <em>not</em> claiming to be.
 
 <strong>What to take:</strong> The distinction between a systematic review (comprehensive, protocol-driven, dual-screened) and a scoping or narrative review. Your module 3 synthesis is closer to a rapid evidence assessment — transparent about its limits, not claiming comprehensiveness.
@@ -436,7 +401,7 @@
 ---</p>
 </div>
 <div class="reading-entry">
-<h4>Gusenbauer, M., & Haddaway, N. R. (2020). "Which Academic Search Systems are Suitable for Systematic Reviews or Meta-Analyses? Evaluating Retrieval Qualities of Google Scholar, PubMed, and 28 Other Resources." <em>Research Synthesis Methods</em>, 11(2), 181–217.</h4>
+<h4>Gusenbauer, M., &amp; Haddaway, N. R. (2020). "Which Academic Search Systems are Suitable for Systematic Reviews or Meta-Analyses? Evaluating Retrieval Qualities of Google Scholar, PubMed, and 28 Other Resources." <em>Research Synthesis Methods</em>, 11(2), 181–217.</h4>
 <p class="reading-note"><strong>Why read it:</strong> A systematic evaluation of search systems. The key finding: Google Scholar alone is insufficient for systematic searching because its ranking algorithm is opaque and its coverage is inconsistent. OpenAlex (used in this module's lab) is one of the evaluated resources.
 
 <strong>What to take:</strong> No single database covers everything. Disclose which databases you searched and what they are known to miss.
@@ -451,7 +416,7 @@
 
 ---</p>
 </div>
-<h3 style="font-family:var(--mono);font-size:0.78rem;text-transform:uppercase;letter-spacing:0.1em;margin:1.5rem 0 0.75rem;">Methodological Readings</h3>
+<h3>Methodological Readings</h3>
 <div class="reading-entry">
 <h4>King, G. (1995). "Replication, Replication." <em>PS: Political Science and Politics</em>, 28(3), 444–452.</h4>
 <p class="reading-note"><strong>Why read it:</strong> The classic argument for replication in political science. Though written before LLMs, its framework applies directly: can someone else reproduce your search from your record? If not, your literature search is not replicable.
@@ -461,16 +426,16 @@
 ---</p>
 </div>
 <div class="reading-entry">
-<h4>Barrie, C., Palmer, A., & Spirling, A. "Replication for Language Models: Problems, Principles, and Best Practice for Political Science." <em>American Journal of Political Science</em>, forthcoming.</h4>
+<h4>Barrie, C., Palmer, A., &amp; Spirling, A. "Replication for Language Models: Problems, Principles, and Best Practice for Political Science." <em>American Journal of Political Science</em>, forthcoming.</h4>
 <p class="reading-note"><strong>Why read it:</strong> The extension of replication principles to LLM-based research. What happens when you run the same prompt twice? When the model is deprecated? When the provider changes the underlying system?
 
 <strong>What to take:</strong> Record the model, date, prompt, and settings for every AI-assisted literature task. A result that cannot be reproduced because the model no longer exists is not replicable.
 
 ---</p>
 </div>
-<h3 style="font-family:var(--mono);font-size:0.78rem;text-transform:uppercase;letter-spacing:0.1em;margin:1.5rem 0 0.75rem;">AI and Literature Searching</h3>
+<h3>AI and Literature Searching</h3>
 <div class="reading-entry">
-<h4>Wagner, G., Lukyanenko, R., & Paré, G. (2022). "Artificial Intelligence and the Conduct of Literature Reviews." <em>Journal of Information Technology</em>, 37(2), 209–226.</h4>
+<h4>Wagner, G., Lukyanenko, R., &amp; Paré, G. (2022). "Artificial Intelligence and the Conduct of Literature Reviews." <em>Journal of Information Technology</em>, 37(2), 209–226.</h4>
 <p class="reading-note"><strong>Why read it:</strong> A survey of AI tools for literature reviewing, from search and screening through synthesis. Published just before the LLM explosion, it provides a useful baseline for what is genuinely new and what is faster automation of existing approaches.
 
 <strong>What to take:</strong> AI can accelerate every stage of literature reviewing — and accelerate every type of error. Speed makes systematic errors harder to catch, not easier.
@@ -485,9 +450,9 @@
 
 ---</p>
 </div>
-<h3 style="font-family:var(--mono);font-size:0.78rem;text-transform:uppercase;letter-spacing:0.1em;margin:1.5rem 0 0.75rem;">Optional: Going Deeper</h3>
+<h3>Optional: Going Deeper</h3>
 <div class="reading-entry">
-<h4>Grant, M. J., & Booth, A. (2009). "A Typology of Reviews: An Analysis of 14 Review Types and Associated Methodologies." <em>Health Information and Libraries Journal</em>, 26(2), 91–108.</h4>
+<h4>Grant, M. J., &amp; Booth, A. (2009). "A Typology of Reviews: An Analysis of 14 Review Types and Associated Methodologies." <em>Health Information and Libraries Journal</em>, 26(2), 91–108.</h4>
 <p class="reading-note"><strong>Why read it:</strong> If you need to decide what kind of review to conduct — systematic, scoping, rapid, critical, mapping, etc. — this typology helps you choose and name the right methodology.
 
 ---</p>
@@ -498,7 +463,7 @@
 
 ---</p>
 </div>
-<h3 style="font-family:var(--mono);font-size:0.78rem;text-transform:uppercase;letter-spacing:0.1em;margin:1.5rem 0 0.75rem;">Read Later (Across Modules)</h3>
+<h3>Read Later (Across Modules)</h3>
 <div class="reading-entry">
 <h4>- <strong>Egami et al. (forthcoming)</strong> on predicted variables in downstream analyses — relevant when your literature synthesis informs a measurement decision. See Module 7.</h4>
 <p class="reading-note">- <strong>Bisbee et al. (2024)</strong> on synthetic replacements for survey data — the "means look fine, everything downstream is wrong" problem. See Module 7.
@@ -508,13 +473,9 @@
 <em>Module 3 Reading List · AI as a Research Tool</em></p>
 </div>
 </section>
-
-  </div>
-  <hr class="rule rule--thick">
-  <footer class="colophon">
-    <p><span>set in charter &amp; jetbrains mono.</span><span>html + css.</span><span>no trackers.</span></p>
-    <p><a href="index.html" style="color: var(--ink-soft);">← ai as a research tool</a> · <a href="../../index.html" style="color: var(--ink-soft);">colin henry</a></p>
-  </footer>
+</div>
+</div>
 </main>
+</div>
 </body>
 </html>

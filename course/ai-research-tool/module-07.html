@@ -1,71 +1,62 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Module 07: Validation & Research Integrity · AI as a Research Tool</title>
-<meta name="description" content="Validation & Research Integrity — 8-module self-paced course on using AI in social science research.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../../styles/main.css">
-<style>
-  .back-link { font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.02em; margin-bottom: 2rem; }
-  .back-link a { color: var(--ink-soft); text-decoration: none; border-bottom: 1px dotted var(--ink-soft); padding-bottom: 1px; }
-  .back-link a:hover { background: var(--ink); color: var(--paper); border-bottom-color: transparent; }
-  .module-meta { font-family: var(--mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-soft); margin: 1rem 0; display: flex; flex-wrap: wrap; gap: 1rem; }
-  .module-meta span { white-space: nowrap; }
-  .module-body h2 { font-family: var(--mono); font-weight: 500; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.16em; margin: 2rem 0 0.75rem; color: var(--ink); }
-  .module-body h3 { font-family: var(--serif); font-weight: 400; font-size: 1.15rem; margin: 1.5rem 0 0.5rem; line-height: 1.3; }
-  .module-body h4 { font-family: var(--serif); font-weight: 400; font-size: 1.05rem; margin: 1.25rem 0 0.5rem; }
-  .module-body p { margin: 0 0 0.85rem; line-height: 1.55; }
-  .module-body ul, .module-body ol { margin: 0 0 0.85rem; padding-left: 1.5rem; line-height: 1.55; }
-  .module-body li { margin-bottom: 0.25rem; }
-  .module-body code { font-family: var(--mono); font-size: 0.85em; background: rgba(0,0,0,0.05); padding: 0.1em 0.35em; }
-  .module-body strong { font-weight: 600; }
-  .module-body em { font-style: italic; }
-  .module-body pre { font-family: var(--mono); font-size: 0.82rem; background: rgba(0,0,0,0.04); padding: 1rem; overflow-x: auto; line-height: 1.5; margin: 0.75rem 0; }
-  .callout { border-left: 2px solid var(--ink); padding: 0.5rem 0 0.5rem 1.25rem; margin: 1rem 0; font-style: italic; font-size: 0.95rem; color: var(--ink-soft); }
-  .callout strong { font-style: normal; }
-  .checks-list { list-style: none; padding: 0; margin: 0; }
-  .checks-list li { border: 1px solid var(--ink); padding: 1rem; margin-bottom: 0.75rem; }
-  .checks-list .check-num { font-family: var(--mono); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.14em; color: var(--ink-soft); }
-  .checks-list .check-title { font-family: var(--serif); font-weight: 600; font-size: 0.95rem; margin: 0.25rem 0 0.35rem; }
-  .checks-list .check-body { font-size: 0.88rem; line-height: 1.45; color: var(--ink-soft); }
-  .exercise { border-top: 1px solid var(--ink-soft); padding: 1rem 0; margin: 0; }
-  .exercise:first-of-type { border-top: none; }
-  .exercise h3 { font-family: var(--serif); font-size: 1rem; margin: 0 0 0.5rem; }
-  .exercise details { margin-top: 0.5rem; }
-  .exercise summary { font-family: var(--mono); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; cursor: pointer; color: var(--ink-soft); padding: 0.25rem 0; }
-  .exercise summary:hover { color: var(--ink); }
-  .exercise .answer { font-size: 0.9rem; line-height: 1.5; color: var(--ink-soft); padding: 0.5rem 0; }
-  .reading-entry { margin: 0 0 1rem; }
-  .reading-entry h4 { font-family: var(--serif); font-weight: 400; font-size: 0.95rem; margin: 0 0 0.15rem; }
-  .reading-entry .reading-note { font-size: 0.88rem; color: var(--ink-soft); line-height: 1.45; }
-  @media (max-width: 480px) { .module-meta { flex-direction: column; gap: 0.25rem; } }
-</style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Module 07: Validation &amp; Research Integrity · AI as a Research Tool</title>
+<meta content="Validation &amp; Research Integrity — 8-module self-paced course on using AI in social science research." name="description"/>
+<link href="../../img/icons/favicon.ico" rel="icon"/>
+<link href="../../styles/academic.css" rel="stylesheet"/>
+<link href="../../styles/course.css" rel="stylesheet"/>
 </head>
 <body>
-<main class="page">
-  <p class="back-link"><a href="index.html">← course index</a></p>
-  <header class="masthead">
-    <h1 class="name" style="font-size: clamp(2rem, 8vw, 3.5rem);">
-      <span class="name__line">Module 07</span><span class="name__line">Validation & Research Integrity</span>
-    </h1>
-    <p class="module-meta">
-      <span>⏱ 3h</span>
-      <span>📋 conceptual workbook</span>
-      <span>📌 Module 1; stands alone</span>
-      <span>🎯 Validation plan, disclosure, data boundary map</span>
-    </p>
-  </header>
-  <hr class="rule">
-  <nav class="nav" aria-label="module"><a href="#outcomes">outcomes</a><span class="nav__sep">~</span><a href="#workbook">workbook</a><span class="nav__sep">~</span><a href="#exercises">exercises</a><span class="nav__sep">~</span><a href="#readings">readings</a></nav>
-  <hr class="rule">
-  <div class="module-body">
+<a class="skip-link" href="#content">Skip to content</a>
+<div class="layout course-layout">
+<aside class="sidebar">
+<a class="site-name" href="index.html">AI as a<br/>Research Tool</a>
+<div class="affiliation"><a href="https://www.uzh.ch/en.html">university of zürich</a><span>political science</span></div>
+<div class="course-desktop"><nav aria-label="Course" class="course-navigation">
+<a href="index.html">course overview</a>
+<a href="module-01.html">01. How LLMs Work</a>
+<a href="module-02.html">02. Writing with AI</a>
+<a href="module-03.html">03. Literature Search &amp; Synthesis</a>
+<a href="module-04.html">04. Text Annotation &amp; Measurement</a>
+<a href="module-05.html">05. Code &amp; Data Analysis</a>
+<a href="module-06.html">06. Agents &amp; Workflow Automation</a>
+<a aria-current="page" href="module-07.html">07. Validation &amp; Research Integrity</a>
+<a href="module-08.html">08. Frontiers &amp; Integration</a>
+<a href="module-09.html">09. Research Tools</a>
+<a href="shared.html">shared resources</a>
+</nav></div>
+<details class="course-mobile"><summary>Course contents</summary><nav aria-label="Course" class="course-navigation">
+<a href="index.html">course overview</a>
+<a href="module-01.html">01. How LLMs Work</a>
+<a href="module-02.html">02. Writing with AI</a>
+<a href="module-03.html">03. Literature Search &amp; Synthesis</a>
+<a href="module-04.html">04. Text Annotation &amp; Measurement</a>
+<a href="module-05.html">05. Code &amp; Data Analysis</a>
+<a href="module-06.html">06. Agents &amp; Workflow Automation</a>
+<a aria-current="page" href="module-07.html">07. Validation &amp; Research Integrity</a>
+<a href="module-08.html">08. Frontiers &amp; Integration</a>
+<a href="module-09.html">09. Research Tools</a>
+<a href="shared.html">shared resources</a>
+</nav></details>
+<nav aria-label="Personal website" class="elsewhere"><a href="../../index.html">colin henry</a><a href="../../teaching.html">teaching</a></nav>
+</aside>
+<main class="course-main" id="content" tabindex="-1">
+<header><h1>Module 07 Validation &amp; Research Integrity</h1><p class="course-meta">
+<span>⏱ 3h</span>
+<span>📋 conceptual workbook</span>
+<span>📌 Module 1; stands alone</span>
+<span>🎯 Validation plan, disclosure, data boundary map</span>
+</p></header>
+<nav aria-label="On this page" class="page-nav"><a href="#outcomes">outcomes</a><a href="#workbook">workbook</a><a href="#exercises">exercises</a><a href="#readings">readings</a></nav>
+<div class="course-content">
+<div class="module-body">
 <section id="workbook">
-<h2 class="section__title"><span class="section__mark">§</span> workbook</h2>
-<section id="learning-outcomes">
+<h2 class="section__title"> workbook</h2>
+<section id="learning-outcomes"><span id="outcomes"></span>
 <h3>Learning Outcomes</h3>
 <p># Module 7: Validation, Reproducibility, and Research Integrity</p>
 <p><strong>Estimated time:</strong> ~3 hours</p>
@@ -99,7 +90,6 @@
 <p>This distinction — between what the model says about itself and what you can demonstrate from outside it — is the organising principle of this module.</p>
 <h3>The course lens, applied to validation</h3>
 <p>The four questions from Module 1 (see <code>modules/shared/four_questions.md</code>) frame every validation decision. Question 2 — "what would make the result believable?" — asks you to name evidence outside the model output. This module is an extended answer to that question: the validation menu is a catalogue of possible answers, and the reproducibility record is how you make your answer inspectable. Question 4 — "what must remain visible or human?" — is answered by the disclosure standard and the accountability principle.</p>
-<hr class="rule">
 </section>
 <section id="2-the-validation-menu-seven-checks-in-de">
 <h3>2. The Validation Menu: Seven Checks in Depth</h3>
@@ -112,7 +102,6 @@
 <p><strong>Cost.</strong> Time to look up each reference. For a literature search returning 50 papers, verifying all of them might take an hour. For a single writing-assistance session producing five citations, it takes five minutes. The cost is proportional to the number of claims you accept.</p>
 <p><strong>When to use it.</strong> Whenever the model produces a claim that depends on the existence or content of an external source. This covers literature searches, summarisation, fact-checking, and any output that names authors, papers, or data sources.</p>
 <p><strong>Pitfall.</strong> Verification by asking the same model "does this reference exist?" — a model cannot check its own output against reality. Verification by asking a different model — a second model has the same fundamental limitation. Verification means you, or a colleague, locating the source.</p>
-<hr class="rule">
 <h3>Check 2: Human Comparison</h3>
 <p><strong>Question it answers:</strong> Would a competent human produce the same result?</p>
 <p><strong>What it involves.</strong> Take a sample of the AI's output — labels, summaries, classifications, search results — and have a human perform the same task independently on the same material. Compare the results. Report agreement (e.g., Cohen's kappa, Krippendorff's alpha, percentage agreement) and, critically, disagreement patterns: where do human and model diverge, and why?</p>
@@ -129,7 +118,6 @@
 <p><strong>Cost.</strong> Recruiting, training, and (if necessary) paying coders — or your own time for a smaller validation sample. For a 2,000-item classification task, double-coding a random sample of 200 items by a second human is usually sufficient to characterise agreement patterns.</p>
 <p><strong>When to use it.</strong> Whenever the AI is performing a task that, in the non-AI version of your workflow, a human would perform: classification, coding, screening, summarisation, or judgment.</p>
 <p><strong>Pitfall.</strong> Using a single agreement number (e.g., "89% agreement") without examining disagreement patterns. An 89% agreement rate where all disagreements are concentrated in one category is a different result from 89% agreement with evenly distributed disagreements. The first pattern may produce biased downstream estimates; the second may not. (See Check 7.)</p>
-<hr class="rule">
 <h3>Check 3: Repeated Runs</h3>
 <p><strong>Question it answers:</strong> How much does the output vary across runs with the same input?</p>
 <p><strong>What it involves.</strong> Run the same prompt, on the same model, with the same settings, on the same input, multiple times. Compare the outputs. If the task produces categorical labels, compute agreement across runs. If it produces continuous scores, compute the distribution. If it produces text, compare the substantive claims.</p>
@@ -147,7 +135,6 @@
 <p><strong>Cost.</strong> Compute time or API cost for multiple runs. For a 200-item classification task with an API model, running it three times costs three times the API credits. For a local model, it costs three times the compute time.</p>
 <p><strong>When to use it.</strong> Always run at least twice for any task where the output is used in a downstream analysis. A single run gives you one sample from a distribution; you need at least two to know whether the distribution is narrow (consistent) or wide (unreliable).</p>
 <p><strong>Pitfall.</strong> Running twice, seeing different outputs, and picking the one you prefer. The point of repeated runs is not to find the "best" output — it is to characterise the variation so that a reader knows how much uncertainty attaches to any single run.</p>
-<hr class="rule">
 <h3>Check 4: Prompt Variation (Sensitivity)</h3>
 <p><strong>Question it answers:</strong> Does the result hold when you reword the instructions?</p>
 <p><strong>What it involves.</strong> Write your prompt. Then write at least one alternative prompt that asks for the same thing in different words — different structure, different examples, different ordering of instructions. Run both on the same input. Compare the results.</p>
@@ -162,7 +149,6 @@
 <p><strong>Cost.</strong> Time to design and test alternative prompts. Usually an hour or two of careful rewriting, followed by running both prompts on the same material.</p>
 <p><strong>When to use it.</strong> Whenever the prompt contains a construct definition, classification rule, or instruction that could be reasonably phrased in multiple ways — which is to say, nearly always. If you cannot think of an alternative phrasing that a reasonable colleague might use, the construct may be unusually well-specified.</p>
 <p><strong>Pitfall.</strong> Testing a trivial rewording ("Classify these texts" → "Please classify these texts") and concluding the prompt is robust. The alternative should be a genuine rephrasing — change the structure, not just the politeness.</p>
-<hr class="rule">
 <h3>Check 5: Boundary Cases</h3>
 <p><strong>Question it answers:</strong> Does the system fail sensibly on edge cases, or does it produce confident wrong answers?</p>
 <p><strong>What it involves.</strong> Identify or construct cases that sit at the boundary of your categories: texts that are ambiguous between labels, search queries that should return nothing, claims that are half-true, data points that are outliers. Run the model on these cases and examine what it does.</p>
@@ -178,7 +164,6 @@
 <p><strong>Cost.</strong> Designing or collecting difficult cases — your time, and ideally a colleague's time to independently suggest boundary cases.</p>
 <p><strong>When to use it.</strong> Whenever your task involves classification, screening, or any form of "does this belong in category X?" Boundary cases are particularly important when the categories are fuzzy, contested, or context-dependent.</p>
 <p><strong>Pitfall.</strong> Only testing cases you already know how to classify. Ask a colleague: "what is a case you would find ambiguous under my definition?" Their answer is a better boundary case than yours.</p>
-<hr class="rule">
 <h3>Check 6: Sensitivity to Model or Settings</h3>
 <p><strong>Question it answers:</strong> Would a different model or different sampling settings produce a different conclusion?</p>
 <p><strong>What it involves.</strong> Run your task on at least one alternative model (e.g., if you used GPT-5, try Claude 4; if you used a proprietary model, try an open-weight model like Llama). Alternatively, vary the sampling settings: different temperature, different top-p. Compare the substantive conclusions.</p>
@@ -187,16 +172,14 @@
 <p><strong>Cost.</strong> Access to multiple models or API credits for an alternative provider. Free-tier access to a chat interface for a different model is often sufficient for a sensitivity check.</p>
 <p><strong>When to use it.</strong> Whenever your claim is substantive enough that a reader would care whether it depends on the specific tool you chose. For exploratory work, this may be optional. For a portfolio experiment or publication, it is expected.</p>
 <p><strong>Pitfall.</strong> Running on two models, getting different results, and concluding "the models disagree" without examining <em>why</em>. The disagreement itself is data: does one model systematically misclassify a category? Does one model produce more variation across repeated runs? The pattern of disagreement tells you something about your construct or your prompt.</p>
-<hr class="rule">
 <h3>Check 7: Downstream Consequence</h3>
 <p><strong>Question it answers:</strong> Do the errors that exist actually change the estimate, decision, or interpretation?</p>
 <p><strong>What it involves.</strong> Run the full analysis with the AI-generated data. Then run the same analysis with the best available alternative — human labels, a different model's output, a subset of verified cases. Does the substantive conclusion change? Does the coefficient change sign? Does the significance level cross a threshold? Does the ranking of items shift?</p>
-<p><strong>Why it matters.</strong> This is the Egami et al. problem (Egami, Hinck, Stewart & Wei, forthcoming; see <code>readings.md</code>): a classifier can be 95% accurate and still produce biased regression estimates if the 5% of errors are concentrated in a way that correlates with the outcome variable. High overall accuracy does not guarantee that the downstream analysis is unaffected.</p>
+<p><strong>Why it matters.</strong> This is the Egami et al. problem (Egami, Hinck, Stewart &amp; Wei, forthcoming; see <code>readings.md</code>): a classifier can be 95% accurate and still produce biased regression estimates if the 5% of errors are concentrated in a way that correlates with the outcome variable. High overall accuracy does not guarantee that the downstream analysis is unaffected.</p>
 <p>Consequential error is a specific concept: an error is consequential if it changes the substantive conclusion a reader would draw. Not all errors are consequential. The errors that matter depend on your research question. For a classification task feeding into a regression, the consequential errors are those that change the coefficient estimate. For a literature screening task, the consequential errors are the missed relevant papers and the included irrelevant ones. For a summarisation task, the consequential errors are the omitted or distorted claims that would change a reader's understanding.</p>
 <p><strong>Cost.</strong> Running the full analysis — which you would need to do anyway. The additional cost is running it with the alternative data to compare.</p>
 <p><strong>When to use it.</strong> Whenever the AI-generated output enters a downstream analysis. This is the check that connects measurement quality to research conclusions. If you are using AI to produce labels, classifications, or extracted data that then enter a regression, a table, or an interpretive claim, you need this check.</p>
 <p><strong>Pitfall.</strong> Running the downstream analysis only on the cases where human and model agree. This will artificially inflate performance because it excludes the cases where errors are most likely to be consequential. Run the analysis on the full dataset, then on the verified subset, and compare.</p>
-<hr class="rule">
 <h3>How to Choose Checks</h3>
 <p>The validation menu is not a checklist to be completed. It is a set of tools to be selected. The selection rule is:</p>
 <ol>
@@ -211,13 +194,12 @@
 <p>| "This summary is faithful to the source" | A claim in the summary is not in the source | 1 (source verification), 3 (repeated runs), 4 (prompt variation) |</p>
 <p>| "This analysis is reproducible" | Another researcher cannot produce the same result | 3 (repeated runs), 6 (model sensitivity), documentation |</p>
 <p><strong>One check is better than none; two well-chosen checks are better than five run superficially.</strong> The validation section of your portfolio should name which checks you ran and what they found — not list all seven and claim coverage.</p>
-<hr class="rule">
 </section>
 <section id="3-reproducibility-with-llms">
 <h3>3. Reproducibility with LLMs</h3>
 <h3>What to record</h3>
 <p>Reproducibility means that another researcher, given your materials and description, could repeat your process and evaluate whether they reach the same conclusion. For LLM-based research, this requires recording information that is typically invisible in a chat interface.</p>
-<p>The Barrie, Palmer, and Spirling framework (Barrie, Palmer & Spirling, forthcoming; see <code>readings.md</code>) identifies the minimum reproducible record:</p>
+<p>The Barrie, Palmer, and Spirling framework (Barrie, Palmer &amp; Spirling, forthcoming; see <code>readings.md</code>) identifies the minimum reproducible record:</p>
 <ol>
 <li><strong>Model.</strong> Which model, which version, accessed how (API, chat interface, local). Include the date(s) of access. Example: "Claude 4 (Anthropic), via claude.ai, 10–12 September 2026."</li>
 </ol>
@@ -247,7 +229,6 @@
 </ul>
 <h3>The Spirling/Smith/Palmer standard for proprietary models</h3>
 <p>Spirling, Smith, and Palmer (2023; see <code>readings.md</code>) argue that using a proprietary model in academic research requires explicit justification. The justification should address: why a proprietary model was chosen over an available open alternative, what reproducibility limitations this choice creates, and what steps were taken to mitigate those limitations. This is not a prohibition on proprietary models — it is a requirement to acknowledge and address the trade-off.</p>
-<hr class="rule">
 </section>
 <section id="4-data-and-institutional-boundaries">
 <h3>4. Data and Institutional Boundaries</h3>
@@ -268,7 +249,6 @@
 <p><strong>Journal policies (AJPS, 2025; APSR).</strong> The <em>American Journal of Political Science</em> and <em>American Political Science Review</em> require disclosure of AI use. The standard: name the tool, the purpose, the location in the manuscript, and the verification performed. AI tools cannot be listed as authors or cited as sources of fact. These policies are representative of the broader trend in political science and social science journals.</p>
 <h3>A note on jurisdiction</h3>
 <p>GDPR (European General Data Protection Regulation) and the Swiss Federal Act on Data Protection (FADP) impose legal obligations on the handling of personal data. Uploading personal data to a commercial AI service — particularly one whose servers are outside Switzerland or the EU — may constitute a data transfer that requires specific legal justification. This module does not provide legal advice. If your research involves personal data, consult your institution's data protection officer before using any external AI service.</p>
-<hr class="rule">
 </section>
 <section id="5-the-disclosure-standard">
 <h3>5. The Disclosure Standard</h3>
@@ -292,7 +272,6 @@
 <li><strong>Confidentiality breaches.</strong> Disclosing that you uploaded confidential data to an AI service does not remedy the breach. The breach occurred when you uploaded the data, not when you failed to disclose it.</li>
 <li><strong>Delegated accountability.</strong> A disclosure that says "the AI generated this section" without specifying verification or retained human judgment is an admission that you did not do the work, not a disclosure that makes it acceptable.</li>
 </ul>
-<hr class="rule">
 </section>
 <section id="6-research-integrity">
 <h3>6. Research Integrity</h3>
@@ -314,7 +293,6 @@
 <div class="callout">A tool cannot be a co-author, cannot be cited as a source of fact, and cannot absorb responsibility for an error.</div>
 <p>If your submitted work contains an error — a fabricated reference, a misclassification, a misleading summary, a confidentiality breach — the fact that an AI tool contributed the error does not reduce your responsibility. You submitted it. It carries your name. You are accountable.</p>
 <p>This principle has a positive counterpart: it also means you get credit for the work. The judgments you made, the checks you performed, the decisions you defended — these are yours, and they are what the portfolio rubric rewards.</p>
-<hr class="rule">
 </section>
 <section id="7-building-a-validation-plan">
 <h3>7. Building a Validation Plan</h3>
@@ -331,15 +309,14 @@
 <p><strong>Falsification condition:</strong> The regression coefficient in Table 2 changes sign or significance when human labels replace LLM labels on a random validation sample.</p>
 <p><strong>Checks:</strong></p>
 <ul>
-<li>Check 2 (human comparison): Double-code a random sample of 100 articles. Compute agreement (expected: >85% raw agreement; kappa >0.70). Examine disagreement patterns: are errors concentrated in one category?</li>
-<li>Check 3 (repeated runs): Run the classification twice. Compute agreement across runs. If agreement is <95%, the measurement is unreliable regardless of human-model agreement.</li>
+<li>Check 2 (human comparison): Double-code a random sample of 100 articles. Compute agreement (expected: &gt;85% raw agreement; kappa &gt;0.70). Examine disagreement patterns: are errors concentrated in one category?</li>
+<li>Check 3 (repeated runs): Run the classification twice. Compute agreement across runs. If agreement is &lt;95%, the measurement is unreliable regardless of human-model agreement.</li>
 <li>Check 7 (downstream consequence): Run the regression in Table 2 with LLM labels and with human labels on the validation sample. Does the coefficient of interest change sign? Does it cross a significance threshold?</li>
 <li>Check 5 (boundary cases): Select the 20 articles where LLM and human disagree. Is there a systematic pattern? Are articles from a particular source, topic, or style consistently misclassified?</li>
 </ul>
 <p><strong>Record:</strong> The complete prompt, model version and date, the labelled dataset with item-level labels and run IDs, the human validation labels, the disagreement analysis, and both regression outputs.</p>
 <h3>Your turn</h3>
 <p>Exercise 7.6 asks you to build a validation plan for your own capability map task. If you have not yet defined that task, use the supplied claim in Exercise 7.1.</p>
-<hr class="rule">
 </section>
 <section id="8-exercise-instructions">
 <h3>8. Exercise Instructions</h3>
@@ -353,7 +330,6 @@
 <li><strong>Exercise 7.6:</strong> Apply the four questions + validation menu to your capability map</li>
 </ul>
 <p>Each exercise has a collapsible answer key. Work through the exercise before opening the key.</p>
-<hr class="rule">
 </section>
 <section id="9-summary">
 <h3>9. Summary</h3>
@@ -369,7 +345,6 @@
 </ul>
 <p>The four-question course lens now has its full evidential apparatus. Question 2 can be answered with specific checks from the validation menu, not "the model sounded confident." Question 3's threats — variation, boundary cases, prompt sensitivity — are surfaced by the checks that a single run hides. Question 4 — what must remain visible — is specified by the reproducibility record and the disclosure standard.</p>
 <p>In Module 8, you will bring everything together: your capability map, your experiment, your validation plan, your disclosure, and your decision. For now, the validation plan is your deliverable. Build it carefully. It is the evidence that supports everything else.</p>
-<hr class="rule">
 </section>
 <section id="cross-references-to-other-modules">
 <h3>Cross-References to Other Modules</h3>
@@ -382,15 +357,11 @@
 <li><strong>Module 6 (Agents):</strong> Check 7 (downstream consequence) is critical for multi-step agent workflows; the reproducibility record becomes more complex.</li>
 <li><strong>Module 8 (Portfolio):</strong> Your validation plan becomes Section 4 (Evidence and Failures) of the portfolio.</li>
 </ul>
-<hr class="rule">
 <p><em>Module 7 of 8 · AI as a Research Tool: Workflow Design for the Social Sciences · University of Zurich</em></p>
 </section>
 </section>
-
-<hr class="rule">
-
 <section id="exercises">
-<h2 class="section__title"><span class="section__mark">§</span> exercises</h2>
+<h2 class="section__title"> exercises</h2>
 <div class="exercise">
 <h3># Module 7: Exercises</h3>
 <p>Each exercise includes an answer key. <strong>Work through the exercise before reading the key.</strong> The point is to form a judgment before seeing a prepared answer — this is the "human first" principle applied to validation itself.</p>
@@ -411,9 +382,7 @@
 <p>| 6. Model sensitivity | | |</p>
 <p>| 7. Downstream consequence | | |</p>
 <p><strong>Part B.</strong> Now answer: if you could only run <strong>two</strong> checks on this claim, which two would you choose? Justify your selection in 2–3 sentences.</p>
-<hr class="rule">
-<p><details></p>
-<p><summary><strong>Answer Key — Part A</strong> (click to expand)</summary></p>
+<details><summary><strong>Answer Key — Part A</strong> (click to expand)</summary>
 <p>| Check | Run it? | Why? / What would you do? |</p>
 <p>|---|---|---|</p>
 <p>| 1. Source verification | <strong>Yes</strong> | Verify that each of the 180 included papers exists. Check a random sample against their actual content: does the paper say what the screening decision implies it says? Pay particular attention to any paper the synthesis relies on for a specific factual claim. |</p>
@@ -423,15 +392,15 @@
 <p>| 5. Boundary cases | <strong>Yes</strong> | Identify abstracts that are genuinely ambiguous under the inclusion criteria — e.g., a paper about platform algorithms that does not explicitly study political participation but has clear political implications. How does the LLM handle these? Does it flag ambiguity or force a decision? |</p>
 <p>| 6. Model sensitivity | <strong>Conditional</strong> | If the claim is heading for publication, test on an alternative model. If the screening is exploratory and the human comparison (check 2) is strong, this can be deferred. |</p>
 <p>| 7. Downstream consequence | <strong>Yes</strong> | The 180 included papers form the basis of the literature synthesis. If 15 of them are irrelevant and 20 relevant papers were missed, how does that change the synthesis? Which claims in Section 2 depend on included papers that might be errors? |</p>
-<p></details></p>
-<p><details></p>
-<p><summary><strong>Answer Key — Part B</strong> (click to expand)</summary></p>
+<p></p>
+</details>
+<details><summary><strong>Answer Key — Part B</strong> (click to expand)</summary>
 <p>The strongest two checks for this claim are <strong>Check 1 (source verification)</strong> and <strong>Check 2 (human comparison)</strong>.</p>
 <p>Source verification is non-negotiable because the claim depends on the existence and relevance of the 180 papers. A fabricated or misattributed paper in the synthesis undermines the entire section.</p>
 <p>Human comparison is the strongest single check for screening quality: it tells you whether the LLM's decisions match what a competent human would do. If human and LLM agree on 95% of screening decisions, you have evidence the LLM is applying the criteria as intended. If they disagree on boundary cases, you know where to focus your attention.</p>
 <p>Repeated runs (check 3) and downstream consequence (check 7) are strong third and fourth choices, but checks 1 and 2 provide the most direct evidence about the claim.</p>
-<p></details></p>
-<hr class="rule">
+<p></p>
+</details>
 </div>
 <div class="exercise">
 <h3>Exercise 7.2: Classify Data by Risk Level</h3>
@@ -457,9 +426,7 @@
 <p>| 6 | | |</p>
 <p>| 7 | | |</p>
 <p>| 8 | | |</p>
-<hr class="rule">
-<p><details></p>
-<p><summary><strong>Answer Key</strong> (click to expand)</summary></p>
+<details><summary><strong>Answer Key</strong> (click to expand)</summary>
 <p>| # | Classification | Justification |</p>
 <p>|---|---|---|</p>
 <p>| 1 | <strong>Safe</strong> | Published journal articles are public. No access restrictions, no personal data, no confidentiality concerns. |</p>
@@ -471,17 +438,15 @@
 <p>| 7 | <strong>Safe after transformation</strong> | Participant IDs have been replaced with random numbers, and all demographic variables removed. However, even Likert-scale responses can sometimes be identifying in combination (e.g., a respondent with extreme scores on every item). Assess the re-identification risk: if the population is small or the response patterns are distinctive, this may still be <strong>Not safe</strong>. If the risk is negligible, it is safe after the transformation has been verified. |</p>
 <p>| 8 | <strong>Uncertain</strong> | The data-use agreement does not mention AI tools. Uploading the data to an external AI service may or may not be permitted under the agreement — you need to determine this before proceeding. Consult the data owner (your department) or your institution's data protection officer. The fact that the agreement is silent on AI does not mean AI use is permitted; it means the question has not been addressed. |</p>
 <p><strong>Key principle illustrated:</strong> "Uncertain" is not a permanent category. It means "stop and ask before proceeding." Items 6 and 8 are uncertain because the boundary has not been clarified — once you ask your co-author or your data protection officer, they resolve to either "safe" or "not safe."</p>
-<p></details></p>
-<hr class="rule">
+<p></p>
+</details>
 </div>
 <div class="exercise">
 <h3>Exercise 7.3: Write a Disclosure Paragraph</h3>
 <p><strong>Goal:</strong> Practise writing a journal-ready disclosure that a reviewer could evaluate.</p>
 <p><strong>Scenario:</strong> You used Claude 4 (Anthropic), via claude.ai, on 20 September 2026, to help restructure the introduction of a paper and to suggest clearer phrasing for three paragraphs. You accepted some suggestions, modified others, and rejected about half. You also used GPT-5 (OpenAI), via API, on 22–23 September 2026, to generate initial binary labels (relevant/not relevant) for 1,500 abstracts using a codebook you developed. A random sample of 150 abstracts was independently coded by a colleague; agreement was 91% (Cohen's kappa = 0.80). Disagreements were concentrated in abstracts that mentioned the topic only tangentially; all disagreements were resolved by you. The labels appear in Table 1 and the regression in Table 3. The interpretation of the regression results is your own.</p>
 <p><strong>Write a disclosure paragraph</strong> following the five-element template from <code>modules/shared/disclosure_template.md</code>. Include the accountability statement.</p>
-<hr class="rule">
-<p><details></p>
-<p><summary><strong>Answer Key</strong> (click to expand)</summary></p>
+<details><summary><strong>Answer Key</strong> (click to expand)</summary>
 <p>A good disclosure should include all five required elements and the accountability statement. Here is one acceptable version:</p>
 <p>```</p>
 <p>AI Use Disclosure</p>
@@ -525,17 +490,15 @@
 <li>Did you say what you decided, not just what the AI did?</li>
 <li>Did you include the accountability statement?</li>
 </ul>
-<p></details></p>
-<hr class="rule">
+<p></p>
+</details>
 </div>
 <div class="exercise">
 <h3>Exercise 7.4: Design a Reproducibility Record</h3>
 <p><strong>Goal:</strong> Practise specifying what must be preserved for someone else to inspect and reproduce an AI-assisted task.</p>
 <p><strong>Scenario:</strong> You used an LLM to classify 300 tweets as expressing "outrage," "hope," "fear," or "none of these" for a study of emotional framing in political communication. You used Llama 4 (Meta), running locally via Ollama on your own computer, on 5 October 2026. The prompt included a definition of each category with two examples per category. The temperature was set to 0.1. The output was a CSV file with tweet ID and predicted label. You then ran the same task a second time (same settings, same prompt) and computed agreement across runs (94%).</p>
 <p><strong>Question:</strong> What exactly would you preserve and document so that another researcher could inspect and, to the extent possible, reproduce your process? List every item, and for each item, explain what format you would preserve it in and why a reviewer would need it.</p>
-<hr class="rule">
-<p><details></p>
-<p><summary><strong>Answer Key</strong> (click to expand)</summary></p>
+<details><summary><strong>Answer Key</strong> (click to expand)</summary>
 <p>A complete reproducibility record for this task should include:</p>
 <p>| # | Item | Format | Why a reviewer needs it |</p>
 <p>|---|---|---|---|</p>
@@ -560,8 +523,8 @@
 <li>The model's reasoning or explanations (unless you collected them as data)</li>
 <li>A log of every token generated (impractical and unnecessary for a classification task)</li>
 </ul>
-<p></details></p>
-<hr class="rule">
+<p></p>
+</details>
 </div>
 <div class="exercise">
 <h3>Exercise 7.5: Spot the Missing Validation</h3>
@@ -570,9 +533,7 @@
 <div class="callout">"I used ChatGPT to code my 40 interviews with policy experts. I uploaded the transcripts and asked it to identify themes. It produced a list of 12 themes with illustrative quotes. I used these themes to structure my findings section. The themes made sense and matched what I remembered from the interviews, so I'm confident the analysis is sound."</div>
 <p><strong>Part A.</strong> List everything that is missing from this description in terms of validation, reproducibility, and integrity. Be specific: what should the researcher have done but did not do?</p>
 <p><strong>Part B.</strong> For each gap you identified, state which validation check(s) from the menu would address it.</p>
-<hr class="rule">
-<p><details></p>
-<p><summary><strong>Answer Key — Part A</strong> (click to expand)</summary></p>
+<details><summary><strong>Answer Key — Part A</strong> (click to expand)</summary>
 <p>The description is missing:</p>
 <ol>
 <li><strong>No disclosure.</strong> Which model? Which date? Which interface? The description says "ChatGPT" with no version, date, or access method.</li>
@@ -604,9 +565,9 @@
 <ol>
 <li><strong>Confirmation bias risk.</strong> The researcher judged the output against their own memory. This is a setup for confirmation bias: themes that match memory feel right; themes that don't might be dismissed. The validation approach (matching against memory) cannot detect errors the researcher would also make.</li>
 </ol>
-<p></details></p>
-<p><details></p>
-<p><summary><strong>Answer Key — Part B</strong> (click to expand)</summary></p>
+<p></p>
+</details>
+<details><summary><strong>Answer Key — Part B</strong> (click to expand)</summary>
 <p>| Gap | Relevant check(s) |</p>
 <p>|---|---|</p>
 <p>| No human comparison | <strong>Check 2 (human comparison):</strong> Have a second coder independently identify themes from a sample of the transcripts. Compare themes and quote assignments. |</p>
@@ -616,8 +577,8 @@
 <p>| No downstream consequence check | <strong>Check 7 (downstream consequence):</strong> If the themes structure the findings, how would the findings change if a human coder identified different themes or assigned quotes differently? |</p>
 <p>| Confidentiality concern | Not a validation check per se, but a data boundary issue (Section 4 of the workbook). Assess whether consent was obtained and whether the AI provider's terms permit this use. |</p>
 <p><strong>The most important missing check:</strong> Check 2 (human comparison). The researcher's judgment of whether the themes "made sense" is not evidence. A systematic human comparison — having a colleague independently code even 5 of the 40 transcripts and comparing theme assignments — would provide actual evidence about whether the model's analysis matches human judgment.</p>
-<p></details></p>
-<hr class="rule">
+<p></p>
+</details>
 </div>
 <div class="exercise">
 <h3>Exercise 7.6: Apply the Four Questions + Validation Menu to Your Capability Map</h3>
@@ -637,9 +598,7 @@
 <li>Checks (with specifics):</li>
 <li>Record:</li>
 </ul>
-<hr class="rule">
-<p><details></p>
-<p><summary><strong>Answer Key</strong> (click to expand)</summary></p>
+<details><summary><strong>Answer Key</strong> (click to expand)</summary>
 <p>There is no single correct answer — the point is to connect the framework to your own work. Here is an example for a common task:</p>
 <p><strong>Task:</strong> Classifying 800 parliamentary speeches as "populist" or "not populist" for a study of populist rhetoric.</p>
 <p><strong>Part A: Four Questions</strong></p>
@@ -685,34 +644,31 @@
 </ul>
 <ul>
 <li><strong>Checks:</strong></li>
-<li>Check 2 (human comparison): Double-code 100 randomly selected speeches. Target: >85% agreement, kappa >0.70. Examine disagreement patterns by party, year, and speech topic.</li>
-<li>Check 3 (repeated runs): Three runs. Target: >95% agreement across runs. If agreement is lower, report per-speech variation and assess whether unstable labels cluster in specific categories.</li>
+<li>Check 2 (human comparison): Double-code 100 randomly selected speeches. Target: &gt;85% agreement, kappa &gt;0.70. Examine disagreement patterns by party, year, and speech topic.</li>
+<li>Check 3 (repeated runs): Three runs. Target: &gt;95% agreement across runs. If agreement is lower, report per-speech variation and assess whether unstable labels cluster in specific categories.</li>
 <li>Check 5 (boundary cases): Select 20 speeches that are definitionally ambiguous. Examine whether the model forces a binary decision or flags uncertainty. Compare the model's boundary decisions against human judgment.</li>
 <li>Check 7 (downstream consequence): Run the regression with LLM labels and with human labels on the validation sample. Compare coefficient sign, magnitude, and significance.</li>
 </ul>
 <ul>
 <li><strong>Record:</strong> The codebook, the exact prompt with all examples, model and date, temperature and sampling settings, all three runs' output files with speech-level labels, the human validation labels, the disagreement analysis, the boundary case analysis, and both regression outputs.</li>
 </ul>
-<p></details></p>
-<hr class="rule">
+<p></p>
 <p><em>Module 7 Exercises · AI as a Research Tool</em></p>
+</details>
 </div>
 </section>
-
-<hr class="rule">
-
 <section id="readings">
-<h2 class="section__title"><span class="section__mark">§</span> readings</h2>
+<h2 class="section__title"> readings</h2>
 <div class="reading-entry">
 <h4>Nothing on this list is required before starting the module. Read in any order — before, during, or after. Each entry explains <em>why</em> it is useful and what to take from it.</h4>
 <p class="reading-note">This is the most comprehensive reading list in the course because Module 7 is the evidence spine. The readings span measurement, replication, data boundaries, institutional policy, and the philosophical foundations of research integrity. Readings marked <strong>(core)</strong> are the ones to prioritise if you are reading selectively.
 
 ---</p>
 </div>
-<h3 style="font-family:var(--mono);font-size:0.78rem;text-transform:uppercase;letter-spacing:0.1em;margin:1.5rem 0 0.75rem;">Measurement and Downstream Consequence</h3>
+<h3>Measurement and Downstream Consequence</h3>
 <div class="reading-entry">
-<h4>Egami, N., Hinck, M., Stewart, B. M., & Wei, H. (forthcoming). "Using Large Language Model Annotations for the Social Sciences: A General Framework of Using Predicted Variables in Downstream Analyses." <em>American Journal of Political Science</em>.</h4>
-<p class="reading-note">> <strong>(core)</strong> The paper that gives Check 7 its intellectual foundation.
+<h4>Egami, N., Hinck, M., Stewart, B. M., &amp; Wei, H. (forthcoming). "Using Large Language Model Annotations for the Social Sciences: A General Framework of Using Predicted Variables in Downstream Analyses." <em>American Journal of Political Science</em>.</h4>
+<p class="reading-note">&gt; <strong>(core)</strong> The paper that gives Check 7 its intellectual foundation.
 
 <strong>Why read it:</strong> This is the most important paper on this list for social scientists using LLM-generated labels in statistical analyses. Egami et al. demonstrate a problem that is easy to miss: a classifier can be highly accurate overall and still produce biased regression estimates. The reason is that errors are rarely random — they concentrate in particular categories or cases, and that concentration can correlate with your outcome variable. The paper provides a framework for assessing when predicted variables can safely enter downstream analyses and when they cannot.
 
@@ -723,8 +679,8 @@
 ---</p>
 </div>
 <div class="reading-entry">
-<h4>Bisbee, J., Clinton, J. D., Dorff, C., Kenkel, B., & Larson, J. M. (2024). "Synthetic Replacements for Human Survey Data? The Perils of Large Language Models." <em>Political Analysis</em>, 32(4): 401–416.</h4>
-<p class="reading-note">> <strong>(core)</strong> Why the means look fine and everything downstream is wrong.
+<h4>Bisbee, J., Clinton, J. D., Dorff, C., Kenkel, B., &amp; Larson, J. M. (2024). "Synthetic Replacements for Human Survey Data? The Perils of Large Language Models." <em>Political Analysis</em>, 32(4): 401–416.</h4>
+<p class="reading-note">&gt; <strong>(core)</strong> Why the means look fine and everything downstream is wrong.
 
 <strong>Why read it:</strong> Bisbee et al. test whether LLMs can generate synthetic survey responses that replicate known correlations from real survey data. The headline finding: LLM-generated "respondents" reproduce aggregate patterns (means, simple correlations) reasonably well, but generate wildly inaccurate estimates of more complex relationships. If you used synthetic survey data in a regression or structural equation model, you would draw substantively wrong conclusions — even though the univariate summaries looked plausible.
 
@@ -735,8 +691,8 @@
 ---</p>
 </div>
 <div class="reading-entry">
-<h4>Halterman, A., & Keith, K. A. (2025). "Codebook LLMs: Evaluating LLMs as Measurement Tools for Political Science Concepts." <em>Political Analysis</em>, 34(2).</h4>
-<p class="reading-note">> <strong>(core)</strong> What happens when you ask an LLM to apply a social-science codebook.
+<h4>Halterman, A., &amp; Keith, K. A. (2025). "Codebook LLMs: Evaluating LLMs as Measurement Tools for Political Science Concepts." <em>Political Analysis</em>, 34(2).</h4>
+<p class="reading-note">&gt; <strong>(core)</strong> What happens when you ask an LLM to apply a social-science codebook.
 
 <strong>Why read it:</strong> Halterman and Keith provide a systematic evaluation of LLMs as coding instruments for political science concepts. Rather than asking "how accurate is the LLM?", they ask "under what conditions does the LLM match human coders, and when does it diverge?" The paper is methodologically careful about the comparison: they validate against multiple human coders (not a single gold standard), they examine disagreement patterns (not just agreement rates), and they test sensitivity to prompt design.
 
@@ -748,7 +704,7 @@
 </div>
 <div class="reading-entry">
 <h4>Abdurahman, S., et al. (2025). "A Primer for Evaluating Large Language Models in Social-Science Research." <em>Advances in Methods and Practices in Psychological Science</em>, 8(2).</h4>
-<p class="reading-note">> A guide to the evaluation questions social scientists should ask.
+<p class="reading-note">&gt; A guide to the evaluation questions social scientists should ask.
 
 <strong>Why read it:</strong> This primer walks through the evaluation questions that social scientists should ask when using LLMs: what is being measured? how is it validated? what are the failure modes? what are the ethical and reproducibility implications? It is written for a psychology audience but applies directly to political science and adjacent fields. The primer is practical rather than technical — it assumes you are evaluating an LLM's output, not training one.
 
@@ -758,10 +714,10 @@
 
 ---</p>
 </div>
-<h3 style="font-family:var(--mono);font-size:0.78rem;text-transform:uppercase;letter-spacing:0.1em;margin:1.5rem 0 0.75rem;">Replication and Reproducibility</h3>
+<h3>Replication and Reproducibility</h3>
 <div class="reading-entry">
-<h4>Barrie, C., Palmer, A., & Spirling, A. (forthcoming). "Replication for Language Models: Problems, Principles, and Best Practice for Political Science." <em>American Journal of Political Science</em>.</h4>
-<p class="reading-note">> <strong>(core)</strong> The paper that defines the reproducibility problem for LLM-based research.
+<h4>Barrie, C., Palmer, A., &amp; Spirling, A. (forthcoming). "Replication for Language Models: Problems, Principles, and Best Practice for Political Science." <em>American Journal of Political Science</em>.</h4>
+<p class="reading-note">&gt; <strong>(core)</strong> The paper that defines the reproducibility problem for LLM-based research.
 
 <strong>Why read it:</strong> Barrie, Palmer, and Spirling identify the specific ways that LLM-based research breaks standard replication practices. Nondeterministic outputs (same prompt, same model, different run → different result), model deprecation (the model you used is no longer available), prompt sensitivity (small changes in wording change the result), and the inability to archive proprietary models all create reproducibility challenges that did not exist with traditional statistical methods. The paper proposes best practices: record the model, date, prompt, and settings; preserve the complete output; run sensitivity checks; and consider open-weight models where feasible.
 
@@ -773,7 +729,7 @@
 </div>
 <div class="reading-entry">
 <h4>King, G. (1995). "Replication, Replication." <em>PS: Political Science and Politics</em>, 28(3).</h4>
-<p class="reading-note">> The classic statement on why replication matters — now read in the context of LLMs.
+<p class="reading-note">&gt; The classic statement on why replication matters — now read in the context of LLMs.
 
 <strong>Why read it:</strong> King's article is the foundational statement on replication in political science. Written decades before LLMs, it establishes the principle that replication is the mechanism by which scientific communities distinguish reliable findings from unreliable ones. The article is short, clear, and forceful. Read it to understand why the replication standard exists — and then consider what Barrie, Palmer, and Spirling argue: that LLMs break several of the assumptions King relied on.
 
@@ -784,8 +740,8 @@
 ---</p>
 </div>
 <div class="reading-entry">
-<h4>Kapoor, S., & Narayanan, A. (2023). "Leakage and the Reproducibility Crisis in Machine-Learning-Based Science." <em>Patterns</em>, 4(9).</h4>
-<p class="reading-note">> Data leakage as a threat to validity — and what it means for LLMs.
+<h4>Kapoor, S., &amp; Narayanan, A. (2023). "Leakage and the Reproducibility Crisis in Machine-Learning-Based Science." <em>Patterns</em>, 4(9).</h4>
+<p class="reading-note">&gt; Data leakage as a threat to validity — and what it means for LLMs.
 
 <strong>Why read it:</strong> Kapoor and Narayanan explain how data leakage — when information from the test set bleeds into the training process — can produce inflated performance claims in machine learning. The paper's relevance to LLMs is indirect but important: an LLM trained on a corpus that includes the papers you are asking it to classify, or the facts you are asking it to retrieve, may perform well on your task for the wrong reason. It is not generalising — it is remembering. And because the training data of most proprietary LLMs is not disclosed, you cannot know whether your test material was in it.
 
@@ -795,10 +751,10 @@
 
 ---</p>
 </div>
-<h3 style="font-family:var(--mono);font-size:0.78rem;text-transform:uppercase;letter-spacing:0.1em;margin:1.5rem 0 0.75rem;">Institutional and Data Boundaries</h3>
+<h3>Institutional and Data Boundaries</h3>
 <div class="reading-entry">
 <h4>European Research Area. (2026). <em>Living Guidelines on the Responsible Use of Generative AI in Research</em>. Updated 8 May 2026.</h4>
-<p class="reading-note">> <strong>(core)</strong> The cross-European standard for responsible AI use in research.
+<p class="reading-note">&gt; <strong>(core)</strong> The cross-European standard for responsible AI use in research.
 
 <strong>Why read it:</strong> The ERA Living Guidelines establish the expectations that apply across European research institutions: transparency, verification, data protection, and accountability. The guidelines are "living" — they are updated as the technology and the evidence base evolve. The factsheet version is sufficient for most purposes; the full document provides additional detail on specific domains (health research, sensitive data, peer review).
 
@@ -810,7 +766,7 @@
 </div>
 <div class="reading-entry">
 <h4>University of Zurich. (2023). <em>Recommendations on the Use of Generative Artificial Intelligence</em>. Implementing the Seven Guiding Principles. September 2023.</h4>
-<p class="reading-note">> <strong>(core)</strong> Your institution's rules. Read them.
+<p class="reading-note">&gt; <strong>(core)</strong> Your institution's rules. Read them.
 
 <strong>Why read it:</strong> UZH's recommendations implement seven guiding principles: (1) responsibility remains with the researcher; (2) transparency about AI use; (3) data protection and information security; (4) scientific integrity; (5) no AI authorship; (6) AI literacy; (7) subject-specific standards. These are the rules that govern your work as a UZH student and researcher.
 
@@ -822,7 +778,7 @@
 </div>
 <div class="reading-entry">
 <h4>Swiss National Science Foundation. (2024). "The SNSF's Approach to the Use of Artificial Intelligence in Funding Applications." 28 February 2024.</h4>
-<p class="reading-note">> What your funder expects — and the paragraph on confidentiality you cannot skip.
+<p class="reading-note">&gt; What your funder expects — and the paragraph on confidentiality you cannot skip.
 
 <strong>Why read it:</strong> The SNSF statement addresses AI use in funding applications, but its logic extends to research. The critical passage: information submitted to an AI tool is considered disclosed to a third party. If your research data, proposal, or manuscript contains confidential material, uploading it to an AI service may constitute a disclosure you are not authorised to make. The SNSF holds the applicant responsible for all content regardless of how it was produced.
 
@@ -837,7 +793,7 @@
 </div>
 <div class="reading-entry">
 <h4>American Political Science Review. Author Instructions, AI section. Cambridge University Press.</h4>
-<p class="reading-note">> What the journals that publish political science require.
+<p class="reading-note">&gt; What the journals that publish political science require.
 
 <strong>Why read them:</strong> The AJPS and APSR policies are representative of the standard that top political science journals now apply. Both require: disclosure of AI tools used, specification of the purpose and location of use, and verification of AI-generated output. Both prohibit listing AI tools as authors or citing them as sources of fact. These policies are the publication standard your disclosure should meet.
 
@@ -847,10 +803,10 @@
 
 ---</p>
 </div>
-<h3 style="font-family:var(--mono);font-size:0.78rem;text-transform:uppercase;letter-spacing:0.1em;margin:1.5rem 0 0.75rem;">Models, Justification, and the Research Ecosystem</h3>
+<h3>Models, Justification, and the Research Ecosystem</h3>
 <div class="reading-entry">
-<h4>Spirling, A., Smith, N. A., & Palmer, A. (2023). "Using Proprietary Language Models in Academic Research Requires Explicit Justification." <em>Nature Computational Science</em>.</h4>
-<p class="reading-note">> The case for justifying your choice of model — and for considering open alternatives.
+<h4>Spirling, A., Smith, N. A., &amp; Palmer, A. (2023). "Using Proprietary Language Models in Academic Research Requires Explicit Justification." <em>Nature Computational Science</em>.</h4>
+<p class="reading-note">&gt; The case for justifying your choice of model — and for considering open alternatives.
 
 <strong>Why read it:</strong> Spirling, Smith, and Palmer argue that using a proprietary (closed) language model in academic research is a methodological choice that requires explicit justification. Proprietary models create reproducibility problems (the model can change or disappear), auditability problems (the training data and architecture are not disclosed), and equity problems (access depends on commercial relationships). The authors do not argue that proprietary models should never be used — they argue that the choice must be defended.
 
@@ -860,7 +816,7 @@
 
 ---</p>
 </div>
-<h3 style="font-family:var(--mono);font-size:0.78rem;text-transform:uppercase;letter-spacing:0.1em;margin:1.5rem 0 0.75rem;">Broader Context: AI and Social Science</h3>
+<h3>Broader Context: AI and Social Science</h3>
 <div class="reading-entry">
 <h4>Bail, C. A. (2024). "Can Generative AI Improve Social Science?" <em>PNAS</em>, 121(21).</h4>
 <p class="reading-note"><strong>Why read it:</strong> Bail provides an optimistic but careful assessment of AI's potential for social science. He identifies specific tasks where AI can plausibly improve research — generating hypotheses, simulating agents, annotating text, analysing unstructured data — while also acknowledging the validity, reproducibility, and ethical concerns. The paper is a good counterpoint to the more cautious tone of this module: read it to see what the optimistic case looks like, and then ask whether the validation framework in this module would catch the failures Bail acknowledges.
@@ -878,14 +834,14 @@
 ---</p>
 </div>
 <div class="reading-entry">
-<h4>Doshi, A. R., & Hauser, O. P. (2024). "Generative AI Enhances Individual Creativity but Reduces the Collective Diversity of Novel Content." <em>Science Advances</em>, 10(28).</h4>
+<h4>Doshi, A. R., &amp; Hauser, O. P. (2024). "Generative AI Enhances Individual Creativity but Reduces the Collective Diversity of Novel Content." <em>Science Advances</em>, 10(28).</h4>
 <p class="reading-note"><strong>Why read it:</strong> Doshi and Hauser find that AI helps individuals produce more creative output, but when many people use AI, the collective output becomes more similar — diversity declines. This finding has a direct parallel in research: if many researchers use the same AI tools with similar prompts, the diversity of approaches, interpretations, and findings may narrow. The paper is a reminder that validation is not only about individual accuracy — it is also about the health of the research ecosystem.
 
 <strong>What to take:</strong> The convergence effect. When you and your colleagues all use the same model with similar prompts, you may all converge on similar outputs — not because the outputs are correct, but because the model is producing the same distribution for everyone. Independent validation, varied methods, and human judgment are the counterweights.
 
 ---</p>
 </div>
-<h3 style="font-family:var(--mono);font-size:0.78rem;text-transform:uppercase;letter-spacing:0.1em;margin:1.5rem 0 0.75rem;">Foundational and Historical</h3>
+<h3>Foundational and Historical</h3>
 <div class="reading-entry">
 <h4>King, G. (1995). "Replication, Replication." <em>PS: Political Science and Politics</em>, 28(3).</h4>
 <p class="reading-note"><em>Listed above under Replication and Reproducibility. Repeated here as a foundational work.</em>
@@ -893,7 +849,7 @@
 ---</p>
 </div>
 <div class="reading-entry">
-<h4>Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A. N., Kaiser, Ł., & Polosukhin, I. (2017). "Attention Is All You Need." <em>Advances in Neural Information Processing Systems</em>, 30.</h4>
+<h4>Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A. N., Kaiser, Ł., &amp; Polosukhin, I. (2017). "Attention Is All You Need." <em>Advances in Neural Information Processing Systems</em>, 30.</h4>
 <p class="reading-note"><strong>Why read it:</strong> If you have not already read it for Module 1, now is the time. Understanding the transformer architecture — even at a conceptual level — grounds your understanding of why the model produces the failure patterns that the validation menu addresses. The model is not "trying" to fabricate references; it is predicting tokens, and some token sequences happen to look like references to papers that do not exist.
 
 <strong>What to take:</strong> The architecture explains the behaviour. Every validation check in this module exists because the model is a next-token predictor, not a truth-checker. The more clearly you hold that distinction, the more natural the validation menu becomes.
@@ -901,38 +857,34 @@
 ---</p>
 </div>
 <div class="reading-entry">
-<h4>Grimmer, J., Roberts, M. E., & Stewart, B. M. (2022). <em>Text as Data: A New Framework for Machine Learning and the Social Sciences</em>. Princeton University Press. Chapters 1–2, 5–6.</h4>
+<h4>Grimmer, J., Roberts, M. E., &amp; Stewart, B. M. (2022). <em>Text as Data: A New Framework for Machine Learning and the Social Sciences</em>. Princeton University Press. Chapters 1–2, 5–6.</h4>
 <p class="reading-note"><strong>Why read it:</strong> Chapters 1–2 establish the distinction between discovery, measurement, and inference — a framework that predates LLMs but applies directly to them. Chapters 5–6 address validation and the relationship between human judgment and automated methods. The methodological demands Grimmer, Roberts, and Stewart articulate — what is being measured? how is it validated? what are the consequential errors? — are the same questions this module asks about LLMs.
 
 <strong>What to take:</strong> The technology changed. The methodological demands did not. The validation menu is an application of existing social-science measurement standards to a new tool.
 
 ---</p>
 </div>
-<h3 style="font-family:var(--mono);font-size:0.78rem;text-transform:uppercase;letter-spacing:0.1em;margin:1.5rem 0 0.75rem;">How to Use This Reading List</h3>
+<h3>How to Use This Reading List</h3>
 <div class="reading-entry">
-<h4>1. <strong>Start with the three core papers:</strong> Egami et al. (downstream consequence), Barrie, Palmer & Spirling (reproducibility), and Bisbee et al. (synthetic data). These are the readings most directly connected to the validation menu and the workbook.</h4>
+<h4>1. <strong>Start with the three core papers:</strong> Egami et al. (downstream consequence), Barrie, Palmer &amp; Spirling (reproducibility), and Bisbee et al. (synthetic data). These are the readings most directly connected to the validation menu and the workbook.</h4>
 <p class="reading-note">2. <strong>Read the institutional documents:</strong> ERA, UZH, SNSF, AJPS/APSR. These are short and establish the rules you must follow. The UZH recommendations in particular are directly relevant to your portfolio.
 
-3. <strong>Add the evaluation and methods papers:</strong> Halterman & Keith, Abdurahman et al., Kapoor & Narayanan. These provide the methodological grounding for the validation checks.
+3. <strong>Add the evaluation and methods papers:</strong> Halterman &amp; Keith, Abdurahman et al., Kapoor &amp; Narayanan. These provide the methodological grounding for the validation checks.
 
-4. <strong>Read the debate and context papers:</strong> Bail, Grossmann et al., Doshi & Hauser. These give you the broader intellectual landscape.
+4. <strong>Read the debate and context papers:</strong> Bail, Grossmann et al., Doshi &amp; Hauser. These give you the broader intellectual landscape.
 
-5. <strong>Revisit the foundational texts:</strong> King, Vaswani et al., Grimmer, Roberts & Stewart. These are the historical and conceptual anchors.
+5. <strong>Revisit the foundational texts:</strong> King, Vaswani et al., Grimmer, Roberts &amp; Stewart. These are the historical and conceptual anchors.
 
-6. <strong>Spirling, Smith & Palmer</strong> is a short, sharp argument that you can read in 15 minutes and will be useful when you justify your model choice in your portfolio.
+6. <strong>Spirling, Smith &amp; Palmer</strong> is a short, sharp argument that you can read in 15 minutes and will be useful when you justify your model choice in your portfolio.
 
 ---
 
 <em>Module 7 Reading List · AI as a Research Tool</em></p>
 </div>
 </section>
-
-  </div>
-  <hr class="rule rule--thick">
-  <footer class="colophon">
-    <p><span>set in charter &amp; jetbrains mono.</span><span>html + css.</span><span>no trackers.</span></p>
-    <p><a href="index.html" style="color: var(--ink-soft);">← ai as a research tool</a> · <a href="../../index.html" style="color: var(--ink-soft);">colin henry</a></p>
-  </footer>
+</div>
+</div>
 </main>
+</div>
 </body>
 </html>
