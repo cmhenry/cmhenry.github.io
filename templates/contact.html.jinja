@@ -1,0 +1,13 @@
+{% extends "academic.html.jinja" %}
+{% block content %}
+      <h1>Contact</h1>
+      <p><a href="mailto:{{ meta.email }}">{{ meta.email }}</a></p>
+      <p>{{ meta.affiliation }}</p>
+      <p>{{ meta.about | safe }}</p>
+      <h2>Elsewhere</h2>
+      <ul class="link-list">
+        {% for link in links %}
+        <li><a href="{{ link.url }}">{{ link.label }}</a>{% if link.note %} — {{ link.note }}{% endif %}</li>
+        {% endfor %}
+      </ul>
+{% endblock %}

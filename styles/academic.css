@@ -1,0 +1,61 @@
+/* A small, static academic site, inspired by Ben Recht's jemdoc layout. */
+:root {
+  color-scheme: light;
+  font-family: Verdana, Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.4;
+  color: #08212e;
+  background: #fff;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; }
+a { color: #076eae; text-decoration: none; }
+a:hover { text-decoration: underline; }
+a:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
+p { margin: 0 0 1em; }
+.layout { display: grid; grid-template-columns: 215px minmax(0, 630px); min-height: 100vh; }
+.sidebar { padding: 16px 24px 28px 21px; background: #051721; color: #b4c5c5; }
+.sidebar a { color: inherit; }
+.site-name { display: inline-block; margin-bottom: 4px; font-size: 19px; }
+.affiliation, .sidebar nav { display: grid; align-content: start; }
+.affiliation { margin-left: 14px; font-size: 12px; }
+.sidebar nav { margin-top: 30px; margin-left: 14px; gap: 3px; }
+.sidebar nav a { width: fit-content; }
+.sidebar a[aria-current="page"] { color: #fff; text-decoration: underline; text-underline-offset: 3px; }
+.sidebar .elsewhere { margin-top: 32px; }
+main { min-width: 0; padding: 28px 24px 48px 20px; overflow-wrap: anywhere; }
+main:focus { outline: none; }
+.portrait { display: block; width: 150px; height: 150px; object-fit: cover; }
+.biography { margin-top: 28px; }
+.legacy-link { display: none; }
+.legacy-link:target { display: block; margin-top: 28px; }
+h1, h2, h3 { font-weight: normal; line-height: 1.3; }
+h1 { margin: 0 0 24px; padding-bottom: 5px; border-bottom: 1px solid #aab7bd; font-size: 19px; color: #ae3000; }
+h2 { margin: 28px 0 14px; padding-bottom: 4px; border-bottom: 1px solid #cad2d6; font-size: 16px; color: #ae3000; }
+h3 { margin: 0 0 4px; font-size: 14px; }
+.entry { margin-bottom: 22px; }
+.entry p { margin: 0 0 5px; }
+.byline, .note { font-size: 12px; }
+.byline { color: #455963; }
+.link-list { padding-left: 20px; }
+.link-list li { margin-bottom: 8px; }
+.visually-hidden, .skip-link:not(:focus) { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+.skip-link:focus { position: absolute; z-index: 1; top: 8px; left: 8px; padding: 8px; background: #fff; }
+
+@media (max-width: 600px) {
+  .layout { grid-template-columns: 1fr; grid-template-rows: auto 1fr; }
+  .sidebar { padding: 20px; }
+  .affiliation { margin-left: 0; }
+  .sidebar nav { display: flex; flex-wrap: wrap; gap: 0 20px; margin: 18px 0 0; }
+  .sidebar nav a { display: inline-flex; align-items: center; min-height: 44px; }
+  .sidebar .elsewhere { margin-top: 0; }
+  main { padding: 28px 20px 40px; }
+}
+
+@media print {
+  .layout { display: block; }
+  .sidebar, .skip-link { display: none; }
+  main { max-width: none; padding: 0; }
+  a { color: inherit; text-decoration: underline; }
+}

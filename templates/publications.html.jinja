@@ -1,0 +1,16 @@
+{% extends "academic.html.jinja" %}
+{% block content %}
+      <h1>Publications</h1>
+      {% for label, group in paper_groups %}
+      <section>
+        <h2>{{ label | capitalize }}</h2>
+        {% for paper in group %}
+        <article class="entry">
+          <h3>{% if paper.url %}<a href="{{ paper.url }}">{{ paper.title }}</a>{% else %}{{ paper.title }}{% endif %}</h3>
+          <p class="byline">{{ paper.authors | join(', ') }}{% if paper.venue %}. <em>{{ paper.venue }}</em>{% endif %}{% if paper.date %}, {{ paper.date }}{% endif %}.</p>
+          {% if paper.note %}<p class="note">{{ paper.note | safe }}</p>{% endif %}
+        </article>
+        {% endfor %}
+      </section>
+      {% endfor %}
+{% endblock %}
